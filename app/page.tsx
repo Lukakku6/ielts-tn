@@ -8,7 +8,6 @@ const T = {
     tagline: 'built for Tunisian English learners',
     hero1: 'stop studying.',
     hero2: 'start speaking',
-    heroAccent: 'for real.',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
     joinBtn: 'join a class',
     dmBtn: 'DM on instagram',
@@ -36,9 +35,6 @@ const T = {
     communityTag: 'reach dali',
     communityH: 'message directly',
     communitySub: 'questions about a class? not sure which package? Dali replies personally.',
-    pricingTag: 'packages',
-    pricingH: 'choose your programme',
-    pricingSub: 'every package includes live classes, not pre-recorded videos',
     monthly: 'monthly',
     yearly: 'yearly (-20%)',
     signupTag: 'get started',
@@ -56,41 +52,16 @@ const T = {
     nextLive: 'next live',
     days: 'd', hours: 'h', min: 'm', sec: 's',
     packages: [
-      {
-        id:'ielts', icon:'🏆', name:'IELTS Prep', tagline:'Band 7+ in 3 months',
-        desc:'Intensive live classes focused on all four IELTS skills — speaking, writing, reading, listening — taught through real exam topics.',
-        price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'},
-        features:['4 live classes/month','Speaking mock tests','Writing task corrections','Exam vocabulary deep-dives','Personal score tracking'],
-        cta:'start IELTS prep', accent:'indigo', popular:true,
-      },
-      {
-        id:'comms', icon:'💬', name:'Communication', tagline:'Sound like a native speaker',
-        desc:'Weekly live discussions on trending topics — current events, culture, tech, finance. Build confidence and fluency through real conversation.',
-        price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'},
-        features:['4 live discussions/month','Topic vocabulary sheets','Pronunciation coaching','Weekly news breakdown','Replay access'],
-        cta:'join conversations', accent:'cyan',
-      },
-      {
-        id:'business', icon:'💼', name:'Business English', tagline:'English for your career',
-        desc:'Live classes built around real workplace situations — presentations, negotiations, emails, interviews. For professionals who need English at work.',
-        price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'},
-        features:['4 live classes/month','CV & interview practice','Presentation coaching','Business vocabulary','LinkedIn profile review'],
-        cta:'grow professionally', accent:'violet',
-      },
-      {
-        id:'1on1', icon:'🎓', name:'1-on-1 with Dali', tagline:'Personalised coaching',
-        desc:'Private sessions with Dali. Custom curriculum, direct feedback, and the fastest way to improve. Limited spots available each month.',
-        price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'},
-        features:['4 private sessions/month','Custom study plan','Unlimited WhatsApp access','Priority booking','Certificate on completion'],
-        cta:'book private sessions', accent:'pink', premium:true,
-      },
+      { id:'ielts', icon:'🏆', name:'IELTS Prep', tagline:'Band 7+ in 3 months', desc:'Intensive live classes focused on all four IELTS skills — speaking, writing, reading, listening — taught through real exam topics.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 live classes/month','Speaking mock tests','Writing task corrections','Exam vocabulary deep-dives','Personal score tracking'], cta:'start IELTS prep', accent:'indigo', popular:true },
+      { id:'comms', icon:'💬', name:'Communication', tagline:'Sound like a native speaker', desc:'Weekly live discussions on trending topics — current events, culture, tech, finance. Build confidence and fluency through real conversation.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 live discussions/month','Topic vocabulary sheets','Pronunciation coaching','Weekly news breakdown','Replay access'], cta:'join conversations', accent:'cyan' },
+      { id:'business', icon:'💼', name:'Business English', tagline:'English for your career', desc:'Live classes built around real workplace situations — presentations, negotiations, emails, interviews. For professionals who need English at work.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 live classes/month','CV & interview practice','Presentation coaching','Business vocabulary','LinkedIn profile review'], cta:'grow professionally', accent:'violet' },
+      { id:'1on1', icon:'🎓', name:'1-on-1 with Dali', tagline:'Personalised coaching', desc:'Private sessions with Dali. Custom curriculum, direct feedback, and the fastest way to improve. Limited spots available each month.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 private sessions/month','Custom study plan','Unlimited WhatsApp access','Priority booking','Certificate on completion'], cta:'book private sessions', accent:'pink', premium:true },
     ],
   },
   fr: {
     tagline: "conçu pour les apprenants tunisiens",
     hero1: "arrête de bachoter.",
     hero2: "commence à parler",
-    heroAccent: "vraiment.",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
     joinBtn: "rejoindre un cours",
     dmBtn: "DM sur instagram",
@@ -118,9 +89,6 @@ const T = {
     communityTag: "contacter dali",
     communityH: "écrire directement",
     communitySub: "questions sur un cours ? pas sûr du programme ? Dali répond personnellement.",
-    pricingTag: "programmes",
-    pricingH: "choisis ton programme",
-    pricingSub: "chaque programme comprend des cours en direct, pas des vidéos pré-enregistrées",
     monthly: "mensuel",
     yearly: "annuel (-20%)",
     signupTag: "commencer",
@@ -138,41 +106,16 @@ const T = {
     nextLive: "prochain live",
     days: "j", hours: "h", min: "m", sec: "s",
     packages: [
-      {
-        id:'ielts', icon:'🏆', name:'Prépa IELTS', tagline:'Band 7+ en 3 mois',
-        desc:"Cours en direct intensifs sur les quatre compétences IELTS — expression orale, écrite, compréhension — enseignés à travers de vrais sujets d'examen.",
-        price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'},
-        features:['4 cours en direct/mois','Tests oraux simulés','Corrections des productions écrites','Vocabulaire examen approfondi','Suivi de score personnel'],
-        cta:'commencer la prépa', accent:'indigo', popular:true,
-      },
-      {
-        id:'comms', icon:'💬', name:'Communication', tagline:'Parle comme un natif',
-        desc:"Discussions en direct hebdomadaires sur les sujets d'actualité — culture, tech, finance. Gagne en fluidité et en confiance.",
-        price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'},
-        features:['4 discussions/mois','Fiches vocabulaire thématiques','Coaching en prononciation',"Décryptage de l'actualité",'Accès aux replays'],
-        cta:'rejoindre les discussions', accent:'cyan',
-      },
-      {
-        id:'business', icon:'💼', name:'Anglais Pro', tagline:'L\'anglais pour ta carrière',
-        desc:"Cours en direct autour de situations professionnelles réelles — présentations, négociations, emails, entretiens. Pour ceux qui ont besoin de l'anglais au travail.",
-        price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'},
-        features:['4 cours en direct/mois','Prépa CV et entretiens','Coaching en présentation','Vocabulaire professionnel','Revue de profil LinkedIn'],
-        cta:'progresser pro', accent:'violet',
-      },
-      {
-        id:'1on1', icon:'🎓', name:'1-pour-1 avec Dali', tagline:'Coaching personnalisé',
-        desc:"Sessions privées avec Dali. Programme sur mesure, retours directs, et la façon la plus rapide de progresser. Places limitées chaque mois.",
-        price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'},
-        features:['4 sessions privées/mois','Plan d\'étude personnalisé','Accès WhatsApp illimité','Réservation prioritaire','Certificat à l\'issue'],
-        cta:'réserver des sessions privées', accent:'pink', premium:true,
-      },
+      { id:'ielts', icon:'🏆', name:'Prépa IELTS', tagline:'Band 7+ en 3 mois', desc:"Cours en direct intensifs sur les quatre compétences IELTS enseignés à travers de vrais sujets d'examen.", price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 cours en direct/mois','Tests oraux simulés','Corrections écrites','Vocabulaire examen','Suivi de score'], cta:'commencer la prépa', accent:'indigo', popular:true },
+      { id:'comms', icon:'💬', name:'Communication', tagline:'Parle comme un natif', desc:"Discussions en direct hebdomadaires sur les sujets d'actualité — culture, tech, finance.", price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 discussions/mois','Fiches vocabulaire','Coaching prononciation',"Décryptage actualité",'Accès replays'], cta:'rejoindre les discussions', accent:'cyan' },
+      { id:'business', icon:'💼', name:'Anglais Pro', tagline:"L'anglais pour ta carrière", desc:"Cours en direct autour de situations professionnelles réelles — présentations, négociations, entretiens.", price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 cours en direct/mois','Prépa CV et entretiens','Coaching présentation','Vocabulaire pro','Revue LinkedIn'], cta:'progresser pro', accent:'violet' },
+      { id:'1on1', icon:'🎓', name:'1-pour-1 avec Dali', tagline:'Coaching personnalisé', desc:"Sessions privées avec Dali. Programme sur mesure, retours directs. Places limitées chaque mois.", price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 sessions privées/mois',"Plan d'étude personnalisé",'Accès WhatsApp illimité','Réservation prioritaire','Certificat'], cta:'réserver sessions privées', accent:'pink', premium:true },
     ],
   },
   ar: {
     tagline: 'مصمّم للمتعلّمين التونسيين',
     hero1: 'توقّف عن الحفظ.',
     hero2: 'ابدأ تتكلّم',
-    heroAccent: 'بجدّية.',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
     joinBtn: 'احجز درسك',
     dmBtn: 'راسلنا على انستغرام',
@@ -200,9 +143,6 @@ const T = {
     communityTag: 'تواصل مع دالي',
     communityH: 'راسل مباشرة',
     communitySub: 'عندك سؤال على درس؟ ما عرفتش تختار؟ الأستاذ دالي يردّ شخصيًا.',
-    pricingTag: 'الباقات',
-    pricingH: 'اختار برنامجك',
-    pricingSub: 'كل باقة تشمل دروسًا مباشرة — مش فيديوهات مسجّلة',
     monthly: 'شهري',
     yearly: 'سنوي (-20%)',
     signupTag: 'ابدأ الرحلة',
@@ -220,34 +160,10 @@ const T = {
     nextLive: 'البث القادم',
     days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
     packages: [
-      {
-        id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'Band 7+ في 3 أشهر',
-        desc:'دروس مباشرة مكثّفة على المهارات الأربع — التحدّث والكتابة والقراءة والاستماع — من خلال مواضيع الامتحان الحقيقية.',
-        price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'},
-        features:['4 دروس مباشرة/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان المعمّقة','متابعة النقاط الشخصية'],
-        cta:'ابدأ تحضير IELTS', accent:'indigo', popular:true,
-      },
-      {
-        id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم كالناطق الأصلي',
-        desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد. ابنِ طلاقتك وثقتك من خلال حوار حقيقي.',
-        price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'},
-        features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'],
-        cta:'انضم للنقاشات', accent:'cyan',
-      },
-      {
-        id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'الإنجليزية لمسيرتك',
-        desc:'دروس مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، إيميلات، مقابلات عمل. للمحترفين الذين يحتاجون الإنجليزية في العمل.',
-        price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'},
-        features:['4 دروس مباشرة/شهر','تحضير السيرة الذاتية والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة ملف LinkedIn'],
-        cta:'تطوّر مهنيًا', accent:'violet',
-      },
-      {
-        id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي',
-        desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة، وأسرع طريقة للتطوّر. أماكن محدودة كل شهر.',
-        price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'},
-        features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'],
-        cta:'احجز جلسات خاصة', accent:'pink', premium:true,
-      },
+      { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'Band 7+ في 3 أشهر', desc:'دروس مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 دروس مباشرة/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', accent:'indigo', popular:true },
+      { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم كالناطق الأصلي', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', accent:'cyan' },
+      { id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'الإنجليزية لمسيرتك', desc:'دروس مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، مقابلات عمل.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 دروس مباشرة/شهر','تحضير السيرة والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة LinkedIn'], cta:'تطوّر مهنيًا', accent:'violet' },
+      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', accent:'pink', premium:true },
     ],
   },
 }
@@ -275,208 +191,392 @@ const COLOR_MAP: Record<string,{bg:string,text:string,border:string,ring:string,
   green: {bg:'bg-green-50', text:'text-green-600', border:'border-green-100', ring:'',btn:'',shadow:''},
 }
 
-// ── SVG AVATARS ──────────────────────────────────────────────────────────────
-const DALI_SVG = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+// ── GENMOJI-STYLE SVG AVATARS ────────────────────────────────────────────────
+const DALI_SVG = `<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-  <radialGradient id="bgD" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#312E81"/></radialGradient>
-  <radialGradient id="skD" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#F4A46A"/></radialGradient>
+  <radialGradient id="bgD" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#3730A3"/></radialGradient>
+  <radialGradient id="skD" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#E8965A"/></radialGradient>
+  <radialGradient id="eyeD" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#6B4226"/><stop offset="100%" stop-color="#3D1F0A"/></radialGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.25"/></filter>
 </defs>
-<rect width="120" height="120" fill="url(#bgD)"/>
-<rect x="10" y="12" width="70" height="42" rx="5" fill="white" opacity=".18"/>
-<rect x="10" y="12" width="70" height="42" rx="5" fill="none" stroke="white" stroke-width="1.5" opacity=".4"/>
-<line x1="18" y1="26" x2="52" y2="26" stroke="white" stroke-width="1.5" opacity=".5"/>
-<line x1="18" y1="34" x2="44" y2="34" stroke="white" stroke-width="1.5" opacity=".5"/>
-<line x1="18" y1="42" x2="58" y2="42" stroke="#06B6D4" stroke-width="2" opacity=".7"/>
-<line x1="88" y1="58" x2="72" y2="42" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-<circle cx="72" cy="42" r="3" fill="#06B6D4"/>
-<circle cx="82" cy="70" r="24" fill="url(#skD)"/>
-<ellipse cx="82" cy="50" rx="22" ry="12" fill="#1C1917"/>
-<ellipse cx="63" cy="60" rx="6" ry="12" fill="#1C1917"/>
-<ellipse cx="101" cy="60" rx="6" ry="12" fill="#1C1917"/>
-<rect x="66" y="65" width="13" height="9" rx="3.5" fill="rgba(0,0,0,.08)" stroke="#1C1917" stroke-width="2"/>
-<rect x="83" y="65" width="13" height="9" rx="3.5" fill="rgba(0,0,0,.08)" stroke="#1C1917" stroke-width="2"/>
-<line x1="79" y1="69" x2="83" y2="69" stroke="#1C1917" stroke-width="1.8"/>
-<line x1="66" y1="69" x2="62" y2="70" stroke="#1C1917" stroke-width="1.8"/>
-<line x1="96" y1="69" x2="100" y2="70" stroke="#1C1917" stroke-width="1.8"/>
-<circle cx="72.5" cy="69.5" r="2.5" fill="#1C1917"/>
-<circle cx="89.5" cy="69.5" r="2.5" fill="#1C1917"/>
-<circle cx="73.2" cy="68.8" r="1" fill="white"/>
-<circle cx="90.2" cy="68.8" r="1" fill="white"/>
-<path d="M74 79 Q82 84 90 79" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
-<ellipse cx="82" cy="82" rx="14" ry="5" fill="#D4A57A" opacity=".4"/>
-<ellipse cx="82" cy="108" rx="22" ry="14" fill="#4F46E5"/>
-<path d="M70 96 L82 103 L94 96" stroke="white" stroke-width="2" fill="none"/>
+<rect width="160" height="160" fill="url(#bgD)"/>
+<!-- whiteboard -->
+<rect x="8" y="10" width="88" height="55" rx="6" fill="white" opacity=".22" filter="url(#shadow)"/>
+<rect x="8" y="10" width="88" height="55" rx="6" fill="none" stroke="white" stroke-width="1.5" opacity=".5"/>
+<line x1="18" y1="28" x2="68" y2="28" stroke="white" stroke-width="1.8" opacity=".55" stroke-linecap="round"/>
+<line x1="18" y1="38" x2="56" y2="38" stroke="white" stroke-width="1.8" opacity=".55" stroke-linecap="round"/>
+<line x1="18" y1="48" x2="74" y2="48" stroke="#67E8F9" stroke-width="2.5" opacity=".8" stroke-linecap="round"/>
+<text x="18" y="56" font-size="7" fill="#67E8F9" opacity=".9" font-family="monospace">displace ≠ replace</text>
+<!-- pointer arm -->
+<line x1="118" y1="80" x2="94" y2="50" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
+<circle cx="94" cy="50" r="4" fill="#06B6D4"/>
+<!-- neck -->
+<ellipse cx="112" cy="110" rx="12" ry="8" fill="#FBBF7A"/>
+<!-- face -->
+<ellipse cx="112" cy="82" rx="30" ry="32" fill="url(#skD)" filter="url(#shadow)"/>
+<!-- hair — dark, parted -->
+<path d="M84 72 Q86 52 112 50 Q138 52 140 72 Q135 60 112 58 Q89 60 84 72Z" fill="#1C1412"/>
+<ellipse cx="84" cy="74" rx="7" ry="14" fill="#1C1412"/>
+<ellipse cx="140" cy="74" rx="7" ry="14" fill="#1C1412"/>
+<!-- ear -->
+<ellipse cx="83" cy="83" rx="5" ry="7" fill="#E8965A"/>
+<ellipse cx="141" cy="83" rx="5" ry="7" fill="#E8965A"/>
+<!-- glasses frames — rounded rectangles -->
+<rect x="93" y="77" width="17" height="13" rx="5" fill="rgba(20,20,40,.08)" stroke="#1C1412" stroke-width="2.2"/>
+<rect x="114" y="77" width="17" height="13" rx="5" fill="rgba(20,20,40,.08)" stroke="#1C1412" stroke-width="2.2"/>
+<line x1="110" y1="83" x2="114" y2="83" stroke="#1C1412" stroke-width="2"/>
+<line x1="93" y1="83" x2="88" y2="84.5" stroke="#1C1412" stroke-width="2"/>
+<line x1="131" y1="83" x2="136" y2="84.5" stroke="#1C1412" stroke-width="2"/>
+<!-- eyes -->
+<circle cx="101.5" cy="83.5" r="4" fill="url(#eyeD)"/>
+<circle cx="122.5" cy="83.5" r="4" fill="url(#eyeD)"/>
+<circle cx="100.5" cy="82.2" r="1.6" fill="white"/>
+<circle cx="121.5" cy="82.2" r="1.6" fill="white"/>
+<circle cx="103" cy="84.5" r="1" fill="white" opacity=".5"/>
+<circle cx="124" cy="84.5" r="1" fill="white" opacity=".5"/>
+<!-- eyebrows -->
+<path d="M94 75.5 Q101 73 108 75.5" stroke="#1C1412" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M115 75.5 Q122 73 129 75.5" stroke="#1C1412" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M110 88 Q112 93 114 88" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- stubble -->
+<ellipse cx="112" cy="100" rx="16" ry="6" fill="#C4855A" opacity=".3"/>
+<!-- smile -->
+<path d="M100 96 Q112 104 124 96" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<!-- body -->
+<ellipse cx="112" cy="145" rx="30" ry="18" fill="#4338CA"/>
+<path d="M96 128 L112 138 L128 128" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<!-- collar shirt -->
+<ellipse cx="112" cy="128" rx="14" ry="6" fill="#6366F1"/>
 </svg>`
 
+// Genmoji-style photorealistic illustrated avatars
 const AVATARS = [
   {
-    name:'Amira ✨', label:'A',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg1" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#9D174D"/></radialGradient>
-<radialGradient id="sk1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#F4A46A"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg1)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk1)"/>
-<ellipse cx="60" cy="54" rx="24" ry="14" fill="#1C1917"/>
-<circle cx="40" cy="48" r="9" fill="#1C1917"/><circle cx="80" cy="48" r="9" fill="#1C1917"/>
-<circle cx="40" cy="48" r="5" fill="#EC4899"/><circle cx="80" cy="48" r="5" fill="#EC4899"/>
-<ellipse cx="52" cy="70" rx="4" ry="4.5" fill="white"/><ellipse cx="68" cy="70" rx="4" ry="4.5" fill="white"/>
-<circle cx="52.5" cy="70.5" r="2.8" fill="#1C1917"/><circle cx="68.5" cy="70.5" r="2.8" fill="#1C1917"/>
-<circle cx="53.2" cy="69.5" r="1.1" fill="white"/><circle cx="69.2" cy="69.5" r="1.1" fill="white"/>
-<line x1="49" y1="66.5" x2="47.5" y2="64.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="52" y1="65.8" x2="51" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="55" y1="66.5" x2="54.5" y2="64.2" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="65" y1="66.5" x2="63.5" y2="64.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="68" y1="65.8" x2="67" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="71" y1="66.5" x2="70.5" y2="64.2" stroke="#1C1917" stroke-width="1.2"/>
-<ellipse cx="45" cy="77" rx="5" ry="3" fill="#F9A8D4" opacity=".6"/>
-<ellipse cx="75" cy="77" rx="5" ry="3" fill="#F9A8D4" opacity=".6"/>
-<path d="M50 81 Q60 89 70 81" stroke="#B45309" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<path d="M50 81 Q60 89 70 81" fill="white" opacity=".6"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#BE185D"/>
+    name:'Amira ✨',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg1" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#9D174D"/></radialGradient>
+<radialGradient id="sk1" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
+<radialGradient id="eye1" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#2D1505"/></radialGradient>
+<filter id="sh1" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg1)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk1)" filter="url(#sh1)"/>
+<!-- hair — space buns -->
+<ellipse cx="80" cy="66" rx="32" ry="18" fill="#1A0E08"/>
+<circle cx="52" cy="58" r="15" fill="#1A0E08"/>
+<circle cx="108" cy="58" r="15" fill="#1A0E08"/>
+<!-- bun circles -->
+<circle cx="52" cy="58" r="10" fill="#EC4899"/>
+<circle cx="108" cy="58" r="10" fill="#EC4899"/>
+<circle cx="52" cy="58" r="6" fill="#BE185D"/>
+<circle cx="108" cy="58" r="6" fill="#BE185D"/>
+<!-- ears -->
+<ellipse cx="46" cy="93" rx="6" ry="8" fill="#E8A86A"/>
+<ellipse cx="114" cy="93" rx="6" ry="8" fill="#E8A86A"/>
+<!-- eyes -->
+<ellipse cx="68" cy="88" rx="7" ry="8" fill="white"/>
+<ellipse cx="92" cy="88" rx="7" ry="8" fill="white"/>
+<circle cx="68.5" cy="88.5" r="5.2" fill="url(#eye1)"/>
+<circle cx="92.5" cy="88.5" r="5.2" fill="url(#eye1)"/>
+<circle cx="66.8" cy="86.8" r="2.2" fill="white"/>
+<circle cx="90.8" cy="86.8" r="2.2" fill="white"/>
+<circle cx="70.5" cy="90.5" r="1" fill="white" opacity=".5"/>
+<circle cx="94.5" cy="90.5" r="1" fill="white" opacity=".5"/>
+<!-- lashes -->
+<path d="M61 82 Q64 79 67 82" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M85 82 Q88 79 91 82" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<!-- brows -->
+<path d="M61 83.5 Q68 81 75 83.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M85 83.5 Q92 81 99 83.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- blush -->
+<ellipse cx="58" cy="98" rx="8" ry="5" fill="#F9A8D4" opacity=".55"/>
+<ellipse cx="102" cy="98" rx="8" ry="5" fill="#F9A8D4" opacity=".55"/>
+<!-- big smile -->
+<path d="M64 104 Q80 116 96 104" stroke="#B45309" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+<path d="M64 104 Q80 115 96 104" fill="#FDE68A" opacity=".3"/>
+<!-- earrings -->
+<circle cx="46" cy="102" r="3" fill="#FCD34D"/>
+<circle cx="114" cy="102" r="3" fill="#FCD34D"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#BE185D"/>
 </svg>`,
   },
   {
-    name:'Sami 🎧', label:'S',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg2" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#10B981"/><stop offset="100%" stop-color="#064E3B"/></radialGradient>
-<radialGradient id="sk2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#D97706"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg2)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk2)"/>
-<ellipse cx="60" cy="52" rx="24" ry="14" fill="#1C1917"/>
-<rect x="36" y="52" width="48" height="8" fill="#1C1917"/>
-<rect x="36" y="58" width="8" height="12" fill="#374151" opacity=".7" rx="2"/>
-<rect x="76" y="58" width="8" height="12" fill="#374151" opacity=".7" rx="2"/>
-<circle cx="36" cy="74" r="2.5" fill="#FCD34D"/>
-<ellipse cx="52" cy="70" rx="3.5" ry="4" fill="white"/><ellipse cx="68" cy="70" rx="3.5" ry="4" fill="white"/>
-<circle cx="52.5" cy="70.5" r="2.5" fill="#1C1917"/><circle cx="68.5" cy="70.5" r="2.5" fill="#1C1917"/>
-<circle cx="53.1" cy="69.7" r="1" fill="white"/><circle cx="69.1" cy="69.7" r="1" fill="white"/>
-<path d="M47 65 Q52 63 57 65" stroke="#1C1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M63 65 Q68 63 73 65" stroke="#1C1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M50 80 Q60 87 70 80" stroke="#92400E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<path d="M50 80 Q60 87 70 80" fill="white" opacity=".5"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#059669"/>
+    name:'Sami 🎧',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg2" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#064E3B"/></radialGradient>
+<radialGradient id="sk2" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE0A0"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#D97706"/></radialGradient>
+<radialGradient id="eye2" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+<filter id="sh2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg2)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk2)" filter="url(#sh2)"/>
+<!-- fade haircut -->
+<path d="M46 75 Q48 52 80 50 Q112 52 114 75 Q108 60 80 58 Q52 60 46 75Z" fill="#1A0E08"/>
+<rect x="46" y="73" width="68" height="10" fill="#1A0E08"/>
+<rect x="46" y="81" width="10" height="14" fill="#2D1F12" rx="3" opacity=".8"/>
+<rect x="104" y="81" width="10" height="14" fill="#2D1F12" rx="3" opacity=".8"/>
+<!-- ears -->
+<ellipse cx="46" cy="93" rx="6" ry="8" fill="#D97706"/>
+<ellipse cx="114" cy="93" rx="6" ry="8" fill="#D97706"/>
+<!-- gold earring -->
+<circle cx="46" cy="100" r="3.5" fill="#FCD34D" stroke="#D97706" stroke-width="1"/>
+<!-- eyes -->
+<ellipse cx="68" cy="88" rx="7" ry="8" fill="white"/>
+<ellipse cx="92" cy="88" rx="7" ry="8" fill="white"/>
+<circle cx="68.5" cy="88.5" r="5.2" fill="url(#eye2)"/>
+<circle cx="92.5" cy="88.5" r="5.2" fill="url(#eye2)"/>
+<circle cx="66.8" cy="86.8" r="2.2" fill="white"/>
+<circle cx="90.8" cy="86.8" r="2.2" fill="white"/>
+<!-- thick brows -->
+<path d="M60 82 Q68 79 76 82" stroke="#1A0E08" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M84 82 Q92 79 100 82" stroke="#1A0E08" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 95 Q80 100 83 95" stroke="#B45309" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- big smile with teeth -->
+<path d="M63 104 Q80 116 97 104" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M63 104 Q80 115 97 104" fill="white" opacity=".7"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#059669"/>
+<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Nour 🌸', label:'N',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg3" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#4C1D95"/></radialGradient>
-<radialGradient id="sk3" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E9A46A"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg3)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk3)"/>
-<ellipse cx="60" cy="56" rx="30" ry="22" fill="#6D28D9"/>
-<ellipse cx="60" cy="72" rx="32" ry="20" fill="#6D28D9"/>
-<ellipse cx="60" cy="58" rx="22" ry="14" fill="#5B21B6"/>
-<path d="M47 69 Q52 65 57 69 Q52 73 47 69Z" fill="white"/>
-<path d="M63 69 Q68 65 73 69 Q68 73 63 69Z" fill="white"/>
-<circle cx="52" cy="69" r="2.8" fill="#1C1917"/><circle cx="68" cy="69" r="2.8" fill="#1C1917"/>
-<circle cx="52.7" cy="68.2" r="1.1" fill="white"/><circle cx="68.7" cy="68.2" r="1.1" fill="white"/>
-<line x1="47.5" y1="67" x2="46" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="52" y1="65.5" x2="51.5" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="56.5" y1="67" x2="56" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="63.5" y1="67" x2="62.5" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="68" y1="65.5" x2="67.5" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="72.5" y1="67" x2="72" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<ellipse cx="44" cy="76" rx="5" ry="3" fill="#F9A8D4" opacity=".5"/>
-<ellipse cx="76" cy="76" rx="5" ry="3" fill="#F9A8D4" opacity=".5"/>
-<path d="M51 81 Q60 88 69 81" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path d="M51 81 Q60 88 69 81" fill="white" opacity=".4"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#5B21B6"/>
+    name:'Nour 🌸',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg3" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#4C1D95"/></radialGradient>
+<radialGradient id="sk3" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
+<radialGradient id="eye3" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+<filter id="sh3" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg3)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk3)" filter="url(#sh3)"/>
+<!-- hijab outer -->
+<ellipse cx="80" cy="70" rx="40" ry="30" fill="#6D28D9"/>
+<ellipse cx="80" cy="96" rx="44" ry="28" fill="#6D28D9"/>
+<!-- hijab drape sides -->
+<ellipse cx="42" cy="95" rx="12" ry="24" fill="#5B21B6"/>
+<ellipse cx="118" cy="95" rx="12" ry="24" fill="#5B21B6"/>
+<!-- hijab inner depth -->
+<ellipse cx="80" cy="72" rx="30" ry="20" fill="#5B21B6"/>
+<!-- hijab highlight -->
+<ellipse cx="72" cy="62" rx="15" ry="8" fill="#7C3AED" opacity=".6"/>
+<!-- eyes — almond shape -->
+<path d="M58 87 Q68 81 78 87 Q68 93 58 87Z" fill="white"/>
+<path d="M82 87 Q92 81 102 87 Q92 93 82 87Z" fill="white"/>
+<circle cx="68" cy="87" r="5.5" fill="url(#eye3)"/>
+<circle cx="92" cy="87" r="5.5" fill="url(#eye3)"/>
+<circle cx="66.5" cy="85.5" r="2.2" fill="white"/>
+<circle cx="90.5" cy="85.5" r="2.2" fill="white"/>
+<!-- long lashes -->
+<path d="M58 84.5 L56 81" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M63 82.5 L62 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M68 82 L67 78.5" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M73 82.5 L73 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M82 84.5 L80 81" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M87 82.5 L86 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M92 82 L91 78.5" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M97 82.5 L97 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- blush -->
+<ellipse cx="56" cy="96" rx="9" ry="5" fill="#DDD6FE" opacity=".5"/>
+<ellipse cx="104" cy="96" rx="9" ry="5" fill="#DDD6FE" opacity=".5"/>
+<!-- smile -->
+<path d="M64 104 Q80 115 96 104" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M64 104 Q80 114 96 104" fill="white" opacity=".5"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#5B21B6"/>
 </svg>`,
   },
   {
-    name:'Mehdi 🔥', label:'M',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg4" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#92400E"/></radialGradient>
-<radialGradient id="sk4" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#B45309"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg4)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk4)"/>
-<circle cx="60" cy="52" r="22" fill="#1C1917"/>
-<circle cx="42" cy="58" r="12" fill="#1C1917"/><circle cx="78" cy="58" r="12" fill="#1C1917"/>
-<circle cx="48" cy="46" r="10" fill="#1C1917"/><circle cx="72" cy="46" r="10" fill="#1C1917"/>
-<circle cx="50" cy="44" r="4" fill="#374151" opacity=".5"/>
-<circle cx="70" cy="44" r="4" fill="#374151" opacity=".5"/>
-<ellipse cx="52" cy="70" rx="4" ry="4.5" fill="white"/><ellipse cx="68" cy="70" rx="4" ry="4.5" fill="white"/>
-<circle cx="52.5" cy="70.5" r="3" fill="#1C1917"/><circle cx="68.5" cy="70.5" r="3" fill="#1C1917"/>
-<circle cx="53.2" cy="69.5" r="1.2" fill="white"/><circle cx="69.2" cy="69.5" r="1.2" fill="white"/>
-<path d="M48 81 Q60 92 72 81" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M48 81 Q60 92 72 81" fill="white" opacity=".6"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#D97706"/>
+    name:'Mehdi 🔥',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg4" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#FCD34D"/><stop offset="100%" stop-color="#78350F"/></radialGradient>
+<radialGradient id="sk4" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE0A0"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#B45309"/></radialGradient>
+<radialGradient id="eye4" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#4A2912"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+<filter id="sh4" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg4)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk4)" filter="url(#sh4)"/>
+<!-- afro fro -->
+<circle cx="80" cy="66" r="30" fill="#1A0E08"/>
+<circle cx="54" cy="74" r="18" fill="#1A0E08"/>
+<circle cx="106" cy="74" r="18" fill="#1A0E08"/>
+<circle cx="60" cy="58" r="16" fill="#1A0E08"/>
+<circle cx="100" cy="58" r="16" fill="#1A0E08"/>
+<circle cx="80" cy="52" r="18" fill="#1A0E08"/>
+<!-- afro texture highlights -->
+<circle cx="66" cy="55" r="7" fill="#2D1F12" opacity=".6"/>
+<circle cx="94" cy="55" r="7" fill="#2D1F12" opacity=".6"/>
+<circle cx="80" cy="50" r="8" fill="#2D1F12" opacity=".6"/>
+<!-- ears -->
+<ellipse cx="46" cy="93" rx="6" ry="8" fill="#B45309"/>
+<ellipse cx="114" cy="93" rx="6" ry="8" fill="#B45309"/>
+<!-- eyes — wide expressive -->
+<ellipse cx="67" cy="88" rx="8" ry="9" fill="white"/>
+<ellipse cx="93" cy="88" rx="8" ry="9" fill="white"/>
+<circle cx="67.5" cy="88.5" r="5.8" fill="url(#eye4)"/>
+<circle cx="93.5" cy="88.5" r="5.8" fill="url(#eye4)"/>
+<circle cx="65.6" cy="86.6" r="2.4" fill="white"/>
+<circle cx="91.6" cy="86.6" r="2.4" fill="white"/>
+<!-- brows -->
+<path d="M59 81 Q67 78 75 81" stroke="#1A0E08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M85 81 Q93 78 101 81" stroke="#1A0E08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<!-- nose wide -->
+<ellipse cx="80" cy="98" rx="5" ry="3" fill="#C67A3A" opacity=".5"/>
+<path d="M74 96 Q80 101 86 96" stroke="#C67A3A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<!-- huge grin -->
+<path d="M60 106 Q80 122 100 106" stroke="#78350F" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M60 106 Q80 121 100 106" fill="white" opacity=".75"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#D97706"/>
+<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Karim 😎', label:'K',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg5" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
-<radialGradient id="sk5" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#F4A46A"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg5)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk5)"/>
-<ellipse cx="60" cy="52" rx="26" ry="12" fill="#1D4ED8"/>
-<ellipse cx="62" cy="50" rx="26" ry="10" fill="#1E40AF"/>
-<ellipse cx="82" cy="58" rx="14" ry="5" fill="#1D4ED8" transform="rotate(-15,82,58)"/>
-<ellipse cx="38" cy="60" rx="8" ry="6" fill="#1C1917"/>
-<path d="M47 69 Q52 66 57 69" stroke="#1C1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M63 69 Q68 66 73 69" stroke="#1C1917" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<ellipse cx="52" cy="71" rx="3" ry="2.5" fill="#1C1917"/><ellipse cx="68" cy="71" rx="3" ry="2.5" fill="#1C1917"/>
-<circle cx="52.6" cy="70.4" r="1" fill="white"/><circle cx="68.6" cy="70.4" r="1" fill="white"/>
-<path d="M52 80 Q62 86 70 80" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#1D4ED8"/>
+    name:'Karim 😎',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg5" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+<radialGradient id="sk5" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
+<filter id="sh5" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg5)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk5)" filter="url(#sh5)"/>
+<!-- sideways cap -->
+<ellipse cx="84" cy="67" rx="34" ry="15" fill="#1D4ED8"/>
+<ellipse cx="84" cy="65" rx="34" ry="13" fill="#1E40AF"/>
+<!-- brim tilted -->
+<ellipse cx="114" cy="75" rx="20" ry="7" fill="#1D4ED8" transform="rotate(-18 114 75)"/>
+<!-- cap logo -->
+<circle cx="76" cy="64" r="6" fill="#3B82F6" opacity=".8"/>
+<text x="73" y="67" font-size="7" fill="white" font-weight="bold" font-family="sans-serif">NY</text>
+<!-- hair peeking under cap -->
+<ellipse cx="50" cy="78" rx="10" ry="7" fill="#1A0E08"/>
+<!-- ears -->
+<ellipse cx="46" cy="93" rx="6" ry="8" fill="#E8A86A"/>
+<ellipse cx="114" cy="93" rx="6" ry="8" fill="#E8A86A"/>
+<!-- sunglasses — shield style -->
+<rect x="55" y="82" width="50" height="16" rx="8" fill="#111827" opacity=".92"/>
+<rect x="55" y="82" width="50" height="16" rx="8" fill="none" stroke="#374151" stroke-width="1.5"/>
+<!-- lens shine -->
+<path d="M60 86 Q65 84 70 86" stroke="white" stroke-width="1.2" fill="none" opacity=".4" stroke-linecap="round"/>
+<path d="M90 86 Q95 84 100 86" stroke="white" stroke-width="1.2" fill="none" opacity=".4" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 101 Q80 106 83 101" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- smirk -->
+<path d="M67 108 Q80 116 93 108" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M67 108 Q80 115 93 108" fill="white" opacity=".5"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#1D4ED8"/>
+<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Rania 🎵', label:'R',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg6" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#F472B6"/><stop offset="100%" stop-color="#831843"/></radialGradient>
-<radialGradient id="sk6" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E9A46A"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg6)"/>
-<circle cx="60" cy="70" r="26" fill="url(#sk6)"/>
-<rect x="34" y="56" width="10" height="40" rx="5" fill="#92400E"/>
-<rect x="76" y="56" width="10" height="40" rx="5" fill="#92400E"/>
-<ellipse cx="60" cy="50" rx="24" ry="13" fill="#92400E"/>
-<path d="M36 62 Q36 44 60 44 Q84 44 84 62" stroke="#1C1917" stroke-width="3" fill="none"/>
-<rect x="31" y="60" width="10" height="14" rx="4" fill="#1C1917"/>
-<rect x="79" y="60" width="10" height="14" rx="4" fill="#1C1917"/>
-<ellipse cx="36" cy="67" rx="5" ry="6" fill="#374151"/><ellipse cx="84" cy="67" rx="5" ry="6" fill="#374151"/>
-<ellipse cx="52" cy="69" rx="4" ry="4.5" fill="white"/><ellipse cx="68" cy="69" rx="4" ry="4.5" fill="white"/>
-<circle cx="52.5" cy="69.5" r="3" fill="#1C1917"/><circle cx="68.5" cy="69.5" r="3" fill="#1C1917"/>
-<circle cx="53.2" cy="68.5" r="1.2" fill="white"/><circle cx="69.2" cy="68.5" r="1.2" fill="white"/>
-<line x1="49" y1="65.5" x2="47.5" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="52" y1="65" x2="51.5" y2="62.8" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="55" y1="65.5" x2="54.5" y2="63.2" stroke="#1C1917" stroke-width="1.2"/>
-<ellipse cx="44" cy="75" rx="5" ry="3" fill="#F9A8D4" opacity=".6"/>
-<ellipse cx="76" cy="75" rx="5" ry="3" fill="#F9A8D4" opacity=".6"/>
-<path d="M51 80 Q60 87 69 80" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path d="M51 80 Q60 87 69 80" fill="white" opacity=".5"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#DB2777"/>
+    name:'Rania 🎵',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg6" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#831843"/></radialGradient>
+<radialGradient id="sk6" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
+<radialGradient id="eye6" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+<filter id="sh6" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg6)"/>
+<ellipse cx="80" cy="90" rx="34" ry="36" fill="url(#sk6)" filter="url(#sh6)"/>
+<!-- long hair back layer -->
+<rect x="44" y="72" width="14" height="55" rx="7" fill="#7C2D12"/>
+<rect x="102" y="72" width="14" height="55" rx="7" fill="#7C2D12"/>
+<!-- hair top -->
+<ellipse cx="80" cy="63" rx="32" ry="17" fill="#7C2D12"/>
+<!-- headphones arc -->
+<path d="M46 82 Q46 56 80 54 Q114 56 114 82" stroke="#1C1412" stroke-width="4.5" fill="none"/>
+<!-- headphone cups -->
+<rect x="38" y="78" width="16" height="22" rx="7" fill="#1C1412"/>
+<rect x="106" y="78" width="16" height="22" rx="7" fill="#1C1412"/>
+<ellipse cx="46" cy="89" rx="7" ry="9" fill="#374151"/>
+<ellipse cx="114" cy="89" rx="7" ry="9" fill="#374151"/>
+<!-- cup shine -->
+<ellipse cx="44" cy="85" rx="3" ry="2" fill="white" opacity=".2"/>
+<ellipse cx="112" cy="85" rx="3" ry="2" fill="white" opacity=".2"/>
+<!-- eyes -->
+<ellipse cx="68" cy="86" rx="7" ry="8" fill="white"/>
+<ellipse cx="92" cy="86" rx="7" ry="8" fill="white"/>
+<circle cx="68.5" cy="86.5" r="5.2" fill="url(#eye6)"/>
+<circle cx="92.5" cy="86.5" r="5.2" fill="url(#eye6)"/>
+<circle cx="66.8" cy="84.8" r="2.2" fill="white"/>
+<circle cx="90.8" cy="84.8" r="2.2" fill="white"/>
+<!-- lashes -->
+<path d="M61 80.5 Q64 77.5 67 80.5" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M85 80.5 Q88 77.5 91 80.5" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<!-- brows -->
+<path d="M61 81.5 Q68 79 75 81.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M85 81.5 Q92 79 99 81.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 93 Q80 98 83 93" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- blush -->
+<ellipse cx="56" cy="96" rx="8" ry="5" fill="#F9A8D4" opacity=".6"/>
+<ellipse cx="104" cy="96" rx="8" ry="5" fill="#F9A8D4" opacity=".6"/>
+<!-- smile -->
+<path d="M64 102 Q80 114 96 102" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M64 102 Q80 113 96 102" fill="white" opacity=".5"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#DB2777"/>
 </svg>`,
   },
   {
-    name:'Sara 🧕', label:'Sa',
-    svg:`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-<defs><radialGradient id="bg7" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#14B8A6"/><stop offset="100%" stop-color="#0F4C45"/></radialGradient>
-<radialGradient id="sk7" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E9A46A"/></radialGradient></defs>
-<rect width="120" height="120" fill="url(#bg7)"/>
-<circle cx="60" cy="72" r="26" fill="url(#sk7)"/>
-<ellipse cx="60" cy="52" rx="30" ry="24" fill="#0D6E63"/>
-<ellipse cx="60" cy="74" rx="34" ry="22" fill="#0D6E63"/>
-<ellipse cx="60" cy="56" rx="22" ry="15" fill="#0A5C52"/>
-<rect x="26" y="68" width="10" height="30" rx="5" fill="#0D6E63"/>
-<rect x="84" y="68" width="10" height="30" rx="5" fill="#0D6E63"/>
-<path d="M47 69 Q52 65 57 69 Q52 73 47 69Z" fill="white"/>
-<path d="M63 69 Q68 65 73 69 Q68 73 63 69Z" fill="white"/>
-<circle cx="52" cy="69" r="2.8" fill="#1C1917"/><circle cx="68" cy="69" r="2.8" fill="#1C1917"/>
-<circle cx="52.7" cy="68.2" r="1.1" fill="white"/><circle cx="68.7" cy="68.2" r="1.1" fill="white"/>
-<line x1="47.5" y1="67" x2="46" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="52" y1="65.5" x2="51.5" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="56.5" y1="67" x2="56" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="63.5" y1="67" x2="62.5" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="68" y1="65.5" x2="67.5" y2="63.5" stroke="#1C1917" stroke-width="1.2"/>
-<line x1="72.5" y1="67" x2="72" y2="65" stroke="#1C1917" stroke-width="1.2"/>
-<ellipse cx="44" cy="76" rx="5" ry="3" fill="#99F6E4" opacity=".4"/>
-<ellipse cx="76" cy="76" rx="5" ry="3" fill="#99F6E4" opacity=".4"/>
-<path d="M51 81 Q60 88 69 81" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path d="M51 81 Q60 88 69 81" fill="white" opacity=".4"/>
-<ellipse cx="60" cy="110" rx="24" ry="14" fill="#0D9488"/>
+    name:'Sara 🧕',
+    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<defs>
+<radialGradient id="bg7" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#2DD4BF"/><stop offset="100%" stop-color="#0F4C45"/></radialGradient>
+<radialGradient id="sk7" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
+<radialGradient id="eye7" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+<filter id="sh7" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+</defs>
+<rect width="160" height="160" fill="url(#bg7)"/>
+<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk7)" filter="url(#sh7)"/>
+<!-- hijab — teal/emerald -->
+<ellipse cx="80" cy="68" rx="42" ry="32" fill="#0D9488"/>
+<ellipse cx="80" cy="96" rx="46" ry="30" fill="#0D9488"/>
+<ellipse cx="38" cy="100" rx="14" ry="28" fill="#0F766E"/>
+<ellipse cx="122" cy="100" rx="14" ry="28" fill="#0F766E"/>
+<ellipse cx="80" cy="70" rx="30" ry="22" fill="#0F766E"/>
+<!-- hijab highlight fold -->
+<path d="M52 68 Q80 58 108 68" stroke="#14B8A6" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+<ellipse cx="68" cy="62" rx="18" ry="10" fill="#14B8A6" opacity=".35"/>
+<!-- eyes — almond -->
+<path d="M56 87 Q68 80 80 87 Q68 94 56 87Z" fill="white"/>
+<path d="M80 87 Q92 80 104 87 Q92 94 80 87Z" fill="white"/>
+<circle cx="68" cy="87" r="5.8" fill="url(#eye7)"/>
+<circle cx="92" cy="87" r="5.8" fill="url(#eye7)"/>
+<circle cx="66.3" cy="85.3" r="2.4" fill="white"/>
+<circle cx="90.3" cy="85.3" r="2.4" fill="white"/>
+<!-- long dramatic lashes -->
+<path d="M56 84.5 L53 81" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M62 82.5 L60 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M68 82 L67 78" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M74 82.5 L74 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M80 84.5 L78 81" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M86 82.5 L85 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M92 82 L91 78" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M98 82.5 L98 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- blush subtle -->
+<ellipse cx="56" cy="96" rx="9" ry="5" fill="#99F6E4" opacity=".4"/>
+<ellipse cx="104" cy="96" rx="9" ry="5" fill="#99F6E4" opacity=".4"/>
+<!-- warm smile -->
+<path d="M64 103 Q80 115 96 103" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M64 103 Q80 114 96 103" fill="white" opacity=".5"/>
+<!-- body -->
+<ellipse cx="80" cy="148" rx="30" ry="16" fill="#0D9488"/>
 </svg>`,
   },
 ]
@@ -542,7 +642,7 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  // Participant animation
+  // Participant + chat animation
   const [visibleP, setVisibleP] = useState<number[]>([])
   const [speakingP, setSpeakingP] = useState(0)
   const [chatMsgs, setChatMsgs] = useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
@@ -550,14 +650,13 @@ export default function Home() {
     {text:'Will AI replace all jobs eventually?', from:'Mehdi', isDali:false},
     {text:'Great question! Say "displace" not "replace" 💡', from:'Dali', isDali:true},
     {text:'AI might displace some roles...', from:'Nour', isDali:false},
-    {text:'Perfect use of displace! Band 7+ vocab 🔥', from:'Dali', isDali:true},
-    {text:'This class is 🔥🔥🔥', from:'Sami', isDali:false},
+    {text:'Perfect — Band 7+ vocab right there 🔥', from:'Dali', isDali:true},
+    {text:'This class is incredible 🙌', from:'Sami', isDali:false},
   ]
-
   useEffect(() => {
-    for (let i = 0; i < 8; i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*300)
-    const si = setInterval(()=>setSpeakingP(i=>(i+1)%8), 2000)
-    chatSnippets.forEach((msg,i) => setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]), 2000+i*2500))
+    for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*300)
+    const si = setInterval(()=>setSpeakingP(i=>(i+1)%8), 2200)
+    chatSnippets.forEach((msg,i) => setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]), 2000+i*2800))
     return () => clearInterval(si)
   }, [])
 
@@ -618,13 +717,15 @@ export default function Home() {
         .float-word{animation:fw linear infinite;}
         @keyframes fw{0%,100%{transform:translateY(0) rotate(var(--r));}50%{transform:translateY(-10px) rotate(var(--r));}}
         .speaking-ring{animation:sp 1.2s ease-in-out infinite;}
-        @keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5);}50%{box-shadow:0 0 0 5px rgba(99,102,241,0);}}
+        @keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5);}50%{box-shadow:0 0 0 6px rgba(99,102,241,0);}}
+        .dali-speaking{animation:dalisp 0.8s ease-in-out infinite;}
+        @keyframes dalisp{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
         .progress-fill{transition:width .1s linear;}
         .topic-card{transition:all .25s ease;}
         .topic-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.06);}
         .pkg-card{transition:all .3s ease;}
         .pkg-card:hover{transform:translateY(-4px);}
-        .av-cell{opacity:0;transform:scale(0);transition:opacity .3s ease,transform .3s ease;}
+        .av-cell{opacity:0;transform:scale(0);transition:opacity .3s ease,transform .35s cubic-bezier(.34,1.56,.64,1);}
         .av-cell.show{opacity:1;transform:scale(1);}
         .chat-in{animation:cin .35s ease forwards;}
         @keyframes cin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
@@ -633,8 +734,8 @@ export default function Home() {
       {/* NAV */}
       <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-indigo-50">
         <div className="max-w-6xl mx-auto px-5 py-3.5 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-indigo-950 tracking-tight">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-base tracking-tight whitespace-nowrap">
               <span className="font-bold text-indigo-600">english</span>
               <span className="font-light text-gray-400">with</span>
               <span className="font-extrabold text-indigo-600 uppercase tracking-wide">DALI</span>
@@ -646,7 +747,7 @@ export default function Home() {
               <a key={item} href={`#${item}`} className="px-3 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all font-medium capitalize">{item}</a>
             ))}
           </div>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <div className="flex gap-0.5 bg-gray-100 p-0.5 rounded-lg">
               {(['en','fr','ar'] as const).map(l => (
                 <button key={l} onClick={()=>setLang(l)}
@@ -656,12 +757,12 @@ export default function Home() {
               ))}
             </div>
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank"
-              className="flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 px-3 py-1.5 rounded-xl text-xs font-semibold text-indigo-600 hover:bg-indigo-100 transition-colors">
-              <span className="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse"/>
+              className="flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 px-3 py-1.5 rounded-xl text-xs font-semibold text-indigo-600 hover:bg-indigo-100 transition-colors whitespace-nowrap">
+              <span className="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse flex-shrink-0"/>
               {t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}
             </a>
-            <a href="#signup" className="bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all text-sm font-bold shadow-md shadow-indigo-200">
-              {t.joinBtn.split(' ').slice(0,2).join(' ')}
+            <a href="#signup" className="bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all text-sm font-bold shadow-md shadow-indigo-200 whitespace-nowrap">
+              {t.joinBtn}
             </a>
           </div>
           <button className="md:hidden border border-indigo-200 text-indigo-600 px-3 py-1.5 rounded-lg text-sm font-medium" onClick={()=>setMenuOpen(!menuOpen)}>
@@ -693,15 +794,17 @@ export default function Home() {
         <div className="blob b1 w-72 h-72 bg-indigo-200/20 absolute -top-20 -left-20"/>
         <div className="blob b2 w-56 h-56 bg-cyan-200/15 absolute -bottom-10 -right-10"/>
         <div className="blob b3 w-44 h-44 bg-purple-200/15 absolute top-1/2 left-1/3"/>
+
+        {/* Floating words — fixed positioning so they don't clip */}
         {[
-          {text:'current events 🌍',top:'10%',left:'52%',color:'#6366F1',bg:'#EEF2FF',r:'-3deg',dur:'4s'},
-          {text:'trending 🔥',top:'16%',right:'2%',color:'#DC2626',bg:'#FEF2F2',r:'2deg',dur:'5s',delay:'.5s'},
-          {text:'live class 🎙️',bottom:'30%',left:'50%',color:'#065F46',bg:'#DCFCE7',r:'-2deg',dur:'4.5s',delay:'1s'},
-          {text:'speak freely 💬',bottom:'18%',right:'2%',color:'#6D28D9',bg:'#EDE9FE',r:'3deg',dur:'5.5s',delay:'.3s'},
-          {text:'real english 🎯',top:'55%',left:'48%',color:'#B45309',bg:'#FEF3C7',r:'-1deg',dur:'6s',delay:'.8s'},
+          {text:'current events 🌍', top:'8%',  left:'58%', color:'#6366F1', bg:'#EEF2FF', r:'-3deg', dur:'4s'},
+          {text:'trending 🔥',       top:'14%', left:'72%', color:'#DC2626', bg:'#FEF2F2', r:'2deg',  dur:'5s',   delay:'.5s'},
+          {text:'live class 🎙️',    top:'70%', left:'56%', color:'#065F46', bg:'#DCFCE7', r:'-2deg', dur:'4.5s', delay:'1s'},
+          {text:'speak freely 💬',   top:'80%', left:'72%', color:'#6D28D9', bg:'#EDE9FE', r:'3deg',  dur:'5.5s', delay:'.3s'},
+          {text:'real english 🎯',   top:'50%', left:'55%', color:'#B45309', bg:'#FEF3C7', r:'-1deg', dur:'6s',   delay:'.8s'},
         ].map((w,i) => (
           <div key={i} className="float-word absolute text-xs font-semibold px-3 py-1.5 rounded-full pointer-events-none whitespace-nowrap z-10 hidden lg:block"
-            style={{top:(w as any).top,left:(w as any).left,right:(w as any).right,bottom:(w as any).bottom,color:w.color,background:w.bg,'--r':w.r,animationDuration:w.dur,animationDelay:(w as any).delay||'0s'} as React.CSSProperties}>
+            style={{top:w.top, left:w.left, color:w.color, background:w.bg, '--r':w.r, animationDuration:w.dur, animationDelay:(w as any).delay||'0s'} as React.CSSProperties}>
             {w.text}
           </div>
         ))}
@@ -721,12 +824,12 @@ export default function Home() {
             <p className="text-gray-400 text-base mb-7 leading-relaxed max-w-md">{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-4">
               <a href="#classes"
-                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200 text-sm font-bold">
+                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200 text-sm font-bold whitespace-nowrap">
                 {t.joinBtn} →
               </a>
               <a href="https://www.instagram.com/ielts.tn" target="_blank"
-                className="inline-flex items-center gap-2 bg-white text-sm font-bold px-5 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-sm border border-transparent"
-                style={{background:'linear-gradient(white,white) padding-box, linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045) border-box',border:'1.5px solid transparent'}}>
+                className="inline-flex items-center gap-2 bg-white text-sm font-bold px-5 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-sm whitespace-nowrap"
+                style={{border:'1.5px solid transparent',background:'linear-gradient(white,white) padding-box, linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045) border-box'}}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <defs><linearGradient id="igG" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#F59E0B"/><stop offset="50%" stopColor="#EF4444"/><stop offset="100%" stopColor="#8B5CF6"/></linearGradient></defs>
                   <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#igG)" strokeWidth="2"/>
@@ -752,9 +855,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — Class Visual */}
+          {/* Right */}
           <div className="flex flex-col gap-3">
-            {/* Progress cycling through topics */}
+            {/* Progress bar */}
             <div className="bg-white border border-indigo-50 rounded-2xl p-4 shadow-sm">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs font-bold text-indigo-950 flex items-center gap-2">
@@ -792,21 +895,21 @@ export default function Home() {
               <div className="grid grid-cols-4 gap-1.5 mb-3">
                 {allAvatars.map((av,i) => (
                   <div key={i}
-                    className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-xl overflow-hidden relative`}
-                    style={{transitionDelay:`${i*0.1}s`}}>
+                    className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-xl overflow-hidden relative ${av.isDali && speakingP===0?'dali-speaking':''}`}
+                    style={{transitionDelay:`${i*0.08}s`}}>
                     <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
                     {speakingP === i && (
                       <div className="speaking-ring absolute inset-0 rounded-xl border-2 border-indigo-400"/>
                     )}
-                    <div className="absolute bottom-0 left-0 right-0 text-center bg-black/40 backdrop-blur-sm text-white text-[8px] font-bold py-0.5 truncate px-1">
+                    <div className="absolute bottom-0 left-0 right-0 text-center bg-black/40 backdrop-blur-sm text-white font-bold py-0.5 truncate px-1" style={{fontSize:'8px'}}>
                       {av.name}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Chat strip */}
-              <div className="bg-gray-50 rounded-xl p-2.5 min-h-[70px] flex flex-col gap-1">
+              {/* Chat */}
+              <div className="bg-gray-50 rounded-xl p-2.5 min-h-[72px] flex flex-col gap-1.5">
                 <div className="text-xs font-bold text-gray-400 mb-0.5">live chat</div>
                 {chatMsgs.map(msg => (
                   <div key={msg.id} className="chat-in flex items-start gap-1.5">
@@ -824,9 +927,7 @@ export default function Home() {
                     <span className="text-xs text-gray-400">{c.l}</span>
                   </button>
                 ))}
-                <button className="ml-auto bg-red-50 text-red-500 border border-red-100 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-red-100 transition-colors">
-                  leave
-                </button>
+                <button className="ml-auto bg-red-50 text-red-500 border border-red-100 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-red-100 transition-colors">leave</button>
               </div>
             </div>
           </div>
@@ -889,7 +990,7 @@ export default function Home() {
           </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {t.packages.map((pkg,i) => {
+          {t.packages.map((pkg) => {
             const c = COLOR_MAP[pkg.accent]
             return (
               <div key={pkg.id} className={`pkg-card bg-white rounded-2xl p-6 border-2 ${c.border} relative ${(pkg as any).popular?`ring-2 ${c.ring}`:''}`}>
@@ -1028,7 +1129,7 @@ export default function Home() {
       <footer className="border-t border-indigo-50 px-6 py-8">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-base font-bold tracking-tight">
+            <span className="text-base tracking-tight">
               <span className="font-bold text-indigo-600">english</span>
               <span className="font-light text-gray-400">with</span>
               <span className="font-extrabold text-indigo-600 uppercase tracking-wide">DALI</span>
