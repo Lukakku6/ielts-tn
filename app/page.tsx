@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: {
     tagline: 'built for Tunisian English learners',
@@ -35,22 +36,13 @@ const T = {
     communityTag: 'reach dali',
     communityH: 'message directly',
     communitySub: 'questions about a class? not sure which package? Dali replies personally.',
-    monthly: 'monthly',
-    yearly: 'yearly (-20%)',
-    signupTag: 'get started',
-    signupH: 'create your free account',
-    signupSub: 'free account · first class included',
-    namePH: 'full name',
-    emailPH: 'email address',
-    passPH: 'password',
-    signupBtn2: 'create account — first class free',
-    creating: 'creating account...',
-    loginQ: 'already have an account?',
-    loginLink: 'log in',
-    notSure: 'not sure which package?',
-    waLink: 'ask on whatsapp ↗',
-    nextLive: 'next live',
-    days: 'd', hours: 'h', min: 'm', sec: 's',
+    monthly: 'monthly', yearly: 'yearly (-20%)',
+    signupTag: 'get started', signupH: 'create your free account', signupSub: 'free account · first class included',
+    namePH: 'full name', emailPH: 'email address', passPH: 'password',
+    signupBtn2: 'create account — first class free', creating: 'creating account...',
+    loginQ: 'already have an account?', loginLink: 'log in',
+    notSure: 'not sure which package?', waLink: 'ask on whatsapp ↗',
+    nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
     packages: [
       { id:'ielts', icon:'🏆', name:'IELTS Prep', tagline:'Band 7+ in 3 months', desc:'Intensive live classes focused on all four IELTS skills — speaking, writing, reading, listening — taught through real exam topics.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 live classes/month','Speaking mock tests','Writing task corrections','Exam vocabulary deep-dives','Personal score tracking'], cta:'start IELTS prep', accent:'indigo', popular:true },
       { id:'comms', icon:'💬', name:'Communication', tagline:'Sound like a native speaker', desc:'Weekly live discussions on trending topics — current events, culture, tech, finance. Build confidence and fluency through real conversation.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 live discussions/month','Topic vocabulary sheets','Pronunciation coaching','Weekly news breakdown','Replay access'], cta:'join conversations', accent:'cyan' },
@@ -63,48 +55,26 @@ const T = {
     hero1: "arrête de bachoter.",
     hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
-    joinBtn: "rejoindre un cours",
-    dmBtn: "DM sur instagram",
-    waBtn: "écrire sur whatsapp",
-    topicsTag: "ce qu'on discute",
-    topicsH: "vrais sujets. vrai anglais.",
-    topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
-    howTag: "comment ça marche",
-    howH: "rejoins, parle, progresse",
-    howSub: "trois étapes — sans manuel scolaire",
+    joinBtn: "rejoindre un cours", dmBtn: "DM sur instagram", waBtn: "écrire sur whatsapp",
+    topicsTag: "ce qu'on discute", topicsH: "vrais sujets. vrai anglais.", topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
+    howTag: "comment ça marche", howH: "rejoins, parle, progresse", howSub: "trois étapes — sans manuel scolaire",
     steps: [
       { n:'01', icon:'🎯', t:'choisis ton cours', d:"Parcours les sessions en direct par thème. Actualité, finance, culture — réserve ta place sur ce qui t'intéresse." },
       { n:'02', icon:'🎙️', t:'rejoins & parle', d:"Intègre le cours vidéo en direct. Dali anime la conversation en anglais, tu participes, tu poses des questions, tu fais des erreurs — c'est ça l'idée." },
       { n:'03', icon:'🚀', t:'suis ta progression', d:"Vois ton vocabulaire s'élargir, reçois des retours personnalisés après chaque cours et observe ta confiance grandir semaine après semaine." },
     ],
-    classesTag: "cours en direct",
-    classesH: "choisis ton programme",
-    classesSub: "des programmes structurés autour de tes besoins réels",
-    comingSoon: "Premiers cours bientôt disponibles",
-    comingSoonSub: "Inscris-toi maintenant et sois le premier à réserver. Les premiers membres obtiennent leur premier cours gratuit.",
+    classesTag: "cours en direct", classesH: "choisis ton programme", classesSub: "des programmes structurés autour de tes besoins réels",
+    comingSoon: "Premiers cours bientôt disponibles", comingSoonSub: "Inscris-toi maintenant et sois le premier à réserver. Les premiers membres obtiennent leur premier cours gratuit.",
     notifyBtn: "réserver ma place — gratuit",
-    liveTag: "prochaine session",
-    liveH: "rejoins le prochain live",
-    liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous",
-    communityTag: "contacter dali",
-    communityH: "écrire directement",
-    communitySub: "questions sur un cours ? pas sûr du programme ? Dali répond personnellement.",
-    monthly: "mensuel",
-    yearly: "annuel (-20%)",
-    signupTag: "commencer",
-    signupH: "créer ton compte gratuit",
-    signupSub: "compte gratuit · premier cours inclus",
-    namePH: "nom complet",
-    emailPH: "adresse email",
-    passPH: "mot de passe",
-    signupBtn2: "créer un compte — premier cours offert",
-    creating: "création en cours...",
-    loginQ: "déjà un compte ?",
-    loginLink: "se connecter",
-    notSure: "pas sûr du programme ?",
-    waLink: "demander sur whatsapp ↗",
-    nextLive: "prochain live",
-    days: "j", hours: "h", min: "m", sec: "s",
+    liveTag: "prochaine session", liveH: "rejoins le prochain live", liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous",
+    communityTag: "contacter dali", communityH: "écrire directement", communitySub: "questions sur un cours ? pas sûr du programme ? Dali répond personnellement.",
+    monthly: "mensuel", yearly: "annuel (-20%)",
+    signupTag: "commencer", signupH: "créer ton compte gratuit", signupSub: "compte gratuit · premier cours inclus",
+    namePH: "nom complet", emailPH: "adresse email", passPH: "mot de passe",
+    signupBtn2: "créer un compte — premier cours offert", creating: "création en cours...",
+    loginQ: "déjà un compte ?", loginLink: "se connecter",
+    notSure: "pas sûr du programme ?", waLink: "demander sur whatsapp ↗",
+    nextLive: "prochain live", days: "j", hours: "h", min: "m", sec: "s",
     packages: [
       { id:'ielts', icon:'🏆', name:'Prépa IELTS', tagline:'Band 7+ en 3 mois', desc:"Cours en direct intensifs sur les quatre compétences IELTS enseignés à travers de vrais sujets d'examen.", price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 cours en direct/mois','Tests oraux simulés','Corrections écrites','Vocabulaire examen','Suivi de score'], cta:'commencer la prépa', accent:'indigo', popular:true },
       { id:'comms', icon:'💬', name:'Communication', tagline:'Parle comme un natif', desc:"Discussions en direct hebdomadaires sur les sujets d'actualité — culture, tech, finance.", price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 discussions/mois','Fiches vocabulaire','Coaching prononciation',"Décryptage actualité",'Accès replays'], cta:'rejoindre les discussions', accent:'cyan' },
@@ -117,48 +87,26 @@ const T = {
     hero1: 'توقّف عن الحفظ.',
     hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
-    joinBtn: 'احجز درسك',
-    dmBtn: 'راسلنا على انستغرام',
-    waBtn: 'تحدّث على واتساب',
-    topicsTag: 'شنو نحكيو فيه',
-    topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.',
-    topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
-    howTag: 'كيفاش يخدم',
-    howH: 'انضم، تكلّم، تطوّر',
-    howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
+    joinBtn: 'احجز درسك', dmBtn: 'راسلنا على انستغرام', waBtn: 'تحدّث على واتساب',
+    topicsTag: 'شنو نحكيو فيه', topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
+    howTag: 'كيفاش يخدم', howH: 'انضم، تكلّم، تطوّر', howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
       { n:'٠١', icon:'🎯', t:'اختار درسك', d:'شوف الجلسات المباشرة حسب الموضوع. أحداث راهنة، فلوس، ثقافة — احجز مكانك في اللي يهمّك.' },
       { n:'٠٢', icon:'🎙️', t:'انضم وتكلّم', d:'ادخل الدرس المباشر. الأستاذ دالي يقود النقاش بالإنجليزية، أنت تشارك وتسأل وتغلط — هذا هو المطلوب.' },
       { n:'٠٣', icon:'🚀', t:'تابع تطوّرك', d:'شوف كيف تتوسّع مفرداتك، خذ ملاحظات شخصية بعد كل درس، وراقب ثقتك تكبر أسبوع بأسبوع.' },
     ],
-    classesTag: 'الدروس المباشرة',
-    classesH: 'اختار برنامجك',
-    classesSub: 'برامج مهيكلة حسب احتياجاتك الحقيقية',
-    comingSoon: 'أوّل الدروس قريبًا',
-    comingSoonSub: 'سجّل هالوقت وكن أوّل من يحجز. الأعضاء الأوائل يأخذون أوّل درس مجّانًا.',
+    classesTag: 'الدروس المباشرة', classesH: 'اختار برنامجك', classesSub: 'برامج مهيكلة حسب احتياجاتك الحقيقية',
+    comingSoon: 'أوّل الدروس قريبًا', comingSoonSub: 'سجّل هالوقت وكن أوّل من يحجز. الأعضاء الأوائل يأخذون أوّل درس مجّانًا.',
     notifyBtn: 'احجز مكاني — مجّانًا',
-    liveTag: 'الجلسة القادمة',
-    liveH: 'انضم للبث القادم',
-    liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
-    communityTag: 'تواصل مع دالي',
-    communityH: 'راسل مباشرة',
-    communitySub: 'عندك سؤال على درس؟ ما عرفتش تختار؟ الأستاذ دالي يردّ شخصيًا.',
-    monthly: 'شهري',
-    yearly: 'سنوي (-20%)',
-    signupTag: 'ابدأ الرحلة',
-    signupH: 'أنشئ حسابك المجاني',
-    signupSub: 'حساب مجاني · أوّل درس مشمول',
-    namePH: 'الاسم الكامل',
-    emailPH: 'البريد الإلكتروني',
-    passPH: 'كلمة المرور',
-    signupBtn2: 'أنشئ حساب — أوّل درس مجّاني',
-    creating: 'جاري إنشاء الحساب...',
-    loginQ: 'عندك حساب بالفعل؟',
-    loginLink: 'تسجيل الدخول',
-    notSure: 'ما عرفتش تختار؟',
-    waLink: 'اسأل على واتساب ↗',
-    nextLive: 'البث القادم',
-    days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
+    liveTag: 'الجلسة القادمة', liveH: 'انضم للبث القادم', liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
+    communityTag: 'تواصل مع دالي', communityH: 'راسل مباشرة', communitySub: 'عندك سؤال على درس؟ ما عرفتش تختار؟ الأستاذ دالي يردّ شخصيًا.',
+    monthly: 'شهري', yearly: 'سنوي (-20%)',
+    signupTag: 'ابدأ الرحلة', signupH: 'أنشئ حسابك المجاني', signupSub: 'حساب مجاني · أوّل درس مشمول',
+    namePH: 'الاسم الكامل', emailPH: 'البريد الإلكتروني', passPH: 'كلمة المرور',
+    signupBtn2: 'أنشئ حساب — أوّل درس مجّاني', creating: 'جاري إنشاء الحساب...',
+    loginQ: 'عندك حساب بالفعل؟', loginLink: 'تسجيل الدخول',
+    notSure: 'ما عرفتش تختار؟', waLink: 'اسأل على واتساب ↗',
+    nextLive: 'البث القادم', days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
     packages: [
       { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'Band 7+ في 3 أشهر', desc:'دروس مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 دروس مباشرة/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', accent:'indigo', popular:true },
       { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم كالناطق الأصلي', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', accent:'cyan' },
@@ -181,9 +129,9 @@ const TOPICS = [
 
 const COLOR_MAP: Record<string,{bg:string,text:string,border:string,ring:string,btn:string,shadow:string}> = {
   indigo:{bg:'bg-indigo-50',text:'text-indigo-600',border:'border-indigo-200',ring:'ring-indigo-100',btn:'bg-indigo-600 hover:bg-indigo-700 text-white',shadow:'shadow-indigo-200'},
-  cyan:  {bg:'bg-cyan-50',  text:'text-cyan-600',  border:'border-cyan-200',  ring:'ring-cyan-100',  btn:'bg-cyan-500 hover:bg-cyan-600 text-white',    shadow:'shadow-cyan-200'},
+  cyan:  {bg:'bg-cyan-50',  text:'text-cyan-600',  border:'border-cyan-200',  ring:'ring-cyan-100',  btn:'bg-cyan-500 hover:bg-cyan-600 text-white',  shadow:'shadow-cyan-200'},
   violet:{bg:'bg-violet-50',text:'text-violet-600',border:'border-violet-200',ring:'ring-violet-100',btn:'bg-violet-600 hover:bg-violet-700 text-white',shadow:'shadow-violet-200'},
-  pink:  {bg:'bg-pink-50',  text:'text-pink-600',  border:'border-pink-200',  ring:'ring-pink-100',  btn:'bg-pink-500 hover:bg-pink-600 text-white',    shadow:'shadow-pink-200'},
+  pink:  {bg:'bg-pink-50',  text:'text-pink-600',  border:'border-pink-200',  ring:'ring-pink-100',  btn:'bg-pink-500 hover:bg-pink-600 text-white',  shadow:'shadow-pink-200'},
   blue:  {bg:'bg-blue-50',  text:'text-blue-600',  border:'border-blue-100',  ring:'',btn:'',shadow:''},
   red:   {bg:'bg-red-50',   text:'text-red-500',   border:'border-red-100',   ring:'',btn:'',shadow:''},
   purple:{bg:'bg-purple-50',text:'text-purple-600',border:'border-purple-100',ring:'',btn:'',shadow:''},
@@ -191,401 +139,534 @@ const COLOR_MAP: Record<string,{bg:string,text:string,border:string,ring:string,
   green: {bg:'bg-green-50', text:'text-green-600', border:'border-green-100', ring:'',btn:'',shadow:''},
 }
 
-// ── GENMOJI-STYLE SVG AVATARS ────────────────────────────────────────────────
-const DALI_SVG = `<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+const CLASS_TOPICS = [
+  { topic:'AI & The Future of Work', icon:'🤖', participants:8, level:'B2–C1' },
+  { topic:'The US Elections 2024',   icon:'🗳️', participants:12, level:'B1–C1' },
+  { topic:'Climate Change Debate',   icon:'🌱', participants:6,  level:'B2–C1' },
+  { topic:'Social Media & Society',  icon:'📱', participants:10, level:'B1–B2' },
+]
+
+// ── MEMOJI-STYLE SVG AVATARS ──────────────────────────────────────────────────
+// Each avatar is a self-contained SVG with Apple Memoji aesthetic:
+// soft 3D shading, expressive eyes with highlight dots, detailed hair, accessories
+
+// Dali — young, slick-back hair, moustache, polo, cheerful, animated with whiteboard stick
+const DALI_SVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-  <radialGradient id="bgD" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#3730A3"/></radialGradient>
-  <radialGradient id="skD" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#E8965A"/></radialGradient>
-  <radialGradient id="eyeD" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#6B4226"/><stop offset="100%" stop-color="#3D1F0A"/></radialGradient>
-  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.25"/></filter>
+  <radialGradient id="bgDali" cx="50%" cy="0%" r="100%">
+    <stop offset="0%" stop-color="#818CF8"/>
+    <stop offset="100%" stop-color="#3730A3"/>
+  </radialGradient>
+  <radialGradient id="skinDali" cx="42%" cy="32%" r="62%">
+    <stop offset="0%" stop-color="#FFE8CC"/>
+    <stop offset="40%" stop-color="#FACA8A"/>
+    <stop offset="100%" stop-color="#E8965A"/>
+  </radialGradient>
+  <radialGradient id="eyeDali" cx="30%" cy="25%" r="75%">
+    <stop offset="0%" stop-color="#7B4E2D"/>
+    <stop offset="100%" stop-color="#2D1200"/>
+  </radialGradient>
+  <radialGradient id="boardGrad" cx="50%" cy="50%" r="60%">
+    <stop offset="0%" stop-color="#F0F9FF"/>
+    <stop offset="100%" stop-color="#E0F2FE"/>
+  </radialGradient>
+  <filter id="faceShad" x="-15%" y="-15%" width="130%" height="130%">
+    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.22"/>
+  </filter>
+  <filter id="boardShad" x="-5%" y="-5%" width="110%" height="110%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+  </filter>
 </defs>
-<rect width="160" height="160" fill="url(#bgD)"/>
-<!-- whiteboard -->
-<rect x="8" y="10" width="88" height="55" rx="6" fill="white" opacity=".22" filter="url(#shadow)"/>
-<rect x="8" y="10" width="88" height="55" rx="6" fill="none" stroke="white" stroke-width="1.5" opacity=".5"/>
-<line x1="18" y1="28" x2="68" y2="28" stroke="white" stroke-width="1.8" opacity=".55" stroke-linecap="round"/>
-<line x1="18" y1="38" x2="56" y2="38" stroke="white" stroke-width="1.8" opacity=".55" stroke-linecap="round"/>
-<line x1="18" y1="48" x2="74" y2="48" stroke="#67E8F9" stroke-width="2.5" opacity=".8" stroke-linecap="round"/>
-<text x="18" y="56" font-size="7" fill="#67E8F9" opacity=".9" font-family="monospace">displace ≠ replace</text>
-<!-- pointer arm -->
-<line x1="118" y1="80" x2="94" y2="50" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
-<circle cx="94" cy="50" r="4" fill="#06B6D4"/>
-<!-- neck -->
-<ellipse cx="112" cy="110" rx="12" ry="8" fill="#FBBF7A"/>
-<!-- face -->
-<ellipse cx="112" cy="82" rx="30" ry="32" fill="url(#skD)" filter="url(#shadow)"/>
-<!-- hair — dark, parted -->
-<path d="M84 72 Q86 52 112 50 Q138 52 140 72 Q135 60 112 58 Q89 60 84 72Z" fill="#1C1412"/>
-<ellipse cx="84" cy="74" rx="7" ry="14" fill="#1C1412"/>
-<ellipse cx="140" cy="74" rx="7" ry="14" fill="#1C1412"/>
-<!-- ear -->
-<ellipse cx="83" cy="83" rx="5" ry="7" fill="#E8965A"/>
-<ellipse cx="141" cy="83" rx="5" ry="7" fill="#E8965A"/>
-<!-- glasses frames — rounded rectangles -->
-<rect x="93" y="77" width="17" height="13" rx="5" fill="rgba(20,20,40,.08)" stroke="#1C1412" stroke-width="2.2"/>
-<rect x="114" y="77" width="17" height="13" rx="5" fill="rgba(20,20,40,.08)" stroke="#1C1412" stroke-width="2.2"/>
-<line x1="110" y1="83" x2="114" y2="83" stroke="#1C1412" stroke-width="2"/>
-<line x1="93" y1="83" x2="88" y2="84.5" stroke="#1C1412" stroke-width="2"/>
-<line x1="131" y1="83" x2="136" y2="84.5" stroke="#1C1412" stroke-width="2"/>
-<!-- eyes -->
-<circle cx="101.5" cy="83.5" r="4" fill="url(#eyeD)"/>
-<circle cx="122.5" cy="83.5" r="4" fill="url(#eyeD)"/>
-<circle cx="100.5" cy="82.2" r="1.6" fill="white"/>
-<circle cx="121.5" cy="82.2" r="1.6" fill="white"/>
-<circle cx="103" cy="84.5" r="1" fill="white" opacity=".5"/>
-<circle cx="124" cy="84.5" r="1" fill="white" opacity=".5"/>
-<!-- eyebrows -->
-<path d="M94 75.5 Q101 73 108 75.5" stroke="#1C1412" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<path d="M115 75.5 Q122 73 129 75.5" stroke="#1C1412" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M110 88 Q112 93 114 88" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- stubble -->
-<ellipse cx="112" cy="100" rx="16" ry="6" fill="#C4855A" opacity=".3"/>
-<!-- smile -->
-<path d="M100 96 Q112 104 124 96" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<!-- body -->
-<ellipse cx="112" cy="145" rx="30" ry="18" fill="#4338CA"/>
-<path d="M96 128 L112 138 L128 128" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<!-- collar shirt -->
-<ellipse cx="112" cy="128" rx="14" ry="6" fill="#6366F1"/>
+
+<!-- Background -->
+<rect width="200" height="200" fill="url(#bgDali)" rx="18"/>
+
+<!-- Whiteboard -->
+<rect x="8" y="12" width="105" height="68" rx="7" fill="url(#boardGrad)" filter="url(#boardShad)"/>
+<rect x="8" y="12" width="105" height="68" rx="7" fill="none" stroke="#BAE6FD" stroke-width="1.8"/>
+<!-- Board content -->
+<text x="16" y="32" font-size="8.5" fill="#0369A1" font-family="monospace" font-weight="bold">displace ≠ replace</text>
+<line x1="16" y1="42" x2="82" y2="42" stroke="#0284C7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="16" y="53" font-size="7.5" fill="#0369A1" font-family="monospace">→ "AI may displace</text>
+<text x="16" y="63" font-size="7.5" fill="#0369A1" font-family="monospace">   some roles..."</text>
+<line x1="16" y1="70" x2="60" y2="70" stroke="#7DD3FC" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+<!-- Eraser at bottom of board -->
+<rect x="88" y="72" width="16" height="6" rx="2" fill="#E2E8F0"/>
+
+<!-- Animated pointer/stick arm -->
+<g id="dali-arm">
+  <line x1="148" y1="108" x2="108" y2="58" stroke="#E8965A" stroke-width="5" stroke-linecap="round"/>
+  <line x1="148" y1="108" x2="108" y2="58" stroke="#FACA8A" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <!-- Pointer tip -->
+  <circle cx="108" cy="58" r="4.5" fill="#06B6D4"/>
+  <circle cx="108" cy="58" r="2" fill="white" opacity=".7"/>
+  <!-- Hand holding stick -->
+  <ellipse cx="152" cy="112" rx="9" ry="7" fill="#FACA8A"/>
+  <ellipse cx="155" cy="110" rx="4" ry="3" fill="#FFE8CC"/>
+</g>
+
+<!-- Neck -->
+<rect x="88" y="147" width="24" height="18" rx="5" fill="#FACA8A"/>
+<!-- Neck shadow -->
+<rect x="88" y="150" width="24" height="8" rx="3" fill="#E8965A" opacity=".3"/>
+
+<!-- Face -->
+<ellipse cx="100" cy="115" rx="42" ry="44" fill="url(#skinDali)" filter="url(#faceShad)"/>
+
+<!-- Ear left -->
+<ellipse cx="58" cy="115" rx="7" ry="10" fill="#E8965A"/>
+<ellipse cx="59" cy="115" rx="4" ry="6" fill="#D4814A"/>
+
+<!-- Ear right -->
+<ellipse cx="142" cy="115" rx="7" ry="10" fill="#E8965A"/>
+<ellipse cx="141" cy="115" rx="4" ry="6" fill="#D4814A"/>
+
+<!-- Slick-back hair — full coverage, no recession -->
+<path d="M58 100 Q60 68 100 65 Q140 68 142 100 Q138 78 100 74 Q62 78 58 100Z" fill="#2D1E0F"/>
+<!-- Hair volume on top -->
+<ellipse cx="100" cy="74" rx="36" ry="14" fill="#2D1E0F"/>
+<!-- Hair sheen -->
+<path d="M72 70 Q88 66 104 68" stroke="#4A3520" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+<path d="M78 67 Q92 63 106 65" stroke="#5C4433" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+<!-- Hair sides — full, no thinning -->
+<ellipse cx="60" cy="98" rx="8" ry="18" fill="#2D1E0F"/>
+<ellipse cx="140" cy="98" rx="8" ry="18" fill="#2D1E0F"/>
+
+<!-- Eyebrows — expressive, slightly raised (cheerful) -->
+<path d="M72 101 Q82 97 92 100" stroke="#1C1007" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M108 100 Q118 97 128 101" stroke="#1C1007" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+<!-- Eyes — big, expressive Apple Memoji style -->
+<ellipse cx="82" cy="112" rx="10" ry="11" fill="white"/>
+<ellipse cx="118" cy="112" rx="10" ry="11" fill="white"/>
+<!-- Iris -->
+<circle cx="82.5" cy="112.5" r="7.5" fill="url(#eyeDali)"/>
+<circle cx="118.5" cy="112.5" r="7.5" fill="url(#eyeDali)"/>
+<!-- Pupil -->
+<circle cx="83" cy="113" r="4" fill="#0D0600"/>
+<circle cx="119" cy="113" r="4" fill="#0D0600"/>
+<!-- Main highlight -->
+<circle cx="79.5" cy="109.5" r="3" fill="white"/>
+<circle cx="115.5" cy="109.5" r="3" fill="white"/>
+<!-- Small highlight -->
+<circle cx="85" cy="115" r="1.5" fill="white" opacity=".6"/>
+<circle cx="121" cy="115" r="1.5" fill="white" opacity=".6"/>
+
+<!-- Nose -->
+<path d="M96 122 Q100 129 104 122" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<ellipse cx="100" cy="124" rx="7" ry="3" fill="#D4814A" opacity=".2"/>
+
+<!-- Moustache — neat, stylish -->
+<path d="M82 133 Q90 128 100 130 Q110 128 118 133" stroke="#1C1007" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+<path d="M82 133 Q90 130 100 132 Q110 130 118 133" fill="#2D1E0F" stroke="#2D1E0F" stroke-width="1"/>
+
+<!-- Big cheerful smile -->
+<path d="M78 140 Q100 158 122 140" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- Teeth -->
+<path d="M80 140 Q100 155 120 140" fill="white"/>
+<!-- Smile lines (cheek dimples) -->
+<path d="M73 136 Q70 140 72 145" stroke="#C87940" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
+<path d="M127 136 Q130 140 128 145" stroke="#C87940" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
+<!-- Cheek blush (cheerful) -->
+<ellipse cx="68" cy="128" rx="10" ry="6" fill="#FF8C69" opacity=".22"/>
+<ellipse cx="132" cy="128" rx="10" ry="6" fill="#FF8C69" opacity=".22"/>
+
+<!-- Polo shirt collar -->
+<path d="M70 168 L86 158 L100 165 L114 158 L130 168" fill="#4338CA" stroke="#3730A3" stroke-width="1"/>
+<!-- Polo body -->
+<ellipse cx="100" cy="185" rx="42" ry="22" fill="#4338CA"/>
+<!-- Polo collar fold -->
+<path d="M86 158 L100 168 L114 158" fill="#3730A3" opacity=".6"/>
+<!-- Polo button line -->
+<line x1="100" y1="165" x2="100" y2="188" stroke="#3730A3" stroke-width="1.5" opacity=".5"/>
+<!-- Polo buttons -->
+<circle cx="100" cy="170" r="2" fill="#312E81"/>
+<circle cx="100" cy="178" r="2" fill="#312E81"/>
 </svg>`
 
-// Genmoji-style photorealistic illustrated avatars
+// Student avatars — Apple Memoji style, diverse, Mediterranean/North African focused
 const AVATARS = [
   {
-    name:'Amira ✨',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Amira',
+    emoji: '✨',
+    // Girl, space buns, earrings, big eyes, warm skin
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg1" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#9D174D"/></radialGradient>
-<radialGradient id="sk1" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
-<radialGradient id="eye1" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#2D1505"/></radialGradient>
-<filter id="sh1" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA1" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#9D174D"/></radialGradient>
+  <radialGradient id="skA1" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE8CC"/><stop offset="40%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A06A"/></radialGradient>
+  <radialGradient id="eyA1" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#6B3A1F"/><stop offset="100%" stop-color="#2D0E00"/></radialGradient>
+  <filter id="fA1" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg1)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk1)" filter="url(#sh1)"/>
-<!-- hair — space buns -->
-<ellipse cx="80" cy="66" rx="32" ry="18" fill="#1A0E08"/>
-<circle cx="52" cy="58" r="15" fill="#1A0E08"/>
-<circle cx="108" cy="58" r="15" fill="#1A0E08"/>
-<!-- bun circles -->
-<circle cx="52" cy="58" r="10" fill="#EC4899"/>
-<circle cx="108" cy="58" r="10" fill="#EC4899"/>
-<circle cx="52" cy="58" r="6" fill="#BE185D"/>
-<circle cx="108" cy="58" r="6" fill="#BE185D"/>
-<!-- ears -->
-<ellipse cx="46" cy="93" rx="6" ry="8" fill="#E8A86A"/>
-<ellipse cx="114" cy="93" rx="6" ry="8" fill="#E8A86A"/>
-<!-- eyes -->
-<ellipse cx="68" cy="88" rx="7" ry="8" fill="white"/>
-<ellipse cx="92" cy="88" rx="7" ry="8" fill="white"/>
-<circle cx="68.5" cy="88.5" r="5.2" fill="url(#eye1)"/>
-<circle cx="92.5" cy="88.5" r="5.2" fill="url(#eye1)"/>
-<circle cx="66.8" cy="86.8" r="2.2" fill="white"/>
-<circle cx="90.8" cy="86.8" r="2.2" fill="white"/>
-<circle cx="70.5" cy="90.5" r="1" fill="white" opacity=".5"/>
-<circle cx="94.5" cy="90.5" r="1" fill="white" opacity=".5"/>
-<!-- lashes -->
-<path d="M61 82 Q64 79 67 82" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<path d="M85 82 Q88 79 91 82" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<!-- brows -->
-<path d="M61 83.5 Q68 81 75 83.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path d="M85 83.5 Q92 81 99 83.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- blush -->
-<ellipse cx="58" cy="98" rx="8" ry="5" fill="#F9A8D4" opacity=".55"/>
-<ellipse cx="102" cy="98" rx="8" ry="5" fill="#F9A8D4" opacity=".55"/>
-<!-- big smile -->
-<path d="M64 104 Q80 116 96 104" stroke="#B45309" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-<path d="M64 104 Q80 115 96 104" fill="#FDE68A" opacity=".3"/>
-<!-- earrings -->
-<circle cx="46" cy="102" r="3" fill="#FCD34D"/>
-<circle cx="114" cy="102" r="3" fill="#FCD34D"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#BE185D"/>
+<rect width="200" height="200" fill="url(#bgA1)" rx="18"/>
+<!-- Face -->
+<ellipse cx="100" cy="118" rx="46" ry="48" fill="url(#skA1)" filter="url(#fA1)"/>
+<!-- Ears -->
+<ellipse cx="54" cy="118" rx="7" ry="10" fill="#E8A06A"/>
+<ellipse cx="146" cy="118" rx="7" ry="10" fill="#E8A06A"/>
+<!-- Hair base -->
+<ellipse cx="100" cy="90" rx="50" ry="30" fill="#1C0E06"/>
+<!-- Space bun left -->
+<circle cx="62" cy="75" r="20" fill="#1C0E06"/>
+<circle cx="62" cy="75" r="13" fill="#EC4899"/>
+<circle cx="62" cy="75" r="8" fill="#BE185D"/>
+<circle cx="62" cy="75" r="4" fill="#9D174D"/>
+<!-- Space bun right -->
+<circle cx="138" cy="75" r="20" fill="#1C0E06"/>
+<circle cx="138" cy="75" r="13" fill="#EC4899"/>
+<circle cx="138" cy="75" r="8" fill="#BE185D"/>
+<circle cx="138" cy="75" r="4" fill="#9D174D"/>
+<!-- Hair wisp at top -->
+<path d="M72 82 Q100 72 128 82" stroke="#1C0E06" stroke-width="8" fill="none" stroke-linecap="round"/>
+<!-- Gold earrings -->
+<ellipse cx="54" cy="130" rx="5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.5"/>
+<ellipse cx="146" cy="130" rx="5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.5"/>
+<!-- Eyes whites -->
+<ellipse cx="84" cy="114" rx="12" ry="13" fill="white"/>
+<ellipse cx="116" cy="114" rx="12" ry="13" fill="white"/>
+<!-- Iris -->
+<circle cx="84.5" cy="114.5" r="9" fill="url(#eyA1)"/>
+<circle cx="116.5" cy="114.5" r="9" fill="url(#eyA1)"/>
+<!-- Pupil -->
+<circle cx="85" cy="115" r="5" fill="#0A0400"/>
+<circle cx="117" cy="115" r="5" fill="#0A0400"/>
+<!-- Highlights -->
+<circle cx="81" cy="111" r="3.5" fill="white"/>
+<circle cx="113" cy="111" r="3.5" fill="white"/>
+<circle cx="87" cy="117" r="1.8" fill="white" opacity=".55"/>
+<circle cx="119" cy="117" r="1.8" fill="white" opacity=".55"/>
+<!-- Lashes top -->
+<path d="M74 107 Q79 103 84 107" stroke="#1C0E06" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M106 107 Q111 103 116 107" stroke="#1C0E06" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<!-- Eyebrows -->
+<path d="M72 107 Q84 103 96 107" stroke="#1C0E06" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M104 107 Q116 103 128 107" stroke="#1C0E06" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- Nose -->
+<path d="M96 126 Q100 132 104 126" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Blush -->
+<ellipse cx="70" cy="128" rx="12" ry="7" fill="#F9A8D4" opacity=".55"/>
+<ellipse cx="130" cy="128" rx="12" ry="7" fill="#F9A8D4" opacity=".55"/>
+<!-- Big smile -->
+<path d="M76 138 Q100 158 124 138" stroke="#B45309" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M76 138 Q100 156 124 138" fill="white" opacity=".75"/>
+<!-- Body -->
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#BE185D"/>
 </svg>`,
   },
   {
-    name:'Sami 🎧',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Sami',
+    emoji: '🎧',
+    // Guy, fade cut, earring, gold skin, big grin
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg2" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#064E3B"/></radialGradient>
-<radialGradient id="sk2" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE0A0"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#D97706"/></radialGradient>
-<radialGradient id="eye2" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
-<filter id="sh2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA2" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#064E3B"/></radialGradient>
+  <radialGradient id="skA2" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE4A0"/><stop offset="40%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#D4800A"/></radialGradient>
+  <radialGradient id="eyA2" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#6B3A1F"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+  <filter id="fA2" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg2)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk2)" filter="url(#sh2)"/>
-<!-- fade haircut -->
-<path d="M46 75 Q48 52 80 50 Q112 52 114 75 Q108 60 80 58 Q52 60 46 75Z" fill="#1A0E08"/>
-<rect x="46" y="73" width="68" height="10" fill="#1A0E08"/>
-<rect x="46" y="81" width="10" height="14" fill="#2D1F12" rx="3" opacity=".8"/>
-<rect x="104" y="81" width="10" height="14" fill="#2D1F12" rx="3" opacity=".8"/>
-<!-- ears -->
-<ellipse cx="46" cy="93" rx="6" ry="8" fill="#D97706"/>
-<ellipse cx="114" cy="93" rx="6" ry="8" fill="#D97706"/>
-<!-- gold earring -->
-<circle cx="46" cy="100" r="3.5" fill="#FCD34D" stroke="#D97706" stroke-width="1"/>
-<!-- eyes -->
-<ellipse cx="68" cy="88" rx="7" ry="8" fill="white"/>
-<ellipse cx="92" cy="88" rx="7" ry="8" fill="white"/>
-<circle cx="68.5" cy="88.5" r="5.2" fill="url(#eye2)"/>
-<circle cx="92.5" cy="88.5" r="5.2" fill="url(#eye2)"/>
-<circle cx="66.8" cy="86.8" r="2.2" fill="white"/>
-<circle cx="90.8" cy="86.8" r="2.2" fill="white"/>
-<!-- thick brows -->
-<path d="M60 82 Q68 79 76 82" stroke="#1A0E08" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M84 82 Q92 79 100 82" stroke="#1A0E08" stroke-width="3" fill="none" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 95 Q80 100 83 95" stroke="#B45309" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- big smile with teeth -->
-<path d="M63 104 Q80 116 97 104" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M63 104 Q80 115 97 104" fill="white" opacity=".7"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#059669"/>
-<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<rect width="200" height="200" fill="url(#bgA2)" rx="18"/>
+<ellipse cx="100" cy="118" rx="46" ry="48" fill="url(#skA2)" filter="url(#fA2)"/>
+<ellipse cx="54" cy="118" rx="7" ry="10" fill="#D4800A"/>
+<ellipse cx="146" cy="118" rx="7" ry="10" fill="#D4800A"/>
+<!-- Fade haircut -->
+<path d="M54 104 Q56 72 100 68 Q144 72 146 104 Q140 80 100 76 Q60 80 54 104Z" fill="#1C0E06"/>
+<rect x="54" y="100" width="92" height="14" rx="4" fill="#1C0E06"/>
+<rect x="54" y="112" width="14" height="18" rx="4" fill="#2D1E0F" opacity=".75"/>
+<rect x="132" y="112" width="14" height="18" rx="4" fill="#2D1E0F" opacity=".75"/>
+<!-- Gold stud earring -->
+<circle cx="54" cy="126" r="5" fill="#FCD34D" stroke="#D97706" stroke-width="1.5"/>
+<!-- Eyes -->
+<ellipse cx="84" cy="114" rx="12" ry="13" fill="white"/>
+<ellipse cx="116" cy="114" rx="12" ry="13" fill="white"/>
+<circle cx="84.5" cy="114.5" r="9" fill="url(#eyA2)"/>
+<circle cx="116.5" cy="114.5" r="9" fill="url(#eyA2)"/>
+<circle cx="85" cy="115" r="5" fill="#0A0400"/>
+<circle cx="117" cy="115" r="5" fill="#0A0400"/>
+<circle cx="81" cy="111" r="3.5" fill="white"/>
+<circle cx="113" cy="111" r="3.5" fill="white"/>
+<circle cx="87" cy="117" r="1.8" fill="white" opacity=".55"/>
+<circle cx="119" cy="117" r="1.8" fill="white" opacity=".55"/>
+<!-- Thick eyebrows -->
+<path d="M72 106 Q84 101 96 105" stroke="#1C0E06" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+<path d="M104 105 Q116 101 128 106" stroke="#1C0E06" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+<!-- Nose -->
+<ellipse cx="100" cy="128" rx="7" ry="4" fill="#C87940" opacity=".3"/>
+<path d="M94 126 Q100 132 106 126" stroke="#B46220" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Huge grin -->
+<path d="M72 140 Q100 163 128 140" stroke="#78350F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M72 140 Q100 160 128 140" fill="white" opacity=".8"/>
+<!-- Body -->
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#059669"/>
+<path d="M76 172 L100 184 L124 172" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Nour 🌸',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Nour',
+    emoji: '🌸',
+    // Hijabi girl, purple hijab, almond eyes, long lashes
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg3" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#4C1D95"/></radialGradient>
-<radialGradient id="sk3" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
-<radialGradient id="eye3" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
-<filter id="sh3" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA3" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#4C1D95"/></radialGradient>
+  <radialGradient id="skA3" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE8CC"/><stop offset="40%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A06A"/></radialGradient>
+  <radialGradient id="eyA3" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#6B3A1F"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+  <filter id="fA3" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg3)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk3)" filter="url(#sh3)"/>
-<!-- hijab outer -->
-<ellipse cx="80" cy="70" rx="40" ry="30" fill="#6D28D9"/>
-<ellipse cx="80" cy="96" rx="44" ry="28" fill="#6D28D9"/>
-<!-- hijab drape sides -->
-<ellipse cx="42" cy="95" rx="12" ry="24" fill="#5B21B6"/>
-<ellipse cx="118" cy="95" rx="12" ry="24" fill="#5B21B6"/>
-<!-- hijab inner depth -->
-<ellipse cx="80" cy="72" rx="30" ry="20" fill="#5B21B6"/>
-<!-- hijab highlight -->
-<ellipse cx="72" cy="62" rx="15" ry="8" fill="#7C3AED" opacity=".6"/>
-<!-- eyes — almond shape -->
-<path d="M58 87 Q68 81 78 87 Q68 93 58 87Z" fill="white"/>
-<path d="M82 87 Q92 81 102 87 Q92 93 82 87Z" fill="white"/>
-<circle cx="68" cy="87" r="5.5" fill="url(#eye3)"/>
-<circle cx="92" cy="87" r="5.5" fill="url(#eye3)"/>
-<circle cx="66.5" cy="85.5" r="2.2" fill="white"/>
-<circle cx="90.5" cy="85.5" r="2.2" fill="white"/>
-<!-- long lashes -->
-<path d="M58 84.5 L56 81" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M63 82.5 L62 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M68 82 L67 78.5" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M73 82.5 L73 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M82 84.5 L80 81" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M87 82.5 L86 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M92 82 L91 78.5" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M97 82.5 L97 79" stroke="#1A0E08" stroke-width="1.5" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- blush -->
-<ellipse cx="56" cy="96" rx="9" ry="5" fill="#DDD6FE" opacity=".5"/>
-<ellipse cx="104" cy="96" rx="9" ry="5" fill="#DDD6FE" opacity=".5"/>
-<!-- smile -->
-<path d="M64 104 Q80 115 96 104" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M64 104 Q80 114 96 104" fill="white" opacity=".5"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#5B21B6"/>
+<rect width="200" height="200" fill="url(#bgA3)" rx="18"/>
+<ellipse cx="100" cy="118" rx="44" ry="46" fill="url(#skA3)" filter="url(#fA3)"/>
+<!-- Hijab outer shape -->
+<ellipse cx="100" cy="90" rx="55" ry="38" fill="#7C3AED"/>
+<ellipse cx="100" cy="122" rx="60" ry="38" fill="#7C3AED"/>
+<ellipse cx="42" cy="128" rx="16" ry="36" fill="#6D28D9"/>
+<ellipse cx="158" cy="128" rx="16" ry="36" fill="#6D28D9"/>
+<!-- Hijab inner depth/fold -->
+<ellipse cx="100" cy="92" rx="40" ry="26" fill="#6D28D9"/>
+<path d="M60 92 Q100 80 140 92" stroke="#8B5CF6" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
+<!-- Hijab highlight -->
+<ellipse cx="84" cy="80" rx="22" ry="12" fill="#8B5CF6" opacity=".5"/>
+<!-- Eyes — almond shaped -->
+<path d="M68 110 Q84 100 100 110 Q84 120 68 110Z" fill="white"/>
+<path d="M100 110 Q116 100 132 110 Q116 120 100 110Z" fill="white"/>
+<circle cx="84" cy="110" r="9" fill="url(#eyA3)"/>
+<circle cx="116" cy="110" r="9" fill="url(#eyA3)"/>
+<circle cx="84.5" cy="110.5" r="5" fill="#0A0400"/>
+<circle cx="116.5" cy="110.5" r="5" fill="#0A0400"/>
+<circle cx="81" cy="107" r="3.5" fill="white"/>
+<circle cx="113" cy="107" r="3.5" fill="white"/>
+<circle cx="86.5" cy="113" r="1.8" fill="white" opacity=".5"/>
+<circle cx="118.5" cy="113" r="1.8" fill="white" opacity=".5"/>
+<!-- Long dramatic lashes -->
+<line x1="68" y1="107" x2="64" y2="102" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="74" y1="104" x2="72" y2="99" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="80" y1="102" x2="79" y2="97" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="86" y1="102" x2="86" y2="97" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="100" y1="107" x2="96" y2="102" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="106" y1="104" x2="104" y2="99" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="102" x2="111" y2="97" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="118" y1="102" x2="118" y2="97" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="124" y1="104" x2="124" y2="99" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="130" y1="107" x2="132" y2="102" stroke="#1C0E06" stroke-width="1.8" stroke-linecap="round"/>
+<!-- Nose -->
+<path d="M96 120 Q100 126 104 120" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Blush -->
+<ellipse cx="70" cy="122" rx="12" ry="7" fill="#DDD6FE" opacity=".5"/>
+<ellipse cx="130" cy="122" rx="12" ry="7" fill="#DDD6FE" opacity=".5"/>
+<!-- Warm smile -->
+<path d="M76 132 Q100 148 124 132" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M76 132 Q100 146 124 132" fill="white" opacity=".6"/>
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#5B21B6"/>
 </svg>`,
   },
   {
-    name:'Mehdi 🔥',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Mehdi',
+    emoji: '🔥',
+    // Guy, large afro, wide smile, warm brown skin
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg4" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#FCD34D"/><stop offset="100%" stop-color="#78350F"/></radialGradient>
-<radialGradient id="sk4" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE0A0"/><stop offset="60%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#B45309"/></radialGradient>
-<radialGradient id="eye4" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#4A2912"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
-<filter id="sh4" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA4" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#FCD34D"/><stop offset="100%" stop-color="#78350F"/></radialGradient>
+  <radialGradient id="skA4" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE4A0"/><stop offset="40%" stop-color="#FBBF7A"/><stop offset="100%" stop-color="#B45309"/></radialGradient>
+  <radialGradient id="eyA4" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#4A2912"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+  <filter id="fA4" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg4)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk4)" filter="url(#sh4)"/>
-<!-- afro fro -->
-<circle cx="80" cy="66" r="30" fill="#1A0E08"/>
-<circle cx="54" cy="74" r="18" fill="#1A0E08"/>
-<circle cx="106" cy="74" r="18" fill="#1A0E08"/>
-<circle cx="60" cy="58" r="16" fill="#1A0E08"/>
-<circle cx="100" cy="58" r="16" fill="#1A0E08"/>
-<circle cx="80" cy="52" r="18" fill="#1A0E08"/>
-<!-- afro texture highlights -->
-<circle cx="66" cy="55" r="7" fill="#2D1F12" opacity=".6"/>
-<circle cx="94" cy="55" r="7" fill="#2D1F12" opacity=".6"/>
-<circle cx="80" cy="50" r="8" fill="#2D1F12" opacity=".6"/>
-<!-- ears -->
-<ellipse cx="46" cy="93" rx="6" ry="8" fill="#B45309"/>
-<ellipse cx="114" cy="93" rx="6" ry="8" fill="#B45309"/>
-<!-- eyes — wide expressive -->
-<ellipse cx="67" cy="88" rx="8" ry="9" fill="white"/>
-<ellipse cx="93" cy="88" rx="8" ry="9" fill="white"/>
-<circle cx="67.5" cy="88.5" r="5.8" fill="url(#eye4)"/>
-<circle cx="93.5" cy="88.5" r="5.8" fill="url(#eye4)"/>
-<circle cx="65.6" cy="86.6" r="2.4" fill="white"/>
-<circle cx="91.6" cy="86.6" r="2.4" fill="white"/>
-<!-- brows -->
-<path d="M59 81 Q67 78 75 81" stroke="#1A0E08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M85 81 Q93 78 101 81" stroke="#1A0E08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<!-- nose wide -->
-<ellipse cx="80" cy="98" rx="5" ry="3" fill="#C67A3A" opacity=".5"/>
-<path d="M74 96 Q80 101 86 96" stroke="#C67A3A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<!-- huge grin -->
-<path d="M60 106 Q80 122 100 106" stroke="#78350F" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M60 106 Q80 121 100 106" fill="white" opacity=".75"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#D97706"/>
-<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<rect width="200" height="200" fill="url(#bgA4)" rx="18"/>
+<ellipse cx="100" cy="120" rx="46" ry="48" fill="url(#skA4)" filter="url(#fA4)"/>
+<ellipse cx="54" cy="120" rx="7" ry="10" fill="#B45309"/>
+<ellipse cx="146" cy="120" rx="7" ry="10" fill="#B45309"/>
+<!-- Big Afro -->
+<circle cx="100" cy="82" r="42" fill="#1C0E06"/>
+<circle cx="64" cy="96" r="24" fill="#1C0E06"/>
+<circle cx="136" cy="96" r="24" fill="#1C0E06"/>
+<circle cx="72" cy="72" r="22" fill="#1C0E06"/>
+<circle cx="128" cy="72" r="22" fill="#1C0E06"/>
+<!-- Afro texture -->
+<circle cx="80" cy="62" r="10" fill="#2D1E0F" opacity=".6"/>
+<circle cx="100" cy="56" r="12" fill="#2D1E0F" opacity=".6"/>
+<circle cx="120" cy="62" r="10" fill="#2D1E0F" opacity=".6"/>
+<circle cx="64" cy="80" r="8" fill="#2D1E0F" opacity=".5"/>
+<circle cx="136" cy="80" r="8" fill="#2D1E0F" opacity=".5"/>
+<!-- Eyes -->
+<ellipse cx="84" cy="116" rx="12" ry="13" fill="white"/>
+<ellipse cx="116" cy="116" rx="12" ry="13" fill="white"/>
+<circle cx="84.5" cy="116.5" r="9" fill="url(#eyA4)"/>
+<circle cx="116.5" cy="116.5" r="9" fill="url(#eyA4)"/>
+<circle cx="85" cy="117" r="5" fill="#0A0400"/>
+<circle cx="117" cy="117" r="5" fill="#0A0400"/>
+<circle cx="81" cy="113" r="3.5" fill="white"/>
+<circle cx="113" cy="113" r="3.5" fill="white"/>
+<circle cx="87" cy="119" r="1.8" fill="white" opacity=".55"/>
+<circle cx="119" cy="119" r="1.8" fill="white" opacity=".55"/>
+<!-- Brows -->
+<path d="M72 109 Q84 104 96 108" stroke="#1C0E06" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M104 108 Q116 104 128 109" stroke="#1C0E06" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<!-- Wide nose -->
+<ellipse cx="100" cy="130" rx="9" ry="5" fill="#C87940" opacity=".35"/>
+<path d="M92 128 Q100 135 108 128" stroke="#A0622A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<!-- Massive grin -->
+<path d="M70 144 Q100 168 130 144" stroke="#78350F" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M70 144 Q100 166 130 144" fill="white" opacity=".85"/>
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#D97706"/>
+<path d="M76 172 L100 184 L124 172" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Karim 😎',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Karim',
+    emoji: '😎',
+    // Guy, sideways cap, shield sunglasses, smirk
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg5" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
-<radialGradient id="sk5" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
-<filter id="sh5" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA5" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+  <radialGradient id="skA5" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE8CC"/><stop offset="40%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A06A"/></radialGradient>
+  <filter id="fA5" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg5)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk5)" filter="url(#sh5)"/>
-<!-- sideways cap -->
-<ellipse cx="84" cy="67" rx="34" ry="15" fill="#1D4ED8"/>
-<ellipse cx="84" cy="65" rx="34" ry="13" fill="#1E40AF"/>
-<!-- brim tilted -->
-<ellipse cx="114" cy="75" rx="20" ry="7" fill="#1D4ED8" transform="rotate(-18 114 75)"/>
-<!-- cap logo -->
-<circle cx="76" cy="64" r="6" fill="#3B82F6" opacity=".8"/>
-<text x="73" y="67" font-size="7" fill="white" font-weight="bold" font-family="sans-serif">NY</text>
-<!-- hair peeking under cap -->
-<ellipse cx="50" cy="78" rx="10" ry="7" fill="#1A0E08"/>
-<!-- ears -->
-<ellipse cx="46" cy="93" rx="6" ry="8" fill="#E8A86A"/>
-<ellipse cx="114" cy="93" rx="6" ry="8" fill="#E8A86A"/>
-<!-- sunglasses — shield style -->
-<rect x="55" y="82" width="50" height="16" rx="8" fill="#111827" opacity=".92"/>
-<rect x="55" y="82" width="50" height="16" rx="8" fill="none" stroke="#374151" stroke-width="1.5"/>
-<!-- lens shine -->
-<path d="M60 86 Q65 84 70 86" stroke="white" stroke-width="1.2" fill="none" opacity=".4" stroke-linecap="round"/>
-<path d="M90 86 Q95 84 100 86" stroke="white" stroke-width="1.2" fill="none" opacity=".4" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 101 Q80 106 83 101" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- smirk -->
-<path d="M67 108 Q80 116 93 108" stroke="#92400E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M67 108 Q80 115 93 108" fill="white" opacity=".5"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#1D4ED8"/>
-<path d="M66 132 L80 142 L94 132" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<rect width="200" height="200" fill="url(#bgA5)" rx="18"/>
+<ellipse cx="100" cy="118" rx="46" ry="48" fill="url(#skA5)" filter="url(#fA5)"/>
+<ellipse cx="54" cy="118" rx="7" ry="10" fill="#E8A06A"/>
+<ellipse cx="146" cy="118" rx="7" ry="10" fill="#E8A06A"/>
+<!-- Sideways snapback cap -->
+<ellipse cx="108" cy="88" rx="52" ry="20" fill="#1D4ED8"/>
+<ellipse cx="108" cy="85" rx="52" ry="18" fill="#1E40AF"/>
+<!-- Brim tilted right -->
+<ellipse cx="148" cy="98" rx="28" ry="10" fill="#1D4ED8" transform="rotate(-20 148 98)"/>
+<!-- Cap logo -->
+<circle cx="98" cy="83" r="9" fill="#3B82F6" opacity=".85"/>
+<text x="93.5" y="87" font-size="9" fill="white" font-weight="bold" font-family="Arial">NY</text>
+<!-- Hair under cap -->
+<ellipse cx="60" cy="100" rx="14" ry="10" fill="#1C0E06"/>
+<!-- Shield sunglasses -->
+<rect x="62" y="106" width="76" height="24" rx="12" fill="#111827" opacity=".94"/>
+<rect x="62" y="106" width="76" height="24" rx="12" fill="none" stroke="#374151" stroke-width="2"/>
+<!-- Lens shine -->
+<path d="M70 113 Q80 110 90 113" stroke="white" stroke-width="1.5" fill="none" opacity=".35" stroke-linecap="round"/>
+<path d="M110 113 Q120 110 130 113" stroke="white" stroke-width="1.5" fill="none" opacity=".35" stroke-linecap="round"/>
+<!-- Nose -->
+<path d="M96 132 Q100 138 104 132" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Smirk -->
+<path d="M76 145 Q96 158 118 148" stroke="#92400E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M76 145 Q96 157 118 148" fill="white" opacity=".55"/>
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#1D4ED8"/>
+<path d="M76 172 L100 184 L124 172" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
 </svg>`,
   },
   {
-    name:'Rania 🎵',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Rania',
+    emoji: '🎵',
+    // Girl, long auburn hair, headphones, bright smile
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg6" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#831843"/></radialGradient>
-<radialGradient id="sk6" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
-<radialGradient id="eye6" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
-<filter id="sh6" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA6" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#831843"/></radialGradient>
+  <radialGradient id="skA6" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE8CC"/><stop offset="40%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A06A"/></radialGradient>
+  <radialGradient id="eyA6" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#6B3A1F"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+  <filter id="fA6" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg6)"/>
-<ellipse cx="80" cy="90" rx="34" ry="36" fill="url(#sk6)" filter="url(#sh6)"/>
-<!-- long hair back layer -->
-<rect x="44" y="72" width="14" height="55" rx="7" fill="#7C2D12"/>
-<rect x="102" y="72" width="14" height="55" rx="7" fill="#7C2D12"/>
-<!-- hair top -->
-<ellipse cx="80" cy="63" rx="32" ry="17" fill="#7C2D12"/>
-<!-- headphones arc -->
-<path d="M46 82 Q46 56 80 54 Q114 56 114 82" stroke="#1C1412" stroke-width="4.5" fill="none"/>
-<!-- headphone cups -->
-<rect x="38" y="78" width="16" height="22" rx="7" fill="#1C1412"/>
-<rect x="106" y="78" width="16" height="22" rx="7" fill="#1C1412"/>
-<ellipse cx="46" cy="89" rx="7" ry="9" fill="#374151"/>
-<ellipse cx="114" cy="89" rx="7" ry="9" fill="#374151"/>
-<!-- cup shine -->
-<ellipse cx="44" cy="85" rx="3" ry="2" fill="white" opacity=".2"/>
-<ellipse cx="112" cy="85" rx="3" ry="2" fill="white" opacity=".2"/>
-<!-- eyes -->
-<ellipse cx="68" cy="86" rx="7" ry="8" fill="white"/>
-<ellipse cx="92" cy="86" rx="7" ry="8" fill="white"/>
-<circle cx="68.5" cy="86.5" r="5.2" fill="url(#eye6)"/>
-<circle cx="92.5" cy="86.5" r="5.2" fill="url(#eye6)"/>
-<circle cx="66.8" cy="84.8" r="2.2" fill="white"/>
-<circle cx="90.8" cy="84.8" r="2.2" fill="white"/>
-<!-- lashes -->
-<path d="M61 80.5 Q64 77.5 67 80.5" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<path d="M85 80.5 Q88 77.5 91 80.5" stroke="#1A0E08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<!-- brows -->
-<path d="M61 81.5 Q68 79 75 81.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path d="M85 81.5 Q92 79 99 81.5" stroke="#1A0E08" stroke-width="2" fill="none" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 93 Q80 98 83 93" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- blush -->
-<ellipse cx="56" cy="96" rx="8" ry="5" fill="#F9A8D4" opacity=".6"/>
-<ellipse cx="104" cy="96" rx="8" ry="5" fill="#F9A8D4" opacity=".6"/>
-<!-- smile -->
-<path d="M64 102 Q80 114 96 102" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M64 102 Q80 113 96 102" fill="white" opacity=".5"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#DB2777"/>
+<rect width="200" height="200" fill="url(#bgA6)" rx="18"/>
+<!-- Long hair back -->
+<rect x="52" y="88" width="18" height="70" rx="9" fill="#7C2D12"/>
+<rect x="130" y="88" width="18" height="70" rx="9" fill="#7C2D12"/>
+<ellipse cx="100" cy="118" rx="46" ry="48" fill="url(#skA6)" filter="url(#fA6)"/>
+<!-- Hair top -->
+<ellipse cx="100" cy="82" rx="48" ry="22" fill="#7C2D12"/>
+<!-- Headphone arc -->
+<path d="M52 106 Q52 66 100 62 Q148 66 148 106" stroke="#1C1412" stroke-width="7" fill="none"/>
+<!-- Headphone cups -->
+<rect x="40" y="100" width="24" height="36" rx="10" fill="#1C1412"/>
+<rect x="136" y="100" width="24" height="36" rx="10" fill="#1C1412"/>
+<ellipse cx="52" cy="118" rx="10" ry="14" fill="#374151"/>
+<ellipse cx="148" cy="118" rx="10" ry="14" fill="#374151"/>
+<ellipse cx="50" cy="112" rx="4" ry="3" fill="white" opacity=".18"/>
+<ellipse cx="146" cy="112" rx="4" ry="3" fill="white" opacity=".18"/>
+<!-- Eyes -->
+<ellipse cx="84" cy="114" rx="12" ry="13" fill="white"/>
+<ellipse cx="116" cy="114" rx="12" ry="13" fill="white"/>
+<circle cx="84.5" cy="114.5" r="9" fill="url(#eyA6)"/>
+<circle cx="116.5" cy="114.5" r="9" fill="url(#eyA6)"/>
+<circle cx="85" cy="115" r="5" fill="#0A0400"/>
+<circle cx="117" cy="115" r="5" fill="#0A0400"/>
+<circle cx="81" cy="111" r="3.5" fill="white"/>
+<circle cx="113" cy="111" r="3.5" fill="white"/>
+<circle cx="87" cy="117" r="1.8" fill="white" opacity=".55"/>
+<circle cx="119" cy="117" r="1.8" fill="white" opacity=".55"/>
+<!-- Lashes -->
+<path d="M74 107 Q79 103 84 107" stroke="#1C0E06" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M106 107 Q111 103 116 107" stroke="#1C0E06" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<!-- Brows -->
+<path d="M72 106 Q84 102 96 106" stroke="#1C0E06" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M104 106 Q116 102 128 106" stroke="#1C0E06" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- Nose -->
+<path d="M96 124 Q100 130 104 124" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Blush -->
+<ellipse cx="70" cy="126" rx="12" ry="7" fill="#F9A8D4" opacity=".55"/>
+<ellipse cx="130" cy="126" rx="12" ry="7" fill="#F9A8D4" opacity=".55"/>
+<!-- Smile -->
+<path d="M76 136 Q100 154 124 136" stroke="#B45309" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M76 136 Q100 152 124 136" fill="white" opacity=".7"/>
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#DB2777"/>
 </svg>`,
   },
   {
-    name:'Sara 🧕',
-    svg:`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    name: 'Sara',
+    emoji: '🧕',
+    // Hijabi girl, teal hijab, almond eyes, warm smile
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 <defs>
-<radialGradient id="bg7" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#2DD4BF"/><stop offset="100%" stop-color="#0F4C45"/></radialGradient>
-<radialGradient id="sk7" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#FFE4C8"/><stop offset="60%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A86A"/></radialGradient>
-<radialGradient id="eye7" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#5C3317"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
-<filter id="sh7" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.2"/></filter>
+  <radialGradient id="bgA7" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="#2DD4BF"/><stop offset="100%" stop-color="#0F4C45"/></radialGradient>
+  <radialGradient id="skA7" cx="42%" cy="32%" r="62%"><stop offset="0%" stop-color="#FFE8CC"/><stop offset="40%" stop-color="#FDDCB5"/><stop offset="100%" stop-color="#E8A06A"/></radialGradient>
+  <radialGradient id="eyA7" cx="30%" cy="25%" r="75%"><stop offset="0%" stop-color="#6B3A1F"/><stop offset="100%" stop-color="#1A0800"/></radialGradient>
+  <filter id="fA7" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/></filter>
 </defs>
-<rect width="160" height="160" fill="url(#bg7)"/>
-<ellipse cx="80" cy="92" rx="34" ry="36" fill="url(#sk7)" filter="url(#sh7)"/>
-<!-- hijab — teal/emerald -->
-<ellipse cx="80" cy="68" rx="42" ry="32" fill="#0D9488"/>
-<ellipse cx="80" cy="96" rx="46" ry="30" fill="#0D9488"/>
-<ellipse cx="38" cy="100" rx="14" ry="28" fill="#0F766E"/>
-<ellipse cx="122" cy="100" rx="14" ry="28" fill="#0F766E"/>
-<ellipse cx="80" cy="70" rx="30" ry="22" fill="#0F766E"/>
-<!-- hijab highlight fold -->
-<path d="M52 68 Q80 58 108 68" stroke="#14B8A6" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
-<ellipse cx="68" cy="62" rx="18" ry="10" fill="#14B8A6" opacity=".35"/>
-<!-- eyes — almond -->
-<path d="M56 87 Q68 80 80 87 Q68 94 56 87Z" fill="white"/>
-<path d="M80 87 Q92 80 104 87 Q92 94 80 87Z" fill="white"/>
-<circle cx="68" cy="87" r="5.8" fill="url(#eye7)"/>
-<circle cx="92" cy="87" r="5.8" fill="url(#eye7)"/>
-<circle cx="66.3" cy="85.3" r="2.4" fill="white"/>
-<circle cx="90.3" cy="85.3" r="2.4" fill="white"/>
-<!-- long dramatic lashes -->
-<path d="M56 84.5 L53 81" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M62 82.5 L60 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M68 82 L67 78" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M74 82.5 L74 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M80 84.5 L78 81" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M86 82.5 L85 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M92 82 L91 78" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M98 82.5 L98 78.5" stroke="#1A0E08" stroke-width="1.6" stroke-linecap="round"/>
-<!-- nose -->
-<path d="M77 95 Q80 100 83 95" stroke="#C67A3A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<!-- blush subtle -->
-<ellipse cx="56" cy="96" rx="9" ry="5" fill="#99F6E4" opacity=".4"/>
-<ellipse cx="104" cy="96" rx="9" ry="5" fill="#99F6E4" opacity=".4"/>
-<!-- warm smile -->
-<path d="M64 103 Q80 115 96 103" stroke="#B45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M64 103 Q80 114 96 103" fill="white" opacity=".5"/>
-<!-- body -->
-<ellipse cx="80" cy="148" rx="30" ry="16" fill="#0D9488"/>
+<rect width="200" height="200" fill="url(#bgA7)" rx="18"/>
+<ellipse cx="100" cy="118" rx="44" ry="46" fill="url(#skA7)" filter="url(#fA7)"/>
+<!-- Teal hijab -->
+<ellipse cx="100" cy="90" rx="58" ry="42" fill="#0D9488"/>
+<ellipse cx="100" cy="126" rx="64" ry="42" fill="#0D9488"/>
+<ellipse cx="38" cy="132" rx="18" ry="40" fill="#0F766E"/>
+<ellipse cx="162" cy="132" rx="18" ry="40" fill="#0F766E"/>
+<ellipse cx="100" cy="92" rx="42" ry="28" fill="#0F766E"/>
+<!-- Hijab highlight fold -->
+<path d="M58 90 Q100 76 142 90" stroke="#14B8A6" stroke-width="3.5" fill="none" opacity=".65" stroke-linecap="round"/>
+<ellipse cx="82" cy="80" rx="26" ry="14" fill="#14B8A6" opacity=".38"/>
+<!-- Eyes — almond -->
+<path d="M64 110 Q84 98 104 110 Q84 122 64 110Z" fill="white"/>
+<path d="M96 110 Q116 98 136 110 Q116 122 96 110Z" fill="white"/>
+<circle cx="84" cy="110" r="9.5" fill="url(#eyA7)"/>
+<circle cx="116" cy="110" r="9.5" fill="url(#eyA7)"/>
+<circle cx="84.5" cy="110.5" r="5.2" fill="#0A0400"/>
+<circle cx="116.5" cy="110.5" r="5.2" fill="#0A0400"/>
+<circle cx="81" cy="107" r="3.8" fill="white"/>
+<circle cx="113" cy="107" r="3.8" fill="white"/>
+<circle cx="87" cy="113" r="2" fill="white" opacity=".5"/>
+<circle cx="119" cy="113" r="2" fill="white" opacity=".5"/>
+<!-- Long dramatic lashes -->
+<line x1="64" y1="107" x2="60" y2="101" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="72" y1="103" x2="70" y2="97" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="80" y1="101" x2="79" y2="95" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="88" y1="101" x2="88" y2="95" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="96" y1="107" x2="92" y2="101" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="104" y1="103" x2="103" y2="97" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="112" y1="101" x2="111" y2="95" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="120" y1="101" x2="120" y2="95" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="128" y1="103" x2="128" y2="97" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<line x1="136" y1="107" x2="138" y2="101" stroke="#1C0E06" stroke-width="2" stroke-linecap="round"/>
+<!-- Nose -->
+<path d="M96 120 Q100 126 104 120" stroke="#C87940" stroke-width="2" fill="none" stroke-linecap="round"/>
+<!-- Blush teal tinted -->
+<ellipse cx="68" cy="122" rx="12" ry="7" fill="#99F6E4" opacity=".42"/>
+<ellipse cx="132" cy="122" rx="12" ry="7" fill="#99F6E4" opacity=".42"/>
+<!-- Warm smile -->
+<path d="M76 132 Q100 150 124 132" stroke="#B45309" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M76 132 Q100 148 124 132" fill="white" opacity=".65"/>
+<ellipse cx="100" cy="188" rx="50" ry="18" fill="#0D9488"/>
 </svg>`,
   },
 ]
 
-const CLASS_TOPICS = [
-  { topic:'AI & The Future of Work', icon:'🤖', participants:8, level:'B2–C1' },
-  { topic:'The US Elections 2024', icon:'🗳️', participants:12, level:'B1–C1' },
-  { topic:'Climate Change Debate', icon:'🌱', participants:6, level:'B2–C1' },
-  { topic:'Social Media & Society', icon:'📱', participants:10, level:'B1–B2' },
+// ── PARTICIPANT ANIMATION STATES ──────────────────────────────────────────────
+// Each participant gets a random idle animation: bob, think, nod, lean
+const ANIM_CLASSES = [
+  'anim-bob',
+  'anim-think',
+  'anim-nod',
+  'anim-lean',
+  'anim-bob',
+  'anim-nod',
+  'anim-think',
 ]
 
 function useCountdown(target: Date) {
@@ -596,9 +677,7 @@ function useCountdown(target: Date) {
       if (diff <= 0) return
       setTime({d:Math.floor(diff/86400000),h:Math.floor((diff%86400000)/3600000),m:Math.floor((diff%3600000)/60000),s:Math.floor((diff%60000)/1000)})
     }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
+    tick(); const id = setInterval(tick, 1000); return () => clearInterval(id)
   }, [target])
   return time
 }
@@ -614,7 +693,6 @@ export default function Home() {
   const [deleting, setDeleting] = useState(false)
   const [displayed, setDisplayed] = useState('')
   const words = ['native speaker','confidently','fluently','fearlessly']
-
   useEffect(() => {
     const word = words[wordIndex]
     const timeout = setTimeout(() => {
@@ -629,7 +707,7 @@ export default function Home() {
     return () => clearTimeout(timeout)
   }, [charIndex, deleting, wordIndex])
 
-  // Topic progress cycling
+  // Topic cycling
   const [activeTopicIndex, setActiveTopicIndex] = useState(0)
   const [topicProgress, setTopicProgress] = useState(0)
   useEffect(() => {
@@ -642,19 +720,19 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  // Participant + chat animation
+  // Participant animation
   const [visibleP, setVisibleP] = useState<number[]>([])
   const [speakingP, setSpeakingP] = useState(0)
   const [chatMsgs, setChatMsgs] = useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets = [
     {text:'Will AI replace all jobs eventually?', from:'Mehdi', isDali:false},
-    {text:'Great question! Say "displace" not "replace" 💡', from:'Dali', isDali:true},
+    {text:'Say "displace" not "replace" — much stronger! 💡', from:'Dali', isDali:true},
     {text:'AI might displace some roles...', from:'Nour', isDali:false},
-    {text:'Perfect — Band 7+ vocab right there 🔥', from:'Dali', isDali:true},
+    {text:'Perfect — that\'s Band 7+ vocabulary 🔥', from:'Dali', isDali:true},
     {text:'This class is incredible 🙌', from:'Sami', isDali:false},
   ]
   useEffect(() => {
-    for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*300)
+    for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*280)
     const si = setInterval(()=>setSpeakingP(i=>(i+1)%8), 2200)
     chatSnippets.forEach((msg,i) => setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]), 2000+i*2800))
     return () => clearInterval(si)
@@ -672,8 +750,7 @@ export default function Home() {
   const nextLive = useRef((() => {
     const d = new Date()
     const days = (5-d.getDay()+7)%7||7
-    d.setDate(d.getDate()+days); d.setHours(20,0,0,0)
-    return d
+    d.setDate(d.getDate()+days); d.setHours(20,0,0,0); return d
   })()).current
   const countdown = useCountdown(nextLive)
 
@@ -699,14 +776,17 @@ export default function Home() {
   const activeTopic = CLASS_TOPICS[activeTopicIndex]
   const allAvatars = [
     {svg:DALI_SVG, name:'Dali 👨‍🏫', isDali:true},
-    ...AVATARS.map(a=>({svg:a.svg, name:a.name, isDali:false}))
+    ...AVATARS.map(a=>({svg:a.svg, name:`${a.name} ${a.emoji}`, isDali:false}))
   ]
 
   return (
     <main className="min-h-screen bg-[#F8F9FF] font-sans" dir={isAr?'rtl':'ltr'}>
       <style>{`
+        /* ── Reveal ── */
         .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
         .reveal.visible{opacity:1;transform:translateY(0);}
+
+        /* ── Blobs ── */
         .blob{position:absolute;border-radius:50%;filter:blur(65px);}
         .b1{animation:b1 10s ease-in-out infinite;}
         .b2{animation:b2 13s ease-in-out infinite;}
@@ -714,39 +794,83 @@ export default function Home() {
         @keyframes b1{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,20px) scale(1.1);}66%{transform:translate(-10px,30px) scale(.95);}}
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-25px,-20px) scale(1.05);}66%{transform:translate(15px,-10px) scale(1.1);}}
         @keyframes b3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-15px) scale(1.15);}}
+
+        /* ── Float words ── */
         .float-word{animation:fw linear infinite;}
         @keyframes fw{0%,100%{transform:translateY(0) rotate(var(--r));}50%{transform:translateY(-10px) rotate(var(--r));}}
+
+        /* ── Dali whiteboard animation ── */
+        .dali-wrap svg #dali-arm{
+          animation:pointArm 3s ease-in-out infinite;
+          transform-origin: 148px 108px;
+        }
+        @keyframes pointArm{
+          0%,100%{transform:rotate(0deg);}
+          25%{transform:rotate(-12deg) translateY(-4px);}
+          50%{transform:rotate(8deg) translateY(2px);}
+          75%{transform:rotate(-6deg) translateY(-2px);}
+        }
+        .dali-wrap{animation:daliFloat 4s ease-in-out infinite;}
+        @keyframes daliFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+
+        /* ── Speaking ring ── */
         .speaking-ring{animation:sp 1.2s ease-in-out infinite;}
-        @keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5);}50%{box-shadow:0 0 0 6px rgba(99,102,241,0);}}
-        .dali-speaking{animation:dalisp 0.8s ease-in-out infinite;}
-        @keyframes dalisp{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
-        .progress-fill{transition:width .1s linear;}
-        .topic-card{transition:all .25s ease;}
-        .topic-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.06);}
-        .pkg-card{transition:all .3s ease;}
-        .pkg-card:hover{transform:translateY(-4px);}
-        .av-cell{opacity:0;transform:scale(0);transition:opacity .3s ease,transform .35s cubic-bezier(.34,1.56,.64,1);}
+        @keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5);}50%{box-shadow:0 0 0 7px rgba(99,102,241,0);}}
+
+        /* ── Participant idle animations ── */
+        .anim-bob{animation:avBob 3.5s ease-in-out infinite;}
+        @keyframes avBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+        .anim-think{animation:avThink 4s ease-in-out infinite;}
+        @keyframes avThink{0%,100%{transform:rotate(0deg) translateY(0);}30%{transform:rotate(-6deg) translateY(-3px);}70%{transform:rotate(4deg) translateY(-1px);}}
+
+        .anim-nod{animation:avNod 2.8s ease-in-out infinite;}
+        @keyframes avNod{0%,100%{transform:translateY(0) scaleY(1);}40%{transform:translateY(-6px) scaleY(1.02);}80%{transform:translateY(-2px) scaleY(.99);}}
+
+        .anim-lean{animation:avLean 5s ease-in-out infinite;}
+        @keyframes avLean{0%,100%{transform:rotate(0deg);}35%{transform:rotate(5deg);}70%{transform:rotate(-3deg);}}
+
+        /* ── Avatar pop-in ── */
+        .av-cell{opacity:0;transform:scale(0);transition:opacity .3s ease,transform .4s cubic-bezier(.34,1.56,.64,1);}
         .av-cell.show{opacity:1;transform:scale(1);}
+
+        /* ── Chat message ── */
         .chat-in{animation:cin .35s ease forwards;}
         @keyframes cin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+        /* ── Progress bar ── */
+        .progress-fill{transition:width .1s linear;}
+
+        /* ── Topic card ── */
+        .topic-card{transition:all .25s ease;}
+        .topic-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.06);}
+
+        /* ── Package card ── */
+        .pkg-card{transition:all .3s ease;}
+        .pkg-card:hover{transform:translateY(-4px);}
       `}</style>
 
-      {/* NAV */}
+      {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-indigo-50">
         <div className="max-w-6xl mx-auto px-5 py-3.5 flex justify-between items-center">
+          {/* Logo */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            <span className="text-base tracking-tight whitespace-nowrap">
-              <span className="font-bold text-indigo-600">english</span>
-              <span className="font-light text-gray-400">with</span>
-              <span className="font-extrabold text-indigo-600 uppercase tracking-wide">DALI</span>
+            <span className="tracking-tight whitespace-nowrap leading-none">
+              <span className="text-lg font-black text-indigo-600">English</span>
+              <span className="text-base font-light text-gray-400"> with </span>
+              <span className="text-lg font-bold text-indigo-500">Dali</span>
             </span>
             <span className="text-xl leading-none">🇹🇳</span>
           </div>
+
+          {/* Desktop links */}
           <div className="hidden md:flex gap-0.5 items-center">
             {['topics','classes','live','community'].map(item => (
               <a key={item} href={`#${item}`} className="px-3 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all font-medium capitalize">{item}</a>
             ))}
           </div>
+
+          {/* Right */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <div className="flex gap-0.5 bg-gray-100 p-0.5 rounded-lg">
               {(['en','fr','ar'] as const).map(l => (
@@ -765,10 +889,12 @@ export default function Home() {
               {t.joinBtn}
             </a>
           </div>
+
           <button className="md:hidden border border-indigo-200 text-indigo-600 px-3 py-1.5 rounded-lg text-sm font-medium" onClick={()=>setMenuOpen(!menuOpen)}>
             {menuOpen?'✕':'☰'}
           </button>
         </div>
+
         {menuOpen && (
           <div className="md:hidden bg-white border-t border-indigo-50 px-5 py-4 flex flex-col gap-2">
             <div className="flex gap-1 mb-2">
@@ -788,20 +914,20 @@ export default function Home() {
         )}
       </nav>
 
-      {/* HERO */}
+      {/* ── HERO ────────────────────────────────────────────── */}
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
         <div className="absolute inset-0" style={{background:'radial-gradient(ellipse at 25% 50%,rgba(99,102,241,.09) 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,rgba(6,182,212,.07) 0%,transparent 50%)'}}/>
         <div className="blob b1 w-72 h-72 bg-indigo-200/20 absolute -top-20 -left-20"/>
         <div className="blob b2 w-56 h-56 bg-cyan-200/15 absolute -bottom-10 -right-10"/>
         <div className="blob b3 w-44 h-44 bg-purple-200/15 absolute top-1/2 left-1/3"/>
 
-        {/* Floating words — fixed positioning so they don't clip */}
+        {/* Floating words — safely inside right half */}
         {[
           {text:'current events 🌍', top:'8%',  left:'58%', color:'#6366F1', bg:'#EEF2FF', r:'-3deg', dur:'4s'},
-          {text:'trending 🔥',       top:'14%', left:'72%', color:'#DC2626', bg:'#FEF2F2', r:'2deg',  dur:'5s',   delay:'.5s'},
-          {text:'live class 🎙️',    top:'70%', left:'56%', color:'#065F46', bg:'#DCFCE7', r:'-2deg', dur:'4.5s', delay:'1s'},
-          {text:'speak freely 💬',   top:'80%', left:'72%', color:'#6D28D9', bg:'#EDE9FE', r:'3deg',  dur:'5.5s', delay:'.3s'},
-          {text:'real english 🎯',   top:'50%', left:'55%', color:'#B45309', bg:'#FEF3C7', r:'-1deg', dur:'6s',   delay:'.8s'},
+          {text:'trending 🔥',       top:'14%', left:'74%', color:'#DC2626', bg:'#FEF2F2', r:'2deg',  dur:'5s',   delay:'.5s'},
+          {text:'live class 🎙️',    top:'70%', left:'57%', color:'#065F46', bg:'#DCFCE7', r:'-2deg', dur:'4.5s', delay:'1s'},
+          {text:'speak freely 💬',   top:'78%', left:'74%', color:'#6D28D9', bg:'#EDE9FE', r:'3deg',  dur:'5.5s', delay:'.3s'},
+          {text:'real english 🎯',   top:'48%', left:'56%', color:'#B45309', bg:'#FEF3C7', r:'-1deg', dur:'6s',   delay:'.8s'},
         ].map((w,i) => (
           <div key={i} className="float-word absolute text-xs font-semibold px-3 py-1.5 rounded-full pointer-events-none whitespace-nowrap z-10 hidden lg:block"
             style={{top:w.top, left:w.left, color:w.color, background:w.bg, '--r':w.r, animationDuration:w.dur, animationDelay:(w as any).delay||'0s'} as React.CSSProperties}>
@@ -831,9 +957,9 @@ export default function Home() {
                 className="inline-flex items-center gap-2 bg-white text-sm font-bold px-5 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-sm whitespace-nowrap"
                 style={{border:'1.5px solid transparent',background:'linear-gradient(white,white) padding-box, linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045) border-box'}}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <defs><linearGradient id="igG" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#F59E0B"/><stop offset="50%" stopColor="#EF4444"/><stop offset="100%" stopColor="#8B5CF6"/></linearGradient></defs>
-                  <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#igG)" strokeWidth="2"/>
-                  <circle cx="12" cy="12" r="4" stroke="url(#igG)" strokeWidth="2"/>
+                  <defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#F59E0B"/><stop offset="50%" stopColor="#EF4444"/><stop offset="100%" stopColor="#8B5CF6"/></linearGradient></defs>
+                  <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#igGrad)" strokeWidth="2"/>
+                  <circle cx="12" cy="12" r="4" stroke="url(#igGrad)" strokeWidth="2"/>
                   <circle cx="17.5" cy="6.5" r="1.2" fill="#EF4444"/>
                 </svg>
                 <span style={{background:'linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>
@@ -855,9 +981,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right */}
+          {/* Right — Class Visual */}
           <div className="flex flex-col gap-3">
-            {/* Progress bar */}
+            {/* Progress bar cycling topics */}
             <div className="bg-white border border-indigo-50 rounded-2xl p-4 shadow-sm">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs font-bold text-indigo-950 flex items-center gap-2">
@@ -881,7 +1007,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Online class card */}
+            {/* Live class card */}
             <div className="bg-white border border-indigo-50 rounded-2xl p-4 shadow-lg shadow-indigo-100/50">
               <div className="flex items-center justify-between pb-3 border-b border-indigo-50 mb-3">
                 <div className="flex items-center gap-2">
@@ -895,7 +1021,7 @@ export default function Home() {
               <div className="grid grid-cols-4 gap-1.5 mb-3">
                 {allAvatars.map((av,i) => (
                   <div key={i}
-                    className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-xl overflow-hidden relative ${av.isDali && speakingP===0?'dali-speaking':''}`}
+                    className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-xl overflow-hidden relative ${av.isDali ? 'dali-wrap' : ANIM_CLASSES[i-1] || 'anim-bob'}`}
                     style={{transitionDelay:`${i*0.08}s`}}>
                     <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
                     {speakingP === i && (
@@ -908,7 +1034,7 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Chat */}
+              {/* Live chat */}
               <div className="bg-gray-50 rounded-xl p-2.5 min-h-[72px] flex flex-col gap-1.5">
                 <div className="text-xs font-bold text-gray-400 mb-0.5">live chat</div>
                 {chatMsgs.map(msg => (
@@ -934,7 +1060,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TOPICS */}
+      {/* ── TOPICS ──────────────────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-16">
         <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">{t.topicsTag}</div>
         <h2 className="text-2xl font-bold text-indigo-950 mb-1">{t.topicsH}</h2>
@@ -952,7 +1078,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* ── HOW IT WORKS ────────────────────────────────────── */}
       <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8">
         <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">{t.howTag}</div>
         <h2 className="text-2xl font-bold text-indigo-950 mb-1">{t.howH}</h2>
@@ -969,11 +1095,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PACKAGES */}
+      {/* ── PACKAGES ────────────────────────────────────────── */}
       <section id="classes" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-16">
         <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">{t.classesTag}</div>
         <h2 className="text-2xl font-bold text-indigo-950 mb-1">{t.classesH}</h2>
         <p className="text-gray-400 text-sm mb-8">{t.classesSub}</p>
+
+        {/* Coming soon banner */}
         <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 border border-indigo-100 rounded-3xl p-8 text-center mb-10">
           <div className="flex justify-center gap-3 mb-5 flex-wrap">
             {['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i) => (
@@ -989,6 +1117,8 @@ export default function Home() {
             {t.notifyBtn} →
           </a>
         </div>
+
+        {/* Package cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {t.packages.map((pkg) => {
             const c = COLOR_MAP[pkg.accent]
@@ -1022,6 +1152,8 @@ export default function Home() {
             )
           })}
         </div>
+
+        {/* Price toggle */}
         <div className="flex items-center justify-center gap-3 mt-8">
           <span className="text-sm text-gray-400">{t.monthly}</span>
           <button onClick={()=>setActivePrice(p=>p==='m'?'y':'m')}
@@ -1035,7 +1167,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* LIVE */}
+      {/* ── LIVE ────────────────────────────────────────────── */}
       <section id="live" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-8">
         <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">{t.liveTag}</div>
         <h2 className="text-2xl font-bold text-indigo-950 mb-1">{t.liveH}</h2>
@@ -1069,36 +1201,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COMMUNITY */}
+      {/* ── COMMUNITY ───────────────────────────────────────── */}
       <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-16">
         <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">{t.communityTag}</div>
         <h2 className="text-2xl font-bold text-indigo-950 mb-1">{t.communityH}</h2>
         <p className="text-gray-400 text-sm mb-6">{t.communitySub}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <a href="https://www.instagram.com/ielts.tn" target="_blank"
-            className="flex items-center gap-4 bg-white border border-indigo-50 rounded-2xl p-5 hover:border-pink-200 hover:shadow-md transition-all group">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{background:'linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045)'}}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
-            </div>
-            <div className="flex-1"><div className="text-sm font-bold text-indigo-950">instagram</div><div className="text-xs text-gray-400 mt-0.5">DM @ielts.tn</div></div>
-            <span className="text-gray-300 group-hover:translate-x-1 transition-transform">↗</span>
-          </a>
-          <a href="https://wa.me/216XXXXXXXX" target="_blank"
-            className="flex items-center gap-4 bg-white border border-indigo-50 rounded-2xl p-5 hover:border-green-200 hover:shadow-md transition-all group">
-            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0">💬</div>
-            <div className="flex-1"><div className="text-sm font-bold text-indigo-950">whatsapp</div><div className="text-xs text-gray-400 mt-0.5">message directly</div></div>
-            <span className="text-gray-300 group-hover:translate-x-1 transition-transform">↗</span>
-          </a>
-          <a href="https://www.tiktok.com/@ielts.tn" target="_blank"
-            className="flex items-center gap-4 bg-white border border-indigo-50 rounded-2xl p-5 hover:border-gray-300 hover:shadow-md transition-all group">
-            <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0">🎵</div>
-            <div className="flex-1"><div className="text-sm font-bold text-indigo-950">tiktok</div><div className="text-xs text-gray-400 mt-0.5">@ielts.tn · 500K+</div></div>
-            <span className="text-gray-300 group-hover:translate-x-1 transition-transform">↗</span>
-          </a>
+          {[
+            {href:'https://www.instagram.com/ielts.tn', icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>, label:'instagram', sub:'DM @ielts.tn', style:{background:'linear-gradient(135deg,#833AB4,#FD1D1D,#FCB045)'}, hover:'hover:border-pink-200'},
+            {href:'https://wa.me/216XXXXXXXX', icon:'💬', label:'whatsapp', sub:'message directly', bg:'bg-green-500', hover:'hover:border-green-200'},
+            {href:'https://www.tiktok.com/@ielts.tn', icon:'🎵', label:'tiktok', sub:'@ielts.tn · 500K+', bg:'bg-black', hover:'hover:border-gray-300'},
+          ].map((s,i) => (
+            <a key={i} href={s.href} target="_blank"
+              className={`flex items-center gap-4 bg-white border border-indigo-50 rounded-2xl p-5 ${s.hover} hover:shadow-md transition-all group`}>
+              <div className={`w-12 h-12 ${(s as any).bg||''} rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0`} style={(s as any).style||{}}>{s.icon}</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold text-indigo-950">{s.label}</div>
+                <div className="text-xs text-gray-400 mt-0.5">{s.sub}</div>
+              </div>
+              <span className="text-gray-300 group-hover:translate-x-1 transition-transform">↗</span>
+            </a>
+          ))}
         </div>
       </section>
 
-      {/* SIGNUP */}
+      {/* ── SIGNUP ──────────────────────────────────────────── */}
       <section id="signup" ref={addRef(5)} className="reveal py-16 px-6">
         <div className="max-w-6xl mx-auto bg-gradient-to-br from-indigo-50 via-white to-cyan-50 rounded-3xl p-8 md:p-12 border border-indigo-100">
           <div className="max-w-sm mx-auto">
@@ -1125,14 +1252,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ── FOOTER ──────────────────────────────────────────── */}
       <footer className="border-t border-indigo-50 px-6 py-8">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-base tracking-tight">
-              <span className="font-bold text-indigo-600">english</span>
-              <span className="font-light text-gray-400">with</span>
-              <span className="font-extrabold text-indigo-600 uppercase tracking-wide">DALI</span>
+            <span className="tracking-tight">
+              <span className="text-base font-black text-indigo-600">English</span>
+              <span className="text-sm font-light text-gray-400"> with </span>
+              <span className="text-base font-bold text-indigo-500">Dali</span>
             </span>
             <span>🇹🇳</span>
           </div>
@@ -1142,11 +1269,11 @@ export default function Home() {
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="hover:text-indigo-500 transition-colors">tiktok ↗</a>
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="hover:text-indigo-500 transition-colors">instagram ↗</a>
           </div>
-          <div className="text-xs text-gray-300">© 2026 englishwithDALI</div>
+          <div className="text-xs text-gray-300">© 2026 English with Dali</div>
         </div>
       </footer>
 
-      {/* FLOATING WHATSAPP */}
+      {/* ── FLOATING WHATSAPP ───────────────────────────────── */}
       <a href="https://wa.me/216XXXXXXXX" target="_blank"
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center text-2xl shadow-xl shadow-green-200 hover:scale-110 active:scale-95 transition-all">
         💬
