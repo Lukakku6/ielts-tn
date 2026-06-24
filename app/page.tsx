@@ -112,7 +112,7 @@ const T = {
     badgeLabel: 'مسارك',
     packages: [
       { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'هدف Band 7+', desc:'جلسات مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 جلسات/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', popular:true, tier:'Pro' },
-      { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
+      { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'23'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
       { id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'مسرّع مهني', desc:'جلسات مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، مقابلات عمل.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 جلسات/شهر','تحضير السيرة والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة LinkedIn'], cta:'تطوّر مهنيًا', tier:'Core' },
       { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
     ],
@@ -137,18 +137,16 @@ const CLASS_TOPICS = [
   { topic:'Social Media & Society',  icon:'📱', participants:10, level:'B1–B2' },
 ]
 
-// ── ROOM BACKGROUNDS ─────────────────────────────────────────────────────────
 const ROOM_BG = [
-  { bg: '#1E1814', light: 'radial-gradient(ellipse at 30% 20%, rgba(255,200,150,0.14) 0%, transparent 60%)' },
-  { bg: '#161E24', light: 'radial-gradient(ellipse at 30% 20%, rgba(180,200,255,0.11) 0%, transparent 60%)' },
-  { bg: '#1E1822', light: 'radial-gradient(ellipse at 30% 20%, rgba(210,180,240,0.11) 0%, transparent 60%)' },
-  { bg: '#161E1C', light: 'radial-gradient(ellipse at 30% 20%, rgba(170,220,200,0.11) 0%, transparent 60%)' },
-  { bg: '#1E1818', light: 'radial-gradient(ellipse at 30% 20%, rgba(255,180,180,0.11) 0%, transparent 60%)' },
-  { bg: '#181C24', light: 'radial-gradient(ellipse at 30% 20%, rgba(180,200,240,0.11) 0%, transparent 60%)' },
-  { bg: '#1E1820', light: 'radial-gradient(ellipse at 30% 20%, rgba(230,180,210,0.11) 0%, transparent 60%)' },
+  { bg:'#1E1814', light: 'radial-gradient(ellipse at 30% 20%, rgba(255,200,150,0.14) 0%, transparent 60%)' },
+  { bg:'#161E24', light: 'radial-gradient(ellipse at 30% 20%, rgba(180,200,255,0.11) 0%, transparent 60%)' },
+  { bg:'#1E1822', light: 'radial-gradient(ellipse at 30% 20%, rgba(210,180,240,0.11) 0%, transparent 60%)' },
+  { bg:'#161E1C', light: 'radial-gradient(ellipse at 30% 20%, rgba(170,220,200,0.11) 0%, transparent 60%)' },
+  { bg:'#1E1818', light: 'radial-gradient(ellipse at 30% 20%, rgba(255,180,180,0.11) 0%, transparent 60%)' },
+  { bg:'#181C24', light: 'radial-gradient(ellipse at 30% 20%, rgba(180,200,240,0.11) 0%, transparent 60%)' },
+  { bg:'#1E1820', light: 'radial-gradient(ellipse at 30% 20%, rgba(230,180,210,0.11) 0%, transparent 60%)' },
 ]
 
-// ── AVATAR BUILDER ──────────────────────────────────────────────────────────
 function buildAvatarSvg(
   skinBase: string, skinMid: string, skinShadow: string, skinDeep: string,
   eyeBase: string, eyeMid: string, eyeDark: string,
@@ -302,15 +300,18 @@ const STUDENT_NAMES = [
 
 const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
 
-// ── TN FLAG (flat rectangle) ─────────────────────────────────────────────────
+// ── TN FLAG (proper crescent and star, flat rectangle) ──────────────────────
 function TnFlag({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center justify-center rounded-md overflow-hidden border border-white/10 flex-shrink-0 ${className}`}
+    <span className={`inline-flex items-center justify-center rounded-[3px] flex-shrink-0 ${className}`}
       style={{width:'26px', height:'18px', background:'#E70013'}}>
-      <span style={{width:'12px', height:'12px', background:'white', borderRadius:'50%', position:'relative'}}>
-        <span style={{width:'8px', height:'8px', background:'#E70013', borderRadius:'50%', position:'absolute', top:'2px', left:'2px'}}/>
-        <span style={{width:'4px', height:'4px', background:'#E70013', position:'absolute', top:'4px', left:'4px', transform:'rotate(0deg)', clipPath:'polygon(50% 0%, 100% 100%, 0% 100%)'}}/>
-      </span>
+      <svg width="14" height="14" viewBox="0 0 24 24" style={{position:'absolute'}}>
+        <circle cx="12" cy="12" r="9" fill="white"/>
+        <circle cx="14" cy="10" r="7" fill="#E70013"/>
+        <circle cx="10" cy="13" r="5" fill="white"/>
+        <circle cx="11" cy="12" r="4" fill="#E70013"/>
+        <polygon points="12,5 13.5,8.5 17,8.5 14.5,11 15.5,14.5 12,12 8.5,14.5 9.5,11 7,8.5 10.5,8.5" fill="white" transform="scale(0.4) translate(18,4)"/>
+      </svg>
     </span>
   )
 }
@@ -337,7 +338,7 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const diamondBorder = '#B8C0D0'
   const diamondTextDark = '#C8D0E0'
   const diamondTextLight = '#5A6080'
-  const diamondShadow = '0 0 18px rgba(180,190,210,0.5), 0 0 35px rgba(200,210,240,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+  const diamondShadow = '0 0 18px rgba(180,190,210,0.5), 0 0 35px rgba(200,210,240,0.2)'
   const labelColor = isLight ? 'rgba(26,26,26,0.35)' : 'rgba(255,240,232,0.25)'
 
   function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
@@ -362,11 +363,15 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
           <span key={l.level} className="inline-flex items-center gap-1">
             <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
               style={{background:style.background,borderColor:style.borderColor,color:style.color,borderWidth:style.borderWidth,boxShadow:style.boxShadow,letterSpacing:'-0.02em',animation:(style as any).animation}}>
-              {l.tier==='diamond' && <span className="absolute inset-0" style={{background:'linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.15) 45%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0.15) 55%,transparent 60%)',animation:'diamondShine 2.5s ease-in-out infinite'}}/>}
-              {l.tier==='diamond' && <span className="absolute -top-0.5 -right-0.5 text-[8px]" style={{color:isLight?'#A0A8C0':'#C8D0E0'}}>◆</span>}
+              {l.tier==='diamond' && (
+                <span className="absolute inset-0 pointer-events-none" style={{
+                  background:'linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.15) 45%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0.15) 55%,transparent 60%)',
+                  animation:'diamondShine 2.5s ease-in-out infinite'
+                }}/>
+              )}
               {l.level}
             </span>
-            {i<levels.length-1 && <span className="w-2.5 h-px" style={{backgroundColor:l.tier==='diamond'?diamondBorder:mutedBorder}}/>}
+            {i<levels.length-1 && <span className="w-2.5 h-px" style={{backgroundColor:l.tier==='diamond'||l.tier==='gold'?goldBorder:mutedBorder}}/>}
           </span>
         )
       })}
@@ -614,13 +619,20 @@ export default function Home() {
         <div className="blob b1 w-96 h-96 absolute -top-20 -left-20" style={{background:s.textOrange,opacity:s.blobOpacity}}/>
         <div className="blob b2 w-80 h-80 absolute -bottom-10 -right-10" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
         <div className="blob b3 w-60 h-60 absolute top-1/2 left-1/3" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
-        {[{text:'current events 🌍',top:'8%',left:'58%',r:'-3deg',dur:'4s'},{text:'trending 🔥',top:'14%',left:'74%',r:'2deg',dur:'5s',delay:'.5s'},{text:'live session 🎙️',top:'70%',left:'57%',r:'-2deg',dur:'4.5s',delay:'1s'},{text:'speak freely 💬',top:'78%',left:'74%',r:'3deg',dur:'5.5s',delay:'.3s'},{text:'real english 🎯',top:'48%',left:'56%',r:'-1deg',dur:'6s',delay:'.8s'}].map((w,i)=>(
+        {/* Floating words — positioned within the left hero text area */}
+        {[
+          {text:'current events 🌍', top:'8%',  left:'3%',  r:'-3deg', dur:'4s'},
+          {text:'trending 🔥',       top:'18%', left:'22%', r:'2deg',  dur:'5s',   delay:'.5s'},
+          {text:'real english 🎯',   top:'35%', left:'5%',  r:'-1deg', dur:'6s',   delay:'.8s'},
+          {text:'speak freely 💬',   top:'55%', left:'18%', r:'3deg',  dur:'5.5s', delay:'.3s'},
+          {text:'live session 🎙️',  top:'72%', left:'6%',  r:'-2deg', dur:'4.5s', delay:'1s'},
+        ].map((w,i) => (
           <div key={i} className="float-word absolute text-xs font-semibold px-3 py-1.5 rounded-full pointer-events-none whitespace-nowrap z-10 hidden lg:block"
             style={{top:w.top,left:w.left,backgroundColor:s.cardBg,border:`1px solid ${s.borderColor}`,color:s.textOrangeLight,'--r':w.r,animationDuration:w.dur,animationDelay:(w as any).delay||'0s'} as React.CSSProperties}>{w.text}</div>
         ))}
         <div className="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-4 font-semibold border" style={{backgroundColor:s.cardBg,borderColor:s.borderColor,color:s.textOrange}}><span>🇹🇳</span>{t.tagline}</div>
+            <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-4 font-semibold border" style={{backgroundColor:s.cardBg,borderColor:s.borderColor,color:s.textOrange}}><TnFlag className="scale-75" /><span>{t.tagline}</span></div>
             <div className="mb-5"><CefrBadges isLight={theme==='light'} label={t.badgeLabel} /></div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-none mb-4" style={{letterSpacing:'-0.03em',color:s.textPrimary}}>
               {t.hero1}<br/>{t.hero2}<br/>
@@ -805,7 +817,7 @@ export default function Home() {
       {/* ── FOOTER ──────────────────────────────────────────── */}
       <footer className="border-t px-6 py-8" style={{borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={theme==='light'} /><TnFlag className="scale-75" /></div>
+          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={theme==='light'} /><TnFlag /></div>
           <div className="flex gap-5 text-sm flex-wrap justify-center" style={{color:s.textTertiary}}>
             {['privacy','terms','tiktok ↗','instagram ↗'].map((link,i)=>(<a key={link} href={i<2?'#':i===2?'https://www.tiktok.com/@ielts.tn':'https://www.instagram.com/ielts.tn'} target={i>=2?'_blank':undefined} className="transition-colors" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>{link}</a>))}
           </div>
