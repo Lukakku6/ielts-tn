@@ -412,7 +412,6 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const diamondBgDark = 'linear-gradient(135deg, #222840 0%, #354060 30%, #222840 60%, #2D3550 100%)'
   const diamondBgLight = 'linear-gradient(135deg, #F0F2F8 0%, #DDE0EC 30%, #E8EAF2 60%, #E0E2EC 100%)'
   const diamondBorder = '#A0B0D0'
-  const diamondBorderGlow = '#C8D8F0'
   const diamondTextDark = '#E0E8F8'
   const diamondTextLight = '#4A5580'
   const diamondShadow = '0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
@@ -548,39 +547,26 @@ export default function Home() {
 
   const [visibleP, setVisibleP] = useState<number[]>([])
 
-  // Simulated real class: Dali (index 0) speaks frequently, students take turns
+  // Real class simulation: Dali speaks most of the time, students take turns
   const [activeSpeakers, setActiveSpeakers] = useState<Set<number>>(new Set([0]))
   useEffect(() => {
-    // Dali speaks most of the time
     const daliInterval = setInterval(() => {
       setActiveSpeakers(prev => {
         const next = new Set(prev)
-        if (next.has(0)) {
-          if (Math.random() > 0.3) return prev // 70% chance Dali keeps speaking
-          next.delete(0)
-        } else {
-          next.add(0)
-        }
+        if (next.has(0)) { if (Math.random() > 0.3) return prev; next.delete(0) }
+        else { next.add(0) }
         return next
       })
-    }, 3000 + Math.random() * 2000)
-
-    // Students raise hand occasionally, one at a time
+    }, 4000)
     const studentInterval = setInterval(() => {
       setActiveSpeakers(prev => {
         const next = new Set(prev)
-        const activeStudents = [1,2,3,4,5,6,7].filter(s => next.has(s))
-        // Remove any existing student speaker
-        activeStudents.forEach(s => next.delete(s))
-        // 40% chance a new student raises hand
-        if (Math.random() > 0.6) {
-          const newStudent = [1,2,3,4,5,6,7][Math.floor(Math.random() * 7)]
-          next.add(newStudent)
-        }
+        const studentIndices = [1,2,3,4,5,6,7]
+        studentIndices.forEach(s => next.delete(s))
+        if (Math.random() > 0.4) { const newStudent = studentIndices[Math.floor(Math.random() * 7)]; next.add(newStudent) }
         return next
       })
-    }, 2500 + Math.random() * 1500)
-
+    }, 3500)
     return () => { clearInterval(daliInterval); clearInterval(studentInterval) }
   }, [])
 
@@ -653,8 +639,8 @@ export default function Home() {
         .progress-fill{transition:width .15s linear}
         .topic-card{transition:all .3s cubic-bezier(.16,1,.3,1)}.topic-card:hover{transform:translateY(-4px)}
         .pkg-card{transition:all .35s cubic-bezier(.16,1,.3,1)}.pkg-card:hover{transform:translateY(-4px)}
-        @keyframes actPop{0%{opacity:0;transform:translateY(4px) scale(.8)}15%{opacity:1;transform:translateY(0) scale(1)}85%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-4px) scale(1.1)}}
-        .act-indicator{animation:actPop 3s ease-out forwards}
+        @keyframes actPop{0%{opacity:0;transform:translateY(6px) scale(.8)}10%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-2px) scale(1)}}
+        .act-indicator{animation:actPop 4s ease-out forwards}
       `}</style>
 
       {/* ── NAV ─────────────────────────────────────────────── */}
@@ -700,8 +686,7 @@ export default function Home() {
                   <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':activeSpeakers.has(i)?'anim-participate':ANIM_CLASSES[i-1]||'anim-bob'}`}
                     style={{transitionDelay:`${i*0.1}s`,border:activeSpeakers.has(i)?`2px solid ${s.textOrange}`:`1px solid ${s.borderColor}`,backgroundColor:av.bg,boxShadow:activeSpeakers.has(i)?`0 0 20px ${s.orangeGlow}`:'none'}}>
                     <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
-                    {activeSpeakers.has(i)&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
-                    {!activeSpeakers.has(i)&&!av.isDali&&Math.random()>0.7&&(<div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.15)',color:s.textOrange,animationDelay:`${Math.random()*5}s`}}>✋</div>)}
+                    {activeSpeakers.has(i)&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>{i===0?'🎤':i%2===0?'🎤':'✋'}</div></>)}
                     <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
                   </div>
                 ))}
