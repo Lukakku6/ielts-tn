@@ -215,18 +215,14 @@ const ROOM_BG = [
 ]
 
 const FLOATING_WORDS = [
-  { text:'current events', icon:'🌍', left:'2%', dur:'14s', delay:'0s' },
-  { text:'trending topics', icon:'🔥', left:'12%', dur:'18s', delay:'2s' },
-  { text:'real discussions', icon:'💬', left:'24%', dur:'16s', delay:'5s' },
-  { text:'live practice', icon:'🎙️', left:'36%', dur:'20s', delay:'1s' },
-  { text:'breaking news', icon:'📰', left:'48%', dur:'15s', delay:'7s' },
-  { text:'pop culture', icon:'🎬', left:'58%', dur:'19s', delay:'3s' },
-  { text:'tech & AI', icon:'🤖', left:'68%', dur:'17s', delay:'6s' },
-  { text:'finance talk', icon:'💰', left:'78%', dur:'21s', delay:'4s' },
-  { text:'sports updates', icon:'🏆', left:'88%', dur:'16s', delay:'8s' },
-  { text:'music scene', icon:'🎵', left:'6%', dur:'22s', delay:'9s' },
-  { text:'social trends', icon:'🌐', left:'42%', dur:'18s', delay:'2.5s' },
-  { text:'global news', icon:'📰', left:'64%', dur:'20s', delay:'5.5s' },
+  { text:'current events', icon:'🌍', left:'5%', rot:'-8deg', dur:'10s', delay:'0s' },
+  { text:'trending topics', icon:'🔥', left:'25%', rot:'6deg', dur:'12s', delay:'2s' },
+  { text:'real discussions', icon:'💬', left:'45%', rot:'-5deg', dur:'11s', delay:'4s' },
+  { text:'live practice', icon:'🎙️', left:'65%', rot:'7deg', dur:'13s', delay:'1s' },
+  { text:'breaking news', icon:'📰', left:'82%', rot:'-6deg', dur:'10.5s', delay:'3s' },
+  { text:'pop culture', icon:'🎬', left:'15%', rot:'8deg', dur:'12.5s', delay:'5s' },
+  { text:'tech & AI', icon:'🤖', left:'55%', rot:'-7deg', dur:'11.5s', delay:'6s' },
+  { text:'finance talk', icon:'💰', left:'75%', rot:'5deg', dur:'14s', delay:'2.5s' },
 ]
 
 // ── AVATAR BUILDER ──────────────────────────────────────────────────────────
@@ -315,12 +311,22 @@ function makeDaliSvg(isLight: boolean) {
 <circle cx="85.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/>
 <circle cx="121.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/>
 <path d="M71 99 Q82 95 93 98" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-<path d="M107 98 Q118 95 129 99" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/>`
+<path d="M107 98 Q118 95 129 99" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<!-- Round glasses -->
+<circle cx="82" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
+<circle cx="118" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
+<line x1="96" y1="112" x2="104" y2="112" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
+<!-- Glass reflection -->
+<path d="M72 106 Q78 104 84 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>
+<path d="M108 106 Q114 104 120 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>`
   const mouth = `
 <path d="M82 132 Q90 128 100 130 Q110 128 118 132" stroke="#1A0E05" stroke-width="3.8" fill="none" stroke-linecap="round"/>
 <path d="M82 132 Q90 130 100 131.5 Q110 130 118 132" fill="#2D1E0F"/>
 <path d="M78 139 Q100 158 122 139" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M80 139.5 Q100 155 120 139.5" fill="white"/>`
+<path d="M80 139.5 Q100 155 120 139.5" fill="white"/>
+<!-- Light beard outline -->
+<path d="M70 135 Q75 148 82 152 Q90 156 100 157 Q110 156 118 152 Q125 148 130 135" stroke="#C87940" stroke-width="1.5" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M75 140 Q85 150 100 153 Q115 150 125 140" stroke="#D4814A" stroke-width="1" fill="none" opacity="0.2" stroke-linecap="round"/>`
   return buildAvatarSvg(sb,sm,ss,sd,eb,em,ed,top,eyes,mouth,'','#FF4500',0,isLight)
 }
 
@@ -425,38 +431,26 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
     switch (tier) {
       case 'target':
         return {
-          background: targetBg,
-          borderColor: targetColor,
-          color: targetColor,
-          borderWidth: '2px',
+          background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px',
           boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`,
           animation: 'b2pulse 2.5s ease-in-out infinite'
         }
       case 'gold':
         return {
-          background: isLight ? goldBgLight : goldBgDark,
-          borderColor: goldBorder,
-          color: isLight ? goldTextLight : goldTextDark,
-          borderWidth: '2px',
-          boxShadow: goldShadow,
-          animation: 'goldShimmer 3s ease-in-out infinite'
+          background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder,
+          color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px',
+          boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite'
         }
       case 'diamond':
         return {
-          background: isLight ? diamondBgLight : diamondBgDark,
-          borderColor: diamondBorder,
-          color: isLight ? diamondTextLight : diamondTextDark,
-          borderWidth: '2px',
-          boxShadow: diamondShadow,
-          animation: 'diamondSparkle 4s ease-in-out infinite'
+          background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder,
+          color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px',
+          boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite'
         }
       default:
         return {
-          background: mutedBg,
-          borderColor: mutedBorder,
-          color: mutedText,
-          borderWidth: '1px',
-          boxShadow: 'none'
+          background: mutedBg, borderColor: mutedBorder, color: mutedText,
+          borderWidth: '1px', boxShadow: 'none'
         }
     }
   }
@@ -470,12 +464,9 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
             <span
               className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
               style={{
-                background: style.background,
-                borderColor: style.borderColor,
-                color: style.color,
-                borderWidth: style.borderWidth,
-                boxShadow: style.boxShadow,
-                letterSpacing: '-0.02em',
+                background: style.background, borderColor: style.borderColor,
+                color: style.color, borderWidth: style.borderWidth,
+                boxShadow: style.boxShadow, letterSpacing: '-0.02em',
                 animation: (style as any).animation
               }}>
               {l.tier === 'diamond' && (
@@ -502,8 +493,7 @@ function B2Logo({ className = '', isLight = false }: { className?: string, isLig
   return (
     <span className={`inline-flex items-baseline gap-0 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
       <span className="font-black animate-b2pulse" style={{
-        letterSpacing:'-0.03em',
-        color: isLight ? '#E03D00' : '#FF4500',
+        letterSpacing:'-0.03em', color: isLight ? '#E03D00' : '#FF4500',
         textShadow: isLight
           ? '0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)'
           : '0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'
@@ -601,20 +591,11 @@ export default function Home() {
     const word = words[wordIndex]
     const timeout = setTimeout(() => {
       if (!deleting) {
-        if (charIndex < word.length) {
-          setDisplayed(word.slice(0, charIndex + 1))
-          setCharIndex(c => c + 1)
-        } else {
-          setTimeout(() => setDeleting(true), 2000)
-        }
+        if (charIndex < word.length) { setDisplayed(word.slice(0, charIndex + 1)); setCharIndex(c => c + 1) }
+        else setTimeout(() => setDeleting(true), 2000)
       } else {
-        if (charIndex > 0) {
-          setDisplayed(word.slice(0, charIndex - 1))
-          setCharIndex(c => c - 1)
-        } else {
-          setDeleting(false)
-          setWordIndex(i => (i + 1) % words.length)
-        }
+        if (charIndex > 0) { setDisplayed(word.slice(0, charIndex - 1)); setCharIndex(c => c - 1) }
+        else { setDeleting(false); setWordIndex(i => (i + 1) % words.length) }
       }
     }, deleting ? 40 : 80)
     return () => clearTimeout(timeout)
@@ -625,10 +606,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTopicProgress(p => {
-        if (p >= 100) {
-          setActiveTopicIndex(i => (i + 1) % CLASS_TOPICS.length)
-          return 0
-        }
+        if (p >= 100) { setActiveTopicIndex(i => (i + 1) % CLASS_TOPICS.length); return 0 }
         return p + 1.5
       })
     }, 80)
@@ -637,7 +615,6 @@ export default function Home() {
 
   const [visibleP, setVisibleP] = useState<number[]>([])
 
-  // Multiple random active speakers
   const [activeSpeakers, setActiveSpeakers] = useState<Set<number>>(new Set())
   useEffect(() => {
     const interval = setInterval(() => {
@@ -650,16 +627,12 @@ export default function Home() {
         } else {
           next.add(randomStudent)
           setTimeout(() => {
-            setActiveSpeakers(s => {
-              const n = new Set(s)
-              n.delete(randomStudent)
-              return n
-            })
-          }, 1500 + Math.random() * 1500)
+            setActiveSpeakers(s => { const n = new Set(s); n.delete(randomStudent); return n })
+          }, 2000 + Math.random() * 2000)
         }
         return next
       })
-    }, 800)
+    }, 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -696,9 +669,7 @@ export default function Home() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible')
-      }),
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
       { threshold: 0.1 }
     )
     revealRefs.current.forEach(el => el && observer.observe(el))
@@ -711,9 +682,7 @@ export default function Home() {
     setLoading(true)
     setMessage('')
     const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: name } }
+      email, password, options: { data: { full_name: name } }
     })
     if (error) setMessage(error.message)
     else setMessage('Account created! Check your email to confirm.')
@@ -722,12 +691,7 @@ export default function Home() {
 
   const activeTopic = CLASS_TOPICS[activeTopicIndex]
   const allAvatars = [
-    {
-      svg: makeDaliSvg(isLight),
-      name: 'Dali 👨‍🏫',
-      isDali: true,
-      bg: isLight ? ROOM_BG[0].light : ROOM_BG[0].dark
-    },
+    { svg: makeDaliSvg(isLight), name: 'Dali 👨‍🏫', isDali: true, bg: isLight ? ROOM_BG[0].light : ROOM_BG[0].dark },
     ...[0,1,2,3,4,5,6].map(i => ({
       svg: makeStudentSvg(i, isLight),
       name: `${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,
@@ -750,8 +714,7 @@ export default function Home() {
         @keyframes b1 { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(40px,25px) scale(1.12);} 66%{transform:translate(-15px,35px) scale(0.94);} }
         @keyframes b2 { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(-30px,-25px) scale(1.06);} 66%{transform:translate(20px,-15px) scale(1.12);} }
         @keyframes b3 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(25px,-20px) scale(1.18);} }
-        @keyframes floatRain { 0%{transform:translateY(-60px);opacity:0;} 8%{opacity:.4;} 92%{opacity:.4;} 100%{transform:translateY(calc(100% + 60px));opacity:0;} }
-        .float-rain { animation: floatRain var(--fd) linear infinite; animation-delay: var(--delay); }
+        @keyframes floatRain { 0%{transform:translateY(-60px);opacity:0;} 8%{opacity:.45;} 92%{opacity:.45;} 100%{transform:translateY(calc(100% + 60px));opacity:0;} }
         @keyframes goldShimmer { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.15);} }
         @keyframes diamondSparkle { 0%,100%{filter:brightness(1);} 30%{filter:brightness(1.1);} 60%{filter:brightness(0.95);} }
         @keyframes diamondShine { 0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg);} 50%{opacity:.6;} }
@@ -769,8 +732,8 @@ export default function Home() {
         .progress-fill{transition:width 0.15s linear}
         .topic-card{transition:all 0.3s cubic-bezier(0.16,1,0.3,1)} .topic-card:hover{transform:translateY(-4px)}
         .pkg-card{transition:all 0.35s cubic-bezier(0.16,1,0.3,1)} .pkg-card:hover{transform:translateY(-4px)}
-        @keyframes actPop{0%{opacity:0;transform:translateY(4px) scale(.8)}50%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-4px) scale(1.1)}}
-        .act-indicator{animation:actPop .6s ease-out forwards}
+        @keyframes actPop{0%{opacity:0;transform:translateY(4px) scale(.8)}20%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-4px) scale(1.1)}}
+        .act-indicator{animation:actPop 2.5s ease-out forwards}
       `}</style>
 
       {/* ── NAV ─────────────────────────────────────────────── */}
@@ -827,9 +790,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-5 font-semibold border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor, color: s.textOrange }}>
               <TnFlag className="text-base" /><span>{t.tagline}</span>
             </div>
-            <div className="mb-6">
-              <CefrBadges isLight={isLight} label={t.badgeLabel} />
-            </div>
+            <div className="mb-6"><CefrBadges isLight={isLight} label={t.badgeLabel} /></div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{ letterSpacing: '-0.035em', color: s.textPrimary }}>
               {t.hero1}<br />{t.hero2}<br />
               <span style={{ color: s.textOrange }}>{displayed}</span><span className="cursor-thin font-light" style={{ color: s.textOrange }}>│</span>
@@ -861,11 +822,7 @@ export default function Home() {
                 <div className="progress-fill h-full rounded-full" style={{ width: `${topicProgress}%`, background: `linear-gradient(to right,${s.textOrange},${s.textOrangeLight})` }} />
               </div>
               <div className="flex justify-between items-center">
-                <div className="flex gap-1">
-                  {CLASS_TOPICS.map((_, i) => (
-                    <div key={i} className="h-1 rounded-full transition-all duration-500" style={{ width: i === activeTopicIndex ? '28px' : '8px', backgroundColor: i === activeTopicIndex ? s.textOrange : s.borderColor }} />
-                  ))}
-                </div>
+                <div className="flex gap-1">{CLASS_TOPICS.map((_, i) => (<div key={i} className="h-1 rounded-full transition-all duration-500" style={{ width: i === activeTopicIndex ? '28px' : '8px', backgroundColor: i === activeTopicIndex ? s.textOrange : s.borderColor }} />))}</div>
                 <span className="text-[11px]" style={{ color: s.textTertiary }}>{activeTopic.level} · {activeTopic.participants} students</span>
               </div>
             </div>
@@ -876,21 +833,15 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-4 gap-2 mb-3.5">
                 {allAvatars.map((av, i) => (
-                  <div key={i}
-                    className={`av-cell ${visibleP.includes(i) ? 'show' : ''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali ? 'dali-wrap' : activeSpeakers.has(i) ? 'anim-participate' : ANIM_CLASSES[i - 1] || 'anim-bob'}`}
-                    style={{
-                      transitionDelay: `${i * 0.1}s`,
-                      border: activeSpeakers.has(i) ? `2px solid ${s.textOrange}` : `1px solid ${s.borderColor}`,
-                      backgroundColor: av.bg,
-                      boxShadow: activeSpeakers.has(i) ? `0 0 20px ${s.orangeGlow}` : 'none'
-                    }}>
+                  <div key={i} className={`av-cell ${visibleP.includes(i) ? 'show' : ''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali ? 'dali-wrap' : activeSpeakers.has(i) ? 'anim-participate' : ANIM_CLASSES[i - 1] || 'anim-bob'}`}
+                    style={{ transitionDelay: `${i * 0.1}s`, border: activeSpeakers.has(i) ? `2px solid ${s.textOrange}` : `1px solid ${s.borderColor}`, backgroundColor: av.bg, boxShadow: activeSpeakers.has(i) ? `0 0 20px ${s.orangeGlow}` : 'none' }}>
                     <div dangerouslySetInnerHTML={{ __html: av.svg }} className="w-full h-full" />
                     {activeSpeakers.has(i) && (
                       <>
                         <div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{ borderColor: s.textOrange }} />
-                        <div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{ background: s.textOrange, color: 'white', boxShadow: `0 2px 8px ${s.orangeGlow}` }}>
-                          {i % 3 === 0 ? '✋' : '🎤'}
-                        </div>
+                        {i % 3 !== 0 && (
+                          <div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{ background: s.textOrange, color: 'white', boxShadow: `0 2px 8px ${s.orangeGlow}` }}>🎤</div>
+                        )}
                       </>
                     )}
                     <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{ fontSize: '8px', backgroundColor: 'rgba(0,0,0,0.45)', color: '#FFF0E8' }}>{av.name}</div>
@@ -923,15 +874,13 @@ export default function Home() {
       {/* ── TOPICS ──────────────────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-24 relative overflow-hidden" style={{ minHeight: '650px' }}>
         {FLOATING_WORDS.map((w, i) => (
-          <div key={i}
-            className="float-rain absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
+          <div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
             style={{
               left: w.left,
+              transform: `rotate(${w.rot})`,
               backgroundColor: s.cardBgFlat,
               border: `1px solid ${s.borderColor}`,
               color: s.textTertiary,
-              '--fd': w.dur,
-              '--delay': w.delay,
               animation: `floatRain ${w.dur} linear infinite`,
               animationDelay: w.delay
             } as React.CSSProperties}>
@@ -999,11 +948,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {t.packages.map((pkg) => (
             <div key={pkg.id} className="pkg-card rounded-2xl p-6 relative border"
-              style={{
-                background: s.cardBg,
-                borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
-                boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
-              }}
+              style={{ background: s.cardBg, borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor, boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover; e.currentTarget.style.boxShadow = s.cardShadowHover }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor; e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow }}>
               {(pkg as any).popular && <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{ backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}` }}>most popular</div>}
@@ -1011,27 +956,12 @@ export default function Home() {
               <div className="flex items-start justify-between mb-5">
                 <div className="flex items-center gap-3.5">
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor }}>{pkg.icon}</div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <div className="text-base font-bold" style={{ color: s.textPrimary }}>{pkg.name}</div>
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{ backgroundColor: s.pillBg, color: s.pillText }}>{(pkg as any).tier}</span>
-                    </div>
-                    <div className="text-[13px] font-semibold" style={{ color: s.textOrangeLight }}>{pkg.tagline}</div>
-                  </div>
+                  <div><div className="flex items-center gap-2 mb-0.5"><div className="text-base font-bold" style={{ color: s.textPrimary }}>{pkg.name}</div><span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{ backgroundColor: s.pillBg, color: s.pillText }}>{(pkg as any).tier}</span></div><div className="text-[13px] font-semibold" style={{ color: s.textOrangeLight }}>{pkg.tagline}</div></div>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-black" style={{ color: s.textPrimary }}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{ color: s.textTertiary }}>/mo</span></div>
-                  <div className="text-[11px] font-semibold mt-0.5" style={{ color: s.textOrangeLight }}>≈ {pkg.tnd[activePrice]} TND</div>
-                </div>
+                <div className="text-right"><div className="text-2xl font-black" style={{ color: s.textPrimary }}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{ color: s.textTertiary }}>/mo</span></div><div className="text-[11px] font-semibold mt-0.5" style={{ color: s.textOrangeLight }}>≈ {pkg.tnd[activePrice]} TND</div></div>
               </div>
               <p className="text-[13px] leading-relaxed mb-5" style={{ color: s.textSecondary }}>{pkg.desc}</p>
-              <div className="grid grid-cols-2 gap-2 mb-6">
-                {pkg.features.map(f => (
-                  <div key={f} className="flex items-start gap-2 text-[12px]" style={{ color: s.textSecondary }}>
-                    <span className="font-bold mt-0.5 flex-shrink-0" style={{ color: s.textOrange }}>✓</span>{f}
-                  </div>
-                ))}
-              </div>
+              <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (<div key={f} className="flex items-start gap-2 text-[12px]" style={{ color: s.textSecondary }}><span className="font-bold mt-0.5 flex-shrink-0" style={{ color: s.textOrange }}>✓</span>{f}</div>))}</div>
               <a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]"
                 style={(pkg as any).popular ? { backgroundColor: s.textOrange, color: '#FFFFFF', boxShadow: `0 4px 14px ${s.orangeGlow}` } : (pkg as any).premium ? { backgroundColor: s.pillBg, color: s.textOrangeLight, border: `1px solid ${s.textOrangeLight}25` } : { backgroundColor: s.cardBgFlat, color: s.textPrimary, border: `1px solid ${s.btnSecondaryBorder}` }}>{pkg.cta}</a>
             </div>
@@ -1044,9 +974,7 @@ export default function Home() {
           </button>
           <span className="text-sm font-semibold" style={{ color: activePrice === 'y' ? s.textOrange : s.textSecondary }}>{t.yearly}</span>
         </div>
-        <p className="text-[13px] text-center mt-5" style={{ color: s.textTertiary }}>
-          {t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{ color: s.textOrangeLight }}>{t.waLink}</a>
-        </p>
+        <p className="text-[13px] text-center mt-5" style={{ color: s.textTertiary }}>{t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{ color: s.textOrangeLight }}>{t.waLink}</a></p>
       </section>
 
       {/* ── LIVE ────────────────────────────────────────────── */}
@@ -1055,28 +983,9 @@ export default function Home() {
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.liveH}</h2>
         <p className="text-[15px] mb-8 max-w-lg" style={{ color: s.textSecondary }}>{t.liveSub}</p>
         <div className="rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 border" style={{ background: s.cardBg, borderColor: s.borderColor, boxShadow: s.cardShadow }}>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{ background: `linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`, boxShadow: `0 4px 14px ${s.orangeGlow}` }}>🎙️</div>
-            <div>
-              <div className="text-sm font-bold" style={{ color: s.textPrimary }}>friday live session</div>
-              <div className="text-[13px] mt-0.5" style={{ color: s.textSecondary }}>every week · 8:00 PM Tunisia time</div>
-              <div className="text-[13px] font-bold mt-1" style={{ color: s.textOrange }}>TikTok Live & Instagram Live</div>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            {[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct => (
-              <div key={ct.l} className="rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center border" style={{ background: s.countdownBg, borderColor: s.countdownBorder }}>
-                <div className="text-xl font-black" style={{ color: s.textOrange }}>{String(ct.v).padStart(2,'0')}</div>
-                <div className="text-[10px] mt-0.5" style={{ color: s.textTertiary }}>{ct.l}</div>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2.5">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all border" style={{ color: s.textPrimary, borderColor: s.btnSecondaryBorder, background: s.btnSecondaryBg }}>🎵 tiktok</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{ background: 'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> instagram
-            </a>
-          </div>
+          <div className="flex items-center gap-4"><div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{ background: `linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`, boxShadow: `0 4px 14px ${s.orangeGlow}` }}>🎙️</div><div><div className="text-sm font-bold" style={{ color: s.textPrimary }}>friday live session</div><div className="text-[13px] mt-0.5" style={{ color: s.textSecondary }}>every week · 8:00 PM Tunisia time</div><div className="text-[13px] font-bold mt-1" style={{ color: s.textOrange }}>TikTok Live & Instagram Live</div></div></div>
+          <div className="flex gap-2">{[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct => (<div key={ct.l} className="rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center border" style={{ background: s.countdownBg, borderColor: s.countdownBorder }}><div className="text-xl font-black" style={{ color: s.textOrange }}>{String(ct.v).padStart(2,'0')}</div><div className="text-[10px] mt-0.5" style={{ color: s.textTertiary }}>{ct.l}</div></div>))}</div>
+          <div className="flex gap-2.5"><a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all border" style={{ color: s.textPrimary, borderColor: s.btnSecondaryBorder, background: s.btnSecondaryBg }}>🎵 tiktok</a><a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{ background: 'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)' }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> instagram</a></div>
         </div>
       </section>
 
@@ -1095,10 +1004,7 @@ export default function Home() {
               onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover; e.currentTarget.style.boxShadow = s.cardShadow }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }}>
               <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.icon}</div>
-              <div className="flex-1">
-                <div className="text-sm font-bold" style={{ color: s.textPrimary }}>{social.label}</div>
-                <div className="text-[13px] mt-0.5" style={{ color: s.textTertiary }}>{social.sub}</div>
-              </div>
+              <div className="flex-1"><div className="text-sm font-bold" style={{ color: s.textPrimary }}>{social.label}</div><div className="text-[13px] mt-0.5" style={{ color: s.textTertiary }}>{social.sub}</div></div>
               <span className="transition-transform group-hover:translate-x-1.5 duration-300" style={{ color: s.textOrange }}>↗</span>
             </a>
           ))}
@@ -1119,9 +1025,7 @@ export default function Home() {
               <input type="password" placeholder={t.passPH} value={password} onChange={e => setPassword(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{ background: s.cardBgFlat, borderColor: s.borderColor, color: s.textPrimary }} onFocus={e => { e.currentTarget.style.borderColor = s.textOrange; e.currentTarget.style.boxShadow = `0 0 0 3px ${s.textOrange}12` }} onBlur={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }} />
               {message && <p className="text-sm text-center font-semibold" style={{ color: s.textOrangeLight }}>{message}</p>}
               <button onClick={handleSignup} disabled={loading} className="text-white py-3.5 rounded-xl text-sm font-semibold active:scale-[0.97] transition-all disabled:opacity-50" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 18px ${s.orangeGlow}` }}>{loading ? t.creating : t.signupBtn2}</button>
-              <p className="text-[13px] text-center" style={{ color: s.textTertiary }}>
-                {t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{ color: s.textOrange }}>{t.loginLink}</a>
-              </p>
+              <p className="text-[13px] text-center" style={{ color: s.textTertiary }}>{t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{ color: s.textOrange }}>{t.loginLink}</a></p>
             </div>
           </div>
         </div>
@@ -1130,10 +1034,7 @@ export default function Home() {
       {/* ── FOOTER ──────────────────────────────────────────── */}
       <footer className="border-t px-6 py-8" style={{ borderColor: s.borderColor }}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
-          <div className="flex items-center gap-2">
-            <B2Logo className="text-sm" isLight={isLight} />
-            <TnFlag />
-          </div>
+          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight} /><TnFlag /></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{ color: s.textTertiary }}>
             {['privacy','terms','tiktok ↗','instagram ↗'].map((link, i) => (
               <a key={link} href={i < 2 ? '#' : i === 2 ? 'https://www.tiktok.com/@ielts.tn' : 'https://www.instagram.com/ielts.tn'} target={i >= 2 ? '_blank' : undefined} className="transition-colors hover:underline" style={{ color: s.textTertiary }} onMouseEnter={e => e.currentTarget.style.color = s.textOrange} onMouseLeave={e => e.currentTarget.style.color = s.textTertiary}>{link}</a>
@@ -1143,7 +1044,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ── FLOATING WHATSAPP ───────────────────────────────── */}
       <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 20px ${s.orangeGlow}` }}>💬</a>
     </main>
   )
