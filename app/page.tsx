@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase'
 
 // ── TN FLAG ──────────────────────────────────────────────────────────────────
 const TnFlag = ({ className = '' }: { className?: string }) => (
-  <span className={`inline-flex items-center justify-center text-lg leading-none ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
+  <span className={`inline-flex items-center justify-center leading-none text-2xl -mt-0.5 ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
 )
 
 // ── TRANSLATIONS ─────────────────────────────────────────────────────────────
@@ -16,6 +16,7 @@ const T = {
     hero2: 'start speaking',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
     joinBtn: 'grab a spot',
+    loginBtn: 'log in',
     dmBtn: 'DM on instagram',
     waBtn: 'chat on whatsapp',
     topicsTag: 'what we discuss',
@@ -74,6 +75,7 @@ const T = {
     hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
     joinBtn: "prends ta place",
+    loginBtn: "connexion",
     dmBtn: "DM sur instagram",
     waBtn: "écrire sur whatsapp",
     topicsTag: "ce qu'on discute",
@@ -132,6 +134,7 @@ const T = {
     hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
     joinBtn: 'احجز مقعدك',
+    loginBtn: 'تسجيل الدخول',
     dmBtn: 'راسلنا على انستغرام',
     waBtn: 'تحدّث على واتساب',
     topicsTag: 'شنو نحكيو فيه',
@@ -215,16 +218,16 @@ const ROOM_BG = [
 ]
 
 const FLOATING_WORDS = [
-  { text:'current events', icon:'🌍', left:'3%', rot:'-6deg', dur:'8s', delay:'0s' },
-  { text:'trending', icon:'🔥', left:'22%', rot:'5deg', dur:'9s', delay:'1.5s' },
-  { text:'discussions', icon:'💬', left:'44%', rot:'-4deg', dur:'8.5s', delay:'3s' },
-  { text:'live practice', icon:'🎙️', left:'62%', rot:'7deg', dur:'10s', delay:'0.5s' },
-  { text:'breaking news', icon:'📰', left:'80%', rot:'-5deg', dur:'9.5s', delay:'2s' },
-  { text:'pop culture', icon:'🎬', left:'10%', rot:'6deg', dur:'8s', delay:'4s' },
-  { text:'tech & AI', icon:'🤖', left:'35%', rot:'-7deg', dur:'9s', delay:'5s' },
-  { text:'finance', icon:'💰', left:'70%', rot:'4deg', dur:'8.5s', delay:'1s' },
-  { text:'sports', icon:'🏆', left:'55%', rot:'-3deg', dur:'7.5s', delay:'3.5s' },
-  { text:'music', icon:'🎵', left:'88%', rot:'5deg', dur:'9s', delay:'6s' },
+  { text:'current events', icon:'🌍', left:'3%', rot:'-8deg', dur:'8s', delay:'0s' },
+  { text:'trending', icon:'🔥', left:'20%', rot:'7deg', dur:'9s', delay:'1.5s' },
+  { text:'discussions', icon:'💬', left:'42%', rot:'-6deg', dur:'8.5s', delay:'3s' },
+  { text:'live practice', icon:'🎙️', left:'60%', rot:'9deg', dur:'10s', delay:'0.5s' },
+  { text:'breaking news', icon:'📰', left:'78%', rot:'-7deg', dur:'9.5s', delay:'2s' },
+  { text:'pop culture', icon:'🎬', left:'12%', rot:'8deg', dur:'8s', delay:'4s' },
+  { text:'tech & AI', icon:'🤖', left:'33%', rot:'-9deg', dur:'9s', delay:'5s' },
+  { text:'finance', icon:'💰', left:'68%', rot:'6deg', dur:'8.5s', delay:'1s' },
+  { text:'sports', icon:'🏆', left:'52%', rot:'-5deg', dur:'7.5s', delay:'3.5s' },
+  { text:'music', icon:'🎵', left:'85%', rot:'7deg', dur:'9s', delay:'6s' },
 ]
 
 // ── AVATAR BUILDER ──────────────────────────────────────────────────────────
@@ -419,14 +422,10 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 
   function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
     switch (tier) {
-      case 'target':
-        return { background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px', boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`, animation: 'b2pulse 2.5s ease-in-out infinite' }
-      case 'gold':
-        return { background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder, color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px', boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite' }
-      case 'diamond':
-        return { background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder, color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px', boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite' }
-      default:
-        return { background: mutedBg, borderColor: mutedBorder, color: mutedText, borderWidth: '1px', boxShadow: 'none' }
+      case 'target': return { background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px', boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`, animation: 'b2pulse 2.5s ease-in-out infinite' }
+      case 'gold': return { background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder, color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px', boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite' }
+      case 'diamond': return { background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder, color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px', boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite' }
+      default: return { background: mutedBg, borderColor: mutedBorder, color: mutedText, borderWidth: '1px', boxShadow: 'none' }
     }
   }
 
@@ -446,9 +445,7 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
               )}
               {l.level}
             </span>
-            {i < levels.length - 1 && (
-              <span className="w-2.5 h-px" style={{ backgroundColor: l.tier === 'diamond' || l.tier === 'gold' ? goldBorder : mutedBorder }} />
-            )}
+            {i < levels.length - 1 && <span className="w-2.5 h-px" style={{ backgroundColor: l.tier === 'diamond' || l.tier === 'gold' ? goldBorder : mutedBorder }} />}
           </span>
         )
       })}
@@ -460,9 +457,10 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 // ── B2 LOGO ─────────────────────────────────────────────────────────────────
 function B2Logo({ className = '', isLight = false }: { className?: string, isLight?: boolean }) {
   return (
-    <span className={`inline-flex items-baseline gap-0 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
-      <span className="font-black animate-b2pulse" style={{ letterSpacing:'-0.03em', color:isLight?'#E03D00':'#FF4500', textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)' }}>B2</span>
-      <span className="font-light" style={{ letterSpacing:'0.02em', color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)' }}>please</span>
+    <span className={`inline-flex items-center gap-0 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
+      <TnFlag />
+      <span className="font-black animate-b2pulse ml-1" style={{ letterSpacing:'-0.03em', color:isLight?'#E03D00':'#FF4500', textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)' }}>B2</span>
+      <span className="font-light -ml-0.5" style={{ letterSpacing:'0.02em', color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)' }}>please</span>
     </span>
   )
 }
@@ -526,62 +524,31 @@ export default function Home() {
   useEffect(() => {
     const word = words[wordIndex]
     const timeout = setTimeout(() => {
-      if (!deleting) {
-        if (charIndex < word.length) { setDisplayed(word.slice(0,charIndex+1)); setCharIndex(c=>c+1) }
-        else setTimeout(()=>setDeleting(true), 2000)
-      } else {
-        if (charIndex > 0) { setDisplayed(word.slice(0,charIndex-1)); setCharIndex(c=>c-1) }
-        else { setDeleting(false); setWordIndex(i=>(i+1)%words.length) }
-      }
+      if (!deleting) { if (charIndex < word.length) { setDisplayed(word.slice(0,charIndex+1)); setCharIndex(c=>c+1) } else setTimeout(()=>setDeleting(true), 2000) }
+      else { if (charIndex > 0) { setDisplayed(word.slice(0,charIndex-1)); setCharIndex(c=>c-1) } else { setDeleting(false); setWordIndex(i=>(i+1)%words.length) } }
     }, deleting?40:80)
     return () => clearTimeout(timeout)
   }, [charIndex, deleting, wordIndex])
 
   const [activeTopicIndex, setActiveTopicIndex] = useState(0); const [topicProgress, setTopicProgress] = useState(0)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTopicProgress(p => { if (p >= 100) { setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length); return 0 } return p + 1.5 })
-    }, 80)
-    return () => clearInterval(interval)
-  }, [])
+  useEffect(() => { const interval = setInterval(() => { setTopicProgress(p => { if (p >= 100) { setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length); return 0 } return p + 1.5 }) }, 80); return () => clearInterval(interval) }, [])
 
   const [visibleP, setVisibleP] = useState<number[]>([])
 
-  // Real class simulation: Dali speaks most of the time, students take turns
   const [activeSpeakers, setActiveSpeakers] = useState<Set<number>>(new Set([0]))
   useEffect(() => {
-    const daliInterval = setInterval(() => {
-      setActiveSpeakers(prev => {
-        const next = new Set(prev)
-        if (next.has(0)) { if (Math.random() > 0.3) return prev; next.delete(0) }
-        else { next.add(0) }
-        return next
-      })
-    }, 4000)
-    const studentInterval = setInterval(() => {
-      setActiveSpeakers(prev => {
-        const next = new Set(prev)
-        const studentIndices = [1,2,3,4,5,6,7]
-        studentIndices.forEach(s => next.delete(s))
-        if (Math.random() > 0.4) { const newStudent = studentIndices[Math.floor(Math.random() * 7)]; next.add(newStudent) }
-        return next
-      })
-    }, 3500)
+    const daliInterval = setInterval(() => { setActiveSpeakers(prev => { const next = new Set(prev); if (next.has(0)) { if (Math.random() > 0.3) return prev; next.delete(0) } else { next.add(0) }; return next }) }, 4000)
+    const studentInterval = setInterval(() => { setActiveSpeakers(prev => { const next = new Set(prev); [1,2,3,4,5,6,7].forEach(s => next.delete(s)); if (Math.random() > 0.4) { next.add([1,2,3,4,5,6,7][Math.floor(Math.random()*7)]) }; return next }) }, 3500)
     return () => { clearInterval(daliInterval); clearInterval(studentInterval) }
   }, [])
 
   const [chatMsgs, setChatMsgs] = useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets = [
-    {text:'Will AI replace all jobs eventually?', from:'Mehdi', isDali:false},
-    {text:'Say "displace" not "replace" — much stronger! 💡', from:'Dali', isDali:true},
-    {text:'AI might displace some roles...', from:'Nour', isDali:false},
-    {text:'Perfect — that\'s Band 7+ vocabulary 🔥', from:'Dali', isDali:true},
+    {text:'Will AI replace all jobs eventually?', from:'Mehdi', isDali:false}, {text:'Say "displace" not "replace" — much stronger! 💡', from:'Dali', isDali:true},
+    {text:'AI might displace some roles...', from:'Nour', isDali:false}, {text:'Perfect — that\'s Band 7+ vocabulary 🔥', from:'Dali', isDali:true},
     {text:'This session is incredible 🙌', from:'Sami', isDali:false},
   ]
-  useEffect(() => {
-    for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*280)
-    chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800))
-  }, [])
+  useEffect(() => { for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*280); chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800)) }, [])
 
   const [name,setName]=useState(''); const [email,setEmail]=useState(''); const [password,setPassword]=useState('')
   const [message,setMessage]=useState(''); const [loading,setLoading]=useState(false)
@@ -591,27 +558,13 @@ export default function Home() {
   const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
   const countdown=useCountdown(nextLive)
 
-  useEffect(()=>{
-    const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1})
-    revealRefs.current.forEach(el=>el&&observer.observe(el))
-    return ()=>observer.disconnect()
-  },[])
-
+  useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return ()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
-  const handleSignup=async()=>{
-    setLoading(true);setMessage('')
-    const{error}=await supabase.auth.signUp({email,password,options:{data:{full_name:name}}})
-    if(error)setMessage(error.message)
-    else setMessage('Account created! Check your email to confirm.')
-    setLoading(false)
-  }
+  const handleSignup=async()=>{setLoading(true);setMessage('');const{error}=await supabase.auth.signUp({email,password,options:{data:{full_name:name}}});if(error)setMessage(error.message);else setMessage('Account created! Check your email to confirm.');setLoading(false)}
 
   const activeTopic=CLASS_TOPICS[activeTopicIndex]
-  const allAvatars=[
-    {svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},
-    ...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))
-  ]
+  const allAvatars=[{svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))]
 
   return (
     <main className="min-h-screen transition-colors duration-500" style={{backgroundColor:s.mainBg,fontFamily:s.fontFamily}} dir={isAr?'rtl':'ltr'}>
@@ -623,7 +576,7 @@ export default function Home() {
         @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,25px) scale(1.12)}66%{transform:translate(-15px,35px) scale(.94)}}
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,-25px) scale(1.06)}66%{transform:translate(20px,-15px) scale(1.12)}}
         @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.18)}}
-        @keyframes floatRain{0%{transform:translateY(-50px);opacity:0}5%{opacity:.6}95%{opacity:.6}100%{transform:translateY(calc(100% + 50px));opacity:0}}
+        @keyframes floatRain{0%{transform:translateY(-40px);opacity:0}3%{opacity:.6}90%{opacity:.6}100%{transform:translateY(calc(100% + 80px));opacity:0}}
         @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
         @keyframes diamondSparkle{0%,100%{filter:brightness(1);box-shadow:0 0 20px rgba(160,180,220,0.6),0 0 40px rgba(180,200,240,0.3)}30%{filter:brightness(1.15);box-shadow:0 0 28px rgba(180,200,240,0.75),0 0 50px rgba(200,220,255,0.4)}60%{filter:brightness(0.95)}}
         @keyframes diamondShine{0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg)}50%{opacity:.7}}
@@ -646,17 +599,24 @@ export default function Home() {
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2.5 flex-shrink-0"><B2Logo className="text-lg md:text-xl" isLight={isLight}/><TnFlag/></div>
-          <div className="hidden md:flex gap-1 items-center">{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{color:s.textSecondary}} onMouseEnter={e=>{e.currentTarget.style.color=s.textOrange;e.currentTarget.style.backgroundColor=s.pillBg}} onMouseLeave={e=>{e.currentTarget.style.color=s.textSecondary;e.currentTarget.style.backgroundColor='transparent'}}>{item}</a>))}</div>
+          <div className="flex items-center gap-2.5 flex-shrink-0">
+            <B2Logo className="text-lg md:text-xl" isLight={isLight} />
+          </div>
+          <div className="hidden md:flex gap-1 items-center">
+            {['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{color:s.textSecondary}} onMouseEnter={e=>{e.currentTarget.style.color=s.textOrange;e.currentTarget.style.backgroundColor=s.pillBg}} onMouseLeave={e=>{e.currentTarget.style.color=s.textSecondary;e.currentTarget.style.backgroundColor='transparent'}}>{item}</a>))}
+          </div>
           <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
-            <div className="flex gap-0.5 p-0.5 rounded-lg" style={{backgroundColor:s.toggleBg}}>{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>))}</div>
+            <div className="flex gap-0.5 p-0.5 rounded-lg" style={{backgroundColor:s.toggleBg}}>
+              {(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>))}
+            </div>
             <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
+            <a href="/login" className="px-4 py-2 rounded-xl text-sm font-semibold transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:'transparent'}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.color=s.textOrange}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.color=s.textSecondary}}>{t.loginBtn}</a>
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
             <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>
           </div>
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a></div>)}
+        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button><a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{t.loginBtn}</a>{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a></div>)}
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
@@ -665,7 +625,7 @@ export default function Home() {
         <div className="blob b1 w-[500px] h-[500px] absolute -top-32 -left-32" style={{background:s.textOrange,opacity:s.blobOpacity}}/>
         <div className="blob b2 w-[400px] h-[400px] absolute -bottom-20 -right-20" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
         <div className="blob b3 w-[300px] h-[300px] absolute top-1/2 left-1/3" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
-        <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center w-full relative z-10">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center w-full relative z-10">
           <div>
             <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-5 font-semibold border" style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor,color:s.textOrange}}><TnFlag className="text-base"/><span>{t.tagline}</span></div>
             <div className="mb-6"><CefrBadges isLight={isLight} label={t.badgeLabel}/></div>
@@ -699,7 +659,7 @@ export default function Home() {
       </section>
 
       {/* ── TOPICS ──────────────────────────────────────────── */}
-      <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-24 relative overflow-hidden" style={{minHeight:'650px'}}>
+      <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
         {FLOATING_WORDS.map((w,i)=>(
           <div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
             style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}>
@@ -713,7 +673,7 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ────────────────────────────────────── */}
-      <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-12">
+      <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.howTag}</div>
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.howH}</h2>
         <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.howSub}</p>
@@ -721,7 +681,7 @@ export default function Home() {
       </section>
 
       {/* ── PACKAGES ────────────────────────────────────────── */}
-      <section id="classes" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-24">
+      <section id="classes" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
         <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
@@ -733,7 +693,7 @@ export default function Home() {
       </section>
 
       {/* ── LIVE ────────────────────────────────────────────── */}
-      <section id="live" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-12">
+      <section id="live" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.liveTag}</div>
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.liveH}</h2>
         <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.liveSub}</p>
@@ -741,7 +701,7 @@ export default function Home() {
       </section>
 
       {/* ── COMMUNITY ───────────────────────────────────────── */}
-      <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-24">
+      <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityTag}</div>
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityH}</h2>
         <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.communitySub}</p>
@@ -749,13 +709,13 @@ export default function Home() {
       </section>
 
       {/* ── SIGNUP ──────────────────────────────────────────── */}
-      <section id="signup" ref={addRef(5)} className="reveal py-24 px-6">
+      <section id="signup" ref={addRef(5)} className="reveal py-10 md:py-16 px-6">
         <div className="max-w-6xl mx-auto rounded-3xl p-10 md:p-14 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor}}><div className="absolute inset-0" style={{background:`radial-gradient(ellipse at center,${s.textOrange}04 0%,transparent 70%)`}}/><div className="max-w-sm mx-auto relative z-10"><div className="text-xs font-bold uppercase tracking-widest mb-3 text-center" style={{color:s.textOrange}}>{t.signupTag}</div><h2 className="text-2xl font-black mb-3 text-center" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.signupH}</h2><p className="text-[15px] text-center mb-8" style={{color:s.textSecondary}}>{t.signupSub}</p><div className="rounded-2xl p-6 flex flex-col gap-3.5 border" style={{background:s.cardBgFlat,borderColor:s.borderColor}}><input type="text" placeholder={t.namePH} value={name} onChange={e=>setName(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/><input type="email" placeholder={t.emailPH} value={email} onChange={e=>setEmail(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/><input type="password" placeholder={t.passPH} value={password} onChange={e=>setPassword(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/>{message&&<p className="text-sm text-center font-semibold" style={{color:s.textOrangeLight}}>{message}</p>}<button onClick={handleSignup} disabled={loading} className="text-white py-3.5 rounded-xl text-sm font-semibold active:scale-[0.97] transition-all disabled:opacity-50" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{loading?t.creating:t.signupBtn2}</button><p className="text-[13px] text-center" style={{color:s.textTertiary}}>{t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{color:s.textOrange}}>{t.loginLink}</a></p></div></div></div>
       </section>
 
       <footer className="border-t px-6 py-8" style={{borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
-          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/><TnFlag/></div>
+          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight} /></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>{['privacy','terms','tiktok ↗','instagram ↗'].map((link,i)=>(<a key={link} href={i<2?'#':i===2?'https://www.tiktok.com/@ielts.tn':'https://www.instagram.com/ielts.tn'} target={i>=2?'_blank':undefined} className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>{link}</a>))}</div>
           <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
