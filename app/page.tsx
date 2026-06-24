@@ -215,14 +215,16 @@ const ROOM_BG = [
 ]
 
 const FLOATING_WORDS = [
-  { text:'current events', icon:'🌍', left:'5%', rot:'-8deg', dur:'10s', delay:'0s' },
-  { text:'trending topics', icon:'🔥', left:'25%', rot:'6deg', dur:'12s', delay:'2s' },
-  { text:'real discussions', icon:'💬', left:'45%', rot:'-5deg', dur:'11s', delay:'4s' },
-  { text:'live practice', icon:'🎙️', left:'65%', rot:'7deg', dur:'13s', delay:'1s' },
-  { text:'breaking news', icon:'📰', left:'82%', rot:'-6deg', dur:'10.5s', delay:'3s' },
-  { text:'pop culture', icon:'🎬', left:'15%', rot:'8deg', dur:'12.5s', delay:'5s' },
-  { text:'tech & AI', icon:'🤖', left:'55%', rot:'-7deg', dur:'11.5s', delay:'6s' },
-  { text:'finance talk', icon:'💰', left:'75%', rot:'5deg', dur:'14s', delay:'2.5s' },
+  { text:'current events', icon:'🌍', left:'3%', rot:'-6deg', dur:'8s', delay:'0s' },
+  { text:'trending', icon:'🔥', left:'22%', rot:'5deg', dur:'9s', delay:'1.5s' },
+  { text:'discussions', icon:'💬', left:'44%', rot:'-4deg', dur:'8.5s', delay:'3s' },
+  { text:'live practice', icon:'🎙️', left:'62%', rot:'7deg', dur:'10s', delay:'0.5s' },
+  { text:'breaking news', icon:'📰', left:'80%', rot:'-5deg', dur:'9.5s', delay:'2s' },
+  { text:'pop culture', icon:'🎬', left:'10%', rot:'6deg', dur:'8s', delay:'4s' },
+  { text:'tech & AI', icon:'🤖', left:'35%', rot:'-7deg', dur:'9s', delay:'5s' },
+  { text:'finance', icon:'💰', left:'70%', rot:'4deg', dur:'8.5s', delay:'1s' },
+  { text:'sports', icon:'🏆', left:'55%', rot:'-3deg', dur:'7.5s', delay:'3.5s' },
+  { text:'music', icon:'🎵', left:'88%', rot:'5deg', dur:'9s', delay:'6s' },
 ]
 
 // ── AVATAR BUILDER ──────────────────────────────────────────────────────────
@@ -312,11 +314,9 @@ function makeDaliSvg(isLight: boolean) {
 <circle cx="121.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/>
 <path d="M71 99 Q82 95 93 98" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/>
 <path d="M107 98 Q118 95 129 99" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-<!-- Round glasses -->
 <circle cx="82" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
 <circle cx="118" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
 <line x1="96" y1="112" x2="104" y2="112" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/>
-<!-- Glass reflection -->
 <path d="M72 106 Q78 104 84 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>
 <path d="M108 106 Q114 104 120 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>`
   const mouth = `
@@ -324,7 +324,6 @@ function makeDaliSvg(isLight: boolean) {
 <path d="M82 132 Q90 130 100 131.5 Q110 130 118 132" fill="#2D1E0F"/>
 <path d="M78 139 Q100 158 122 139" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/>
 <path d="M80 139.5 Q100 155 120 139.5" fill="white"/>
-<!-- Light beard outline -->
 <path d="M70 135 Q75 148 82 152 Q90 156 100 157 Q110 156 118 152 Q125 148 130 135" stroke="#C87940" stroke-width="1.5" fill="none" opacity="0.35" stroke-linecap="round"/>
 <path d="M75 140 Q85 150 100 153 Q115 150 125 140" stroke="#D4814A" stroke-width="1" fill="none" opacity="0.2" stroke-linecap="round"/>`
   return buildAvatarSvg(sb,sm,ss,sd,eb,em,ed,top,eyes,mouth,'','#FF4500',0,isLight)
@@ -387,13 +386,8 @@ function makeStudentSvg(i: number, isLight: boolean) {
 }
 
 const STUDENT_NAMES = [
-  { name:'Amira', emoji:'✨' },
-  { name:'Sami', emoji:'🎧' },
-  { name:'Nour', emoji:'🌸' },
-  { name:'Mehdi', emoji:'🔥' },
-  { name:'Karim', emoji:'😎' },
-  { name:'Rania', emoji:'🎵' },
-  { name:'Sara', emoji:'🧕' },
+  { name:'Amira', emoji:'✨' }, { name:'Sami', emoji:'🎧' }, { name:'Nour', emoji:'🌸' },
+  { name:'Mehdi', emoji:'🔥' }, { name:'Karim', emoji:'😎' }, { name:'Rania', emoji:'🎵' }, { name:'Sara', emoji:'🧕' },
 ]
 
 const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
@@ -401,57 +395,39 @@ const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob',
 // ── CEFR BADGE ROW ──────────────────────────────────────────────────────────
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
-    { level:'A1', tier:'muted' as const },
-    { level:'A2', tier:'muted' as const },
-    { level:'B1', tier:'muted' as const },
-    { level:'B2', tier:'target' as const },
-    { level:'C1', tier:'gold' as const },
-    { level:'C2', tier:'diamond' as const },
+    { level:'A1', tier:'muted' as const }, { level:'A2', tier:'muted' as const }, { level:'B1', tier:'muted' as const },
+    { level:'B2', tier:'target' as const }, { level:'C1', tier:'gold' as const }, { level:'C2', tier:'diamond' as const },
   ]
   const mutedBg = isLight ? '#F0EBE5' : 'rgba(26,26,26,0.8)'
   const mutedBorder = isLight ? '#DDD0C0' : '#2A2A2C'
   const mutedText = isLight ? 'rgba(26,26,26,0.3)' : 'rgba(255,240,232,0.25)'
   const targetBg = isLight ? '#FFF0E8' : '#2A1A0A'
   const targetColor = isLight ? '#E03D00' : '#FF4500'
-  const goldBgDark = 'linear-gradient(135deg, #3D2B00 0%, #5C4200 50%, #3D2B00 100%)'
+  const goldBgDark = 'linear-gradient(135deg, #4A3500 0%, #6B5000 50%, #4A3500 100%)'
   const goldBgLight = 'linear-gradient(135deg, #FFF8E0 0%, #FFE8A0 50%, #FFF0C0 100%)'
   const goldBorder = '#D4A017'
-  const goldTextDark = '#F0C850'
+  const goldTextDark = '#FFD700'
   const goldTextLight = '#8B6914'
-  const goldShadow = '0 0 14px rgba(212,160,23,0.45), 0 0 28px rgba(212,160,23,0.15)'
-  const diamondBgDark = 'linear-gradient(135deg, #1A1D2E 0%, #2A2D3E 30%, #1A1D2E 60%, #252838 100%)'
-  const diamondBgLight = 'linear-gradient(135deg, #F8F8FC 0%, #E8EAF0 30%, #F4F4F8 60%, #ECEEF4 100%)'
-  const diamondBorder = '#B8C0D0'
-  const diamondTextDark = '#C8D0E0'
-  const diamondTextLight = '#5A6080'
-  const diamondShadow = '0 0 18px rgba(180,190,210,0.5), 0 0 35px rgba(200,210,240,0.2)'
+  const goldShadow = '0 0 18px rgba(212,160,23,0.55), 0 0 35px rgba(212,160,23,0.2)'
+  const diamondBgDark = 'linear-gradient(135deg, #222840 0%, #354060 30%, #222840 60%, #2D3550 100%)'
+  const diamondBgLight = 'linear-gradient(135deg, #F0F2F8 0%, #DDE0EC 30%, #E8EAF2 60%, #E0E2EC 100%)'
+  const diamondBorder = '#A0B0D0'
+  const diamondBorderGlow = '#C8D8F0'
+  const diamondTextDark = '#E0E8F8'
+  const diamondTextLight = '#4A5580'
+  const diamondShadow = '0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
   const labelColor = isLight ? 'rgba(26,26,26,0.35)' : 'rgba(255,240,232,0.25)'
 
   function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
     switch (tier) {
       case 'target':
-        return {
-          background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px',
-          boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`,
-          animation: 'b2pulse 2.5s ease-in-out infinite'
-        }
+        return { background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px', boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`, animation: 'b2pulse 2.5s ease-in-out infinite' }
       case 'gold':
-        return {
-          background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder,
-          color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px',
-          boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite'
-        }
+        return { background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder, color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px', boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite' }
       case 'diamond':
-        return {
-          background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder,
-          color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px',
-          boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite'
-        }
+        return { background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder, color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px', boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite' }
       default:
-        return {
-          background: mutedBg, borderColor: mutedBorder, color: mutedText,
-          borderWidth: '1px', boxShadow: 'none'
-        }
+        return { background: mutedBg, borderColor: mutedBorder, color: mutedText, borderWidth: '1px', boxShadow: 'none' }
     }
   }
 
@@ -461,19 +437,13 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
         const style = getBadgeStyle(l.tier)
         return (
           <span key={l.level} className="inline-flex items-center gap-1">
-            <span
-              className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
-              style={{
-                background: style.background, borderColor: style.borderColor,
-                color: style.color, borderWidth: style.borderWidth,
-                boxShadow: style.boxShadow, letterSpacing: '-0.02em',
-                animation: (style as any).animation
-              }}>
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
+              style={{ background:style.background, borderColor:style.borderColor, color:style.color, borderWidth:style.borderWidth, boxShadow:style.boxShadow, letterSpacing:'-0.02em', animation:(style as any).animation }}>
               {l.tier === 'diamond' && (
-                <span className="absolute inset-0 pointer-events-none" style={{
-                  background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.15) 55%, transparent 60%)',
-                  animation: 'diamondShine 2.5s ease-in-out infinite'
-                }} />
+                <>
+                  <span className="absolute inset-0 pointer-events-none" style={{ background:'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 55%, transparent 70%)', animation:'diamondShine 2s ease-in-out infinite' }} />
+                  <span className="absolute top-0.5 right-1 text-[7px] opacity-70" style={{ color: isLight ? '#8898C0' : '#C8D8F0' }}>◆</span>
+                </>
               )}
               {l.level}
             </span>
@@ -492,13 +462,8 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 function B2Logo({ className = '', isLight = false }: { className?: string, isLight?: boolean }) {
   return (
     <span className={`inline-flex items-baseline gap-0 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
-      <span className="font-black animate-b2pulse" style={{
-        letterSpacing:'-0.03em', color: isLight ? '#E03D00' : '#FF4500',
-        textShadow: isLight
-          ? '0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)'
-          : '0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'
-      }}>B2</span>
-      <span className="font-light" style={{ letterSpacing:'0.02em', color: isLight ? '#1A1A1A' : 'rgba(255,255,255,0.9)' }}>please</span>
+      <span className="font-black animate-b2pulse" style={{ letterSpacing:'-0.03em', color:isLight?'#E03D00':'#FF4500', textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)' }}>B2</span>
+      <span className="font-light" style={{ letterSpacing:'0.02em', color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)' }}>please</span>
     </span>
   )
 }
@@ -509,70 +474,44 @@ function useCountdown(target: Date) {
     const tick = () => {
       const diff = target.getTime() - Date.now()
       if (diff <= 0) return
-      setTime({
-        d: Math.floor(diff / 86400000),
-        h: Math.floor((diff % 86400000) / 3600000),
-        m: Math.floor((diff % 3600000) / 60000),
-        s: Math.floor((diff % 60000) / 1000)
-      })
+      setTime({ d:Math.floor(diff/86400000), h:Math.floor((diff%86400000)/3600000), m:Math.floor((diff%3600000)/60000), s:Math.floor((diff%60000)/1000) })
     }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
+    tick(); const id = setInterval(tick, 1000); return () => clearInterval(id)
   }, [target])
   return time
 }
 
 type Theme = 'dark' | 'light'
-
 function detectSystemTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'
   return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
-
 function themeStyles(theme: Theme) {
   const dark = theme === 'dark'
   return {
-    mainBg: dark ? '#0A0A0A' : '#F5F1ED',
-    cardBg: dark ? 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)' : 'linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)',
-    cardBgFlat: dark ? '#1A1A1A' : '#FFFFFF',
-    inputBg: dark ? '#0A0A0A' : '#FFF8F3',
-    navBg: dark ? 'rgba(10,10,10,0.85)' : 'rgba(245,241,237,0.85)',
-    borderColor: dark ? '#2A2A2C' : '#E8E0D8',
-    borderHover: dark ? 'rgba(255,69,0,0.35)' : 'rgba(224,61,0,0.25)',
-    textPrimary: dark ? '#FFFFFF' : '#1A1A1A',
-    textSecondary: dark ? 'rgba(255,240,232,0.55)' : 'rgba(26,26,26,0.55)',
-    textTertiary: dark ? 'rgba(255,240,232,0.35)' : 'rgba(26,26,26,0.35)',
-    textOrange: dark ? '#FF4500' : '#E03D00',
-    textOrangeLight: dark ? '#FF7A3D' : '#CC3700',
-    orangeGlow: dark ? 'rgba(255,69,0,0.25)' : 'rgba(224,61,0,0.15)',
-    cardShadow: dark ? '0 8px 30px rgba(0,0,0,0.3)' : '0 8px 30px rgba(0,0,0,0.06)',
-    cardShadowHover: dark ? '0 12px 40px rgba(0,0,0,0.4)' : '0 12px 40px rgba(0,0,0,0.08)',
-    toggleBg: dark ? '#1C1C1E' : '#EDE8E3',
-    pillBg: dark ? 'rgba(255,69,0,0.1)' : 'rgba(224,61,0,0.08)',
-    pillText: dark ? '#FF4500' : '#E03D00',
-    pillBgInactive: dark ? '#1A1A1A' : '#F0EDE8',
-    pillTextInactive: dark ? 'rgba(255,240,232,0.35)' : 'rgba(26,26,26,0.3)',
-    pillBorderInactive: dark ? '#2A2A2C' : '#E0D8D0',
-    countdownBg: dark ? '#0A0A0A' : '#FFF8F3',
-    countdownBorder: dark ? '#2A2A2C' : '#E8E0D8',
-    chatBg: dark ? '#0A0A0A' : '#FFF8F3',
-    chatBorder: dark ? '#2A2A2C' : '#E8E0D8',
-    btnSecondaryBg: dark ? '#1A1A1A' : '#FFFFFF',
-    btnSecondaryBorder: dark ? '#2A2A2C' : '#E8E0D8',
-    btnSecondaryText: dark ? '#FFF0E8' : '#1A1A1A',
-    blobOpacity: dark ? '0.06' : '0.03',
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif",
+    mainBg:dark?'#0A0A0A':'#F5F1ED', cardBg:dark?'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)':'linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)',
+    cardBgFlat:dark?'#1A1A1A':'#FFFFFF', inputBg:dark?'#0A0A0A':'#FFF8F3', navBg:dark?'rgba(10,10,10,0.85)':'rgba(245,241,237,0.85)',
+    borderColor:dark?'#2A2A2C':'#E8E0D8', borderHover:dark?'rgba(255,69,0,0.35)':'rgba(224,61,0,0.25)',
+    textPrimary:dark?'#FFFFFF':'#1A1A1A', textSecondary:dark?'rgba(255,240,232,0.55)':'rgba(26,26,26,0.55)',
+    textTertiary:dark?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.35)', textOrange:dark?'#FF4500':'#E03D00',
+    textOrangeLight:dark?'#FF7A3D':'#CC3700', orangeGlow:dark?'rgba(255,69,0,0.25)':'rgba(224,61,0,0.15)',
+    cardShadow:dark?'0 8px 30px rgba(0,0,0,0.3)':'0 8px 30px rgba(0,0,0,0.06)',
+    cardShadowHover:dark?'0 12px 40px rgba(0,0,0,0.4)':'0 12px 40px rgba(0,0,0,0.08)',
+    toggleBg:dark?'#1C1C1E':'#EDE8E3', pillBg:dark?'rgba(255,69,0,0.1)':'rgba(224,61,0,0.08)',
+    pillText:dark?'#FF4500':'#E03D00', pillBgInactive:dark?'#1A1A1A':'#F0EDE8',
+    pillTextInactive:dark?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.3)', pillBorderInactive:dark?'#2A2A2C':'#E0D8D0',
+    countdownBg:dark?'#0A0A0A':'#FFF8F3', countdownBorder:dark?'#2A2A2C':'#E8E0D8',
+    chatBg:dark?'#0A0A0A':'#FFF8F3', chatBorder:dark?'#2A2A2C':'#E8E0D8',
+    btnSecondaryBg:dark?'#1A1A1A':'#FFFFFF', btnSecondaryBorder:dark?'#2A2A2C':'#E8E0D8',
+    btnSecondaryText:dark?'#FFF0E8':'#1A1A1A', blobOpacity:dark?'0.06':'0.03',
+    fontFamily:"-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif",
   }
 }
 
 export default function Home() {
   const [lang, setLang] = useState<'en'|'fr'|'ar'>('en')
   const [theme, setTheme] = useState<Theme>('dark')
-  const t = T[lang]
-  const isAr = lang === 'ar'
-  const s = themeStyles(theme)
-  const isLight = theme === 'light'
+  const t = T[lang]; const isAr = lang === 'ar'; const s = themeStyles(theme); const isLight = theme === 'light'
 
   useEffect(() => {
     setTheme(detectSystemTheme())
@@ -582,58 +521,67 @@ export default function Home() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  const [charIndex, setCharIndex] = useState(0)
-  const [wordIndex, setWordIndex] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-  const [displayed, setDisplayed] = useState('')
+  const [charIndex, setCharIndex] = useState(0); const [wordIndex, setWordIndex] = useState(0)
+  const [deleting, setDeleting] = useState(false); const [displayed, setDisplayed] = useState('')
   const words = ['native speaker','confidently','fluently','fearlessly']
   useEffect(() => {
     const word = words[wordIndex]
     const timeout = setTimeout(() => {
       if (!deleting) {
-        if (charIndex < word.length) { setDisplayed(word.slice(0, charIndex + 1)); setCharIndex(c => c + 1) }
-        else setTimeout(() => setDeleting(true), 2000)
+        if (charIndex < word.length) { setDisplayed(word.slice(0,charIndex+1)); setCharIndex(c=>c+1) }
+        else setTimeout(()=>setDeleting(true), 2000)
       } else {
-        if (charIndex > 0) { setDisplayed(word.slice(0, charIndex - 1)); setCharIndex(c => c - 1) }
-        else { setDeleting(false); setWordIndex(i => (i + 1) % words.length) }
+        if (charIndex > 0) { setDisplayed(word.slice(0,charIndex-1)); setCharIndex(c=>c-1) }
+        else { setDeleting(false); setWordIndex(i=>(i+1)%words.length) }
       }
-    }, deleting ? 40 : 80)
+    }, deleting?40:80)
     return () => clearTimeout(timeout)
   }, [charIndex, deleting, wordIndex])
 
-  const [activeTopicIndex, setActiveTopicIndex] = useState(0)
-  const [topicProgress, setTopicProgress] = useState(0)
+  const [activeTopicIndex, setActiveTopicIndex] = useState(0); const [topicProgress, setTopicProgress] = useState(0)
   useEffect(() => {
     const interval = setInterval(() => {
-      setTopicProgress(p => {
-        if (p >= 100) { setActiveTopicIndex(i => (i + 1) % CLASS_TOPICS.length); return 0 }
-        return p + 1.5
-      })
+      setTopicProgress(p => { if (p >= 100) { setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length); return 0 } return p + 1.5 })
     }, 80)
     return () => clearInterval(interval)
   }, [])
 
   const [visibleP, setVisibleP] = useState<number[]>([])
 
-  const [activeSpeakers, setActiveSpeakers] = useState<Set<number>>(new Set())
+  // Simulated real class: Dali (index 0) speaks frequently, students take turns
+  const [activeSpeakers, setActiveSpeakers] = useState<Set<number>>(new Set([0]))
   useEffect(() => {
-    const interval = setInterval(() => {
+    // Dali speaks most of the time
+    const daliInterval = setInterval(() => {
       setActiveSpeakers(prev => {
         const next = new Set(prev)
-        const studentIndices = [1,2,3,4,5,6,7]
-        const randomStudent = studentIndices[Math.floor(Math.random() * studentIndices.length)]
-        if (next.has(randomStudent)) {
-          next.delete(randomStudent)
+        if (next.has(0)) {
+          if (Math.random() > 0.3) return prev // 70% chance Dali keeps speaking
+          next.delete(0)
         } else {
-          next.add(randomStudent)
-          setTimeout(() => {
-            setActiveSpeakers(s => { const n = new Set(s); n.delete(randomStudent); return n })
-          }, 2000 + Math.random() * 2000)
+          next.add(0)
         }
         return next
       })
-    }, 1000)
-    return () => clearInterval(interval)
+    }, 3000 + Math.random() * 2000)
+
+    // Students raise hand occasionally, one at a time
+    const studentInterval = setInterval(() => {
+      setActiveSpeakers(prev => {
+        const next = new Set(prev)
+        const activeStudents = [1,2,3,4,5,6,7].filter(s => next.has(s))
+        // Remove any existing student speaker
+        activeStudents.forEach(s => next.delete(s))
+        // 40% chance a new student raises hand
+        if (Math.random() > 0.6) {
+          const newStudent = [1,2,3,4,5,6,7][Math.floor(Math.random() * 7)]
+          next.add(newStudent)
+        }
+        return next
+      })
+    }, 2500 + Math.random() * 1500)
+
+    return () => { clearInterval(daliInterval); clearInterval(studentInterval) }
   }, [])
 
   const [chatMsgs, setChatMsgs] = useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
@@ -645,406 +593,190 @@ export default function Home() {
     {text:'This session is incredible 🙌', from:'Sami', isDali:false},
   ]
   useEffect(() => {
-    for (let i = 0; i < 8; i++) setTimeout(() => setVisibleP(p => [...p, i]), i * 280)
-    chatSnippets.forEach((msg, i) => setTimeout(() => setChatMsgs(p => [...p.slice(-3), {id:i, ...msg}]), 2000 + i * 2800))
+    for (let i=0;i<8;i++) setTimeout(()=>setVisibleP(p=>[...p,i]), i*280)
+    chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800))
   }, [])
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [activePrice, setActivePrice] = useState<'m'|'y'>('m')
-  const [menuOpen, setMenuOpen] = useState(false)
-  const revealRefs = useRef<(HTMLDivElement|null)[]>([])
+  const [name,setName]=useState(''); const [email,setEmail]=useState(''); const [password,setPassword]=useState('')
+  const [message,setMessage]=useState(''); const [loading,setLoading]=useState(false)
+  const [activePrice,setActivePrice]=useState<'m'|'y'>('m'); const [menuOpen,setMenuOpen]=useState(false)
+  const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
-  const nextLive = useRef((() => {
-    const d = new Date()
-    const days = (5 - d.getDay() + 7) % 7 || 7
-    d.setDate(d.getDate() + days)
-    d.setHours(20, 0, 0, 0)
-    return d
-  })()).current
-  const countdown = useCountdown(nextLive)
+  const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
+  const countdown=useCountdown(nextLive)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
-      { threshold: 0.1 }
-    )
-    revealRefs.current.forEach(el => el && observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+  useEffect(()=>{
+    const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1})
+    revealRefs.current.forEach(el=>el&&observer.observe(el))
+    return ()=>observer.disconnect()
+  },[])
 
-  const addRef = (i:number) => (el:HTMLDivElement|null) => { revealRefs.current[i] = el }
+  const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
-  const handleSignup = async () => {
-    setLoading(true)
-    setMessage('')
-    const { error } = await supabase.auth.signUp({
-      email, password, options: { data: { full_name: name } }
-    })
-    if (error) setMessage(error.message)
+  const handleSignup=async()=>{
+    setLoading(true);setMessage('')
+    const{error}=await supabase.auth.signUp({email,password,options:{data:{full_name:name}}})
+    if(error)setMessage(error.message)
     else setMessage('Account created! Check your email to confirm.')
     setLoading(false)
   }
 
-  const activeTopic = CLASS_TOPICS[activeTopicIndex]
-  const allAvatars = [
-    { svg: makeDaliSvg(isLight), name: 'Dali 👨‍🏫', isDali: true, bg: isLight ? ROOM_BG[0].light : ROOM_BG[0].dark },
-    ...[0,1,2,3,4,5,6].map(i => ({
-      svg: makeStudentSvg(i, isLight),
-      name: `${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,
-      isDali: false,
-      bg: isLight ? ROOM_BG[i].light : ROOM_BG[i].dark
-    }))
+  const activeTopic=CLASS_TOPICS[activeTopicIndex]
+  const allAvatars=[
+    {svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},
+    ...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))
   ]
 
   return (
-    <main className="min-h-screen transition-colors duration-500" style={{ backgroundColor: s.mainBg, fontFamily: s.fontFamily }} dir={isAr ? 'rtl' : 'ltr'}>
+    <main className="min-h-screen transition-colors duration-500" style={{backgroundColor:s.mainBg,fontFamily:s.fontFamily}} dir={isAr?'rtl':'ltr'}>
       <style>{`
-        @keyframes b2pulse { 0%,100%{opacity:1;} 50%{opacity:0.82;} }
-        .animate-b2pulse { animation: b2pulse 2.5s ease-in-out infinite; }
-        @keyframes cursorBlink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-        .cursor-thin { animation: cursorBlink 1s step-end infinite; }
-        .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
-        .reveal.visible { opacity:1; transform:translateY(0); }
-        .blob { position:absolute; border-radius:50%; filter:blur(90px); }
-        .b1 { animation:b1 12s ease-in-out infinite; } .b2 { animation:b2 15s ease-in-out infinite; } .b3 { animation:b3 10s ease-in-out infinite; }
-        @keyframes b1 { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(40px,25px) scale(1.12);} 66%{transform:translate(-15px,35px) scale(0.94);} }
-        @keyframes b2 { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(-30px,-25px) scale(1.06);} 66%{transform:translate(20px,-15px) scale(1.12);} }
-        @keyframes b3 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(25px,-20px) scale(1.18);} }
-        @keyframes floatRain { 0%{transform:translateY(-60px);opacity:0;} 8%{opacity:.45;} 92%{opacity:.45;} 100%{transform:translateY(calc(100% + 60px));opacity:0;} }
-        @keyframes goldShimmer { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.15);} }
-        @keyframes diamondSparkle { 0%,100%{filter:brightness(1);} 30%{filter:brightness(1.1);} 60%{filter:brightness(0.95);} }
-        @keyframes diamondShine { 0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg);} 50%{opacity:.6;} }
-        .dali-wrap { animation:daliFloat 4s ease-in-out infinite; }
-        @keyframes daliFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);} }
-        .speaking-ring { animation:sp 1.2s ease-in-out infinite; }
-        @keyframes sp { 0%,100%{box-shadow:0 0 0 0 rgba(255,69,0,.6);} 50%{box-shadow:0 0 0 8px rgba(255,69,0,0);} }
-        .anim-bob{animation:avBob 4s ease-in-out infinite} @keyframes avBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-        .anim-think{animation:avThink 4.5s ease-in-out infinite} @keyframes avThink{0%,100%{transform:rotate(0deg) translateY(0)}30%{transform:rotate(-7deg) translateY(-4px)}70%{transform:rotate(5deg) translateY(-2px)}}
-        .anim-nod{animation:avNod 3.2s ease-in-out infinite} @keyframes avNod{0%,100%{transform:translateY(0) scaleY(1)}40%{transform:translateY(-7px) scaleY(1.03)}80%{transform:translateY(-3px) scaleY(.98)}}
-        .anim-lean{animation:avLean 5.5s ease-in-out infinite} @keyframes avLean{0%,100%{transform:rotate(0deg)}35%{transform:rotate(6deg)}70%{transform:rotate(-4deg)}}
-        .anim-participate{animation:avParticipate 1.2s ease-in-out infinite} @keyframes avParticipate{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.06) translateY(-5px)}}
-        .av-cell{opacity:0;transform:scale(0);transition:opacity 0.4s ease,transform 0.5s cubic-bezier(.34,1.56,.64,1)} .av-cell.show{opacity:1;transform:scale(1)}
-        .chat-in{animation:cin 0.4s ease forwards} @keyframes cin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-        .progress-fill{transition:width 0.15s linear}
-        .topic-card{transition:all 0.3s cubic-bezier(0.16,1,0.3,1)} .topic-card:hover{transform:translateY(-4px)}
-        .pkg-card{transition:all 0.35s cubic-bezier(0.16,1,0.3,1)} .pkg-card:hover{transform:translateY(-4px)}
-        @keyframes actPop{0%{opacity:0;transform:translateY(4px) scale(.8)}20%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-4px) scale(1.1)}}
-        .act-indicator{animation:actPop 2.5s ease-out forwards}
+        @keyframes b2pulse{0%,100%{opacity:1}50%{opacity:.82}}.animate-b2pulse{animation:b2pulse 2.5s ease-in-out infinite}
+        @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}.cursor-thin{animation:cursorBlink 1s step-end infinite}
+        .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+        .blob{position:absolute;border-radius:50%;filter:blur(90px)}.b1{animation:b1 12s ease-in-out infinite}.b2{animation:b2 15s ease-in-out infinite}.b3{animation:b3 10s ease-in-out infinite}
+        @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,25px) scale(1.12)}66%{transform:translate(-15px,35px) scale(.94)}}
+        @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,-25px) scale(1.06)}66%{transform:translate(20px,-15px) scale(1.12)}}
+        @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.18)}}
+        @keyframes floatRain{0%{transform:translateY(-50px);opacity:0}5%{opacity:.6}95%{opacity:.6}100%{transform:translateY(calc(100% + 50px));opacity:0}}
+        @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+        @keyframes diamondSparkle{0%,100%{filter:brightness(1);box-shadow:0 0 20px rgba(160,180,220,0.6),0 0 40px rgba(180,200,240,0.3)}30%{filter:brightness(1.15);box-shadow:0 0 28px rgba(180,200,240,0.75),0 0 50px rgba(200,220,255,0.4)}60%{filter:brightness(0.95)}}
+        @keyframes diamondShine{0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg)}50%{opacity:.7}}
+        .dali-wrap{animation:daliFloat 4s ease-in-out infinite}@keyframes daliFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+        .speaking-ring{animation:sp 1.2s ease-in-out infinite}@keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(255,69,0,.6)}50%{box-shadow:0 0 0 8px rgba(255,69,0,0)}}
+        .anim-bob{animation:avBob 4s ease-in-out infinite}@keyframes avBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .anim-think{animation:avThink 4.5s ease-in-out infinite}@keyframes avThink{0%,100%{transform:rotate(0deg) translateY(0)}30%{transform:rotate(-7deg) translateY(-4px)}70%{transform:rotate(5deg) translateY(-2px)}}
+        .anim-nod{animation:avNod 3.2s ease-in-out infinite}@keyframes avNod{0%,100%{transform:translateY(0) scaleY(1)}40%{transform:translateY(-7px) scaleY(1.03)}80%{transform:translateY(-3px) scaleY(.98)}}
+        .anim-lean{animation:avLean 5.5s ease-in-out infinite}@keyframes avLean{0%,100%{transform:rotate(0deg)}35%{transform:rotate(6deg)}70%{transform:rotate(-4deg)}}
+        .anim-participate{animation:avParticipate 1.2s ease-in-out infinite}@keyframes avParticipate{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.06) translateY(-5px)}}
+        .av-cell{opacity:0;transform:scale(0);transition:opacity .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1)}.av-cell.show{opacity:1;transform:scale(1)}
+        .chat-in{animation:cin .4s ease forwards}@keyframes cin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .progress-fill{transition:width .15s linear}
+        .topic-card{transition:all .3s cubic-bezier(.16,1,.3,1)}.topic-card:hover{transform:translateY(-4px)}
+        .pkg-card{transition:all .35s cubic-bezier(.16,1,.3,1)}.pkg-card:hover{transform:translateY(-4px)}
+        @keyframes actPop{0%{opacity:0;transform:translateY(4px) scale(.8)}15%{opacity:1;transform:translateY(0) scale(1)}85%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-4px) scale(1.1)}}
+        .act-indicator{animation:actPop 3s ease-out forwards}
       `}</style>
 
       {/* ── NAV ─────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{ backgroundColor: s.navBg, borderColor: s.borderColor }}>
+      <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2.5 flex-shrink-0">
-            <B2Logo className="text-lg md:text-xl" isLight={isLight} />
-            <TnFlag />
-          </div>
-          <div className="hidden md:flex gap-1 items-center">
-            {['topics','classes','live','community'].map(item => (
-              <a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{ color: s.textSecondary }}
-                onMouseEnter={e => { e.currentTarget.style.color = s.textOrange; e.currentTarget.style.backgroundColor = s.pillBg }}
-                onMouseLeave={e => { e.currentTarget.style.color = s.textSecondary; e.currentTarget.style.backgroundColor = 'transparent' }}>{item}</a>
-            ))}
-          </div>
+          <div className="flex items-center gap-2.5 flex-shrink-0"><B2Logo className="text-lg md:text-xl" isLight={isLight}/><TnFlag/></div>
+          <div className="hidden md:flex gap-1 items-center">{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{color:s.textSecondary}} onMouseEnter={e=>{e.currentTarget.style.color=s.textOrange;e.currentTarget.style.backgroundColor=s.pillBg}} onMouseLeave={e=>{e.currentTarget.style.color=s.textSecondary;e.currentTarget.style.backgroundColor='transparent'}}>{item}</a>))}</div>
           <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
-            <div className="flex gap-0.5 p-0.5 rounded-lg" style={{ backgroundColor: s.toggleBg }}>
-              {(['en','fr','ar'] as const).map(l => (
-                <button key={l} onClick={() => setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang === l ? { backgroundColor: s.textOrange, color: '#FFFFFF' } : { color: s.textTertiary }}>{l.toUpperCase()}</button>
-              ))}
-            </div>
-            <button onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{ backgroundColor: s.toggleBg, borderColor: s.borderColor, color: s.textSecondary }}>{isLight ? '🌙' : '☀️'}</button>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{ backgroundColor: s.pillBg, borderColor: 'transparent', color: s.pillText }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{ backgroundColor: s.textOrange }} />{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
-            <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 14px ${s.orangeGlow}` }}>{t.joinBtn}</a>
+            <div className="flex gap-0.5 p-0.5 rounded-lg" style={{backgroundColor:s.toggleBg}}>{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>))}</div>
+            <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
+            <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>
           </div>
-          <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{ borderColor: s.borderColor, color: s.textOrange, backgroundColor: 'transparent' }} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? '✕' : '☰'}</button>
+          <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen && (
-          <div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t" style={{ backgroundColor: s.mainBg, borderColor: s.borderColor }}>
-            <div className="flex gap-1 mb-1">
-              {(['en','fr','ar'] as const).map(l => (
-                <button key={l} onClick={() => { setLang(l); setMenuOpen(false) }} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang === l ? { backgroundColor: s.textOrange, color: '#FFFFFF' } : { backgroundColor: s.pillBgInactive, color: s.pillTextInactive }}>{l.toUpperCase()}</button>
-              ))}
-            </div>
-            <button onClick={() => { setTheme(t => t === 'dark' ? 'light' : 'dark'); setMenuOpen(false) }} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border" style={{ color: s.textSecondary, borderColor: s.borderColor, backgroundColor: s.cardBgFlat }}>{isLight ? '🌙 Dark' : '☀️ Light'}</button>
-            {['topics','classes','live','community'].map(item => (
-              <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all" style={{ color: s.textSecondary, backgroundColor: s.cardBgFlat }}>{item}</a>
-            ))}
-            <a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 14px ${s.orangeGlow}` }}>{t.joinBtn}</a>
-          </div>
-        )}
+        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a></div>)}
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
-        <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at 25% 50%,${s.textOrange}06 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,${s.textOrangeLight}04 0%,transparent 50%)` }} />
-        <div className="blob b1 w-[500px] h-[500px] absolute -top-32 -left-32" style={{ background: s.textOrange, opacity: s.blobOpacity }} />
-        <div className="blob b2 w-[400px] h-[400px] absolute -bottom-20 -right-20" style={{ background: s.textOrangeLight, opacity: s.blobOpacity }} />
-        <div className="blob b3 w-[300px] h-[300px] absolute top-1/2 left-1/3" style={{ background: s.textOrangeLight, opacity: s.blobOpacity }} />
+        <div className="absolute inset-0" style={{background:`radial-gradient(ellipse at 25% 50%,${s.textOrange}06 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,${s.textOrangeLight}04 0%,transparent 50%)`}}/>
+        <div className="blob b1 w-[500px] h-[500px] absolute -top-32 -left-32" style={{background:s.textOrange,opacity:s.blobOpacity}}/>
+        <div className="blob b2 w-[400px] h-[400px] absolute -bottom-20 -right-20" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
+        <div className="blob b3 w-[300px] h-[300px] absolute top-1/2 left-1/3" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
         <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center w-full relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-5 font-semibold border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor, color: s.textOrange }}>
-              <TnFlag className="text-base" /><span>{t.tagline}</span>
-            </div>
-            <div className="mb-6"><CefrBadges isLight={isLight} label={t.badgeLabel} /></div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{ letterSpacing: '-0.035em', color: s.textPrimary }}>
-              {t.hero1}<br />{t.hero2}<br />
-              <span style={{ color: s.textOrange }}>{displayed}</span><span className="cursor-thin font-light" style={{ color: s.textOrange }}>│</span>
-            </h1>
-            <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{ color: s.textSecondary }}>{t.sub}</p>
+            <div className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full mb-5 font-semibold border" style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor,color:s.textOrange}}><TnFlag className="text-base"/><span>{t.tagline}</span></div>
+            <div className="mb-6"><CefrBadges isLight={isLight} label={t.badgeLabel}/></div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
+            <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 18px ${s.orangeGlow}` }}>{t.joinBtn} →</a>
-              <a href="https://www.instagram.com/ielts.tn" target="_blank" className="inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap border" style={{ backgroundColor: s.btnSecondaryBg, borderColor: s.btnSecondaryBorder, color: s.textPrimary }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}
-              </a>
+              <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+              <a href="https://www.instagram.com/ielts.tn" target="_blank" className="inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap border" style={{backgroundColor:s.btnSecondaryBg,borderColor:s.btnSecondaryBorder,color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold border" style={{ backgroundColor: s.btnSecondaryBg, borderColor: s.btnSecondaryBorder, color: s.textOrangeLight }}>💬 {t.waBtn}</a>
-            <div className="mt-8 flex items-center gap-3 flex-wrap">
-              {[{n:'500K+',l:'TikTok'},{n:'12K+',l:'students'},{n:'4.9★',l:'rating'},{n:'live',l:'sessions'}].map(stat => (
-                <div key={stat.l} className="rounded-2xl px-4 py-2.5 text-center border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor }}>
-                  <div className="text-sm font-bold" style={{ color: s.textPrimary }}>{stat.n}</div>
-                  <div className="text-[11px]" style={{ color: s.textTertiary }}>{stat.l}</div>
-                </div>
-              ))}
-            </div>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold border" style={{backgroundColor:s.btnSecondaryBg,borderColor:s.btnSecondaryBorder,color:s.textOrangeLight}}>💬 {t.waBtn}</a>
+            <div className="mt-8 flex items-center gap-3 flex-wrap">{[{n:'500K+',l:'TikTok'},{n:'12K+',l:'students'},{n:'4.9★',l:'rating'},{n:'live',l:'sessions'}].map(stat=>(<div key={stat.l} className="rounded-2xl px-4 py-2.5 text-center border" style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor}}><div className="text-sm font-bold" style={{color:s.textPrimary}}>{stat.n}</div><div className="text-[11px]" style={{color:s.textTertiary}}>{stat.l}</div></div>))}</div>
           </div>
           <div className="flex flex-col gap-3.5">
-            <div className="rounded-2xl p-5 border" style={{ background: s.cardBg, borderColor: s.borderColor, boxShadow: s.cardShadow }}>
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-xs font-bold flex items-center gap-2" style={{ color: s.textPrimary }}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span>
-                <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: s.textOrange }} /><span className="text-[11px] font-bold" style={{ color: s.textOrange }}>LIVE</span></div>
-              </div>
-              <div className="h-1.5 rounded-full overflow-hidden mb-3" style={{ backgroundColor: s.chatBg }}>
-                <div className="progress-fill h-full rounded-full" style={{ width: `${topicProgress}%`, background: `linear-gradient(to right,${s.textOrange},${s.textOrangeLight})` }} />
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex gap-1">{CLASS_TOPICS.map((_, i) => (<div key={i} className="h-1 rounded-full transition-all duration-500" style={{ width: i === activeTopicIndex ? '28px' : '8px', backgroundColor: i === activeTopicIndex ? s.textOrange : s.borderColor }} />))}</div>
-                <span className="text-[11px]" style={{ color: s.textTertiary }}>{activeTopic.level} · {activeTopic.participants} students</span>
-              </div>
-            </div>
-            <div className="rounded-2xl p-5 border" style={{ background: s.cardBg, borderColor: s.borderColor, boxShadow: s.cardShadow }}>
-              <div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{ borderColor: s.borderColor }}>
-                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: s.textOrange }} /><span className="text-xs font-bold" style={{ color: s.textPrimary }}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div>
-                <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{ backgroundColor: s.pillBg, color: s.pillText }}>👥 {activeTopic.participants}</span>
-              </div>
+            <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div><div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div><div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div></div>
+            <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}><div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div><span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span></div>
               <div className="grid grid-cols-4 gap-2 mb-3.5">
-                {allAvatars.map((av, i) => (
-                  <div key={i} className={`av-cell ${visibleP.includes(i) ? 'show' : ''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali ? 'dali-wrap' : activeSpeakers.has(i) ? 'anim-participate' : ANIM_CLASSES[i - 1] || 'anim-bob'}`}
-                    style={{ transitionDelay: `${i * 0.1}s`, border: activeSpeakers.has(i) ? `2px solid ${s.textOrange}` : `1px solid ${s.borderColor}`, backgroundColor: av.bg, boxShadow: activeSpeakers.has(i) ? `0 0 20px ${s.orangeGlow}` : 'none' }}>
-                    <div dangerouslySetInnerHTML={{ __html: av.svg }} className="w-full h-full" />
-                    {activeSpeakers.has(i) && (
-                      <>
-                        <div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{ borderColor: s.textOrange }} />
-                        {i % 3 !== 0 && (
-                          <div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{ background: s.textOrange, color: 'white', boxShadow: `0 2px 8px ${s.orangeGlow}` }}>🎤</div>
-                        )}
-                      </>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{ fontSize: '8px', backgroundColor: 'rgba(0,0,0,0.45)', color: '#FFF0E8' }}>{av.name}</div>
+                {allAvatars.map((av,i)=>(
+                  <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':activeSpeakers.has(i)?'anim-participate':ANIM_CLASSES[i-1]||'anim-bob'}`}
+                    style={{transitionDelay:`${i*0.1}s`,border:activeSpeakers.has(i)?`2px solid ${s.textOrange}`:`1px solid ${s.borderColor}`,backgroundColor:av.bg,boxShadow:activeSpeakers.has(i)?`0 0 20px ${s.orangeGlow}`:'none'}}>
+                    <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
+                    {activeSpeakers.has(i)&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
+                    {!activeSpeakers.has(i)&&!av.isDali&&Math.random()>0.7&&(<div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.15)',color:s.textOrange,animationDelay:`${Math.random()*5}s`}}>✋</div>)}
+                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
                   </div>
                 ))}
               </div>
-              <div className="rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5 border" style={{ background: s.chatBg, borderColor: s.chatBorder }}>
-                <div className="text-[11px] font-bold mb-0.5" style={{ color: s.textTertiary }}>live chat</div>
-                {chatMsgs.map(msg => (
-                  <div key={msg.id} className="chat-in flex items-start gap-1.5">
-                    <span className="text-[11px] font-bold flex-shrink-0" style={{ color: msg.isDali ? s.textOrange : s.textTertiary }}>{msg.from}:</span>
-                    <span className="text-[11px] leading-relaxed" style={{ color: s.textSecondary }}>{msg.text}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{ borderColor: s.borderColor }}>
-                {[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c => (
-                  <button key={c.l} className="flex flex-col items-center gap-0.5 group">
-                    <div className="w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all border" style={{ borderColor: s.borderColor, backgroundColor: s.cardBgFlat }}>{c.icon}</div>
-                    <span className="text-[10px]" style={{ color: s.textTertiary }}>{c.l}</span>
-                  </button>
-                ))}
-                <button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{ backgroundColor: s.pillBg, color: s.textOrange, borderColor: `${s.textOrange}25` }}>leave</button>
-              </div>
+              <div className="rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5 border" style={{background:s.chatBg,borderColor:s.chatBorder}}><div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>{chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}</div>
+              <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>{[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(<button key={c.l} className="flex flex-col items-center gap-0.5 group"><div className="w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all border" style={{borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{c.icon}</div><span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span></button>))}<button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── TOPICS ──────────────────────────────────────────── */}
-      <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-24 relative overflow-hidden" style={{ minHeight: '650px' }}>
-        {FLOATING_WORDS.map((w, i) => (
+      <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-24 relative overflow-hidden" style={{minHeight:'650px'}}>
+        {FLOATING_WORDS.map((w,i)=>(
           <div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
-            style={{
-              left: w.left,
-              transform: `rotate(${w.rot})`,
-              backgroundColor: s.cardBgFlat,
-              border: `1px solid ${s.borderColor}`,
-              color: s.textTertiary,
-              animation: `floatRain ${w.dur} linear infinite`,
-              animationDelay: w.delay
-            } as React.CSSProperties}>
+            style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}>
             <span className="text-base">{w.icon}</span>{w.text}
           </div>
         ))}
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: s.textOrange }}>{t.topicsTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.topicsH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{ color: s.textSecondary }}>{t.topicsSub}</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-          {TOPICS.map(tp => (
-            <div key={tp.en} className="topic-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer border" style={{ background: s.cardBg, borderColor: s.borderColor }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover; e.currentTarget.style.boxShadow = s.cardShadow }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }}>
-              <span className="text-4xl">{tp.icon}</span>
-              <span className="text-xs font-semibold" style={{ color: s.textPrimary }}>{lang === 'ar' ? tp.ar : lang === 'fr' ? tp.fr : tp.en}</span>
-            </div>
-          ))}
-        </div>
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">{TOPICS.map(tp=>(<div key={tp.en} className="topic-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer border" style={{background:s.cardBg,borderColor:s.borderColor}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}><span className="text-4xl">{tp.icon}</span><span className="text-xs font-semibold" style={{color:s.textPrimary}}>{lang==='ar'?tp.ar:lang==='fr'?tp.fr:tp.en}</span></div>))}</div>
       </section>
 
       {/* ── HOW IT WORKS ────────────────────────────────────── */}
       <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-12">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: s.textOrange }}>{t.howTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.howH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{ color: s.textSecondary }}>{t.howSub}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {t.steps.map(step => (
-            <div key={step.n} className="rounded-2xl p-6 transition-all border" style={{ background: s.cardBg, borderColor: s.borderColor }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = s.borderColor }}>
-              <div className="text-xs font-bold mb-4" style={{ color: `${s.textOrange}50` }}>{step.n}</div>
-              <div className="text-4xl mb-4">{step.icon}</div>
-              <div className="text-base font-bold mb-2" style={{ color: s.textPrimary }}>{step.t}</div>
-              <div className="text-[13px] leading-relaxed" style={{ color: s.textSecondary }}>{step.d}</div>
-            </div>
-          ))}
-        </div>
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.howTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.howH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.howSub}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">{t.steps.map(step=>(<div key={step.n} className="rounded-2xl p-6 transition-all border" style={{background:s.cardBg,borderColor:s.borderColor}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor}}><div className="text-xs font-bold mb-4" style={{color:`${s.textOrange}50`}}>{step.n}</div><div className="text-4xl mb-4">{step.icon}</div><div className="text-base font-bold mb-2" style={{color:s.textPrimary}}>{step.t}</div><div className="text-[13px] leading-relaxed" style={{color:s.textSecondary}}>{step.d}</div></div>))}</div>
       </section>
 
       {/* ── PACKAGES ────────────────────────────────────────── */}
       <section id="classes" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-24">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: s.textOrange }}>{t.classesTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.classesH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{ color: s.textSecondary }}>{t.classesSub}</p>
-        <div className="rounded-3xl p-10 text-center mb-12 relative overflow-hidden border" style={{ background: s.cardBg, borderColor: s.borderColor }}>
-          <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at center,${s.textOrange}05 0%,transparent 70%)` }} />
-          <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">
-            {['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon, i) => (
-              <div key={i} className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor, animation: `fw ${3.5 + i * 0.5}s linear infinite`, animationDelay: `${i * 0.2}s` }}>{icon}</div>
-            ))}
-          </div>
-          <h3 className="text-2xl font-black mb-3 relative z-10" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.comingSoon}</h3>
-          <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{ color: s.textSecondary }}>{t.comingSoonSub}</p>
-          <a href="#signup" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 18px ${s.orangeGlow}` }}>{t.notifyBtn} →</a>
-        </div>
-        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
-          {['Free','Starter','Core','Pro','Elite'].map((tier, i) => (
-            <div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all"
-              style={i === 3 ? { backgroundColor: s.textOrange, color: '#FFFFFF', borderColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}` } : i === 4 ? { backgroundColor: s.pillBg, color: s.textOrangeLight, borderColor: `${s.textOrangeLight}25` } : { backgroundColor: s.pillBgInactive, color: s.pillTextInactive, borderColor: s.pillBorderInactive }}>
-              {tier}{i === 3 && <span className="ml-1.5 opacity-80">← target B2</span>}
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {t.packages.map((pkg) => (
-            <div key={pkg.id} className="pkg-card rounded-2xl p-6 relative border"
-              style={{ background: s.cardBg, borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor, boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover; e.currentTarget.style.boxShadow = s.cardShadowHover }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor; e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow }}>
-              {(pkg as any).popular && <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{ backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}` }}>most popular</div>}
-              {(pkg as any).premium && <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{ backgroundColor: s.textOrangeLight }}>limited spots</div>}
-              <div className="flex items-start justify-between mb-5">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl border" style={{ backgroundColor: s.cardBgFlat, borderColor: s.borderColor }}>{pkg.icon}</div>
-                  <div><div className="flex items-center gap-2 mb-0.5"><div className="text-base font-bold" style={{ color: s.textPrimary }}>{pkg.name}</div><span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{ backgroundColor: s.pillBg, color: s.pillText }}>{(pkg as any).tier}</span></div><div className="text-[13px] font-semibold" style={{ color: s.textOrangeLight }}>{pkg.tagline}</div></div>
-                </div>
-                <div className="text-right"><div className="text-2xl font-black" style={{ color: s.textPrimary }}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{ color: s.textTertiary }}>/mo</span></div><div className="text-[11px] font-semibold mt-0.5" style={{ color: s.textOrangeLight }}>≈ {pkg.tnd[activePrice]} TND</div></div>
-              </div>
-              <p className="text-[13px] leading-relaxed mb-5" style={{ color: s.textSecondary }}>{pkg.desc}</p>
-              <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (<div key={f} className="flex items-start gap-2 text-[12px]" style={{ color: s.textSecondary }}><span className="font-bold mt-0.5 flex-shrink-0" style={{ color: s.textOrange }}>✓</span>{f}</div>))}</div>
-              <a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]"
-                style={(pkg as any).popular ? { backgroundColor: s.textOrange, color: '#FFFFFF', boxShadow: `0 4px 14px ${s.orangeGlow}` } : (pkg as any).premium ? { backgroundColor: s.pillBg, color: s.textOrangeLight, border: `1px solid ${s.textOrangeLight}25` } : { backgroundColor: s.cardBgFlat, color: s.textPrimary, border: `1px solid ${s.btnSecondaryBorder}` }}>{pkg.cta}</a>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center justify-center gap-3 mt-10">
-          <span className="text-sm" style={{ color: s.textSecondary }}>{t.monthly}</span>
-          <button onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} className="w-12 h-6 rounded-full transition-all relative" style={{ backgroundColor: activePrice === 'y' ? s.textOrange : s.borderColor }}>
-            <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" style={{ left: activePrice === 'y' ? '25px' : '2px' }} />
-          </button>
-          <span className="text-sm font-semibold" style={{ color: activePrice === 'y' ? s.textOrange : s.textSecondary }}>{t.yearly}</span>
-        </div>
-        <p className="text-[13px] text-center mt-5" style={{ color: s.textTertiary }}>{t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{ color: s.textOrangeLight }}>{t.waLink}</a></p>
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
+        <div className="rounded-3xl p-10 text-center mb-12 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor}}><div className="absolute inset-0" style={{background:`radial-gradient(ellipse at center,${s.textOrange}05 0%,transparent 70%)`}}/><div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl border" style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor,animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div><h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3><p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p><a href="#signup" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a></div>
+        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">{t.packages.map((pkg)=>(<div key={pkg.id} className="pkg-card rounded-2xl p-6 relative border" style={{background:s.cardBg,borderColor:(pkg as any).popular?`${s.textOrange}35`:(pkg as any).premium?`${s.textOrangeLight}25`:s.borderColor,boxShadow:(pkg as any).popular?`0 4px 24px ${s.orangeGlow}`:s.cardShadow}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadowHover}} onMouseLeave={e=>{e.currentTarget.style.borderColor=(pkg as any).popular?`${s.textOrange}35`:(pkg as any).premium?`${s.textOrangeLight}25`:s.borderColor;e.currentTarget.style.boxShadow=(pkg as any).popular?`0 4px 24px ${s.orangeGlow}`:s.cardShadow}}>{(pkg as any).popular&&<div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}}>most popular</div>}{(pkg as any).premium&&<div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor:s.textOrangeLight}}>limited spots</div>}<div className="flex items-start justify-between mb-5"><div className="flex items-center gap-3.5"><div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl border" style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor}}>{pkg.icon}</div><div><div className="flex items-center gap-2 mb-0.5"><div className="text-base font-bold" style={{color:s.textPrimary}}>{pkg.name}</div><span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor:s.pillBg,color:s.pillText}}>{(pkg as any).tier}</span></div><div className="text-[13px] font-semibold" style={{color:s.textOrangeLight}}>{pkg.tagline}</div></div></div><div className="text-right"><div className="text-2xl font-black" style={{color:s.textPrimary}}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{color:s.textTertiary}}>/mo</span></div><div className="text-[11px] font-semibold mt-0.5" style={{color:s.textOrangeLight}}>≈ {pkg.tnd[activePrice]} TND</div></div></div><p className="text-[13px] leading-relaxed mb-5" style={{color:s.textSecondary}}>{pkg.desc}</p><div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f=>(<div key={f} className="flex items-start gap-2 text-[12px]" style={{color:s.textSecondary}}><span className="font-bold mt-0.5 flex-shrink-0" style={{color:s.textOrange}}>✓</span>{f}</div>))}</div><a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular?{backgroundColor:s.textOrange,color:'#FFFFFF',boxShadow:`0 4px 14px ${s.orangeGlow}`}:(pkg as any).premium?{backgroundColor:s.pillBg,color:s.textOrangeLight,border:`1px solid ${s.textOrangeLight}25`}:{backgroundColor:s.cardBgFlat,color:s.textPrimary,border:`1px solid ${s.btnSecondaryBorder}`}}>{pkg.cta}</a></div>))}</div>
+        <div className="flex items-center justify-center gap-3 mt-10"><span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span><button onClick={()=>setActivePrice(p=>p==='m'?'y':'m')} className="w-12 h-6 rounded-full transition-all relative" style={{backgroundColor:activePrice==='y'?s.textOrange:s.borderColor}}><div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" style={{left:activePrice==='y'?'25px':'2px'}}/></button><span className="text-sm font-semibold" style={{color:activePrice==='y'?s.textOrange:s.textSecondary}}>{t.yearly}</span></div>
+        <p className="text-[13px] text-center mt-5" style={{color:s.textTertiary}}>{t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{color:s.textOrangeLight}}>{t.waLink}</a></p>
       </section>
 
       {/* ── LIVE ────────────────────────────────────────────── */}
       <section id="live" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-12">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: s.textOrange }}>{t.liveTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.liveH}</h2>
-        <p className="text-[15px] mb-8 max-w-lg" style={{ color: s.textSecondary }}>{t.liveSub}</p>
-        <div className="rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 border" style={{ background: s.cardBg, borderColor: s.borderColor, boxShadow: s.cardShadow }}>
-          <div className="flex items-center gap-4"><div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{ background: `linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`, boxShadow: `0 4px 14px ${s.orangeGlow}` }}>🎙️</div><div><div className="text-sm font-bold" style={{ color: s.textPrimary }}>friday live session</div><div className="text-[13px] mt-0.5" style={{ color: s.textSecondary }}>every week · 8:00 PM Tunisia time</div><div className="text-[13px] font-bold mt-1" style={{ color: s.textOrange }}>TikTok Live & Instagram Live</div></div></div>
-          <div className="flex gap-2">{[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct => (<div key={ct.l} className="rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center border" style={{ background: s.countdownBg, borderColor: s.countdownBorder }}><div className="text-xl font-black" style={{ color: s.textOrange }}>{String(ct.v).padStart(2,'0')}</div><div className="text-[10px] mt-0.5" style={{ color: s.textTertiary }}>{ct.l}</div></div>))}</div>
-          <div className="flex gap-2.5"><a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all border" style={{ color: s.textPrimary, borderColor: s.btnSecondaryBorder, background: s.btnSecondaryBg }}>🎵 tiktok</a><a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{ background: 'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)' }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> instagram</a></div>
-        </div>
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.liveTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.liveH}</h2>
+        <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.liveSub}</p>
+        <div className="rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex items-center gap-4"><div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{background:`linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>🎙️</div><div><div className="text-sm font-bold" style={{color:s.textPrimary}}>friday live session</div><div className="text-[13px] mt-0.5" style={{color:s.textSecondary}}>every week · 8:00 PM Tunisia time</div><div className="text-[13px] font-bold mt-1" style={{color:s.textOrange}}>TikTok Live & Instagram Live</div></div></div><div className="flex gap-2">{[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct=>(<div key={ct.l} className="rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center border" style={{background:s.countdownBg,borderColor:s.countdownBorder}}><div className="text-xl font-black" style={{color:s.textOrange}}>{String(ct.v).padStart(2,'0')}</div><div className="text-[10px] mt-0.5" style={{color:s.textTertiary}}>{ct.l}</div></div>))}</div><div className="flex gap-2.5"><a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all border" style={{color:s.textPrimary,borderColor:s.btnSecondaryBorder,background:s.btnSecondaryBg}}>🎵 tiktok</a><a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> instagram</a></div></div>
       </section>
 
       {/* ── COMMUNITY ───────────────────────────────────────── */}
       <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-24">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: s.textOrange }}>{t.communityTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.communityH}</h2>
-        <p className="text-[15px] mb-8 max-w-lg" style={{ color: s.textSecondary }}>{t.communitySub}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {[
-            {href:'https://www.instagram.com/ielts.tn', icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>, label:'instagram', sub:'DM @ielts.tn', style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},
-            {href:'https://wa.me/216XXXXXXXX', icon:'💬', label:'whatsapp', sub:'message directly', style:{background:'#FF4500'}},
-            {href:'https://www.tiktok.com/@ielts.tn', icon:'🎵', label:'tiktok', sub:'@ielts.tn · 500K+', style:{background: s.cardBgFlat, border:`1px solid ${s.borderColor}`}},
-          ].map((social, i) => (
-            <a key={i} href={social.href} target="_blank" className="flex items-center gap-4 rounded-2xl p-5 transition-all group border" style={{ background: s.cardBg, borderColor: s.borderColor }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.borderHover; e.currentTarget.style.boxShadow = s.cardShadow }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }}>
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.icon}</div>
-              <div className="flex-1"><div className="text-sm font-bold" style={{ color: s.textPrimary }}>{social.label}</div><div className="text-[13px] mt-0.5" style={{ color: s.textTertiary }}>{social.sub}</div></div>
-              <span className="transition-transform group-hover:translate-x-1.5 duration-300" style={{ color: s.textOrange }}>↗</span>
-            </a>
-          ))}
-        </div>
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityH}</h2>
+        <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.communitySub}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">{[{href:'https://www.instagram.com/ielts.tn',icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>,label:'instagram',sub:'DM @ielts.tn',style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},{href:'https://wa.me/216XXXXXXXX',icon:'💬',label:'whatsapp',sub:'message directly',style:{background:'#FF4500'}},{href:'https://www.tiktok.com/@ielts.tn',icon:'🎵',label:'tiktok',sub:'@ielts.tn · 500K+',style:{background:s.cardBgFlat,border:`1px solid ${s.borderColor}`}}].map((social,i)=>(<a key={i} href={social.href} target="_blank" className="flex items-center gap-4 rounded-2xl p-5 transition-all group border" style={{background:s.cardBg,borderColor:s.borderColor}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}><div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.icon}</div><div className="flex-1"><div className="text-sm font-bold" style={{color:s.textPrimary}}>{social.label}</div><div className="text-[13px] mt-0.5" style={{color:s.textTertiary}}>{social.sub}</div></div><span className="transition-transform group-hover:translate-x-1.5 duration-300" style={{color:s.textOrange}}>↗</span></a>))}</div>
       </section>
 
       {/* ── SIGNUP ──────────────────────────────────────────── */}
       <section id="signup" ref={addRef(5)} className="reveal py-24 px-6">
-        <div className="max-w-6xl mx-auto rounded-3xl p-10 md:p-14 relative overflow-hidden border" style={{ background: s.cardBg, borderColor: s.borderColor }}>
-          <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at center,${s.textOrange}04 0%,transparent 70%)` }} />
-          <div className="max-w-sm mx-auto relative z-10">
-            <div className="text-xs font-bold uppercase tracking-widest mb-3 text-center" style={{ color: s.textOrange }}>{t.signupTag}</div>
-            <h2 className="text-2xl font-black mb-3 text-center" style={{ letterSpacing: '-0.025em', color: s.textPrimary }}>{t.signupH}</h2>
-            <p className="text-[15px] text-center mb-8" style={{ color: s.textSecondary }}>{t.signupSub}</p>
-            <div className="rounded-2xl p-6 flex flex-col gap-3.5 border" style={{ background: s.cardBgFlat, borderColor: s.borderColor }}>
-              <input type="text" placeholder={t.namePH} value={name} onChange={e => setName(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{ background: s.cardBgFlat, borderColor: s.borderColor, color: s.textPrimary }} onFocus={e => { e.currentTarget.style.borderColor = s.textOrange; e.currentTarget.style.boxShadow = `0 0 0 3px ${s.textOrange}12` }} onBlur={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }} />
-              <input type="email" placeholder={t.emailPH} value={email} onChange={e => setEmail(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{ background: s.cardBgFlat, borderColor: s.borderColor, color: s.textPrimary }} onFocus={e => { e.currentTarget.style.borderColor = s.textOrange; e.currentTarget.style.boxShadow = `0 0 0 3px ${s.textOrange}12` }} onBlur={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }} />
-              <input type="password" placeholder={t.passPH} value={password} onChange={e => setPassword(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{ background: s.cardBgFlat, borderColor: s.borderColor, color: s.textPrimary }} onFocus={e => { e.currentTarget.style.borderColor = s.textOrange; e.currentTarget.style.boxShadow = `0 0 0 3px ${s.textOrange}12` }} onBlur={e => { e.currentTarget.style.borderColor = s.borderColor; e.currentTarget.style.boxShadow = 'none' }} />
-              {message && <p className="text-sm text-center font-semibold" style={{ color: s.textOrangeLight }}>{message}</p>}
-              <button onClick={handleSignup} disabled={loading} className="text-white py-3.5 rounded-xl text-sm font-semibold active:scale-[0.97] transition-all disabled:opacity-50" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 18px ${s.orangeGlow}` }}>{loading ? t.creating : t.signupBtn2}</button>
-              <p className="text-[13px] text-center" style={{ color: s.textTertiary }}>{t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{ color: s.textOrange }}>{t.loginLink}</a></p>
-            </div>
-          </div>
-        </div>
+        <div className="max-w-6xl mx-auto rounded-3xl p-10 md:p-14 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor}}><div className="absolute inset-0" style={{background:`radial-gradient(ellipse at center,${s.textOrange}04 0%,transparent 70%)`}}/><div className="max-w-sm mx-auto relative z-10"><div className="text-xs font-bold uppercase tracking-widest mb-3 text-center" style={{color:s.textOrange}}>{t.signupTag}</div><h2 className="text-2xl font-black mb-3 text-center" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.signupH}</h2><p className="text-[15px] text-center mb-8" style={{color:s.textSecondary}}>{t.signupSub}</p><div className="rounded-2xl p-6 flex flex-col gap-3.5 border" style={{background:s.cardBgFlat,borderColor:s.borderColor}}><input type="text" placeholder={t.namePH} value={name} onChange={e=>setName(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/><input type="email" placeholder={t.emailPH} value={email} onChange={e=>setEmail(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/><input type="password" placeholder={t.passPH} value={password} onChange={e=>setPassword(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:s.cardBgFlat,borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/>{message&&<p className="text-sm text-center font-semibold" style={{color:s.textOrangeLight}}>{message}</p>}<button onClick={handleSignup} disabled={loading} className="text-white py-3.5 rounded-xl text-sm font-semibold active:scale-[0.97] transition-all disabled:opacity-50" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{loading?t.creating:t.signupBtn2}</button><p className="text-[13px] text-center" style={{color:s.textTertiary}}>{t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{color:s.textOrange}}>{t.loginLink}</a></p></div></div></div>
       </section>
 
-      {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer className="border-t px-6 py-8" style={{ borderColor: s.borderColor }}>
+      <footer className="border-t px-6 py-8" style={{borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
-          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight} /><TnFlag /></div>
-          <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{ color: s.textTertiary }}>
-            {['privacy','terms','tiktok ↗','instagram ↗'].map((link, i) => (
-              <a key={link} href={i < 2 ? '#' : i === 2 ? 'https://www.tiktok.com/@ielts.tn' : 'https://www.instagram.com/ielts.tn'} target={i >= 2 ? '_blank' : undefined} className="transition-colors hover:underline" style={{ color: s.textTertiary }} onMouseEnter={e => e.currentTarget.style.color = s.textOrange} onMouseLeave={e => e.currentTarget.style.color = s.textTertiary}>{link}</a>
-            ))}
-          </div>
-          <div className="text-xs" style={{ color: s.textTertiary }}>© 2026 B2Please</div>
+          <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/><TnFlag/></div>
+          <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>{['privacy','terms','tiktok ↗','instagram ↗'].map((link,i)=>(<a key={link} href={i<2?'#':i===2?'https://www.tiktok.com/@ielts.tn':'https://www.instagram.com/ielts.tn'} target={i>=2?'_blank':undefined} className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>{link}</a>))}</div>
+          <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
       </footer>
 
-      <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{ backgroundColor: s.textOrange, boxShadow: `0 4px 20px ${s.orangeGlow}` }}>💬</a>
+      <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 20px ${s.orangeGlow}`}}>💬</a>
     </main>
   )
 }
