@@ -23,13 +23,13 @@ export default function DashboardPage() {
       if (!session?.user) { window.location.href = '/login'; return }
       setUser(session.user)
 
-      const { data: sub } = await supabase
+      const { data: sub, error: subError } = await supabase
         .from('subscriptions')
         .select('*')
         .eq('user_id', session.user.id)
-        .single()
+        .maybeSingle()
 
-      if (!sub) {
+      if (!sub && !subError) {
         const { data: newSub } = await supabase
           .from('subscriptions')
           .insert({ user_id: session.user.id, plan: 'free' })
@@ -40,13 +40,12 @@ export default function DashboardPage() {
         setSubscription(sub)
       }
 
-      // Load book progress
       try {
         const res = await fetch(`/api/progress?book_id=business-english-1`)
         if (res.ok) {
-          const { data } = await res.json()
-          if (data && data.length > 0) {
-            const completed = data.filter((p: any) => p.completed).length
+          const json = await res.json()
+          if (json.data && json.data.length > 0) {
+            const completed = json.data.filter((p: any) => p.completed).length
             setBookProgress({ completed, total: 47 })
           }
         }
@@ -92,7 +91,7 @@ export default function DashboardPage() {
         </div>
 
         <h1 className="text-2xl font-black mb-1" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>👋 Welcome back, {firstName}</h1>
-        <p className="text-sm mb-8" style={{ color: 'rgba(255,240,232,0.5)' }}>Manage your plan and classes</p>
+        <p className="text-sm mb-8" style={{ color: 'rgba(255,240,232,0.5)' }}>Manage your plan and books</p>
 
         <div className="rounded-2xl p-6 border mb-8" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C' }}>
           <div className="flex items-center justify-between mb-4">
@@ -113,16 +112,15 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* My Books */}
         <h2 className="text-lg font-bold mb-4" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>📚 My Books</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="rounded-2xl p-5 border" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C' }}>
+        <div className="grid grid-cols-1 gap-4 mb-8">
+          <a href="/learn/business-english-1" className="rounded-2xl p-5 border block transition-all hover:translate-y-[-2px]" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C', textDecoration: 'none' }}>
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📘</span>
                 <div>
                   <div className="text-sm font-bold" style={{ color: '#FFFFFF' }}>Business English Level 1</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,240,232,0.5)' }}>47 units · 8 categories</div>
+                  <div className="text-xs" style={{ color: 'rgba(255,240,232,0.5)' }}>47 units · 8 categories · Introductions to Email</div>
                 </div>
               </div>
             </div>
@@ -131,18 +129,9 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs" style={{ color: 'rgba(255,240,232,0.4)' }}>{bookProgress.completed} of {bookProgress.total} units completed</span>
-              <a href="/learn/business-english-1" className="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all active:scale-[0.97]" style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>
-                Continue
-              </a>
+              <span className="px-3.5 py-1.5 rounded-xl text-xs font-semibold" style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>Continue →</span>
             </div>
-          </div>
-          
-          <div className="rounded-2xl p-5 border flex items-center justify-center" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C', borderStyle: 'dashed', minHeight: '150px' }}>
-            <div className="text-center">
-              <span className="text-3xl block mb-2">📚</span>
-              <span className="text-sm" style={{ color: 'rgba(255,240,232,0.3)' }}>More books coming soon</span>
-            </div>
-          </div>
+          </a>
         </div>
 
         <h2 className="text-lg font-bold mb-4" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>Available Plans</h2>
