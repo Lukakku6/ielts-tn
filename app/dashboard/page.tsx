@@ -40,16 +40,8 @@ export default function DashboardPage() {
         setSubscription(sub)
       }
 
-      try {
-        const res = await fetch(`/api/progress?book_id=business-english-1`)
-        if (res.ok) {
-          const json = await res.json()
-          if (json.data && json.data.length > 0) {
-            const completed = json.data.filter((p: any) => p.completed).length
-            setBookProgress({ completed, total: 47 })
-          }
-        }
-      } catch (e) {}
+      // Book progress temporarily hardcoded for testing
+setBookProgress({ completed: 0, total: 47 })
 
       setLoading(false)
     }
