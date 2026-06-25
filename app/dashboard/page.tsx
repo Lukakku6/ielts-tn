@@ -83,7 +83,9 @@ setBookProgress({ completed: 0, total: 47 })
         </div>
 
         <h1 className="text-2xl font-black mb-1" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>👋 Welcome back, {firstName}</h1>
-        <p className="text-sm mb-8" style={{ color: 'rgba(255,240,232,0.5)' }}>Manage your plan and books</p><p style={{ color: '#FF4500', fontSize: '20px', fontWeight: 'bold' }}>TEST: Books section should be below</p>
+        <p className="text-sm mb-8" style={{ color: 'rgba(255,240,232,0.5)' }}>Manage your plan and books</p><div style={{ backgroundColor: '#FF4500', color: 'white', padding: '20px', borderRadius: '12px', marginBottom: '20px', fontSize: '18px', fontWeight: 'bold' }}>
+  📚 THIS IS THE BOOKS TEST — IF YOU SEE THIS, THE PAGE IS UPDATING
+</div><p style={{ color: '#FF4500', fontSize: '20px', fontWeight: 'bold' }}>TEST: Books section should be below</p>
 
         <div className="rounded-2xl p-6 border mb-8" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C' }}>
           <div className="flex items-center justify-between mb-4">
