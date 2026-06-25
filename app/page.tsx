@@ -180,12 +180,8 @@ const ANIM_CLASSES=['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','a
 
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
-    { level: 'A1', tier: 'muted' as const },
-    { level: 'A2', tier: 'muted' as const },
-    { level: 'B1', tier: 'muted' as const },
-    { level: 'B2', tier: 'target' as const },
-    { level: 'C1', tier: 'gold' as const },
-    { level: 'C2', tier: 'diamond' as const },
+    { level: 'A1', tier: 'muted' as const }, { level: 'A2', tier: 'muted' as const }, { level: 'B1', tier: 'muted' as const },
+    { level: 'B2', tier: 'target' as const }, { level: 'C1', tier: 'gold' as const }, { level: 'C2', tier: 'diamond' as const },
   ]
   const mutedBg = isLight ? '#F0EBE5' : 'rgba(26,26,26,0.8)'
   const mutedBorder = isLight ? '#DDD0C0' : '#2A2A2C'
@@ -208,36 +204,10 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 
   function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
     switch (tier) {
-      case 'target':
-        return {
-          background: targetBg, borderColor: targetColor, color: targetColor,
-          borderWidth: '2px',
-          boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`,
-          animation: 'b2pulse 2.5s ease-in-out infinite'
-        }
-      case 'gold':
-        return {
-          background: isLight ? goldBgLight : goldBgDark,
-          borderColor: goldBorder,
-          color: isLight ? goldTextLight : goldTextDark,
-          borderWidth: '2px',
-          boxShadow: goldShadow,
-          animation: 'goldShimmer 3s ease-in-out infinite'
-        }
-      case 'diamond':
-        return {
-          background: isLight ? diamondBgLight : diamondBgDark,
-          borderColor: diamondBorder,
-          color: isLight ? diamondTextLight : diamondTextDark,
-          borderWidth: '2px',
-          boxShadow: diamondShadow,
-          animation: 'diamondSparkle 4s ease-in-out infinite'
-        }
-      default:
-        return {
-          background: mutedBg, borderColor: mutedBorder, color: mutedText,
-          borderWidth: '1px', boxShadow: 'none'
-        }
+      case 'target': return { background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px', boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`, animation: 'b2pulse 2.5s ease-in-out infinite' }
+      case 'gold': return { background: isLight ? goldBgLight : goldBgDark, borderColor: goldBorder, color: isLight ? goldTextLight : goldTextDark, borderWidth: '2px', boxShadow: goldShadow, animation: 'goldShimmer 3s ease-in-out infinite' }
+      case 'diamond': return { background: isLight ? diamondBgLight : diamondBgDark, borderColor: diamondBorder, color: isLight ? diamondTextLight : diamondTextDark, borderWidth: '2px', boxShadow: diamondShadow, animation: 'diamondSparkle 4s ease-in-out infinite' }
+      default: return { background: mutedBg, borderColor: mutedBorder, color: mutedText, borderWidth: '1px', boxShadow: 'none' }
     }
   }
 
@@ -247,31 +217,17 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
         const style = getBadgeStyle(l.tier)
         return (
           <span key={l.level} className="inline-flex items-center gap-1">
-            <span
-              className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
-              style={{
-                background: style.background,
-                borderColor: style.borderColor,
-                color: style.color,
-                borderWidth: style.borderWidth,
-                boxShadow: style.boxShadow,
-                letterSpacing: '-0.02em',
-                animation: (style as any).animation
-              }}>
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
+              style={{ background:style.background, borderColor:style.borderColor, color:style.color, borderWidth:style.borderWidth, boxShadow:style.boxShadow, letterSpacing:'-0.02em', animation:(style as any).animation }}>
               {l.tier === 'diamond' && (
                 <>
-                  <span className="absolute inset-0 pointer-events-none" style={{
-                    background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 55%, transparent 70%)',
-                    animation: 'diamondShine 2s ease-in-out infinite'
-                  }} />
+                  <span className="absolute inset-0 pointer-events-none" style={{ background:'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 55%, transparent 70%)', animation:'diamondShine 2s ease-in-out infinite' }} />
                   <span className="absolute top-0.5 right-1 text-[7px] opacity-70" style={{ color: isLight ? '#8898C0' : '#C8D8F0' }}>◆</span>
                 </>
               )}
               {l.level}
             </span>
-            {i < levels.length - 1 && (
-              <span className="w-2.5 h-px" style={{ backgroundColor: l.tier === 'diamond' || l.tier === 'gold' ? goldBorder : mutedBorder }} />
-            )}
+            {i < levels.length - 1 && <span className="w-2.5 h-px" style={{ backgroundColor: l.tier === 'diamond' || l.tier === 'gold' ? goldBorder : mutedBorder }} />}
           </span>
         )
       })}
@@ -281,7 +237,13 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 }
 
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
-  return(<span className={`inline-flex items-center gap-1.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`}><span className="font-black animate-b2pulse" style={{letterSpacing:'-0.03em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span><span className="font-light" style={{letterSpacing:'0.02em',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span><TnFlag/></span>)
+  return(
+    <span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
+      <span className="font-black animate-b2pulse" style={{letterSpacing:'-0.04em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span>
+      <span className="font-light -ml-0.5" style={{letterSpacing:'0.01em',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span>
+      <TnFlag/>
+    </span>
+  )
 }
 
 function useCountdown(target:Date){const[t,st]=useState({d:0,h:0,m:0,s:0});useEffect(()=>{const tk=()=>{const df=target.getTime()-Date.now();if(df<=0)return;st({d:Math.floor(df/86400000),h:Math.floor((df%86400000)/3600000),m:Math.floor((df%3600000)/60000),s:Math.floor((df%60000)/1000)})};tk();const id=setInterval(tk,1000);return()=>clearInterval(id)},[target]);return t}
@@ -305,8 +267,39 @@ export default function Home(){
   useEffect(()=>{const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80);return()=>clearInterval(interval)},[])
 
   const[visibleP,setVisibleP]=useState<number[]>([])
-  const[activeSpeakers,setActiveSpeakers]=useState<Set<number>>(new Set([0]))
-  useEffect(()=>{const di=setInterval(()=>{setActiveSpeakers(prev=>{const next=new Set(prev);if(next.has(0)){if(Math.random()>0.3)return prev;next.delete(0)}else{next.add(0)};return next})},4000);const si=setInterval(()=>{setActiveSpeakers(prev=>{const next=new Set(prev);[1,2,3,4,5,6,7].forEach(s=>next.delete(s));if(Math.random()>0.4){next.add([1,2,3,4,5,6,7][Math.floor(Math.random()*7)])};return next})},3500);return()=>{clearInterval(di);clearInterval(si)}},[])
+
+  // Realistic meeting: Dali speaks constantly, 2-3 students talk with mics, 1-2 raise hands
+  const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSpeakers(prev => {
+        const next = new Map(prev)
+        
+        // Dali (0) always has mic, stays on
+        next.set(0, 'mic')
+        
+        // Remove all current student states
+        for (let i = 1; i <= 7; i++) next.delete(i)
+        
+        // Randomly select 2-3 students to have mics (actively talking)
+        const micCount = 2 + Math.floor(Math.random() * 2) // 2 or 3
+        const students = [1,2,3,4,5,6,7].sort(() => Math.random() - 0.5)
+        const micStudents = students.slice(0, micCount)
+        micStudents.forEach(s => next.set(s, 'mic'))
+        
+        // Randomly select 1-2 DIFFERENT students to raise hands
+        const remaining = students.slice(micCount)
+        const handCount = 1 + Math.floor(Math.random() * 2) // 1 or 2
+        const handStudents = remaining.slice(0, Math.min(handCount, remaining.length))
+        handStudents.forEach(s => next.set(s, 'hand'))
+        
+        return next
+      })
+    }, 3000 + Math.random() * 2000) // Change every 3-5 seconds
+    
+    return () => clearInterval(interval)
+  }, [])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
@@ -358,6 +351,9 @@ export default function Home(){
         .pkg-card{transition:all .35s cubic-bezier(.16,1,.3,1)}.pkg-card:hover{transform:translateY(-4px)}
         @keyframes actPop{0%{opacity:0;transform:translateY(6px) scale(.8)}10%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-2px) scale(1)}}
         .act-indicator{animation:actPop 4s ease-out forwards}
+        @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+        .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
+        .hand-indicator{animation:actPop 5s ease-out forwards}
       `}</style>
 
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
@@ -402,7 +398,22 @@ export default function Home(){
           <div className="flex flex-col gap-3.5">
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div><div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div><div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div></div>
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}><div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div><span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span></div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':activeSpeakers.has(i)?'anim-participate':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:activeSpeakers.has(i)?`2px solid ${s.textOrange}`:`1px solid ${s.borderColor}`,backgroundColor:av.bg,boxShadow:activeSpeakers.has(i)?`0 0 20px ${s.orangeGlow}`:'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{activeSpeakers.has(i)&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>{i===0?'🎤':i%2===0?'🎤':'✋'}</div></>)}{!activeSpeakers.has(i)&&!av.isDali&&(<div className="absolute inset-0 rounded-2xl" style={{background:'transparent'}}/>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>))}</div>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">
+                {allAvatars.map((av,i)=>{
+                  const state = activeSpeakers.get(i)
+                  const isActive = state !== undefined
+                  const isMic = state === 'mic'
+                  const isHand = state === 'hand'
+                  return (
+                  <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`}
+                    style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?`2px solid rgba(255,69,0,0.4)`:`1px solid ${s.borderColor}`,backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?`0 0 10px rgba(255,69,0,0.15)`:'none'}}>
+                    <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
+                    {isMic && (<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
+                    {isHand && (<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
+                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
+                  </div>
+                )})}
+              </div>
               <div className="rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5 border" style={{background:s.chatBg,borderColor:s.chatBorder}}><div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>{chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}</div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>{[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(<button key={c.l} className="flex flex-col items-center gap-0.5 group"><div className="w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all border" style={{borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{c.icon}</div><span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span></button>))}<button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button></div>
             </div>
