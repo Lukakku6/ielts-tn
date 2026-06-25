@@ -178,14 +178,6 @@ function makeStudentSvg(i:number,il:boolean){
 const STUDENT_NAMES=[{name:'Amira',emoji:'✨'},{name:'Sami',emoji:'🎧'},{name:'Nour',emoji:'🌸'},{name:'Mehdi',emoji:'🔥'},{name:'Karim',emoji:'😎'},{name:'Rania',emoji:'🎵'},{name:'Sara',emoji:'🧕'}]
 const ANIM_CLASSES=['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
 
-function CefrBadges({isLight,label}:{isLight:boolean,label:string}){
-  const lvls=[{lv:'A1',t:'muted' as const},{lv:'A2',t:'muted' as const},{lv:'B1',t:'muted' as const},{lv:'B2',t:'target' as const},{lv:'C1',t:'gold' as const},{lv:'C2',t:'diamond' as const}]
-  const mb=isLight?'#F0EBE5':'rgba(26,26,26,0.8)',mbr=isLight?'#DDD0C0':'#2A2A2C',mt=isLight?'rgba(26,26,26,0.3)':'rgba(255,240,232,0.25)'
-  const tb=isLight?'#FFF0E8':'#2A1A0A',tc=isLight?'#E03D00':'#FF4500'
-  const gbd='linear-gradient(135deg, #4A3500 0%, #6B5000 50%, #4A3500 100%)',gbl='linear-gradient(135deg, #FFF8E0 0%, #FFE8A0 50%, #FFF0C0 100%)',gbr='#D4A017',gtd='#FFD700',gtl='#8B6914',gsh='0 0 18px rgba(212,160,23,0.55), 0 0 35px rgba(212,160,23,0.2)'
-  const dbd='linear-gradient(135deg, #222840 0%, #354060 30%, #222840 60%, #2D3550 100%)',dbl='linear-gradient(135deg, #F0F2F8 0%, #DDE0EC 30%, #E8EAF2 60%, #E0E2EC 100%)',dbr='#A0B0D0',dtd='#E0E8F8',dtl='#4A5580',dsh='0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
-  const lc=isLight?'rgba(26,26,26,0.35)':'rgba(255,240,232,0.25)'
-  function gs(t:'muted'|'target'|'gold'|'diamond'){switch(t){case'target':return{bg:tb,bc:tc,c:tc,bw:'2px',bs:`0 0 14px ${tc}35, 0 0 28px ${tc}12`,a:'b2pulse 2.5s ease-in-out infinite'};case'gold':return{bg:isLight?gbl:gbd,bc:gbr,c:isLight?gtl:gtd,bw:'2px',bs:gsh,a:'goldShimmer 3s ease-in-out infinite'};case'diamond':return{bg:isLight?dbl:dbd,bc:dbr,c:isLight?dtl:dtd,bw:'2px',bs:dsh,a:'diamondSparkle 4s ease-in-out infinite'};default:return{bg:mb,bc:mbr,c:mt,bw:'1px',bs:'none'}}}
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
     { level: 'A1', tier: 'muted' as const },
@@ -287,7 +279,7 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
     </div>
   )
 }
-}
+
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
   return(<span className={`inline-flex items-center gap-1.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`}><span className="font-black animate-b2pulse" style={{letterSpacing:'-0.03em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span><span className="font-light" style={{letterSpacing:'0.02em',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span><TnFlag/></span>)
 }
