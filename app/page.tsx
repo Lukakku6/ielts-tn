@@ -239,8 +239,8 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
   return(
     <span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
-      <span className="font-black animate-b2pulse" style={{letterSpacing:'-0.04em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span>
-      <span className="font-light -ml-0.5" style={{letterSpacing:'0.01em',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span>
+      <span className="font-black animate-b2pulse" style={{letterSpacing:'-0.05em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span>
+      <span className="font-light" style={{letterSpacing:'0',marginLeft:'-2px',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span>
       <TnFlag/>
     </span>
   )
@@ -268,37 +268,51 @@ export default function Home(){
 
   const[visibleP,setVisibleP]=useState<number[]>([])
 
-  // Realistic meeting: Dali speaks constantly, 2-3 students talk with mics, 1-2 raise hands
+  // Natural overlapping meeting: states blend with staggered timers
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
   
   useEffect(() => {
-    const interval = setInterval(() => {
+    // Staggered timers for natural overlap
+    const timers: NodeJS.Timeout[] = []
+    
+    // Timer 1: Update mics every 2.5-4s
+    const updateMics = () => {
       setActiveSpeakers(prev => {
         const next = new Map(prev)
-        
-        // Dali (0) always has mic, stays on
-        next.set(0, 'mic')
-        
-        // Remove all current student states
-        for (let i = 1; i <= 7; i++) next.delete(i)
-        
-        // Randomly select 2-3 students to have mics (actively talking)
-        const micCount = 2 + Math.floor(Math.random() * 2) // 2 or 3
-        const students = [1,2,3,4,5,6,7].sort(() => Math.random() - 0.5)
-        const micStudents = students.slice(0, micCount)
-        micStudents.forEach(s => next.set(s, 'mic'))
-        
-        // Randomly select 1-2 DIFFERENT students to raise hands
-        const remaining = students.slice(micCount)
-        const handCount = 1 + Math.floor(Math.random() * 2) // 1 or 2
-        const handStudents = remaining.slice(0, Math.min(handCount, remaining.length))
-        handStudents.forEach(s => next.set(s, 'hand'))
-        
+        next.set(0, 'mic') // Dali always has mic
+        // Keep some existing mics, replace others
+        const students = [1,2,3,4,5,6,7]
+        const micCount = 2 + Math.floor(Math.random() * 2)
+        const shuffled = students.sort(() => Math.random() - 0.5)
+        // Remove old student mics
+        students.forEach(s => { if (next.get(s) === 'mic') next.delete(s) })
+        // Add new mics
+        shuffled.slice(0, micCount).forEach(s => next.set(s, 'mic'))
         return next
       })
-    }, 3000 + Math.random() * 2000) // Change every 3-5 seconds
+      timers[0] = setTimeout(updateMics, 2500 + Math.random() * 1500)
+    }
     
-    return () => clearInterval(interval)
+    // Timer 2: Update hands every 4-6s (slower, independent)
+    const updateHands = () => {
+      setActiveSpeakers(prev => {
+        const next = new Map(prev)
+        const students = [1,2,3,4,5,6,7]
+        // Remove old hands
+        students.forEach(s => { if (next.get(s) === 'hand') next.delete(s) })
+        // Add 1-2 hands from students who DON'T have mics
+        const withoutMics = students.filter(s => next.get(s) !== 'mic')
+        const handCount = 1 + Math.floor(Math.random() * 2)
+        withoutMics.sort(() => Math.random() - 0.5).slice(0, handCount).forEach(s => next.set(s, 'hand'))
+        return next
+      })
+      timers[1] = setTimeout(updateHands, 4000 + Math.random() * 2000)
+    }
+    
+    timers[0] = setTimeout(updateMics, 1000)
+    timers[1] = setTimeout(updateHands, 2000)
+    
+    return () => timers.forEach(t => clearTimeout(t))
   }, [])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
@@ -354,6 +368,9 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
+        .cell-idle{border:1px solid transparent;box-shadow:none}
+        .cell-mic{border:2px solid;box-shadow:0 0 20px;transition:all .3s ease}
+        .cell-hand{border:2px solid rgba(255,69,0,0.4);box-shadow:0 0 10px rgba(255,69,0,0.15);transition:all .3s ease}
       `}</style>
 
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
@@ -401,12 +418,16 @@ export default function Home(){
               <div className="grid grid-cols-4 gap-2 mb-3.5">
                 {allAvatars.map((av,i)=>{
                   const state = activeSpeakers.get(i)
-                  const isActive = state !== undefined
                   const isMic = state === 'mic'
                   const isHand = state === 'hand'
                   return (
                   <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`}
-                    style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?`2px solid rgba(255,69,0,0.4)`:`1px solid ${s.borderColor}`,backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?`0 0 10px rgba(255,69,0,0.15)`:'none'}}>
+                    style={{
+                      transitionDelay:`${i*0.1}s`,
+                      border: isMic ? `2px solid ${s.textOrange}` : isHand ? '2px solid rgba(255,69,0,0.4)' : '1px solid transparent',
+                      backgroundColor: av.bg,
+                      boxShadow: isMic ? `0 0 20px ${s.orangeGlow}` : isHand ? '0 0 10px rgba(255,69,0,0.15)' : 'none'
+                    }}>
                     <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
                     {isMic && (<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
                     {isHand && (<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
