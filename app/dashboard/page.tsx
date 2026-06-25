@@ -42,7 +42,6 @@ export default function DashboardPage() {
         setSubscription(sub)
       }
 
-      // Check if user has a pending/approved payment proof
       const { data: proofs } = await supabase
         .from('payment_proofs')
         .select('*')
@@ -135,28 +134,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Upgrade Section */}
-        {subscription?.plan === 'free' && (
+        {/* Upgrade Section — shows when selected plan differs from current */}
+        {subscription?.plan !== selectedPlan && (
           <div className="rounded-2xl p-6 border mb-8" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#FF4500' }}>
-            <h2 className="text-lg font-bold mb-3" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>⬆️ Upgrade Your Plan</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>⬆️ Upgrade to {PLANS.find(p => p.id === selectedPlan)?.name}</h2>
             <p className="text-xs mb-4" style={{ color: 'rgba(255,240,232,0.5)' }}>Send payment via your preferred method, then upload a screenshot below. We'll activate your plan within 24 hours.</p>
 
-            {/* Plan selector */}
-            <div className="flex gap-2 mb-4 flex-wrap">
-              {PLANS.filter(p => p.id !== 'starter').map(plan => (
-                <button key={plan.id} onClick={() => setSelectedPlan(plan.id)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all"
-                  style={{
-                    backgroundColor: selectedPlan === plan.id ? 'rgba(255,69,0,0.15)' : 'transparent',
-                    borderColor: selectedPlan === plan.id ? '#FF4500' : '#2A2A2C',
-                    color: selectedPlan === plan.id ? '#FF4500' : 'rgba(255,240,232,0.5)'
-                  }}>
-                  {plan.name} — {plan.price}/mo
-                </button>
-              ))}
-            </div>
-
-            {/* Upload */}
             {proofStatus === 'pending' ? (
               <div className="rounded-xl p-4 text-center" style={{ backgroundColor: 'rgba(255,200,50,0.1)', border: '1px solid rgba(255,200,50,0.3)' }}>
                 <span className="text-sm font-semibold" style={{ color: '#F0C850' }}>⏳ Payment proof submitted — awaiting approval</span>
@@ -186,7 +169,7 @@ export default function DashboardPage() {
             <div key={plan.id} className="rounded-2xl p-5 border relative"
               style={{
                 background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)',
-                borderColor: subscription?.plan === plan.id ? '#FF4500' : '#2A2A2C'
+                borderColor: selectedPlan === plan.id ? '#FF4500' : subscription?.plan === plan.id ? 'rgba(255,69,0,0.3)' : '#2A2A2C'
               }}>
               {plan.popular && (
                 <div className="absolute -top-2.5 left-4 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: '#FF4500' }}>most popular</div>
@@ -199,25 +182,24 @@ export default function DashboardPage() {
                     <div className="text-xs" style={{ color: '#FF7A3D' }}>{plan.price}/mo · {plan.tnd}</div>
                   </div>
                 </div>
+                {subscription?.plan === plan.id && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold" style={{ backgroundColor: 'rgba(255,69,0,0.12)', color: '#FF4500' }}>current</span>
+                )}
               </div>
               <div className="mb-4 space-y-1">
                 {plan.features.map(f => (
                   <div key={f} className="text-[11px]" style={{ color: 'rgba(255,240,232,0.5)' }}>✓ {f}</div>
                 ))}
               </div>
-              {subscription?.plan === 'free' ? (
-                <button onClick={() => setSelectedPlan(plan.id)}
-                  className="w-full py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.97]"
-                  style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>
-                  Select {plan.name}
-                </button>
-              ) : (
-                <button disabled
-                  className="w-full py-2.5 rounded-xl text-xs font-bold opacity-40"
-                  style={{ backgroundColor: 'rgba(255,240,232,0.06)', color: 'rgba(255,240,232,0.3)', border: '1px solid #2A2A2C' }}>
-                  {subscription?.plan === plan.id ? 'Current Plan' : 'Upgrade'}
-                </button>
-              )}
+              <button onClick={() => { setSelectedPlan(plan.id); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                className="w-full py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.97]"
+                style={{
+                  backgroundColor: selectedPlan === plan.id ? '#FF4500' : 'rgba(255,240,232,0.06)',
+                  color: selectedPlan === plan.id ? '#FFFFFF' : 'rgba(255,240,232,0.6)',
+                  border: selectedPlan === plan.id ? 'none' : '1px solid #2A2A2C'
+                }}>
+                {selectedPlan === plan.id ? 'Selected ✓ — Upload Payment ↑' : subscription?.plan === plan.id ? 'Your Plan' : `Select ${plan.name}`}
+              </button>
             </div>
           ))}
         </div>
