@@ -70,8 +70,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-8">
           <Link href="/" className="inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none text-lg">
             <span className="font-black" style={{ letterSpacing: '-0.05em', color: '#FF4500', textShadow: '0 0 20px rgba(255,69,0,0.5)' }}>B2</span>
-            <span className="font-light" style={{ letterSpacing: '0', marginLeft: '-2px', color: 'rgba(255,255,255,0.9)' }}>please</span>
-            <span className="text-[1.1em]">🇹🇳</span>
+<span className="font-light" style={{ letterSpacing: '0', marginLeft: '-4px', color: 'rgba(255,255,255,0.9)' }}>please</span>            <span className="text-[1.1em]">🇹🇳</span>
           </Link>
           <button onClick={handleLogout} className="px-4 py-2 rounded-xl text-sm font-medium transition-all border" style={{ color: 'rgba(255,240,232,0.5)', borderColor: '#2A2A2C', backgroundColor: 'transparent' }}>logout</button>
         </div>
