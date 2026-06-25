@@ -14,8 +14,12 @@ export default function LoginPage() {
     setLoading(true)
     setMessage('')
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) setMessage(error.message)
-else window.location.href = '/dashboard'    setLoading(false)
+    setLoading(false)
+    if (error) {
+      setMessage(error.message)
+    } else {
+      window.location.href = '/dashboard'
+    }
   }
 
   return (
