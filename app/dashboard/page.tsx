@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [subscription, setSubscription] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [bookProgress, setBookProgress] = useState({ completed: 0, total: 47 })
 
   useEffect(() => {
     async function loadData() {
@@ -38,6 +39,19 @@ export default function DashboardPage() {
       } else {
         setSubscription(sub)
       }
+
+      // Load book progress
+      try {
+        const res = await fetch(`/api/progress?book_id=business-english-1`)
+        if (res.ok) {
+          const { data } = await res.json()
+          if (data && data.length > 0) {
+            const completed = data.filter((p: any) => p.completed).length
+            setBookProgress({ completed, total: 47 })
+          }
+        }
+      } catch (e) {}
+
       setLoading(false)
     }
     loadData()
@@ -63,6 +77,7 @@ export default function DashboardPage() {
 
   const currentPlan = PLANS.find(p => p.id === subscription?.plan) || PLANS[0]
   const firstName = user?.user_metadata?.full_name?.split(' ')[0] || ''
+  const bookPct = Math.round((bookProgress.completed / bookProgress.total) * 100)
 
   return (
     <main className="min-h-screen px-6 py-10" style={{ backgroundColor: '#0A0A0A', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif" }}>
@@ -70,7 +85,8 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-8">
           <Link href="/" className="inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none text-lg">
             <span className="font-black" style={{ letterSpacing: '-0.05em', color: '#FF4500', textShadow: '0 0 20px rgba(255,69,0,0.5)' }}>B2</span>
-<span className="font-light" style={{ letterSpacing: '0', marginLeft: '-3px', color: 'rgba(255,255,255,0.9)' }}>please</span>            <span className="text-[1.1em]">🇹🇳</span>
+            <span className="font-light" style={{ letterSpacing: '0', marginLeft: '-3px', color: 'rgba(255,255,255,0.9)' }}>please</span>
+            <span className="text-[1.1em]">🇹🇳</span>
           </Link>
           <button onClick={handleLogout} className="px-4 py-2 rounded-xl text-sm font-medium transition-all border" style={{ color: 'rgba(255,240,232,0.5)', borderColor: '#2A2A2C', backgroundColor: 'transparent' }}>logout</button>
         </div>
@@ -94,6 +110,38 @@ export default function DashboardPage() {
           <div className="flex gap-6 text-xs" style={{ color: 'rgba(255,240,232,0.4)' }}>
             <span>📅 {subscription?.classes_attended || 0} classes attended</span>
             <span>🕐 Joined {new Date(subscription?.created_at).toLocaleDateString()}</span>
+          </div>
+        </div>
+
+        {/* My Books */}
+        <h2 className="text-lg font-bold mb-4" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>📚 My Books</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="rounded-2xl p-5 border" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C' }}>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">📘</span>
+                <div>
+                  <div className="text-sm font-bold" style={{ color: '#FFFFFF' }}>Business English Level 1</div>
+                  <div className="text-xs" style={{ color: 'rgba(255,240,232,0.5)' }}>47 units · 8 categories</div>
+                </div>
+              </div>
+            </div>
+            <div className="h-1.5 rounded-full overflow-hidden mb-3" style={{ backgroundColor: 'rgba(255,240,232,0.08)' }}>
+              <div className="h-full rounded-full" style={{ width: `${bookPct}%`, backgroundColor: '#FF4500' }} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs" style={{ color: 'rgba(255,240,232,0.4)' }}>{bookProgress.completed} of {bookProgress.total} units completed</span>
+              <a href="/learn/business-english-1" className="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all active:scale-[0.97]" style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>
+                Continue
+              </a>
+            </div>
+          </div>
+          
+          <div className="rounded-2xl p-5 border flex items-center justify-center" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C', borderStyle: 'dashed', minHeight: '150px' }}>
+            <div className="text-center">
+              <span className="text-3xl block mb-2">📚</span>
+              <span className="text-sm" style={{ color: 'rgba(255,240,232,0.3)' }}>More books coming soon</span>
+            </div>
           </div>
         </div>
 
