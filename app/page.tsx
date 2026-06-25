@@ -186,7 +186,106 @@ function CefrBadges({isLight,label}:{isLight:boolean,label:string}){
   const dbd='linear-gradient(135deg, #222840 0%, #354060 30%, #222840 60%, #2D3550 100%)',dbl='linear-gradient(135deg, #F0F2F8 0%, #DDE0EC 30%, #E8EAF2 60%, #E0E2EC 100%)',dbr='#A0B0D0',dtd='#E0E8F8',dtl='#4A5580',dsh='0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
   const lc=isLight?'rgba(26,26,26,0.35)':'rgba(255,240,232,0.25)'
   function gs(t:'muted'|'target'|'gold'|'diamond'){switch(t){case'target':return{bg:tb,bc:tc,c:tc,bw:'2px',bs:`0 0 14px ${tc}35, 0 0 28px ${tc}12`,a:'b2pulse 2.5s ease-in-out infinite'};case'gold':return{bg:isLight?gbl:gbd,bc:gbr,c:isLight?gtl:gtd,bw:'2px',bs:gsh,a:'goldShimmer 3s ease-in-out infinite'};case'diamond':return{bg:isLight?dbl:dbd,bc:dbr,c:isLight?dtl:dtd,bw:'2px',bs:dsh,a:'diamondSparkle 4s ease-in-out infinite'};default:return{bg:mb,bc:mbr,c:mt,bw:'1px',bs:'none'}}}
-  return(<div className="inline-flex items-center gap-1 flex-wrap">{lvls.map((l,i)=>{const st=gs(l.t);return(<span key={l.lv} className="inline-flex items-center gap-1"><span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden" style={{background:st.bg,borderColor:st.bc,color:st.c,borderWidth:st.bw,boxShadow:st.bs,letterSpacing:'-0.02em',animation:(st as any).a}}>{l.t==='diamond'&&<><span className="absolute inset-0 pointer-events-none" style={{background:'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 55%, transparent 70%)',animation:'diamondShine 2s ease-in-out infinite'}}/><span className="absolute top-0.5 right-1 text-[7px] opacity-70" style={{color:isLight?'#8898C0':'#C8D8F0'}}>◆</span></>}{l.lv}</span>{i<lvls.length-1&&<span className="w-2.5 h-px" style={{backgroundColor:l.t==='diamond'||l.t==='gold'?gbr:mbr}}/></span>)})}<span className="text-[11px] font-semibold ml-1.5" style={{color:lc}}>{label}</span></div>)
+function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
+  const levels = [
+    { level: 'A1', tier: 'muted' as const },
+    { level: 'A2', tier: 'muted' as const },
+    { level: 'B1', tier: 'muted' as const },
+    { level: 'B2', tier: 'target' as const },
+    { level: 'C1', tier: 'gold' as const },
+    { level: 'C2', tier: 'diamond' as const },
+  ]
+  const mutedBg = isLight ? '#F0EBE5' : 'rgba(26,26,26,0.8)'
+  const mutedBorder = isLight ? '#DDD0C0' : '#2A2A2C'
+  const mutedText = isLight ? 'rgba(26,26,26,0.3)' : 'rgba(255,240,232,0.25)'
+  const targetBg = isLight ? '#FFF0E8' : '#2A1A0A'
+  const targetColor = isLight ? '#E03D00' : '#FF4500'
+  const goldBgDark = 'linear-gradient(135deg, #4A3500 0%, #6B5000 50%, #4A3500 100%)'
+  const goldBgLight = 'linear-gradient(135deg, #FFF8E0 0%, #FFE8A0 50%, #FFF0C0 100%)'
+  const goldBorder = '#D4A017'
+  const goldTextDark = '#FFD700'
+  const goldTextLight = '#8B6914'
+  const goldShadow = '0 0 18px rgba(212,160,23,0.55), 0 0 35px rgba(212,160,23,0.2)'
+  const diamondBgDark = 'linear-gradient(135deg, #222840 0%, #354060 30%, #222840 60%, #2D3550 100%)'
+  const diamondBgLight = 'linear-gradient(135deg, #F0F2F8 0%, #DDE0EC 30%, #E8EAF2 60%, #E0E2EC 100%)'
+  const diamondBorder = '#A0B0D0'
+  const diamondTextDark = '#E0E8F8'
+  const diamondTextLight = '#4A5580'
+  const diamondShadow = '0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
+  const labelColor = isLight ? 'rgba(26,26,26,0.35)' : 'rgba(255,240,232,0.25)'
+
+  function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
+    switch (tier) {
+      case 'target':
+        return {
+          background: targetBg, borderColor: targetColor, color: targetColor,
+          borderWidth: '2px',
+          boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`,
+          animation: 'b2pulse 2.5s ease-in-out infinite'
+        }
+      case 'gold':
+        return {
+          background: isLight ? goldBgLight : goldBgDark,
+          borderColor: goldBorder,
+          color: isLight ? goldTextLight : goldTextDark,
+          borderWidth: '2px',
+          boxShadow: goldShadow,
+          animation: 'goldShimmer 3s ease-in-out infinite'
+        }
+      case 'diamond':
+        return {
+          background: isLight ? diamondBgLight : diamondBgDark,
+          borderColor: diamondBorder,
+          color: isLight ? diamondTextLight : diamondTextDark,
+          borderWidth: '2px',
+          boxShadow: diamondShadow,
+          animation: 'diamondSparkle 4s ease-in-out infinite'
+        }
+      default:
+        return {
+          background: mutedBg, borderColor: mutedBorder, color: mutedText,
+          borderWidth: '1px', boxShadow: 'none'
+        }
+    }
+  }
+
+  return (
+    <div className="inline-flex items-center gap-1 flex-wrap">
+      {levels.map((l, i) => {
+        const style = getBadgeStyle(l.tier)
+        return (
+          <span key={l.level} className="inline-flex items-center gap-1">
+            <span
+              className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[11px] font-black border transition-all relative overflow-hidden"
+              style={{
+                background: style.background,
+                borderColor: style.borderColor,
+                color: style.color,
+                borderWidth: style.borderWidth,
+                boxShadow: style.boxShadow,
+                letterSpacing: '-0.02em',
+                animation: (style as any).animation
+              }}>
+              {l.tier === 'diamond' && (
+                <>
+                  <span className="absolute inset-0 pointer-events-none" style={{
+                    background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 55%, transparent 70%)',
+                    animation: 'diamondShine 2s ease-in-out infinite'
+                  }} />
+                  <span className="absolute top-0.5 right-1 text-[7px] opacity-70" style={{ color: isLight ? '#8898C0' : '#C8D8F0' }}>◆</span>
+                </>
+              )}
+              {l.level}
+            </span>
+            {i < levels.length - 1 && (
+              <span className="w-2.5 h-px" style={{ backgroundColor: l.tier === 'diamond' || l.tier === 'gold' ? goldBorder : mutedBorder }} />
+            )}
+          </span>
+        )
+      })}
+      <span className="text-[11px] font-semibold ml-1.5" style={{ color: labelColor }}>{label}</span>
+    </div>
+  )
 }
 
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
