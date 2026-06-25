@@ -26,9 +26,9 @@ export default function LoginPage() {
     <main className="min-h-screen flex items-center justify-center px-6" style={{ backgroundColor: '#0A0A0A', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif" }}>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-1.5 tracking-tight whitespace-nowrap leading-none select-none text-xl">
-            <span className="font-black" style={{ letterSpacing: '-0.03em', color: '#FF4500', textShadow: '0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)' }}>B2</span>
-            <span className="font-light" style={{ letterSpacing: '0.02em', color: 'rgba(255,255,255,0.9)' }}>please</span>
+          <Link href="/" className="inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none text-xl">
+            <span className="font-black" style={{ letterSpacing: '-0.05em', color: '#FF4500', textShadow: '0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)' }}>B2</span>
+            <span className="font-light" style={{ letterSpacing: '0', marginLeft: '-2px', color: 'rgba(255,255,255,0.9)' }}>please</span>
             <span className="inline-flex items-center justify-center leading-none text-[1.1em]" role="img" aria-label="Tunisia flag">🇹🇳</span>
           </Link>
         </div>
