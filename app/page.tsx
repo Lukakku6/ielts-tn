@@ -238,9 +238,12 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
 
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
   return(
-    <span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`}>
+    <span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`} dir="ltr">
       <span className="font-black animate-b2pulse" style={{letterSpacing:'-0.05em',color:isLight?'#E03D00':'#FF4500',textShadow:isLight?'0 0 12px rgba(224,61,0,0.25), 0 0 24px rgba(224,61,0,0.1)':'0 0 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,69,0,0.2)'}}>B2</span>
-<span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`} dir="ltr">  )
+      <span className="font-light" style={{letterSpacing:'-0.5px',color:isLight?'#1A1A1A':'rgba(255,255,255,0.9)'}}>please</span>
+      <TnFlag/>
+    </span>
+  )
 }
 
 function useCountdown(target:Date){const[t,st]=useState({d:0,h:0,m:0,s:0});useEffect(()=>{const tk=()=>{const df=target.getTime()-Date.now();if(df<=0)return;st({d:Math.floor(df/86400000),h:Math.floor((df%86400000)/3600000),m:Math.floor((df%3600000)/60000),s:Math.floor((df%60000)/1000)})};tk();const id=setInterval(tk,1000);return()=>clearInterval(id)},[target]);return t}
