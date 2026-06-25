@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 
-<span className={`inline-flex items-center justify-center leading-none text-[1.1em] ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
-
+const TnFlag = ({ className = '' }: { className?: string }) => (
+  <span className={`inline-flex items-center justify-center leading-none text-[1.1em] ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
+)
 // ── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: {
