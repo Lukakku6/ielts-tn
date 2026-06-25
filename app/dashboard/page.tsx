@@ -25,13 +25,13 @@ export default function DashboardPage() {
       if (!session?.user) { window.location.href = '/login'; return }
       setUser(session.user)
 
-      const { data: sub, error: subError } = await supabase
+      const { data: sub } = await supabase
         .from('subscriptions')
         .select('*')
         .eq('user_id', session.user.id)
         .maybeSingle()
 
-      if (!sub && !subError) {
+      if (!sub) {
         const { data: newSub } = await supabase
           .from('subscriptions')
           .insert({ user_id: session.user.id, plan: 'free' })
@@ -51,6 +51,7 @@ export default function DashboardPage() {
 
       if (proofs && proofs.length > 0) {
         setProofStatus(proofs[0].status)
+        setSelectedPlan(proofs[0].plan_requested)
       }
 
       setLoading(false)
@@ -134,33 +135,30 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Upgrade Section — shows when selected plan differs from current */}
-        {subscription?.plan !== selectedPlan && (
+        {/* Upgrade Section */}
+        {proofStatus === 'pending' ? (
+          <div className="rounded-2xl p-6 border mb-8 text-center" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: 'rgba(255,200,50,0.3)' }}>
+            <span className="text-sm font-semibold" style={{ color: '#F0C850' }}>⏳ Payment proof submitted — awaiting approval for {PLANS.find(p => p.id === selectedPlan)?.name}</span>
+          </div>
+        ) : proofStatus === 'approved' ? (
+          <div className="rounded-2xl p-6 border mb-8 text-center" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: 'rgba(30,200,120,0.3)' }}>
+            <span className="text-sm font-semibold" style={{ color: '#1EC878' }}>✅ Your {PLANS.find(p => p.id === selectedPlan)?.name} plan is active!</span>
+          </div>
+        ) : subscription?.plan !== selectedPlan ? (
           <div className="rounded-2xl p-6 border mb-8" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#FF4500' }}>
             <h2 className="text-lg font-bold mb-3" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>⬆️ Upgrade to {PLANS.find(p => p.id === selectedPlan)?.name}</h2>
-            <p className="text-xs mb-4" style={{ color: 'rgba(255,240,232,0.5)' }}>Send payment via your preferred method, then upload a screenshot below. We'll activate your plan within 24 hours.</p>
-
-            {proofStatus === 'pending' ? (
-              <div className="rounded-xl p-4 text-center" style={{ backgroundColor: 'rgba(255,200,50,0.1)', border: '1px solid rgba(255,200,50,0.3)' }}>
-                <span className="text-sm font-semibold" style={{ color: '#F0C850' }}>⏳ Payment proof submitted — awaiting approval</span>
-              </div>
-            ) : proofStatus === 'approved' ? (
-              <div className="rounded-xl p-4 text-center" style={{ backgroundColor: 'rgba(30,200,120,0.1)', border: '1px solid rgba(30,200,120,0.3)' }}>
-                <span className="text-sm font-semibold" style={{ color: '#1EC878' }}>✅ Your plan has been activated!</span>
-              </div>
-            ) : (
-              <label className="block rounded-xl p-6 text-center cursor-pointer border-dashed border-2 transition-all hover:border-[#FF4500]"
-                style={{ borderColor: '#2A2A2C' }}>
-                <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} className="hidden" />
-                <span className="text-2xl block mb-2">📎</span>
-                <span className="text-sm font-semibold" style={{ color: '#FFFFFF' }}>
-                  {uploading ? 'Uploading...' : 'Upload Payment Screenshot'}
-                </span>
-                <span className="text-xs block mt-1" style={{ color: 'rgba(255,240,232,0.4)' }}>PNG, JPG, or PDF</span>
-              </label>
-            )}
+            <p className="text-xs mb-4" style={{ color: 'rgba(255,240,232,0.5)' }}>Send payment, then upload a screenshot below. We'll activate your plan within 24 hours.</p>
+            <label className="block rounded-xl p-6 text-center cursor-pointer border-dashed border-2 transition-all hover:border-[#FF4500]"
+              style={{ borderColor: '#2A2A2C' }}>
+              <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} className="hidden" />
+              <span className="text-2xl block mb-2">📎</span>
+              <span className="text-sm font-semibold" style={{ color: '#FFFFFF' }}>
+                {uploading ? 'Uploading...' : 'Upload Payment Screenshot'}
+              </span>
+              <span className="text-xs block mt-1" style={{ color: 'rgba(255,240,232,0.4)' }}>PNG, JPG, or PDF</span>
+            </label>
           </div>
-        )}
+        ) : null}
 
         {/* Available Plans */}
         <h2 className="text-lg font-bold mb-4" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>Available Plans</h2>
@@ -191,14 +189,14 @@ export default function DashboardPage() {
                   <div key={f} className="text-[11px]" style={{ color: 'rgba(255,240,232,0.5)' }}>✓ {f}</div>
                 ))}
               </div>
-              <button onClick={() => { setSelectedPlan(plan.id); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+              <button onClick={() => setSelectedPlan(plan.id)}
                 className="w-full py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.97]"
                 style={{
                   backgroundColor: selectedPlan === plan.id ? '#FF4500' : 'rgba(255,240,232,0.06)',
                   color: selectedPlan === plan.id ? '#FFFFFF' : 'rgba(255,240,232,0.6)',
                   border: selectedPlan === plan.id ? 'none' : '1px solid #2A2A2C'
                 }}>
-                {selectedPlan === plan.id ? 'Selected ✓ — Upload Payment ↑' : subscription?.plan === plan.id ? 'Your Plan' : `Select ${plan.name}`}
+                {selectedPlan === plan.id ? 'Selected ✓' : subscription?.plan === plan.id ? 'Your Plan' : `Select ${plan.name}`}
               </button>
             </div>
           ))}
