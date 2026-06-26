@@ -44,14 +44,6 @@ const T = {
     communityBannerTag: 'the community',
     communityBannerH: "Join Tunisia's English-Speaking Community",
     communityBannerSub: 'Practice English every week through live discussions on topics that matter.',
-    topicsListH: 'What we discuss',
-    topicsList: [
-      { icon: '🤖', label: 'Artificial Intelligence' },
-      { icon: '💼', label: 'Business & Careers' },
-      { icon: '🌍', label: 'Culture & Travel' },
-      { icon: '⚽', label: 'Sports & Current Events' },
-      { icon: '🎬', label: 'Movies & Entertainment' },
-    ],
     differenceH: 'What makes us different',
     differenceList: [
       'Real conversations, not textbook exercises',
@@ -93,14 +85,6 @@ const T = {
     communityBannerTag: 'la communauté',
     communityBannerH: "Rejoins la communauté anglophone de Tunisie",
     communityBannerSub: "Pratique l'anglais chaque semaine à travers des discussions en direct sur des sujets qui comptent.",
-    topicsListH: "Ce qu'on discute",
-    topicsList: [
-      { icon: '🤖', label: 'Intelligence Artificielle' },
-      { icon: '💼', label: 'Business & Carrières' },
-      { icon: '🌍', label: 'Culture & Voyages' },
-      { icon: '⚽', label: 'Sport & Actualité' },
-      { icon: '🎬', label: 'Cinéma & Divertissement' },
-    ],
     differenceH: 'Ce qui nous différencie',
     differenceList: [
       'De vraies conversations, pas des exercices de manuel',
@@ -142,14 +126,6 @@ const T = {
     communityBannerTag: 'المجتمع',
     communityBannerH: 'انضم لمجتمع الإنجليزية التونسي',
     communityBannerSub: 'تدرّب على الإنجليزية كل أسبوع من خلال نقاشات مباشرة حول مواضيع تهمّك.',
-    topicsListH: 'شنو نحكيو فيه',
-    topicsList: [
-      { icon: '🤖', label: 'الذكاء الاصطناعي' },
-      { icon: '💼', label: 'الأعمال والمسار المهني' },
-      { icon: '🌍', label: 'الثقافة والسفر' },
-      { icon: '⚽', label: 'الرياضة والأحداث الراهنة' },
-      { icon: '🎬', label: 'السينما والترفيه' },
-    ],
     differenceH: 'شنو يخلّينا مختلفين',
     differenceList: [
       'نقاشات حقيقية، مش تمارين كتاب',
@@ -161,7 +137,7 @@ const T = {
       { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'هدف Band 7+', desc:'جلسات مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 جلسات/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', popular:true, tier:'Pro' },
       { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
       { id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'مسرّع مهني', desc:'جلسات مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، مقابلات عمل.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 جلسات/شهر','تحضير السيرة والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة LinkedIn'], cta:'تطوّر مهنيًا', tier:'Core' },
-      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
+      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'23'}, tnd:{m:'185',y:'72'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
     ],
   },
 }
@@ -190,17 +166,18 @@ const ROOM_BG = [
   { dark:'#1E1820', light:'#F5EDF2' },
 ]
 
+// UPDATED: Fixed raining words with staggered delays and better animation
 const FLOATING_WORDS = [
-  { text:'current events', icon:'🌍', left:'3%', rot:'-8deg', dur:'8s', delay:'0s' },
-  { text:'trending', icon:'🔥', left:'20%', rot:'7deg', dur:'9s', delay:'1.5s' },
-  { text:'discussions', icon:'💬', left:'42%', rot:'-6deg', dur:'8.5s', delay:'3s' },
-  { text:'live practice', icon:'🎙️', left:'60%', rot:'9deg', dur:'10s', delay:'0.5s' },
-  { text:'breaking news', icon:'📰', left:'78%', rot:'-7deg', dur:'9.5s', delay:'2s' },
-  { text:'pop culture', icon:'🎬', left:'12%', rot:'8deg', dur:'8s', delay:'4s' },
-  { text:'tech & AI', icon:'🤖', left:'33%', rot:'-9deg', dur:'9s', delay:'5s' },
-  { text:'finance', icon:'💰', left:'68%', rot:'6deg', dur:'8.5s', delay:'1s' },
-  { text:'sports', icon:'🏆', left:'52%', rot:'-5deg', dur:'7.5s', delay:'3.5s' },
-  { text:'music', icon:'🎵', left:'85%', rot:'7deg', dur:'9s', delay:'6s' },
+  { text: 'current events', icon: '🌍', rotStart: '-3deg', rotEnd: '5deg', dur: '12s', delay: '0s', wobble: '15px' },
+  { text: 'trending', icon: '🔥', rotStart: '4deg', rotEnd: '-6deg', dur: '11s', delay: '1.2s', wobble: '-12px' },
+  { text: 'discussions', icon: '💬', rotStart: '-5deg', rotEnd: '7deg', dur: '13s', delay: '2.5s', wobble: '18px' },
+  { text: 'live practice', icon: '🎙️', rotStart: '6deg', rotEnd: '-4deg', dur: '10.5s', delay: '0.8s', wobble: '-15px' },
+  { text: 'breaking news', icon: '📰', rotStart: '-7deg', rotEnd: '3deg', dur: '12.5s', delay: '3.2s', wobble: '20px' },
+  { text: 'pop culture', icon: '🎬', rotStart: '5deg', rotEnd: '-8deg', dur: '11.5s', delay: '1.8s', wobble: '-18px' },
+  { text: 'tech & AI', icon: '🤖', rotStart: '-4deg', rotEnd: '6deg', dur: '13.5s', delay: '4s', wobble: '16px' },
+  { text: 'finance', icon: '💰', rotStart: '3deg', rotEnd: '-5deg', dur: '10s', delay: '0.5s', wobble: '-14px' },
+  { text: 'sports', icon: '🏆', rotStart: '-6deg', rotEnd: '4deg', dur: '12s', delay: '2.2s', wobble: '17px' },
+  { text: 'music', icon: '🎵', rotStart: '7deg', rotEnd: '-3deg', dur: '14s', delay: '3.8s', wobble: '-19px' },
 ]
 
 function buildAvatarSvg(sb:string,sm:string,ss:string,sd:string,eb:string,em:string,ed:string,top:string,eyes:string,mouth:string,acc:string,cloth:string,ri:number,il:boolean){
@@ -363,7 +340,56 @@ export default function Home(){
         @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,25px) scale(1.12)}66%{transform:translate(-15px,35px) scale(.94)}}
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,-25px) scale(1.06)}66%{transform:translate(20px,-15px) scale(1.12)}}
         @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.18)}}
-        @keyframes floatRain{0%{transform:translateY(-60px);opacity:0}5%{opacity:.55}90%{opacity:.55}100%{transform:translateY(calc(100% + 60px));opacity:0}}
+        
+        /* UPDATED: Better raining words animation */
+        @keyframes rainDown {
+          0% {
+            transform: translateY(-80px) rotate(var(--rot-start, 0deg));
+            opacity: 0;
+          }
+          5% {
+            opacity: 0.7;
+          }
+          10% {
+            opacity: 1;
+          }
+          85% {
+            opacity: 0.8;
+          }
+          95% {
+            opacity: 0.3;
+          }
+          100% {
+            transform: translateY(calc(100vh + 100px)) rotate(var(--rot-end, 0deg));
+            opacity: 0;
+          }
+        }
+
+        @keyframes rainWobble {
+          0%, 100% {
+            transform: translateX(0px) rotate(var(--rot-start, 0deg));
+          }
+          25% {
+            transform: translateX(var(--wobble-1, 15px)) rotate(var(--rot-mid, 0deg));
+          }
+          50% {
+            transform: translateX(var(--wobble-2, -10px)) rotate(var(--rot-mid2, 0deg));
+          }
+          75% {
+            transform: translateX(var(--wobble-3, 12px)) rotate(var(--rot-mid3, 0deg));
+          }
+        }
+
+        .rain-word {
+          animation: rainDown var(--dur, 12s) linear infinite;
+          animation-delay: var(--delay, 0s);
+        }
+
+        .rain-word-wobble {
+          animation: rainWobble var(--dur, 12s) ease-in-out infinite;
+          animation-delay: var(--delay, 0s);
+        }
+
         @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
         @keyframes diamondSparkle{0%,100%{filter:brightness(1);box-shadow:0 0 20px rgba(160,180,220,0.6),0 0 40px rgba(180,200,240,0.3)}30%{filter:brightness(1.15);box-shadow:0 0 28px rgba(180,200,240,0.75),0 0 50px rgba(200,220,255,0.4)}60%{filter:brightness(0.95)}}
         @keyframes diamondShine{0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg)}50%{opacity:.7}}
@@ -436,7 +462,7 @@ export default function Home(){
         </div>
       </section>
 
-      {/* ─── COMMUNITY BANNER ──────────────────────────────── */}
+      {/* ─── COMMUNITY BANNER (UPDATED - removed topics, kept difference only) ─── */}
       <section ref={addRef(6)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}>
           <div className="absolute inset-0 pointer-events-none" style={{background:`radial-gradient(ellipse at 20% 50%,${s.textOrange}07 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,${s.textOrangeLight}04 0%,transparent 55%)`}}/>
@@ -445,16 +471,6 @@ export default function Home(){
               <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityBannerTag}</div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-3 leading-tight" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityBannerH}</h2>
               <p className="text-[15px] mb-8 leading-relaxed max-w-sm" style={{color:s.textSecondary}}>{t.communityBannerSub}</p>
-              <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{color:s.textTertiary}}>{t.topicsListH}</div>
-              <div className="flex flex-col gap-2.5">
-                {t.topicsList.map((item,i)=>(
-                  <div key={i} className="flex items-center gap-3.5 rounded-2xl px-4 py-3 border cursor-default"
-                    style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor}}>
-                    <span className="text-xl flex-shrink-0">{item.icon}</span>
-                    <span className="text-[13px] font-semibold" style={{color:s.textPrimary}}>{item.label}</span>
-                  </div>
-                ))}
-              </div>
             </div>
             <div className="flex flex-col justify-between h-full">
               <div>
@@ -479,8 +495,36 @@ export default function Home(){
         </div>
       </section>
 
+      {/* ─── TOPICS SECTION ──────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
-        {FLOATING_WORDS.map((w,i)=>(<div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2" style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}><span className="text-base">{w.icon}</span>{w.text}</div>))}
+        {/* UPDATED: Raining words with staggered delays and rotation */}
+        {FLOATING_WORDS.map((w, i) => (
+          <div 
+            key={i} 
+            className="rain-word-wobble absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
+            style={{
+              left: `${5 + (i * 10)}%`,
+              '--rot-start': w.rotStart,
+              '--rot-end': w.rotEnd,
+              '--rot-mid': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) / 2}deg`,
+              '--rot-mid2': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) / 3}deg`,
+              '--rot-mid3': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) * 0.7}deg`,
+              '--wobble-1': w.wobble,
+              '--wobble-2': `-${w.wobble}`,
+              '--wobble-3': w.wobble,
+              '--dur': w.dur,
+              '--delay': w.delay,
+              backgroundColor: s.cardBgFlat,
+              border: `1px solid ${s.borderColor}`,
+              color: s.textSecondary,
+              opacity: 0.85,
+              transform: `rotate(${w.rotStart})`
+            } as React.CSSProperties}
+          >
+            <span className="text-base">{w.icon}</span>
+            {w.text}
+          </div>
+        ))}
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
         <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
         <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
