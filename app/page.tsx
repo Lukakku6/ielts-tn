@@ -12,9 +12,10 @@ const T = {
     hero1: 'stop studying.',
     hero2: 'start speaking',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
-    joinBtn: 'grab a spot',
+    enrollBtn: 'Enroll Now',
     dmBtn: 'DM on instagram',
     waBtn: 'chat on whatsapp',
+    messengerBtn: 'messenger',
     topicsTag: 'what we discuss',
     topicsH: 'real topics. real english.',
     topicsSub: 'every class is built around something happening in the world right now',
@@ -55,7 +56,10 @@ const T = {
   fr: {
     tagline: "conçu pour les apprenants tunisiens", hero1: "arrête de bachoter.", hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
-    joinBtn: "prends ta place", dmBtn: "DM sur instagram", waBtn: "écrire sur whatsapp",
+    enrollBtn: "S'inscrire",
+    dmBtn: "DM sur instagram",
+    waBtn: "écrire sur whatsapp",
+    messengerBtn: "messenger",
     topicsTag: "ce qu'on discute", topicsH: "vrais sujets. vrai anglais.", topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
     howTag: "comment ça marche", howH: "rejoins, parle, progresse", howSub: "trois étapes — sans manuel scolaire",
     steps: [
@@ -92,7 +96,10 @@ const T = {
   ar: {
     tagline: 'مصمّم للمتعلّمين التونسيين', hero1: 'توقّف عن الحفظ.', hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
-    joinBtn: 'احجز مقعدك', dmBtn: 'راسلنا على انستغرام', waBtn: 'تحدّث على واتساب',
+    enrollBtn: 'سجل الآن',
+    dmBtn: 'راسلنا على انستغرام',
+    waBtn: 'تحدّث على واتساب',
+    messengerBtn: 'ماسنجر',
     topicsTag: 'شنو نحكيو فيه', topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
     howTag: 'كيفاش يخدم', howH: 'انضم، تكلّم، ارتقي', howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
@@ -271,6 +278,8 @@ function themeStyles(theme:Theme){const d=theme==='dark';return{mainBg:d?'#0A0A0
 export default function Home(){
   const[lang,setLang]=useState<'en'|'fr'|'ar'>('en')
   const[theme,setTheme]=useState<Theme>('dark')
+  const[showModal,setShowModal]=useState(false)
+  const[selectedPlan,setSelectedPlan]=useState<string>('')
 
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
 
@@ -321,6 +330,29 @@ export default function Home(){
     border: `1px solid ${s.borderColor}`,
     boxShadow: `0 8px 32px rgba(0, 0, 0, 0.1)`,
   })
+
+  const openModal = (planName: string) => {
+    setSelectedPlan(planName)
+    setShowModal(true)
+    document.body.style.overflow = 'hidden'
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+    document.body.style.overflow = 'unset'
+  }
+
+  const handleContact = (platform: string) => {
+    const urls: Record<string, string> = {
+      whatsapp: 'https://wa.me/216XXXXXXXX?text=Hi!%20I%27m%20interested%20in%20the%20' + encodeURIComponent(selectedPlan) + '%20plan',
+      instagram: 'https://www.instagram.com/ielts.tn',
+      messenger: 'https://m.me/ielts.tn'
+    }
+    if (urls[platform]) {
+      window.open(urls[platform], '_blank')
+    }
+    closeModal()
+  }
 
   return(
     <main className="min-h-screen transition-colors duration-500" style={{backgroundColor:s.mainBg,fontFamily:s.fontFamily}} dir={isAr?'rtl':'ltr'}>
@@ -424,6 +456,83 @@ export default function Home(){
           -webkit-backdrop-filter: blur(8px);
           border: 1px solid ${s.borderColor};
         }
+
+        /* Modal styles */
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.7);
+          backdrop-filter: blur(8px);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+          max-width: 420px;
+          width: 90%;
+          padding: 32px 24px;
+          border-radius: 24px;
+          animation: slideUp 0.3s ease;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideUp {
+          from { transform: translateY(30px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .option-btn {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 18px;
+          border-radius: 14px;
+          border: 1px solid ${s.borderColor};
+          background: ${isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'};
+          backdrop-filter: blur(4px);
+          cursor: pointer;
+          transition: all 0.2s ease;
+          width: 100%;
+          font-size: 15px;
+          font-weight: 600;
+          color: ${s.textPrimary};
+        }
+        .option-btn:hover {
+          border-color: ${s.textOrange};
+          background: ${isLight ? 'rgba(255,255,255,0.8)' : 'rgba(30,30,32,0.8)'};
+          transform: scale(1.02);
+        }
+        .option-btn .icon {
+          font-size: 24px;
+          width: 36px;
+          text-align: center;
+        }
+        .option-btn .badge {
+          font-size: 10px;
+          font-weight: 700;
+          padding: 2px 10px;
+          border-radius: 20px;
+          background: ${s.textOrange};
+          color: white;
+          margin-left: auto;
+        }
+        .close-btn {
+          position: absolute;
+          top: 12px;
+          right: 16px;
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: ${s.textTertiary};
+          transition: color 0.2s;
+        }
+        .close-btn:hover {
+          color: ${s.textPrimary};
+        }
       `}</style>
 
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
@@ -457,7 +566,7 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 {t.waBtn}</a>
+              <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
               <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap" style={{color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
             <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
@@ -524,7 +633,7 @@ export default function Home(){
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 {t.waBtn}</a>
+                <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
                 <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[14px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>📸 {t.dmBtn}</a>
               </div>
             </div>
@@ -619,7 +728,7 @@ export default function Home(){
           <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-xl" style={{animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div>
           <h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3>
           <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
-          <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 Contact us on {t.waBtn}</a>
+          <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
         </div>
         <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -669,9 +778,8 @@ export default function Home(){
                   </div>
                 ))}</div>
                 
-                <a 
-                  href="https://wa.me/216XXXXXXXX" 
-                  target="_blank"
+                <button 
+                  onClick={() => openModal(pkg.name)}
                   className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
                   style={(pkg as any).popular ? {
                     backgroundColor: s.textOrange,
@@ -687,8 +795,8 @@ export default function Home(){
                     border: `1px solid ${s.btnSecondaryBorder}`
                   }}
                 >
-                  💬 Contact for {pkg.name}
-                </a>
+                  {t.enrollBtn} — {pkg.name}
+                </button>
               </div>
             )
           })}
@@ -762,6 +870,45 @@ export default function Home(){
       </footer>
 
       <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 20px ${s.orangeGlow}`}}>💬</a>
+
+      {/* ─── ENROLL MODAL ──────────────────────────────── */}
+      {showModal && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content glass-card" style={{position:'relative'}} onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={closeModal}>✕</button>
+            
+            <div className="text-center mb-6">
+              <span className="text-4xl block mb-2">🎓</span>
+              <h3 className="text-xl font-bold" style={{color:s.textPrimary}}>Ready to join?</h3>
+              <p className="text-sm" style={{color:s.textSecondary}}>
+                {selectedPlan !== 'General' ? `For the ${selectedPlan} plan` : 'Choose how you\'d like to continue'}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <button onClick={() => handleContact('whatsapp')} className="option-btn" style={{borderColor:'#25D366'}}>
+                <span className="icon">🟢</span>
+                Continue with WhatsApp
+                <span className="badge">Recommended</span>
+              </button>
+
+              <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
+                <span className="icon">🔵</span>
+                Continue with Messenger
+              </button>
+
+              <button onClick={() => handleContact('instagram')} className="option-btn" style={{borderColor:'#E1306C'}}>
+                <span className="icon">✉️</span>
+                Continue with Instagram
+              </button>
+            </div>
+
+            <p className="text-center text-xs mt-4" style={{color:s.textTertiary}}>
+              We'll get back to you within 24 hours
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
