@@ -268,52 +268,14 @@ export default function Home(){
 
   const[visibleP,setVisibleP]=useState<number[]>([])
 
-  // Natural overlapping meeting: states blend with staggered timers
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
-  
   useEffect(() => {
-    // Staggered timers for natural overlap
     const timers: NodeJS.Timeout[] = []
-    
-    // Timer 1: Update mics every 2.5-4s
-    const updateMics = () => {
-      setActiveSpeakers(prev => {
-        const next = new Map(prev)
-        next.set(0, 'mic') // Dali always has mic
-        // Keep some existing mics, replace others
-        const students = [1,2,3,4,5,6,7]
-        const micCount = 2 + Math.floor(Math.random() * 2)
-        const shuffled = students.sort(() => Math.random() - 0.5)
-        // Remove old student mics
-        students.forEach(s => { if (next.get(s) === 'mic') next.delete(s) })
-        // Add new mics
-        shuffled.slice(0, micCount).forEach(s => next.set(s, 'mic'))
-        return next
-      })
-      timers[0] = setTimeout(updateMics, 2500 + Math.random() * 1500)
-    }
-    
-    // Timer 2: Update hands every 4-6s (slower, independent)
-    const updateHands = () => {
-      setActiveSpeakers(prev => {
-        const next = new Map(prev)
-        const students = [1,2,3,4,5,6,7]
-        // Remove old hands
-        students.forEach(s => { if (next.get(s) === 'hand') next.delete(s) })
-        // Add 1-2 hands from students who DON'T have mics
-        const withoutMics = students.filter(s => next.get(s) !== 'mic')
-        const handCount = 1 + Math.floor(Math.random() * 2)
-        withoutMics.sort(() => Math.random() - 0.5).slice(0, handCount).forEach(s => next.set(s, 'hand'))
-        return next
-      })
-      timers[1] = setTimeout(updateHands, 4000 + Math.random() * 2000)
-    }
-    
-    timers[0] = setTimeout(updateMics, 1000)
-    timers[1] = setTimeout(updateHands, 2000)
-    
-    return () => timers.forEach(t => clearTimeout(t))
-  }, [])
+    const updateMics = () => {setActiveSpeakers(prev=>{const next=new Map(prev);next.set(0,'mic');const students=[1,2,3,4,5,6,7];const micCount=2+Math.floor(Math.random()*2);const shuffled=students.sort(()=>Math.random()-0.5);students.forEach(s=>{if(next.get(s)==='mic')next.delete(s)});shuffled.slice(0,micCount).forEach(s=>next.set(s,'mic'));return next});timers[0]=setTimeout(updateMics,2500+Math.random()*1500)}
+    const updateHands = () => {setActiveSpeakers(prev=>{const next=new Map(prev);const students=[1,2,3,4,5,6,7];students.forEach(s=>{if(next.get(s)==='hand')next.delete(s)});const withoutMics=students.filter(s=>next.get(s)!=='mic');const handCount=1+Math.floor(Math.random()*2);withoutMics.sort(()=>Math.random()-0.5).slice(0,handCount).forEach(s=>next.set(s,'hand'));return next});timers[1]=setTimeout(updateHands,4000+Math.random()*2000)}
+    timers[0]=setTimeout(updateMics,1000);timers[1]=setTimeout(updateHands,2000)
+    return ()=>timers.forEach(t=>clearTimeout(t))
+  },[])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
@@ -368,9 +330,6 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
-        .cell-idle{border:1px solid transparent;box-shadow:none}
-        .cell-mic{border:2px solid;box-shadow:0 0 20px;transition:all .3s ease}
-        .cell-hand{border:2px solid rgba(255,69,0,0.4);box-shadow:0 0 10px rgba(255,69,0,0.15);transition:all .3s ease}
       `}</style>
 
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
@@ -415,56 +374,29 @@ export default function Home(){
           <div className="flex flex-col gap-3.5">
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div><div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div><div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div></div>
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}><div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div><span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span></div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">
-                {allAvatars.map((av,i)=>{
-                  const state = activeSpeakers.get(i)
-                  const isMic = state === 'mic'
-                  const isHand = state === 'hand'
-                  return (
-                  <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`}
-                    style={{
-                      transitionDelay:`${i*0.1}s`,
-                      border: isMic ? `2px solid ${s.textOrange}` : isHand ? '2px solid rgba(255,69,0,0.4)' : '1px solid transparent',
-                      backgroundColor: av.bg,
-                      boxShadow: isMic ? `0 0 20px ${s.orangeGlow}` : isHand ? '0 0 10px rgba(255,69,0,0.15)' : 'none'
-                    }}>
-                    <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
-                    {isMic && (<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
-                    {isHand && (<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
-                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
-                  </div>
-                )})}
-              </div>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}{isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>)})}</div>
               <div className="rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5 border" style={{background:s.chatBg,borderColor:s.chatBorder}}><div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>{chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}</div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>{[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(<button key={c.l} className="flex flex-col items-center gap-0.5 group"><div className="w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all border" style={{borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{c.icon}</div><span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span></button>))}<button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button></div>
             </div>
           </div>
         </div>
       </section>
-        {/* ── COMMUNITY INTRO ────────────────────────────────── */}
+
+      {/* ── COMMUNITY INTRO ────────────────────────────────── */}
       <section className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>
-            Join Tunisia's English-Speaking Community
-          </h2>
-          <p className="text-[15px] max-w-xl mx-auto" style={{color:s.textSecondary}}>
-            Practice English every week through live discussions on topics that matter.
-          </p>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>Join Tunisia's English-Speaking Community</h2>
+          <p className="text-[15px] max-w-xl mx-auto" style={{color:s.textSecondary}}>Practice English every week through live discussions on topics that matter.</p>
         </div>
-
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
           {['🤖 AI','💼 Business','🌍 Culture','⚽ Sports','🎬 Movies'].map((item,i)=>(
-            <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border"
-              style={{background:s.cardBg,borderColor:s.borderColor}}>
+            <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border" style={{background:s.cardBg,borderColor:s.borderColor}}>
               <span className="text-3xl">{item.slice(0,2)}</span>
               <span className="text-xs font-semibold" style={{color:s.textPrimary}}>{item.slice(2)}</span>
             </div>
           ))}
         </div>
-
-        <h3 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>
-          What makes us different
-        </h3>
+        <h3 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>What makes us different</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
           {['💬 Real conversations','🌐 Learn from all backgrounds','🚀 Weekly practice','🎯 English people actually use'].map((item,i)=>(
             <div key={i} className="flex items-start gap-3 rounded-2xl p-4 border" style={{background:s.cardBg,borderColor:s.borderColor}}>
@@ -475,45 +407,6 @@ export default function Home(){
         </div>
       </section>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
-          {[
-            {icon:'🤖',label:{en:'Artificial Intelligence',fr:'Intelligence Artificielle',ar:'الذكاء الاصطناعي'}},
-            {icon:'💼',label:{en:'Business & Careers',fr:'Affaires & Carrières',ar:'الأعمال والمهن'}},
-            {icon:'🌍',label:{en:'Culture & Travel',fr:'Culture & Voyages',ar:'الثقافة والسفر'}},
-            {icon:'⚽',label:{en:'Sports & Current Events',fr:'Sports & Actualités',ar:'الرياضة والأحداث'}},
-            {icon:'🎬',label:{en:'Movies & Entertainment',fr:'Films & Divertissement',ar:'الأفلام والترفيه'}},
-          ].map((item,i)=>(
-            <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border transition-all hover:translate-y-[-2px]"
-              style={{background:s.cardBg,borderColor:s.borderColor}}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
-              <span className="text-3xl">{item.icon}</span>
-              <span className="text-xs font-semibold" style={{color:s.textPrimary}}>
-                {lang==='ar'?item.label.ar:lang==='fr'?item.label.fr:item.label.en}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="text-xl lg:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>
-          {lang === 'en' ? 'What makes us different' : lang === 'fr' ? 'Ce qui nous rend différents' : 'ما يميزنا'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-          {[
-            {icon:'💬',text:{en:'Real conversations, not textbook exercises',fr:'De vraies conversations, pas des exercices de manuel',ar:'محادثات حقيقية، وليس تمارين كتابية'}},
-            {icon:'🌐',text:{en:'Speak with learners from different backgrounds',fr:'Parlez avec des apprenants de différents horizons',ar:'تحدث مع متعلمين من خلفيات مختلفة'}},
-            {icon:'🚀',text:{en:'Build confidence through weekly practice',fr:'Développez votre confiance grâce à une pratique hebdomadaire',ar:'ابنِ ثقتك من خلال الممارسة الأسبوعية'}},
-            {icon:'🎯',text:{en:'Learn the English people actually use',fr:"Apprenez l'anglais que les gens utilisent vraiment",ar:'تعلم الإنجليزية التي يستخدمها الناس فعلاً'}},
-          ].map((item,i)=>(
-            <div key={i} className="flex items-start gap-3 rounded-2xl p-4 border" style={{background:s.cardBg,borderColor:s.borderColor}}>
-              <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
-              <span className="text-sm font-medium" style={{color:s.textPrimary}}>
-                {lang==='ar'?item.text.ar:lang==='fr'?item.text.fr:item.text.en}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
         {FLOATING_WORDS.map((w,i)=>(<div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2" style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}><span className="text-base">{w.icon}</span>{w.text}</div>))}
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
