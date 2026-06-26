@@ -34,10 +34,6 @@ const T = {
     liveTag: 'next session', liveH: 'join the next live', liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
     communityTag: 'reach dali', communityH: 'message directly', communitySub: 'questions about a session? not sure which tier? Dali replies personally.',
     monthly: 'monthly', yearly: 'yearly (-20%)',
-    signupTag: 'get started', signupH: 'create your free account', signupSub: 'free account · first session included',
-    namePH: 'full name', emailPH: 'email address', passPH: 'password',
-    signupBtn2: 'create account — first session free', creating: 'creating account...',
-    loginQ: 'already have an account?', loginLink: 'log in',
     notSure: 'not sure which tier?', waLink: 'ask on whatsapp ↗',
     nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
     badgeLabel: 'your path',
@@ -75,10 +71,6 @@ const T = {
     liveTag: "prochaine session", liveH: "rejoins le prochain live", liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
     communityTag: "contacter dali", communityH: "écrire directement", communitySub: "questions sur une session ? pas sûr du tier ? Dali répond personnellement.",
     monthly: "mensuel", yearly: "annuel (-20%)",
-    signupTag: "commencer", signupH: "créer ton compte gratuit", signupSub: "compte gratuit · première session incluse",
-    namePH: "nom complet", emailPH: "adresse email", passPH: "mot de passe",
-    signupBtn2: "créer un compte — première session offerte", creating: "création en cours...",
-    loginQ: "déjà un compte ?", loginLink: "se connecter",
     notSure: "pas sûr du tier ?", waLink: "demander sur whatsapp ↗",
     nextLive: "prochain live", days: "j", hours: "h", min: "m", sec: "s",
     badgeLabel: 'votre parcours',
@@ -116,10 +108,6 @@ const T = {
     liveTag: 'الجلسة القادمة', liveH: 'انضم للبث القادم', liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
     communityTag: 'تواصل مع دالي', communityH: 'راسل مباشرة', communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار المستوى؟ الأستاذ دالي يردّ شخصيًا.',
     monthly: 'شهري', yearly: 'سنوي (-20%)',
-    signupTag: 'ابدأ الرحلة', signupH: 'أنشئ حسابك المجاني', signupSub: 'حساب مجاني · أوّل جلسة مشمولة',
-    namePH: 'الاسم الكامل', emailPH: 'البريد الإلكتروني', passPH: 'كلمة المرور',
-    signupBtn2: 'أنشئ حساب — أوّل جلسة مجّانية', creating: 'جاري إنشاء الحساب...',
-    loginQ: 'عندك حساب بالفعل؟', loginLink: 'تسجيل الدخول',
     notSure: 'ما عرفتش تختار المستوى؟', waLink: 'اسأل على واتساب ↗',
     nextLive: 'البث القادم', days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
     badgeLabel: 'مسارك',
@@ -286,7 +274,7 @@ export default function Home(){
   const[lang,setLang]=useState<'en'|'fr'|'ar'>('en')
   const[theme,setTheme]=useState<Theme>('dark')
   const[user,setUser]=useState<any>(null)
-  const[subscription,setSubscription]=useState<any>(null) // ← ADDED THIS
+  const[subscription,setSubscription]=useState<any>(null)
 
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
 
@@ -341,8 +329,7 @@ export default function Home(){
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
   useEffect(()=>{for(let i=0;i<8;i++)setTimeout(()=>setVisibleP(p=>[...p,i]),i*280);chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800))},[])
 
-  const[name,setName]=useState('');const[email,setEmail]=useState('');const[password,setPassword]=useState('')
-  const[message,setMessage]=useState('');const[loading,setLoading]=useState(false);const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
+  const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
   const[menuOpen,setMenuOpen]=useState(false)
   const firstName=user?.user_metadata?.full_name?.split(' ')[0]||''
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
@@ -353,7 +340,6 @@ export default function Home(){
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
-  const handleSignup=async()=>{setLoading(true);setMessage('');const{error}=await supabase.auth.signUp({email,password,options:{data:{full_name:name}}});if(error)setMessage(error.message);else setMessage('Account created! Check your email to confirm.');setLoading(false)}
   const handleLogout=async()=>{await supabase.auth.signOut()}
 
   const activeTopic=CLASS_TOPICS[activeTopicIndex]
@@ -490,13 +476,10 @@ export default function Home(){
               <a href="/login" className="px-4 py-2 rounded-xl text-sm font-semibold transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:'transparent'}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.color=s.textOrange}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.color=s.textSecondary}}>{t.loginBtn}</a>
             )}
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
-            {!user && (
-              <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>
-            )}
           </div>
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}{!user && (<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1 w-full" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>)}{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
+        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
       </nav>
 
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
@@ -509,11 +492,7 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              {!user ? (
-                <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
-              ) : (
-                <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
-              )}
+              <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
               <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap" style={{color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
             <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
@@ -580,11 +559,7 @@ export default function Home(){
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                {!user ? (
-                  <a href="#signup" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
-                ) : (
-                  <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
-                )}
+                <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
                 <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
               </div>
             </div>
@@ -679,11 +654,7 @@ export default function Home(){
           <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-xl" style={{animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div>
           <h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3>
           <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
-          {!user ? (
-            <a href="#signup" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a>
-          ) : (
-            <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
-          )}
+          <a href="#classes" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a>
         </div>
         <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -781,7 +752,7 @@ export default function Home(){
                   )
                 ) : (
                   // User is not logged in - show signup CTA
-                  <a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular ? {
+                  <a href="#classes" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular ? {
                     backgroundColor: s.textOrange,
                     color: '#FFFFFF',
                     boxShadow: `0 4px 14px ${s.orangeGlow}`
@@ -854,27 +825,6 @@ export default function Home(){
               <span className="transition-transform group-hover:translate-x-1.5 duration-300" style={{color:s.textOrange}}>↗</span>
             </a>
           ))}
-        </div>
-      </section>
-
-      <section id="signup" ref={addRef(5)} className="reveal py-10 md:py-16 px-6">
-        <div className="max-w-6xl mx-auto glass-card rounded-3xl p-10 md:p-14 relative overflow-hidden" style={{borderColor:s.borderColor}}>
-          <div className="absolute inset-0" style={{background:`radial-gradient(ellipse at center,${s.textOrange}04 0%,transparent 70%)`}}/>
-          <div className="max-w-sm mx-auto relative z-10">
-            <div className="text-xs font-bold uppercase tracking-widest mb-3 text-center" style={{color:s.textOrange}}>{t.signupTag}</div>
-            <h2 className="text-2xl font-black mb-3 text-center" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.signupH}</h2>
-            <p className="text-[15px] text-center mb-8" style={{color:s.textSecondary}}>{t.signupSub}</p>
-            <div className="glass-card-light rounded-2xl p-6 flex flex-col gap-3.5" style={{borderColor:s.borderColor}}>
-              <input type="text" placeholder={t.namePH} value={name} onChange={e=>setName(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:'transparent',borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/>
-              <input type="email" placeholder={t.emailPH} value={email} onChange={e=>setEmail(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:'transparent',borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/>
-              <input type="password" placeholder={t.passPH} value={password} onChange={e=>setPassword(e.target.value)} className="border rounded-xl px-4 py-3.5 text-sm w-full transition-all focus:outline-none" style={{background:'transparent',borderColor:s.borderColor,color:s.textPrimary}} onFocus={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.boxShadow=`0 0 0 3px ${s.textOrange}12`}} onBlur={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}/>
-              {message&&<p className="text-sm text-center font-semibold" style={{color:s.textOrangeLight}}>{message}</p>}
-              <button onClick={handleSignup} disabled={loading} className="text-white py-3.5 rounded-xl text-sm font-semibold active:scale-[0.97] transition-all disabled:opacity-50" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>
-                {loading?t.creating:t.signupBtn2}
-              </button>
-              <p className="text-[13px] text-center" style={{color:s.textTertiary}}>{t.loginQ} <a href="/login" className="font-semibold hover:underline" style={{color:s.textOrange}}>{t.loginLink}</a></p>
-            </div>
-          </div>
         </div>
       </section>
 
