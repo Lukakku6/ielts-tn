@@ -283,11 +283,41 @@ function detectSystemTheme():Theme{if(typeof window==='undefined')return'dark';r
 function themeStyles(theme:Theme){const d=theme==='dark';return{mainBg:d?'#0A0A0A':'#F5F1ED',cardBg:d?'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)':'linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)',cardBgFlat:d?'#1A1A1A':'#FFFFFF',inputBg:d?'#0A0A0A':'#FFF8F3',navBg:d?'rgba(10,10,10,0.85)':'rgba(245,241,237,0.85)',borderColor:d?'#2A2A2C':'#E8E0D8',borderHover:d?'rgba(255,69,0,0.35)':'rgba(224,61,0,0.25)',textPrimary:d?'#FFFFFF':'#1A1A1A',textSecondary:d?'rgba(255,240,232,0.55)':'rgba(26,26,26,0.55)',textTertiary:d?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.35)',textOrange:d?'#FF4500':'#E03D00',textOrangeLight:d?'#FF7A3D':'#CC3700',orangeGlow:d?'rgba(255,69,0,0.25)':'rgba(224,61,0,0.15)',cardShadow:d?'0 8px 30px rgba(0,0,0,0.3)':'0 8px 30px rgba(0,0,0,0.06)',cardShadowHover:d?'0 12px 40px rgba(0,0,0,0.4)':'0 12px 40px rgba(0,0,0,0.08)',toggleBg:d?'#1C1C1E':'#EDE8E3',pillBg:d?'rgba(255,69,0,0.1)':'rgba(224,61,0,0.08)',pillText:d?'#FF4500':'#E03D00',pillBgInactive:d?'#1A1A1A':'#F0EDE8',pillTextInactive:d?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.3)',pillBorderInactive:d?'#2A2A2C':'#E0D8D0',countdownBg:d?'#0A0A0A':'#FFF8F3',countdownBorder:d?'#2A2A2C':'#E8E0D8',chatBg:d?'#0A0A0A':'#FFF8F3',chatBorder:d?'#2A2A2C':'#E8E0D8',btnSecondaryBg:d?'#1A1A1A':'#FFFFFF',btnSecondaryBorder:d?'#2A2A2C':'#E8E0D8',btnSecondaryText:d?'#FFF0E8':'#1A1A1A',blobOpacity:d?'0.06':'0.03',fontFamily:"-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif"}}
 
 export default function Home(){
-  const[lang,setLang]=useState<'en'|'fr'|'ar'>('en');const[theme,setTheme]=useState<Theme>('dark')
+  const[lang,setLang]=useState<'en'|'fr'|'ar'>('en')
+  const[theme,setTheme]=useState<Theme>('dark')
+  const[user,setUser]=useState<any>(null)
+  const[subscription,setSubscription]=useState<any>(null) // ← ADDED THIS
+
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
 
+  // Load user and subscription
+  useEffect(() => {
+    async function loadUser() {
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+      
+      // Load subscription if user is logged in
+      if (session?.user) {
+        const { data: sub } = await supabase
+          .from('subscriptions')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .maybeSingle()
+        
+        if (sub) {
+          setSubscription(sub)
+        }
+      }
+    }
+    loadUser()
+    
+    const { data: { subscription: sub } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => sub?.unsubscribe()
+  }, [])
+
   useEffect(()=>{setTheme(detectSystemTheme());const mq=window.matchMedia('(prefers-color-scheme: light)');const handler=(e:MediaQueryListEvent)=>setTheme(e.matches?'light':'dark');mq.addEventListener('change',handler);return()=>mq.removeEventListener('change',handler)},[])
-  useEffect(()=>{supabase.auth.getSession().then(({data:{session}})=>{setUser(session?.user??null)});const{data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{setUser(session?.user??null)});return()=>subscription.unsubscribe()},[])
 
   const[charIndex,setCharIndex]=useState(0);const[wordIndex,setWordIndex]=useState(0);const[deleting,setDeleting]=useState(false);const[displayed,setDisplayed]=useState('')
   const words=['native speaker','confidently','fluently','fearlessly']
@@ -313,7 +343,7 @@ export default function Home(){
 
   const[name,setName]=useState('');const[email,setEmail]=useState('');const[password,setPassword]=useState('')
   const[message,setMessage]=useState('');const[loading,setLoading]=useState(false);const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
-  const[menuOpen,setMenuOpen]=useState(false);const[user,setUser]=useState<any>(null)
+  const[menuOpen,setMenuOpen]=useState(false)
   const firstName=user?.user_metadata?.full_name?.split(' ')[0]||''
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
