@@ -13,9 +13,6 @@ const T = {
     hero2: 'start speaking',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
     enrollBtn: 'Enroll Now',
-    dmBtn: 'DM on instagram',
-    waBtn: 'chat on whatsapp',
-    messengerBtn: 'messenger',
     topicsTag: 'what we discuss',
     topicsH: 'real topics. real english.',
     topicsSub: 'every class is built around something happening in the world right now',
@@ -57,9 +54,6 @@ const T = {
     tagline: "conçu pour les apprenants tunisiens", hero1: "arrête de bachoter.", hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
     enrollBtn: "S'inscrire",
-    dmBtn: "DM sur instagram",
-    waBtn: "écrire sur whatsapp",
-    messengerBtn: "messenger",
     topicsTag: "ce qu'on discute", topicsH: "vrais sujets. vrai anglais.", topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
     howTag: "comment ça marche", howH: "rejoins, parle, progresse", howSub: "trois étapes — sans manuel scolaire",
     steps: [
@@ -97,9 +91,6 @@ const T = {
     tagline: 'مصمّم للمتعلّمين التونسيين', hero1: 'توقّف عن الحفظ.', hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
     enrollBtn: 'سجل الآن',
-    dmBtn: 'راسلنا على انستغرام',
-    waBtn: 'تحدّث على واتساب',
-    messengerBtn: 'ماسنجر',
     topicsTag: 'شنو نحكيو فيه', topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
     howTag: 'كيفاش يخدم', howH: 'انضم، تكلّم، ارتقي', howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
@@ -542,18 +533,34 @@ export default function Home(){
           <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
             <div className="flex gap-0.5 p-0.5 rounded-lg" style={{backgroundColor:s.toggleBg}}>{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>))}</div>
             <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
-            <div className="flex items-center gap-2">
-              <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>💬 {t.waBtn}</a>
-              <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>📸 {t.dmBtn}</a>
-            </div>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>📸 Instagram</a>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>💬 WhatsApp</a>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>🎵 TikTok</a>
+            <div className="w-px h-6" style={{backgroundColor:s.borderColor}}></div>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>
+              {t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}
+            </a>
           </div>
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>💬 {t.waBtn}</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>📸 {t.dmBtn}</a>
-          {['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}</div>)}
+        {menuOpen&&(
+          <div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}>
+            <div className="flex gap-1 mb-1 justify-center w-full">
+              {(['en','fr','ar'] as const).map(l=>(
+                <button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>
+              ))}
+            </div>
+            <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>💬 WhatsApp</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>📸 Instagram</a>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>🎵 TikTok</a>
+            <div className="w-full border-t" style={{borderColor:s.borderColor}}></div>
+            {['topics','classes','live','community'].map(item=>(
+              <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
+            ))}
+          </div>
+        )}
       </nav>
 
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
@@ -567,9 +574,7 @@ export default function Home(){
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
               <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
-              <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap" style={{color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
             <div className="mt-8 flex items-center gap-3 flex-wrap">
               {[{n:'500K+',l:'TikTok'},{n:'12K+',l:'students'},{n:'4.9★',l:'rating'},{n:'live',l:'sessions'}].map(stat=>(
                 <div key={stat.l} className="glass-card-light rounded-2xl px-4 py-2.5 text-center" style={{borderColor:s.borderColor}}>
@@ -634,7 +639,6 @@ export default function Home(){
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
                 <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
-                <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[14px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>📸 {t.dmBtn}</a>
               </div>
             </div>
           </div>
@@ -827,9 +831,9 @@ export default function Home(){
             ))}
           </div>
           <div className="flex gap-2.5">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 tiktok</a>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 TikTok</a>
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> instagram
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
             </a>
           </div>
         </div>
@@ -841,12 +845,12 @@ export default function Home(){
         <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.communitySub}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
-            {href:'https://www.instagram.com/ielts.tn',icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>,label:'instagram',sub:'DM @ielts.tn',style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},
-            {href:'https://wa.me/216XXXXXXXX',icon:'💬',label:'whatsapp',sub:'message directly',style:{background:'#FF4500'}},
-            {href:'https://www.tiktok.com/@ielts.tn',icon:'🎵',label:'tiktok',sub:'@ielts.tn · 500K+',style:{background:'transparent'}}
+            {href:'https://www.instagram.com/ielts.tn',icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>,label:'Instagram',sub:'DM @ielts.tn',emoji:'📸',style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},
+            {href:'https://wa.me/216XXXXXXXX',icon:'💬',label:'WhatsApp',sub:'message directly',emoji:'💬',style:{background:'#25D366'}},
+            {href:'https://www.tiktok.com/@ielts.tn',icon:'🎵',label:'TikTok',sub:'@ielts.tn · 500K+',emoji:'🎵',style:{background:'#000000'}}
           ].map((social,i)=>(
             <a key={i} href={social.href} target="_blank" className="glass-card flex items-center gap-4 rounded-2xl p-5 transition-all group" onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.icon}</div>
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.emoji}</div>
               <div className="flex-1">
                 <div className="text-sm font-bold" style={{color:s.textPrimary}}>{social.label}</div>
                 <div className="text-[13px] mt-0.5" style={{color:s.textTertiary}}>{social.sub}</div>
@@ -887,18 +891,18 @@ export default function Home(){
 
             <div className="flex flex-col gap-3">
               <button onClick={() => handleContact('whatsapp')} className="option-btn" style={{borderColor:'#25D366'}}>
-                <span className="icon">🟢</span>
+                <span className="icon">💬</span>
                 Continue with WhatsApp
                 <span className="badge">Recommended</span>
               </button>
 
               <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
-                <span className="icon">🔵</span>
+                <span className="icon">💬</span>
                 Continue with Messenger
               </button>
 
               <button onClick={() => handleContact('instagram')} className="option-btn" style={{borderColor:'#E1306C'}}>
-                <span className="icon">✉️</span>
+                <span className="icon">📸</span>
                 Continue with Instagram
               </button>
             </div>
