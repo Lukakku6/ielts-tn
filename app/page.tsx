@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { supabase } from '../lib/supabase'
 
 const TnFlag = ({ className = '' }: { className?: string }) => (
   <span className={`inline-flex items-center justify-center leading-none text-[1.1em] ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
@@ -14,7 +13,6 @@ const T = {
     hero2: 'start speaking',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
     joinBtn: 'grab a spot',
-    loginBtn: 'log in',
     dmBtn: 'DM on instagram',
     waBtn: 'chat on whatsapp',
     topicsTag: 'what we discuss',
@@ -57,7 +55,7 @@ const T = {
   fr: {
     tagline: "conçu pour les apprenants tunisiens", hero1: "arrête de bachoter.", hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
-    joinBtn: "prends ta place", loginBtn: "connexion", dmBtn: "DM sur instagram", waBtn: "écrire sur whatsapp",
+    joinBtn: "prends ta place", dmBtn: "DM sur instagram", waBtn: "écrire sur whatsapp",
     topicsTag: "ce qu'on discute", topicsH: "vrais sujets. vrai anglais.", topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
     howTag: "comment ça marche", howH: "rejoins, parle, progresse", howSub: "trois étapes — sans manuel scolaire",
     steps: [
@@ -94,7 +92,7 @@ const T = {
   ar: {
     tagline: 'مصمّم للمتعلّمين التونسيين', hero1: 'توقّف عن الحفظ.', hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
-    joinBtn: 'احجز مقعدك', loginBtn: 'تسجيل الدخول', dmBtn: 'راسلنا على انستغرام', waBtn: 'تحدّث على واتساب',
+    joinBtn: 'احجز مقعدك', dmBtn: 'راسلنا على انستغرام', waBtn: 'تحدّث على واتساب',
     topicsTag: 'شنو نحكيو فيه', topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
     howTag: 'كيفاش يخدم', howH: 'انضم، تكلّم، ارتقي', howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
@@ -273,37 +271,8 @@ function themeStyles(theme:Theme){const d=theme==='dark';return{mainBg:d?'#0A0A0
 export default function Home(){
   const[lang,setLang]=useState<'en'|'fr'|'ar'>('en')
   const[theme,setTheme]=useState<Theme>('dark')
-  const[user,setUser]=useState<any>(null)
-  const[subscription,setSubscription]=useState<any>(null)
 
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
-
-  // Load user and subscription
-  useEffect(() => {
-    async function loadUser() {
-      const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
-      
-      // Load subscription if user is logged in
-      if (session?.user) {
-        const { data: sub } = await supabase
-          .from('subscriptions')
-          .select('*')
-          .eq('user_id', session.user.id)
-          .maybeSingle()
-        
-        if (sub) {
-          setSubscription(sub)
-        }
-      }
-    }
-    loadUser()
-    
-    const { data: { subscription: sub } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
-    return () => sub?.unsubscribe()
-  }, [])
 
   useEffect(()=>{setTheme(detectSystemTheme());const mq=window.matchMedia('(prefers-color-scheme: light)');const handler=(e:MediaQueryListEvent)=>setTheme(e.matches?'light':'dark');mq.addEventListener('change',handler);return()=>mq.removeEventListener('change',handler)},[])
 
@@ -331,7 +300,6 @@ export default function Home(){
 
   const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
   const[menuOpen,setMenuOpen]=useState(false)
-  const firstName=user?.user_metadata?.full_name?.split(' ')[0]||''
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
   const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
@@ -339,8 +307,6 @@ export default function Home(){
 
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
-
-  const handleLogout=async()=>{await supabase.auth.signOut()}
 
   const activeTopic=CLASS_TOPICS[activeTopicIndex]
   const allAvatars=[{svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))]
@@ -467,19 +433,18 @@ export default function Home(){
           <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
             <div className="flex gap-0.5 p-0.5 rounded-lg" style={{backgroundColor:s.toggleBg}}>{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>))}</div>
             <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
-            {user?(
-              <div className="flex items-center gap-2">
-                <a href="/dashboard" className="px-3.5 py-2 rounded-xl text-xs font-semibold transition-all" style={{color:'white',backgroundColor:s.textOrange,boxShadow:`0 2px 8px ${s.orangeGlow}`}}>my account</a>
-                <button onClick={handleLogout} className="px-3 py-2 rounded-xl text-xs font-medium transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:'transparent'}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.color=s.textOrange}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.color=s.textSecondary}}>logout</button>
-              </div>
-            ):(
-              <a href="/login" className="px-4 py-2 rounded-xl text-sm font-semibold transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:'transparent'}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.color=s.textOrange}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.color=s.textSecondary}}>{t.loginBtn}</a>
-            )}
+            <div className="flex items-center gap-2">
+              <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>💬 {t.waBtn}</a>
+              <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>📸 {t.dmBtn}</a>
+            </div>
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
           </div>
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
+        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>💬 {t.waBtn}</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>📸 {t.dmBtn}</a>
+          {['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}</div>)}
       </nav>
 
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
@@ -492,7 +457,7 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+              <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 {t.waBtn}</a>
               <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap" style={{color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
             <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
@@ -559,8 +524,8 @@ export default function Home(){
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
-                <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
+                <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 {t.waBtn}</a>
+                <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[14px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>📸 {t.dmBtn}</a>
               </div>
             </div>
           </div>
@@ -654,28 +619,21 @@ export default function Home(){
           <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-xl" style={{animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div>
           <h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3>
           <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
-          <a href="#classes" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a>
+          <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>💬 Contact us on {t.waBtn}</a>
         </div>
         <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {t.packages.map((pkg) => {
-            const isCurrentPlan = user && subscription?.plan === pkg.id
-            
             return (
               <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
                 borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
                 boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
-                opacity: isCurrentPlan ? 0.6 : 1,
               }} onMouseEnter={e => {
-                if (!isCurrentPlan) {
-                  e.currentTarget.style.borderColor = s.borderHover
-                  e.currentTarget.style.boxShadow = s.cardShadowHover
-                }
+                e.currentTarget.style.borderColor = s.borderHover
+                e.currentTarget.style.boxShadow = s.cardShadowHover
               }} onMouseLeave={e => {
-                if (!isCurrentPlan) {
-                  e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
-                  e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
-                }
+                e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
+                e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
               }}>
                 {(pkg as any).popular && (
                   <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
@@ -685,11 +643,6 @@ export default function Home(){
                 {(pkg as any).premium && (
                   <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
                     limited spots
-                  </div>
-                )}
-                {isCurrentPlan && (
-                  <div className="absolute -top-3.5 right-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: '#1EC878'}}>
-                    ✅ Current Plan
                   </div>
                 )}
                 <div className="flex items-start justify-between mb-5">
@@ -716,43 +669,11 @@ export default function Home(){
                   </div>
                 ))}</div>
                 
-                {user ? (
-                  // User is logged in
-                  isCurrentPlan ? (
-                    <div className="block w-full text-center py-3 rounded-2xl text-sm font-semibold" style={{
-                      backgroundColor: 'rgba(30,200,120,0.1)',
-                      color: '#1EC878',
-                      border: '1px solid rgba(30,200,120,0.3)',
-                      cursor: 'default'
-                    }}>
-                      ✅ Current Plan
-                    </div>
-                  ) : (
-                    <button 
-                      onClick={() => {
-                        window.location.href = `/dashboard?upgrade=${pkg.id}`
-                      }}
-                      className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
-                      style={(pkg as any).popular ? {
-                        backgroundColor: s.textOrange,
-                        color: '#FFFFFF',
-                        boxShadow: `0 4px 14px ${s.orangeGlow}`
-                      } : (pkg as any).premium ? {
-                        backgroundColor: s.pillBg,
-                        color: s.textOrangeLight,
-                        border: `1px solid ${s.textOrangeLight}25`
-                      } : {
-                        backgroundColor: s.cardBgFlat,
-                        color: s.textPrimary,
-                        border: `1px solid ${s.btnSecondaryBorder}`
-                      }}
-                    >
-                      Upgrade to {pkg.name}
-                    </button>
-                  )
-                ) : (
-                  // User is not logged in - show signup CTA
-                  <a href="#classes" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular ? {
+                <a 
+                  href="https://wa.me/216XXXXXXXX" 
+                  target="_blank"
+                  className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
+                  style={(pkg as any).popular ? {
                     backgroundColor: s.textOrange,
                     color: '#FFFFFF',
                     boxShadow: `0 4px 14px ${s.orangeGlow}`
@@ -764,10 +685,10 @@ export default function Home(){
                     backgroundColor: s.cardBgFlat,
                     color: s.textPrimary,
                     border: `1px solid ${s.btnSecondaryBorder}`
-                  }}>
-                    {pkg.cta}
-                  </a>
-                )}
+                  }}
+                >
+                  💬 Contact for {pkg.name}
+                </a>
               </div>
             )
           })}
