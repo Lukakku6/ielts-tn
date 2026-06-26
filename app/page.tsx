@@ -460,11 +460,13 @@ export default function Home(){
               <a href="/login" className="px-4 py-2 rounded-xl text-sm font-semibold transition-all border" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:'transparent'}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.textOrange;e.currentTarget.style.color=s.textOrange}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.color=s.textSecondary}}>{t.loginBtn}</a>
             )}
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}><span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>{t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}</a>
-            <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>
+            {!user && (
+              <a href="#signup" className="text-white px-5 py-2 rounded-xl active:scale-[0.97] transition-all text-sm font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>
+            )}
           </div>
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
-        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1 w-full" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
+        {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}{!user && (<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1 w-full" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>)}{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
       </nav>
 
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
@@ -477,7 +479,11 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+              {!user ? (
+                <a href="#classes" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+              ) : (
+                <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
+              )}
               <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-card inline-flex items-center gap-2 text-[15px] font-semibold px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all whitespace-nowrap" style={{color:s.textPrimary}}><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke={s.textOrange} strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke={s.textOrange} strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill={s.textOrange}/></svg> {t.dmBtn}</a>
             </div>
             <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3 rounded-2xl active:scale-[0.97] transition-all text-sm font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
@@ -544,7 +550,11 @@ export default function Home(){
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                <a href="#signup" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+                {!user ? (
+                  <a href="#signup" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.joinBtn} →</a>
+                ) : (
+                  <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
+                )}
                 <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-card inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{color:s.textOrangeLight}}>💬 {t.waBtn}</a>
               </div>
             </div>
@@ -639,35 +649,127 @@ export default function Home(){
           <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-xl" style={{animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div>
           <h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3>
           <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
-          <a href="#signup" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a>
+          {!user ? (
+            <a href="#signup" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.notifyBtn} →</a>
+          ) : (
+            <a href="/dashboard" className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>Go to Dashboard →</a>
+          )}
         </div>
         <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {t.packages.map((pkg) => (
-            <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{borderColor:(pkg as any).popular?`${s.textOrange}35`:(pkg as any).premium?`${s.textOrangeLight}25`:s.borderColor,boxShadow:(pkg as any).popular?`0 4px 24px ${s.orangeGlow}`:s.cardShadow}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadowHover}} onMouseLeave={e=>{e.currentTarget.style.borderColor=(pkg as any).popular?`${s.textOrange}35`:(pkg as any).premium?`${s.textOrangeLight}25`:s.borderColor;e.currentTarget.style.boxShadow=(pkg as any).popular?`0 4px 24px ${s.orangeGlow}`:s.cardShadow}}>
-              {(pkg as any).popular&&<div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}}>most popular</div>}
-              {(pkg as any).premium&&<div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor:s.textOrangeLight}}>limited spots</div>}
-              <div className="flex items-start justify-between mb-5">
-                <div className="flex items-center gap-3.5">
-                  <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor:s.borderColor}}>{pkg.icon}</div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <div className="text-base font-bold" style={{color:s.textPrimary}}>{pkg.name}</div>
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor:s.pillBg,color:s.pillText}}>{(pkg as any).tier}</span>
+          {t.packages.map((pkg) => {
+            const isCurrentPlan = user && subscription?.plan === pkg.id
+            
+            return (
+              <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
+                borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
+                boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
+                opacity: isCurrentPlan ? 0.6 : 1,
+              }} onMouseEnter={e => {
+                if (!isCurrentPlan) {
+                  e.currentTarget.style.borderColor = s.borderHover
+                  e.currentTarget.style.boxShadow = s.cardShadowHover
+                }
+              }} onMouseLeave={e => {
+                if (!isCurrentPlan) {
+                  e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
+                  e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
+                }
+              }}>
+                {(pkg as any).popular && (
+                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
+                    most popular
+                  </div>
+                )}
+                {(pkg as any).premium && (
+                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
+                    limited spots
+                  </div>
+                )}
+                {isCurrentPlan && (
+                  <div className="absolute -top-3.5 right-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: '#1EC878'}}>
+                    ✅ Current Plan
+                  </div>
+                )}
+                <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-center gap-3.5">
+                    <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor: s.pillBg, color: s.pillText}}>{(pkg as any).tier}</span>
+                      </div>
+                      <div className="text-[13px] font-semibold" style={{color: s.textOrangeLight}}>{pkg.tagline}</div>
                     </div>
-                    <div className="text-[13px] font-semibold" style={{color:s.textOrangeLight}}>{pkg.tagline}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{color: s.textTertiary}}>/mo</span></div>
+                    <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>≈ {pkg.tnd[activePrice]} TND</div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-black" style={{color:s.textPrimary}}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{color:s.textTertiary}}>/mo</span></div>
-                  <div className="text-[11px] font-semibold mt-0.5" style={{color:s.textOrangeLight}}>≈ {pkg.tnd[activePrice]} TND</div>
-                </div>
+                <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
+                <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (
+                  <div key={f} className="flex items-start gap-2 text-[12px]" style={{color: s.textSecondary}}>
+                    <span className="font-bold mt-0.5 flex-shrink-0" style={{color: s.textOrange}}>✓</span>
+                    {f}
+                  </div>
+                ))}</div>
+                
+                {user ? (
+                  // User is logged in
+                  isCurrentPlan ? (
+                    <div className="block w-full text-center py-3 rounded-2xl text-sm font-semibold" style={{
+                      backgroundColor: 'rgba(30,200,120,0.1)',
+                      color: '#1EC878',
+                      border: '1px solid rgba(30,200,120,0.3)',
+                      cursor: 'default'
+                    }}>
+                      ✅ Current Plan
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => {
+                        window.location.href = `/dashboard?upgrade=${pkg.id}`
+                      }}
+                      className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
+                      style={(pkg as any).popular ? {
+                        backgroundColor: s.textOrange,
+                        color: '#FFFFFF',
+                        boxShadow: `0 4px 14px ${s.orangeGlow}`
+                      } : (pkg as any).premium ? {
+                        backgroundColor: s.pillBg,
+                        color: s.textOrangeLight,
+                        border: `1px solid ${s.textOrangeLight}25`
+                      } : {
+                        backgroundColor: s.cardBgFlat,
+                        color: s.textPrimary,
+                        border: `1px solid ${s.btnSecondaryBorder}`
+                      }}
+                    >
+                      Upgrade to {pkg.name}
+                    </button>
+                  )
+                ) : (
+                  // User is not logged in - show signup CTA
+                  <a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular ? {
+                    backgroundColor: s.textOrange,
+                    color: '#FFFFFF',
+                    boxShadow: `0 4px 14px ${s.orangeGlow}`
+                  } : (pkg as any).premium ? {
+                    backgroundColor: s.pillBg,
+                    color: s.textOrangeLight,
+                    border: `1px solid ${s.textOrangeLight}25`
+                  } : {
+                    backgroundColor: s.cardBgFlat,
+                    color: s.textPrimary,
+                    border: `1px solid ${s.btnSecondaryBorder}`
+                  }}>
+                    {pkg.cta}
+                  </a>
+                )}
               </div>
-              <p className="text-[13px] leading-relaxed mb-5" style={{color:s.textSecondary}}>{pkg.desc}</p>
-              <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f=>(<div key={f} className="flex items-start gap-2 text-[12px]" style={{color:s.textSecondary}}><span className="font-bold mt-0.5 flex-shrink-0" style={{color:s.textOrange}}>✓</span>{f}</div>))}</div>
-              <a href="#signup" className="block text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" style={(pkg as any).popular?{backgroundColor:s.textOrange,color:'#FFFFFF',boxShadow:`0 4px 14px ${s.orangeGlow}`}:(pkg as any).premium?{backgroundColor:s.pillBg,color:s.textOrangeLight,border:`1px solid ${s.textOrangeLight}25`}:{backgroundColor:s.cardBgFlat,color:s.textPrimary,border:`1px solid ${s.btnSecondaryBorder}`}}>{pkg.cta}</a>
-            </div>
-          ))}
+            )
+          })}
         </div>
         <div className="flex items-center justify-center gap-3 mt-10"><span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span><button onClick={()=>setActivePrice(p=>p==='m'?'y':'m')} className="w-12 h-6 rounded-full transition-all relative" style={{backgroundColor:activePrice==='y'?s.textOrange:s.borderColor}}><div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" style={{left:activePrice==='y'?'25px':'2px'}}/></button><span className="text-sm font-semibold" style={{color:activePrice==='y'?s.textOrange:s.textSecondary}}>{t.yearly}</span></div>
         <p className="text-[13px] text-center mt-5" style={{color:s.textTertiary}}>{t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{color:s.textOrangeLight}}>{t.waLink}</a></p>

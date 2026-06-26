@@ -25,6 +25,17 @@ export default function DashboardPage() {
       if (!session?.user) { window.location.href = '/login'; return }
       setUser(session.user)
 
+      // Check URL for upgrade param
+      const params = new URLSearchParams(window.location.search)
+      const upgradeParam = params.get('upgrade')
+      if (upgradeParam) {
+        setPendingPlan(upgradeParam)
+        // Auto-trigger file upload after a short delay
+        setTimeout(() => {
+          document.getElementById('file-upload')?.click()
+        }, 500)
+      }
+
       // Load subscription
       const { data: sub } = await supabase
         .from('subscriptions')
@@ -101,6 +112,7 @@ export default function DashboardPage() {
 
     setPaymentState('pending')
     setUploading(false)
+    setPendingPlan(null)
   }
 
   const handleLogout = async () => { await supabase.auth.signOut(); window.location.href = '/' }
