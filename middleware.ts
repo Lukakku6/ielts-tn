@@ -1,41 +1,35 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req, res })
 
-  // Get the user session
-  const { data: { session } } = await supabase.auth.getSession()
-
-  // Protect admin routes - only allow logged-in users
+  // Protect admin routes
   if (req.nextUrl.pathname.startsWith('/admin')) {
+    const { data: { session } } = await supabase.auth.getSession()
+    
     if (!session) {
-      // Redirect to login if not authenticated
-      const redirectUrl = new URL('/login', req.url)
-      redirectUrl.searchParams.set('redirectedFrom', req.nextUrl.pathname)
-      return NextResponse.redirect(redirectUrl)
+      return NextResponse.redirect(new URL('/login', req.url))
     }
-    
-    // Optional: Check if user is an admin
-    // You can check email or a custom role here
-    // For now, we'll allow any logged-in user
-    // To restrict to specific emails, uncomment the code below:
-    
-    /*
-    const adminEmails = ['your-email@example.com', 'admin@example.com']
-    if (!adminEmails.includes(session.user.email || '')) {
-      // Not an admin, redirect to home
+
+    // Check if user is admin
+    const { data: profile, error } = await supabaseAdmin
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', session.user.id)
+      .single()
+
+    if (error || !profile?.is_admin) {
       return NextResponse.redirect(new URL('/', req.url))
     }
-    */
   }
 
   return res
 }
 
-// Specify which routes the middleware should run on
 export const config = {
   matcher: ['/admin/:path*']
 }
