@@ -41,6 +41,25 @@ const T = {
     notSure: 'not sure which tier?', waLink: 'ask on whatsapp ↗',
     nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
     badgeLabel: 'your path',
+    // Community section
+    communityBannerTag: 'the community',
+    communityBannerH: "Join Tunisia's English-Speaking Community",
+    communityBannerSub: 'Practice English every week through live discussions on topics that matter.',
+    topicsListH: 'What we discuss',
+    topicsList: [
+      { icon: '🤖', label: 'Artificial Intelligence' },
+      { icon: '💼', label: 'Business & Careers' },
+      { icon: '🌍', label: 'Culture & Travel' },
+      { icon: '⚽', label: 'Sports & Current Events' },
+      { icon: '🎬', label: 'Movies & Entertainment' },
+    ],
+    differenceH: 'What makes us different',
+    differenceList: [
+      'Real conversations, not textbook exercises',
+      'Speak with learners from different backgrounds',
+      'Build confidence through weekly practice',
+      'Learn the English people actually use',
+    ],
     packages: [
       { id:'ielts', icon:'🏆', name:'IELTS Prep', tagline:'Band 7+ target', desc:'Intensive live sessions focused on all four IELTS skills — speaking, writing, reading, listening — taught through real exam topics.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 live sessions/month','Speaking mock tests','Writing task corrections','Exam vocabulary deep-dives','Personal score tracking'], cta:'start IELTS prep', popular:true, tier:'Pro' },
       { id:'comms', icon:'💬', name:'Communication', tagline:'Sound natural', desc:'Weekly live discussions on trending topics — current events, culture, tech, finance. Build confidence and fluency through real conversation.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 live discussions/month','Topic vocabulary sheets','Pronunciation coaching','Weekly news breakdown','Replay access'], cta:'join conversations', tier:'Starter' },
@@ -72,6 +91,24 @@ const T = {
     notSure: "pas sûr du tier ?", waLink: "demander sur whatsapp ↗",
     nextLive: "prochain live", days: "j", hours: "h", min: "m", sec: "s",
     badgeLabel: 'votre parcours',
+    communityBannerTag: 'la communauté',
+    communityBannerH: "Rejoins la communauté anglophone de Tunisie",
+    communityBannerSub: "Pratique l'anglais chaque semaine à travers des discussions en direct sur des sujets qui comptent.",
+    topicsListH: 'Ce qu\'on discute',
+    topicsList: [
+      { icon: '🤖', label: 'Intelligence Artificielle' },
+      { icon: '💼', label: 'Business & Carrières' },
+      { icon: '🌍', label: 'Culture & Voyages' },
+      { icon: '⚽', label: 'Sport & Actualité' },
+      { icon: '🎬', label: 'Cinéma & Divertissement' },
+    ],
+    differenceH: 'Ce qui nous différencie',
+    differenceList: [
+      'De vraies conversations, pas des exercices de manuel',
+      'Parle avec des apprenants de tous horizons',
+      'Gagne en confiance grâce à une pratique hebdomadaire',
+      "Apprends l'anglais qu'on parle vraiment",
+    ],
     packages: [
       { id:'ielts', icon:'🏆', name:'Prépa IELTS', tagline:'Objectif Band 7+', desc:"Sessions en direct intensives sur les quatre compétences IELTS enseignés à travers de vrais sujets d'examen.", price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 sessions/mois','Tests oraux simulés','Corrections écrites','Vocabulaire examen','Suivi de score'], cta:'commencer la prépa', popular:true, tier:'Pro' },
       { id:'comms', icon:'💬', name:'Communication', tagline:'Parle naturellement', desc:"Discussions en direct hebdomadaires sur les sujets d'actualité — culture, tech, finance.", price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 discussions/mois','Fiches vocabulaire','Coaching prononciation',"Décryptage actualité",'Accès replays'], cta:'rejoindre les discussions', tier:'Starter' },
@@ -103,6 +140,24 @@ const T = {
     notSure: 'ما عرفتش تختار المستوى؟', waLink: 'اسأل على واتساب ↗',
     nextLive: 'البث القادم', days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
     badgeLabel: 'مسارك',
+    communityBannerTag: 'المجتمع',
+    communityBannerH: 'انضم لمجتمع الإنجليزية التونسي',
+    communityBannerSub: 'تدرّب على الإنجليزية كل أسبوع من خلال نقاشات مباشرة حول مواضيع تهمّك.',
+    topicsListH: 'شنو نحكيو فيه',
+    topicsList: [
+      { icon: '🤖', label: 'الذكاء الاصطناعي' },
+      { icon: '💼', label: 'الأعمال والمسار المهني' },
+      { icon: '🌍', label: 'الثقافة والسفر' },
+      { icon: '⚽', label: 'الرياضة والأحداث الراهنة' },
+      { icon: '🎬', label: 'السينما والترفيه' },
+    ],
+    differenceH: 'شنو يخلّينا مختلفين',
+    differenceList: [
+      'نقاشات حقيقية، مش تمارين كتاب',
+      'تحكي مع متعلّمين من خلفيات مختلفة',
+      'ابني ثقتك بالنفس من خلال التدريب الأسبوعي',
+      'تعلّم الإنجليزية اللي الناس تستخدمها فعلاً',
+    ],
     packages: [
       { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'هدف Band 7+', desc:'جلسات مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 جلسات/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', popular:true, tier:'Pro' },
       { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
@@ -269,13 +324,38 @@ export default function Home(){
   const[visibleP,setVisibleP]=useState<number[]>([])
 
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
+  
   useEffect(() => {
     const timers: NodeJS.Timeout[] = []
-    const updateMics = () => {setActiveSpeakers(prev=>{const next=new Map(prev);next.set(0,'mic');const students=[1,2,3,4,5,6,7];const micCount=2+Math.floor(Math.random()*2);const shuffled=students.sort(()=>Math.random()-0.5);students.forEach(s=>{if(next.get(s)==='mic')next.delete(s)});shuffled.slice(0,micCount).forEach(s=>next.set(s,'mic'));return next});timers[0]=setTimeout(updateMics,2500+Math.random()*1500)}
-    const updateHands = () => {setActiveSpeakers(prev=>{const next=new Map(prev);const students=[1,2,3,4,5,6,7];students.forEach(s=>{if(next.get(s)==='hand')next.delete(s)});const withoutMics=students.filter(s=>next.get(s)!=='mic');const handCount=1+Math.floor(Math.random()*2);withoutMics.sort(()=>Math.random()-0.5).slice(0,handCount).forEach(s=>next.set(s,'hand'));return next});timers[1]=setTimeout(updateHands,4000+Math.random()*2000)}
-    timers[0]=setTimeout(updateMics,1000);timers[1]=setTimeout(updateHands,2000)
-    return ()=>timers.forEach(t=>clearTimeout(t))
-  },[])
+    const updateMics = () => {
+      setActiveSpeakers(prev => {
+        const next = new Map(prev)
+        next.set(0, 'mic')
+        const students = [1,2,3,4,5,6,7]
+        const micCount = 2 + Math.floor(Math.random() * 2)
+        const shuffled = students.sort(() => Math.random() - 0.5)
+        students.forEach(s => { if (next.get(s) === 'mic') next.delete(s) })
+        shuffled.slice(0, micCount).forEach(s => next.set(s, 'mic'))
+        return next
+      })
+      timers[0] = setTimeout(updateMics, 2500 + Math.random() * 1500)
+    }
+    const updateHands = () => {
+      setActiveSpeakers(prev => {
+        const next = new Map(prev)
+        const students = [1,2,3,4,5,6,7]
+        students.forEach(s => { if (next.get(s) === 'hand') next.delete(s) })
+        const withoutMics = students.filter(s => next.get(s) !== 'mic')
+        const handCount = 1 + Math.floor(Math.random() * 2)
+        withoutMics.sort(() => Math.random() - 0.5).slice(0, handCount).forEach(s => next.set(s, 'hand'))
+        return next
+      })
+      timers[1] = setTimeout(updateHands, 4000 + Math.random() * 2000)
+    }
+    timers[0] = setTimeout(updateMics, 1000)
+    timers[1] = setTimeout(updateHands, 2000)
+    return () => timers.forEach(t => clearTimeout(t))
+  }, [])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
@@ -330,6 +410,11 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
+        .cell-idle{border:1px solid transparent;box-shadow:none}
+        .cell-mic{border:2px solid;box-shadow:0 0 20px;transition:all .3s ease}
+        .cell-hand{border:2px solid rgba(255,69,0,0.4);box-shadow:0 0 10px rgba(255,69,0,0.15);transition:all .3s ease}
+        .comm-topic-item{transition:all .25s cubic-bezier(.16,1,.3,1)}.comm-topic-item:hover{transform:translateX(4px)}
+        .diff-item{transition:all .25s ease}
       `}</style>
 
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
@@ -355,6 +440,7 @@ export default function Home(){
         {menuOpen&&(<div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}><div className="flex gap-1 mb-1 justify-center w-full">{(['en','fr','ar'] as const).map(l=>(<button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>))}</div><button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>{user?(<a href="/dashboard" className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full" style={{color:'white',backgroundColor:s.textOrange}} onClick={()=>setMenuOpen(false)}>my account</a>):(<a href="/login" className="px-4 py-3 rounded-xl text-sm font-medium transition-all border text-center w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>{t.loginBtn}</a>)}{['topics','classes','live','community'].map(item=>(<a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>))}<a href="#signup" className="text-white px-4 py-3 rounded-xl text-sm font-semibold text-center mt-1 w-full" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>{t.joinBtn}</a>{user&&<button onClick={()=>{handleLogout();setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all text-center w-full mt-2" style={{color:'rgba(255,240,232,0.35)',backgroundColor:'transparent'}}>logout</button>}</div>)}
       </nav>
 
+      {/* ─── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
         <div className="absolute inset-0" style={{background:`radial-gradient(ellipse at 25% 50%,${s.textOrange}06 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,${s.textOrangeLight}04 0%,transparent 50%)`}}/>
         <div className="blob b1 w-[500px] h-[500px] absolute -top-32 -left-32" style={{background:s.textOrange,opacity:s.blobOpacity}}/><div className="blob b2 w-[400px] h-[400px] absolute -bottom-20 -right-20" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/><div className="blob b3 w-[300px] h-[300px] absolute top-1/2 left-1/3" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
@@ -374,7 +460,21 @@ export default function Home(){
           <div className="flex flex-col gap-3.5">
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div><div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div><div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div></div>
             <div className="rounded-2xl p-5 border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}><div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}><div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div><span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span></div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}{isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>)})}</div>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">
+                {allAvatars.map((av,i)=>{
+                  const state = activeSpeakers.get(i)
+                  const isMic = state === 'mic'
+                  const isHand = state === 'hand'
+                  return (
+                  <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`}
+                    style={{transitionDelay:`${i*0.1}s`,border: isMic ? `2px solid ${s.textOrange}` : isHand ? '2px solid rgba(255,69,0,0.4)' : '1px solid transparent',backgroundColor: av.bg,boxShadow: isMic ? `0 0 20px ${s.orangeGlow}` : isHand ? '0 0 10px rgba(255,69,0,0.15)' : 'none'}}>
+                    <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
+                    {isMic && (<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
+                    {isHand && (<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
+                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
+                  </div>
+                )})}
+              </div>
               <div className="rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5 border" style={{background:s.chatBg,borderColor:s.chatBorder}}><div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>{chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}</div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>{[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(<button key={c.l} className="flex flex-col items-center gap-0.5 group"><div className="w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all border" style={{borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{c.icon}</div><span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span></button>))}<button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button></div>
             </div>
@@ -382,31 +482,66 @@ export default function Home(){
         </div>
       </section>
 
-      {/* ── COMMUNITY INTRO ────────────────────────────────── */}
-      <section className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>Join Tunisia's English-Speaking Community</h2>
-          <p className="text-[15px] max-w-xl mx-auto" style={{color:s.textSecondary}}>Practice English every week through live discussions on topics that matter.</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
-          {['🤖 AI','💼 Business','🌍 Culture','⚽ Sports','🎬 Movies'].map((item,i)=>(
-            <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border" style={{background:s.cardBg,borderColor:s.borderColor}}>
-              <span className="text-3xl">{item.slice(0,2)}</span>
-              <span className="text-xs font-semibold" style={{color:s.textPrimary}}>{item.slice(2)}</span>
+      {/* ─── COMMUNITY BANNER (new section) ──────────────────────────────── */}
+      <section ref={addRef(6)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}>
+          {/* subtle orange glow bg */}
+          <div className="absolute inset-0 pointer-events-none" style={{background:`radial-gradient(ellipse at 20% 50%,${s.textOrange}07 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,${s.textOrangeLight}04 0%,transparent 55%)`}}/>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+
+            {/* LEFT — heading + topics list */}
+            <div>
+              <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityBannerTag}</div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-3 leading-tight" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityBannerH}</h2>
+              <p className="text-[15px] mb-8 leading-relaxed max-w-sm" style={{color:s.textSecondary}}>{t.communityBannerSub}</p>
+
+              <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{color:s.textTertiary}}>{t.topicsListH}</div>
+              <div className="flex flex-col gap-2.5">
+                {t.topicsList.map((item, i) => (
+                  <div key={i} className="comm-topic-item flex items-center gap-3.5 rounded-2xl px-4 py-3 border cursor-default"
+                    style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor}}
+                    onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=`0 4px 16px ${s.orangeGlow}`}}
+                    onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
+                    <span className="text-xl flex-shrink-0">{item.icon}</span>
+                    <span className="text-[13px] font-semibold" style={{color:s.textPrimary}}>{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-        <h3 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>What makes us different</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-          {['💬 Real conversations','🌐 Learn from all backgrounds','🚀 Weekly practice','🎯 English people actually use'].map((item,i)=>(
-            <div key={i} className="flex items-start gap-3 rounded-2xl p-4 border" style={{background:s.cardBg,borderColor:s.borderColor}}>
-              <span className="text-xl flex-shrink-0 mt-0.5">{item.slice(0,2)}</span>
-              <span className="text-sm font-medium" style={{color:s.textPrimary}}>{item.slice(2)}</span>
+
+            {/* RIGHT — what makes us different */}
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-5" style={{color:s.textTertiary}}>{t.differenceH}</div>
+                <div className="flex flex-col gap-3.5 mb-10">
+                  {t.differenceList.map((item, i) => (
+                    <div key={i} className="diff-item flex items-start gap-3.5 rounded-2xl px-4 py-3.5 border"
+                      style={{backgroundColor:s.cardBgFlat,borderColor:s.borderColor}}>
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black mt-0.5"
+                        style={{backgroundColor:s.textOrange,color:'#FFFFFF',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>✓</span>
+                      <span className="text-[13px] leading-relaxed font-medium" style={{color:s.textSecondary}}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="#signup" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>
+                  {t.joinBtn} →
+                </a>
+                <a href="https://wa.me/216XXXXXXXX" target="_blank" className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold border" style={{backgroundColor:s.btnSecondaryBg,borderColor:s.btnSecondaryBorder,color:s.textOrangeLight}}>
+                  💬 {t.waBtn}
+                </a>
+              </div>
             </div>
-          ))}
+
+          </div>
         </div>
       </section>
 
+      {/* ─── TOPICS ───────────────────────────────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
         {FLOATING_WORDS.map((w,i)=>(<div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2" style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}><span className="text-base">{w.icon}</span>{w.text}</div>))}
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
