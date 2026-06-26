@@ -441,33 +441,35 @@ export default function Home(){
           </div>
         </div>
       </section>
-      {/*      {/* ── COMMUNITY INTRO ────────────────────────────────── */}
+        {/* ── COMMUNITY INTRO ────────────────────────────────── */}
       <section className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
-        <div style={{textAlign:'center',marginBottom:'48px'}}>
-          <h2 style={{fontSize:'clamp(1.5rem,4vw,2rem)',fontWeight:900,letterSpacing:'-0.025em',color:s.textPrimary,marginBottom:'16px'}}>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>
             Join Tunisia's English-Speaking Community
           </h2>
-          <p style={{fontSize:'15px',maxWidth:'560px',margin:'0 auto',color:s.textSecondary}}>
+          <p className="text-[15px] max-w-xl mx-auto" style={{color:s.textSecondary}}>
             Practice English every week through live discussions on topics that matter.
           </p>
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:'12px',marginBottom:'64px'}}>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
           {['🤖 AI','💼 Business','🌍 Culture','⚽ Sports','🎬 Movies'].map((item,i)=>(
             <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border"
-              style={{background:s.cardBg,borderColor:s.borderColor,color:s.textPrimary}}>
-              <span style={{fontSize:'2rem'}}>{item.slice(0,2)}</span>
-              <span style={{fontSize:'12px',fontWeight:600}}>{item.slice(2)}</span>
+              style={{background:s.cardBg,borderColor:s.borderColor}}>
+              <span className="text-3xl">{item.slice(0,2)}</span>
+              <span className="text-xs font-semibold" style={{color:s.textPrimary}}>{item.slice(2)}</span>
             </div>
           ))}
         </div>
-        <h3 style={{fontSize:'clamp(1.1rem,3vw,1.5rem)',fontWeight:700,textAlign:'center',color:s.textPrimary,marginBottom:'24px',letterSpacing:'-0.02em'}}>
+
+        <h3 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>
           What makes us different
         </h3>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px',maxWidth:'672px',margin:'0 auto'}}>
-          {['💬 Real conversations, not textbook exercises','🌐 Speak with learners from different backgrounds','🚀 Build confidence through weekly practice','🎯 Learn the English people actually use'].map((item,i)=>(
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {['💬 Real conversations','🌐 Learn from all backgrounds','🚀 Weekly practice','🎯 English people actually use'].map((item,i)=>(
             <div key={i} className="flex items-start gap-3 rounded-2xl p-4 border" style={{background:s.cardBg,borderColor:s.borderColor}}>
-              <span style={{fontSize:'1.25rem'}}>{item.slice(0,2)}</span>
-              <span style={{fontSize:'14px',fontWeight:500,color:s.textPrimary}}>{item.slice(2)}</span>
+              <span className="text-xl flex-shrink-0 mt-0.5">{item.slice(0,2)}</span>
+              <span className="text-sm font-medium" style={{color:s.textPrimary}}>{item.slice(2)}</span>
             </div>
           ))}
         </div>
