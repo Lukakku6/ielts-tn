@@ -15,7 +15,6 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [subscription, setSubscription] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [uploading, setUploading] = useState(false)
   const [paymentState, setPaymentState] = useState<'idle' | 'pending' | 'approved'>('idle')
   const [pendingPlan, setPendingPlan] = useState<string | null>(null)
 
@@ -24,17 +23,6 @@ export default function DashboardPage() {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) { window.location.href = '/login'; return }
       setUser(session.user)
-
-      // Check URL for upgrade param
-      const params = new URLSearchParams(window.location.search)
-      const upgradeParam = params.get('upgrade')
-      if (upgradeParam) {
-        setPendingPlan(upgradeParam)
-        // Auto-trigger file upload after a short delay
-        setTimeout(() => {
-          document.getElementById('file-upload')?.click()
-        }, 500)
-      }
 
       // Load subscription
       const { data: sub } = await supabase
@@ -66,6 +54,13 @@ export default function DashboardPage() {
         const latest = proofs[0]
         if (latest.status === 'approved') {
           setPaymentState('approved')
+          // Refresh subscription to show updated plan
+          const { data: updatedSub } = await supabase
+            .from('subscriptions')
+            .select('*')
+            .eq('user_id', session.user.id)
+            .maybeSingle()
+          if (updatedSub) setSubscription(updatedSub)
         } else if (latest.status === 'pending') {
           setPaymentState('pending')
           setPendingPlan(latest.plan_requested)
@@ -77,42 +72,9 @@ export default function DashboardPage() {
     loadData()
   }, [])
 
-  const handleUpgrade = async (planId: string) => {
-    setPendingPlan(planId)
-    document.getElementById('file-upload')?.click()
-  }
-
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file || !user || !pendingPlan) return
-
-    setUploading(true)
-    const fileName = `${user.id}/${Date.now()}-${file.name}`
-
-    const { error: uploadError } = await supabase.storage
-      .from('payment-proofs')
-      .upload(fileName, file)
-
-    if (uploadError) {
-      alert('Upload failed')
-      setUploading(false)
-      return
-    }
-
-    const { data: { publicUrl } } = supabase.storage
-      .from('payment-proofs')
-      .getPublicUrl(fileName)
-
-    await supabase.from('payment_proofs').insert({
-      user_id: user.id,
-      image_url: publicUrl,
-      plan_requested: pendingPlan,
-      status: 'pending'
-    })
-
-    setPaymentState('pending')
-    setUploading(false)
-    setPendingPlan(null)
+  const handleUpgrade = (planId: string) => {
+    // Redirect to payment instructions page
+    window.location.href = `/payment/instructions?plan=${planId}`
   }
 
   const handleLogout = async () => { await supabase.auth.signOut(); window.location.href = '/' }
@@ -175,7 +137,7 @@ export default function DashboardPage() {
         {paymentState === 'idle' && subscription?.plan !== 'elite' && (
           <>
             <h2 className="text-lg font-bold mb-3" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>⬆️ Upgrade Your Plan</h2>
-            <p className="text-xs mb-4" style={{ color: 'rgba(255,240,232,0.5)' }}>Select a plan, then upload your payment screenshot. We'll activate within 24 hours.</p>
+            <p className="text-xs mb-4" style={{ color: 'rgba(255,240,232,0.5)' }}>Select a plan, then follow the payment instructions to activate.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {PLANS.filter(p => p.id !== subscription?.plan).map(plan => (
                 <div key={plan.id} className="rounded-2xl p-5 border relative"
@@ -195,19 +157,17 @@ export default function DashboardPage() {
                       <div key={f} className="text-[11px]" style={{ color: 'rgba(255,240,232,0.5)' }}>✓ {f}</div>
                     ))}
                   </div>
-                  <button onClick={() => handleUpgrade(plan.id)}
+                  <button 
+                    onClick={() => handleUpgrade(plan.id)}
                     className="w-full py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.97]"
                     style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>
-                    Upgrade to {plan.name} — {plan.price}/mo
+                    Pay for {plan.name} — {plan.price}/mo
                   </button>
                 </div>
               ))}
             </div>
           </>
         )}
-
-        {/* Hidden file input */}
-        <input type="file" id="file-upload" accept="image/*" onChange={handleUpload} disabled={uploading} className="hidden" />
 
         <div className="rounded-2xl p-5 border" style={{ background: 'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)', borderColor: '#2A2A2C' }}>
           <div className="flex items-center gap-3">
