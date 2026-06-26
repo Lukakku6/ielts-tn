@@ -68,7 +68,6 @@ export default function DashboardPage() {
 
   const handleUpgrade = async (planId: string) => {
     setPendingPlan(planId)
-    // Open file picker
     document.getElementById('file-upload')?.click()
   }
 
@@ -128,9 +127,7 @@ export default function DashboardPage() {
           </Link>
           <button onClick={handleLogout} className="px-4 py-2 rounded-xl text-sm font-medium transition-all border" style={{ color: 'rgba(255,240,232,0.5)', borderColor: '#2A2A2C', backgroundColor: 'transparent' }}>logout</button>
         </div>
-<div style={{ backgroundColor: 'red', color: 'white', padding: '15px', borderRadius: '10px', marginBottom: '20px', textAlign: 'center', fontWeight: 'bold', fontSize: '16px' }}>
-  🔴 TEST BANNER — If you see this, the dashboard is updating
-</div>
+
         <h1 className="text-2xl font-black mb-1" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>👋 Welcome back, {firstName}</h1>
         <p className="text-sm mb-8" style={{ color: 'rgba(255,240,232,0.5)' }}>Manage your plan and payments</p>
 

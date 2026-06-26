@@ -340,30 +340,33 @@ export default function Home(){
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,-25px) scale(1.06)}66%{transform:translate(20px,-15px) scale(1.12)}}
         @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.18)}}
         
-        /* Rain animation confined to section with fade at bottom */
+        /* Rain animation - words fall from top to bottom of section */
         @keyframes rainDown {
           0% {
-            transform: translateY(-60px) rotate(var(--rot-start, 0deg));
+            top: -40px;
             opacity: 0;
+            transform: translateX(0px) rotate(var(--rot-start, 0deg));
           }
-          8% {
-            opacity: 0.85;
+          5% {
+            opacity: 0.8;
           }
-          15% {
+          10% {
             opacity: 1;
           }
-          70% {
+          85% {
             opacity: 0.9;
           }
-          85% {
-            opacity: 0.5;
+          95% {
+            opacity: 0.3;
           }
           100% {
-            transform: translateY(calc(100% + 80px)) rotate(var(--rot-end, 0deg));
+            top: calc(100% + 20px);
             opacity: 0;
+            transform: translateX(var(--wobble-final, 0px)) rotate(var(--rot-end, 0deg));
           }
         }
 
+        /* Wobble effect while falling */
         @keyframes rainWobble {
           0%, 100% {
             transform: translateX(0px) rotate(var(--rot-start, 0deg));
@@ -384,7 +387,7 @@ export default function Home(){
             rainDown var(--dur, 12s) linear infinite,
             rainWobble var(--dur, 12s) ease-in-out infinite;
           animation-delay: var(--delay, 0s);
-          will-change: transform, opacity;
+          will-change: transform, opacity, top;
         }
 
         @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
@@ -494,34 +497,41 @@ export default function Home(){
 
       {/* ─── TOPICS SECTION ──────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
-        {FLOATING_WORDS.map((w, i) => (
-          <div 
-            key={i} 
-            className="rain-word absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
-            style={{
-              left: `${5 + (i * 10)}%`,
-              '--rot-start': w.rotStart,
-              '--rot-end': w.rotEnd,
-              '--dur': w.dur,
-              '--delay': w.delay,
-              '--wobble-1': w.wobble,
-              '--wobble-2': `-${w.wobble}`,
-              '--wobble-3': w.wobble,
-              backgroundColor: s.cardBgFlat,
-              border: `1px solid ${s.borderColor}`,
-              color: s.textSecondary,
-              opacity: 0,
-              transform: `rotate(${w.rotStart})`
-            } as React.CSSProperties}
-          >
-            <span className="text-base">{w.icon}</span>
-            {w.text}
-          </div>
-        ))}
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">{TOPICS.map(tp=>(<div key={tp.en} className="topic-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer border" style={{background:s.cardBg,borderColor:s.borderColor}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}><span className="text-4xl">{tp.icon}</span><span className="text-xs font-semibold" style={{color:s.textPrimary}}>{lang==='ar'?tp.ar:lang==='fr'?tp.fr:tp.en}</span></div>))}</div>
+        {/* Rain words container */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          {FLOATING_WORDS.map((w, i) => (
+            <div 
+              key={i} 
+              className="rain-word absolute text-[11px] font-medium px-3.5 py-2 rounded-full whitespace-nowrap flex items-center gap-2"
+              style={{
+                left: `${5 + (i * 10)}%`,
+                '--rot-start': w.rotStart,
+                '--rot-end': w.rotEnd,
+                '--dur': w.dur,
+                '--delay': w.delay,
+                '--wobble-1': w.wobble,
+                '--wobble-2': `-${w.wobble}`,
+                '--wobble-3': w.wobble,
+                backgroundColor: s.cardBgFlat,
+                border: `1px solid ${s.borderColor}`,
+                color: s.textSecondary,
+                top: '-40px',
+                opacity: 0,
+                transform: `rotate(${w.rotStart})`
+              } as React.CSSProperties}
+            >
+              <span className="text-base">{w.icon}</span>
+              {w.text}
+            </div>
+          ))}
+        </div>
+        
+        <div className="relative z-10">
+          <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
+          <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
+          <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">{TOPICS.map(tp=>(<div key={tp.en} className="topic-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer border" style={{background:s.cardBg,borderColor:s.borderColor}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}><span className="text-4xl">{tp.icon}</span><span className="text-xs font-semibold" style={{color:s.textPrimary}}>{lang==='ar'?tp.ar:lang==='fr'?tp.fr:tp.en}</span></div>))}</div>
+        </div>
       </section>
 
       <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
