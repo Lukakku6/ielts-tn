@@ -441,7 +441,56 @@ export default function Home(){
           </div>
         </div>
       </section>
+      {/* ── COMMUNITY INTRO ────────────────────────────────── */}
+      <section className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-black mb-4" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>
+            {lang === 'en' ? "Join Tunisia's English-Speaking Community" : lang === 'fr' ? "Rejoignez la communauté anglophone tunisienne" : 'انضم إلى مجتمع التحدث بالإنجليزية في تونس'}
+          </h2>
+          <p className="text-[15px] max-w-xl mx-auto" style={{color:s.textSecondary}}>
+            {lang === 'en' ? 'Practice English every week through live discussions on topics that matter.' : lang === 'fr' ? "Pratiquez l'anglais chaque semaine à travers des discussions en direct sur des sujets qui comptent." : 'مارس الإنجليزية كل أسبوع من خلال نقاشات مباشرة حول مواضيع تهمك.'}
+          </p>
+        </div>
 
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
+          {[
+            {icon:'🤖',label:{en:'Artificial Intelligence',fr:'Intelligence Artificielle',ar:'الذكاء الاصطناعي'}},
+            {icon:'💼',label:{en:'Business & Careers',fr:'Affaires & Carrières',ar:'الأعمال والمهن'}},
+            {icon:'🌍',label:{en:'Culture & Travel',fr:'Culture & Voyages',ar:'الثقافة والسفر'}},
+            {icon:'⚽',label:{en:'Sports & Current Events',fr:'Sports & Actualités',ar:'الرياضة والأحداث'}},
+            {icon:'🎬',label:{en:'Movies & Entertainment',fr:'Films & Divertissement',ar:'الأفلام والترفيه'}},
+          ].map((item,i)=>(
+            <div key={i} className="rounded-2xl px-4 py-5 flex flex-col items-center gap-2 text-center border transition-all hover:translate-y-[-2px]"
+              style={{background:s.cardBg,borderColor:s.borderColor}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
+              <span className="text-3xl">{item.icon}</span>
+              <span className="text-xs font-semibold" style={{color:s.textPrimary}}>
+                {lang==='ar'?item.label.ar:lang==='fr'?item.label.fr:item.label.en}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="text-xl lg:text-2xl font-bold mb-6 text-center" style={{color:s.textPrimary,letterSpacing:'-0.02em'}}>
+          {lang === 'en' ? 'What makes us different' : lang === 'fr' ? 'Ce qui nous rend différents' : 'ما يميزنا'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {[
+            {icon:'💬',text:{en:'Real conversations, not textbook exercises',fr:'De vraies conversations, pas des exercices de manuel',ar:'محادثات حقيقية، وليس تمارين كتابية'}},
+            {icon:'🌐',text:{en:'Speak with learners from different backgrounds',fr:'Parlez avec des apprenants de différents horizons',ar:'تحدث مع متعلمين من خلفيات مختلفة'}},
+            {icon:'🚀',text:{en:'Build confidence through weekly practice',fr:'Développez votre confiance grâce à une pratique hebdomadaire',ar:'ابنِ ثقتك من خلال الممارسة الأسبوعية'}},
+            {icon:'🎯',text:{en:'Learn the English people actually use',fr:"Apprenez l'anglais que les gens utilisent vraiment",ar:'تعلم الإنجليزية التي يستخدمها الناس فعلاً'}},
+          ].map((item,i)=>(
+            <div key={i} className="flex items-start gap-3 rounded-2xl p-4 border" style={{background:s.cardBg,borderColor:s.borderColor}}>
+              <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
+              <span className="text-sm font-medium" style={{color:s.textPrimary}}>
+                {lang==='ar'?item.text.ar:lang==='fr'?item.text.fr:item.text.en}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
         {FLOATING_WORDS.map((w,i)=>(<div key={i} className="absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2" style={{left:w.left,transform:`rotate(${w.rot})`,backgroundColor:s.cardBgFlat,border:`1px solid ${s.borderColor}`,color:s.textSecondary,animation:`floatRain ${w.dur} linear infinite`,animationDelay:w.delay} as React.CSSProperties}><span className="text-base">{w.icon}</span>{w.text}</div>))}
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
