@@ -137,7 +137,7 @@ const T = {
       { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'هدف Band 7+', desc:'جلسات مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 جلسات/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', popular:true, tier:'Pro' },
       { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
       { id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'مسرّع مهني', desc:'جلسات مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، مقابلات عمل.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 جلسات/شهر','تحضير السيرة والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة LinkedIn'], cta:'تطوّر مهنيًا', tier:'Core' },
-      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'23'}, tnd:{m:'185',y:'72'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
+      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
     ],
   },
 }
@@ -166,7 +166,6 @@ const ROOM_BG = [
   { dark:'#1E1820', light:'#F5EDF2' },
 ]
 
-// UPDATED: Fixed raining words with staggered delays and better animation
 const FLOATING_WORDS = [
   { text: 'current events', icon: '🌍', rotStart: '-3deg', rotEnd: '5deg', dur: '12s', delay: '0s', wobble: '15px' },
   { text: 'trending', icon: '🔥', rotStart: '4deg', rotEnd: '-6deg', dur: '11s', delay: '1.2s', wobble: '-12px' },
@@ -341,26 +340,26 @@ export default function Home(){
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,-25px) scale(1.06)}66%{transform:translate(20px,-15px) scale(1.12)}}
         @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.18)}}
         
-        /* UPDATED: Better raining words animation */
+        /* Rain animation confined to section with fade at bottom */
         @keyframes rainDown {
           0% {
-            transform: translateY(-80px) rotate(var(--rot-start, 0deg));
+            transform: translateY(-60px) rotate(var(--rot-start, 0deg));
             opacity: 0;
           }
-          5% {
-            opacity: 0.7;
+          8% {
+            opacity: 0.85;
           }
-          10% {
+          15% {
             opacity: 1;
           }
-          85% {
-            opacity: 0.8;
+          70% {
+            opacity: 0.9;
           }
-          95% {
-            opacity: 0.3;
+          85% {
+            opacity: 0.5;
           }
           100% {
-            transform: translateY(calc(100vh + 100px)) rotate(var(--rot-end, 0deg));
+            transform: translateY(calc(100% + 80px)) rotate(var(--rot-end, 0deg));
             opacity: 0;
           }
         }
@@ -370,24 +369,22 @@ export default function Home(){
             transform: translateX(0px) rotate(var(--rot-start, 0deg));
           }
           25% {
-            transform: translateX(var(--wobble-1, 15px)) rotate(var(--rot-mid, 0deg));
+            transform: translateX(var(--wobble-1, 15px)) rotate(calc(var(--rot-start) + 2deg));
           }
           50% {
-            transform: translateX(var(--wobble-2, -10px)) rotate(var(--rot-mid2, 0deg));
+            transform: translateX(var(--wobble-2, -10px)) rotate(calc(var(--rot-end) - 2deg));
           }
           75% {
-            transform: translateX(var(--wobble-3, 12px)) rotate(var(--rot-mid3, 0deg));
+            transform: translateX(var(--wobble-3, 12px)) rotate(calc(var(--rot-end) + 1deg));
           }
         }
 
         .rain-word {
-          animation: rainDown var(--dur, 12s) linear infinite;
+          animation: 
+            rainDown var(--dur, 12s) linear infinite,
+            rainWobble var(--dur, 12s) ease-in-out infinite;
           animation-delay: var(--delay, 0s);
-        }
-
-        .rain-word-wobble {
-          animation: rainWobble var(--dur, 12s) ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
+          will-change: transform, opacity;
         }
 
         @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
@@ -462,7 +459,7 @@ export default function Home(){
         </div>
       </section>
 
-      {/* ─── COMMUNITY BANNER (UPDATED - removed topics, kept difference only) ─── */}
+      {/* ─── COMMUNITY BANNER ──────────────────────────────── */}
       <section ref={addRef(6)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden border" style={{background:s.cardBg,borderColor:s.borderColor,boxShadow:s.cardShadow}}>
           <div className="absolute inset-0 pointer-events-none" style={{background:`radial-gradient(ellipse at 20% 50%,${s.textOrange}07 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,${s.textOrangeLight}04 0%,transparent 55%)`}}/>
@@ -497,27 +494,23 @@ export default function Home(){
 
       {/* ─── TOPICS SECTION ──────────────────────────────── */}
       <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
-        {/* UPDATED: Raining words with staggered delays and rotation */}
         {FLOATING_WORDS.map((w, i) => (
           <div 
             key={i} 
-            className="rain-word-wobble absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
+            className="rain-word absolute text-[11px] font-medium px-3.5 py-2 rounded-full pointer-events-none whitespace-nowrap z-0 hidden lg:flex items-center gap-2"
             style={{
               left: `${5 + (i * 10)}%`,
               '--rot-start': w.rotStart,
               '--rot-end': w.rotEnd,
-              '--rot-mid': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) / 2}deg`,
-              '--rot-mid2': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) / 3}deg`,
-              '--rot-mid3': `${(parseFloat(w.rotStart) + parseFloat(w.rotEnd)) * 0.7}deg`,
+              '--dur': w.dur,
+              '--delay': w.delay,
               '--wobble-1': w.wobble,
               '--wobble-2': `-${w.wobble}`,
               '--wobble-3': w.wobble,
-              '--dur': w.dur,
-              '--delay': w.delay,
               backgroundColor: s.cardBgFlat,
               border: `1px solid ${s.borderColor}`,
               color: s.textSecondary,
-              opacity: 0.85,
+              opacity: 0,
               transform: `rotate(${w.rotStart})`
             } as React.CSSProperties}
           >
