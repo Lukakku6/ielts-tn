@@ -88,8 +88,8 @@ const T = {
         name:'Offline Pack', 
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        priceTnd: '59',
+        yearlyTnd: '47',
         features:[
           'Interactive digital books',
           'Listening audio tracks',
@@ -106,8 +106,8 @@ const T = {
         name:'Speaking Groups', 
         tagline:'Speak more, stress less',
         desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        priceTnd: '179',
+        yearlyTnd: '143',
         features:[
           '4 live group sessions/month',
           'Max 8 people — everyone gets to talk',
@@ -125,8 +125,8 @@ const T = {
         name:'Cabin Crew', 
         tagline:'English built for the sky',
         desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        priceTnd: '249',
+        yearlyTnd: '199',
         features:[
           'Interview English & role-play practice',
           'Aviation vocabulary & safety phrases',
@@ -211,8 +211,8 @@ const T = {
         name:'Pack Hors-Ligne', 
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        priceTnd: '59',
+        yearlyTnd: '47',
         features:[
           'Livres numériques interactifs',
           'Pistes audio d\'écoute',
@@ -229,8 +229,8 @@ const T = {
         name:'Groupes de Conversation', 
         tagline:'Parle plus, stresse moins',
         desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        priceTnd: '179',
+        yearlyTnd: '143',
         features:[
           '4 sessions live en groupe/mois',
           'Max 8 personnes — tout le monde parle',
@@ -248,8 +248,8 @@ const T = {
         name:'Personnel Navigant', 
         tagline:'L\'anglais pour le ciel',
         desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        priceTnd: '249',
+        yearlyTnd: '199',
         features:[
           'Anglais d\'entretien & jeux de rôle',
           'Vocabulaire aviation & phrases de sécurité',
@@ -334,8 +334,8 @@ const T = {
         name:'الحزمة دون اتصال', 
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        priceTnd: '59',
+        yearlyTnd: '47',
         features:[
           'كتب رقمية تفاعلية',
           'تسجيلات صوتية للاستماع',
@@ -352,8 +352,8 @@ const T = {
         name:'مجموعات المحادثة', 
         tagline:'تكلّم أكثر، توتر أقل',
         desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        priceTnd: '179',
+        yearlyTnd: '143',
         features:[
           '4 جلسات جماعية مباشرة / شهر',
           '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
@@ -371,8 +371,8 @@ const T = {
         name:'طاقم الطيران', 
         tagline:'الإنجليزية للسماء',
         desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        priceTnd: '249',
+        yearlyTnd: '199',
         features:[
           'إنجليزية المقابلات وتمارين لعب الأدوار',
           'مفردات الطيران وعبارات السلامة',
@@ -406,15 +406,16 @@ const T = {
   },
 }
 
+// ─── UPDATED TOPICS ──────────────────────────────────────
 const TOPICS = [
-  { icon:'🌍', en:'World Events', fr:'Actualité Mondiale', ar:'أحداث العالم' },
+  { icon:'🌍', en:'World Events', fr:'Actualités Mondiales', ar:'أحداث العالم' },
   { icon:'📰', en:'Breaking News', fr:'Actualités', ar:'أخبار عاجلة' },
-  { icon:'🎬', en:'Pop Culture', fr:'Culture Pop', ar:'الثقافة الشعبية' },
+  { icon:'💼', en:'Workplace & Careers', fr:'Carrières & Travail', ar:'العمل والمسارات المهنية' },
   { icon:'💰', en:'Finance & Markets', fr:'Finance & Marchés', ar:'المال والأسواق' },
   { icon:'🤖', en:'Tech & AI', fr:'Tech & IA', ar:'التكنولوجيا والذكاء الاصطناعي' },
+  { icon:'✈️', en:'Travel & Aviation', fr:'Voyage & Aviation', ar:'السفر والطيران' },
   { icon:'🏆', en:'Sports', fr:'Sport', ar:'الرياضة' },
-  { icon:'🎵', en:'Music & Entertainment', fr:'Musique & Divertissement', ar:'الموسيقى والترفيه' },
-  { icon:'🌐', en:'Social Trends', fr:'Tendances Sociales', ar:'الاتجاهات الاجتماعية' },
+  { icon:'🎓', en:'Education & Learning', fr:'Éducation & Apprentissage', ar:'التعليم والتعلّم' },
 ]
 
 const CLASS_TOPICS = [
@@ -955,7 +956,7 @@ export default function Home(){
 
       {/* ─── OFFERS SECTION ──────────────────────────────── */}
       <section id="offers" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20 relative overflow-hidden">
-        {/* Rain words container - moved to offers section */}
+        {/* Rain words container */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           {FLOATING_WORDS.map((w, i) => (
             <div 
@@ -1028,12 +1029,18 @@ export default function Home(){
                     <div className="text-right">
                       {!isPrivate ? (
                         <>
-                          <div className="text-xl font-black" style={{color: s.textPrimary}}>
+                          <div className="text-2xl font-black" style={{color: s.textOrange}}>
                             {pkg.priceTnd}
+                            <span className="text-sm font-normal" style={{color: s.textTertiary}}> /month</span>
                           </div>
+                          {activePrice === 'y' && (
+                            <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
+                              {pkg.yearlyTnd} /year
+                            </div>
+                          )}
                         </>
                       ) : (
-                        <div className="text-xl font-black" style={{color: s.textPrimary}}>—</div>
+                        <div className="text-2xl font-black" style={{color: s.textPrimary}}>—</div>
                       )}
                     </div>
                   </div>
@@ -1059,7 +1066,7 @@ export default function Home(){
           
           {/* Yearly/Monthly Switch at bottom */}
           <div className="flex items-center justify-center gap-3 mt-10 pt-6 border-t" style={{borderColor:s.borderColor}}>
-            <span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span>
+            <span className="text-sm" style={{color: s.textSecondary}}>{t.monthly}</span>
             <button 
               onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} 
               className="w-12 h-6 rounded-full transition-all relative glass-btn" 
