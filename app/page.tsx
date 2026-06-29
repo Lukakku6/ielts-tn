@@ -88,8 +88,8 @@ const T = {
         name:'Offline Pack', 
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
-        price: { m: '15', y: '12' },
-        tnd: { m: '59', y: '47' },
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'Interactive digital books',
           'Listening audio tracks',
@@ -106,8 +106,8 @@ const T = {
         name:'Speaking Groups', 
         tagline:'Speak more, stress less',
         desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
-        price: { m: '19', y: '15' },
-        tnd: { m: '179', y: '143' },
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 live group sessions/month',
           'Max 8 people — everyone gets to talk',
@@ -125,8 +125,8 @@ const T = {
         name:'Cabin Crew', 
         tagline:'English built for the sky',
         desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
-        price: { m: '24', y: '19' },
-        tnd: { m: '249', y: '199' },
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'Interview English & role-play practice',
           'Aviation vocabulary & safety phrases',
@@ -141,10 +141,10 @@ const T = {
         id:'private', 
         icon:'🎓', 
         name:'Private Sessions', 
-        tagline:'You and Dali, one goal',
+        tagline:'One goal, your pace',
         desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
-        price: { m: '--', y: '--' },
-        tnd: { m: '--', y: '--' },
+        priceTnd: 'Contact',
+        yearlyTnd: 'Contact',
         features:[
           '4 private sessions/month with Dali',
           'Custom plan built around your goals',
@@ -211,8 +211,8 @@ const T = {
         name:'Pack Hors-Ligne', 
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
-        price: { m: '15', y: '12' },
-        tnd: { m: '59', y: '47' },
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'Livres numériques interactifs',
           'Pistes audio d\'écoute',
@@ -229,8 +229,8 @@ const T = {
         name:'Groupes de Conversation', 
         tagline:'Parle plus, stresse moins',
         desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
-        price: { m: '19', y: '15' },
-        tnd: { m: '179', y: '143' },
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 sessions live en groupe/mois',
           'Max 8 personnes — tout le monde parle',
@@ -248,8 +248,8 @@ const T = {
         name:'Personnel Navigant', 
         tagline:'L\'anglais pour le ciel',
         desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
-        price: { m: '24', y: '19' },
-        tnd: { m: '249', y: '199' },
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'Anglais d\'entretien & jeux de rôle',
           'Vocabulaire aviation & phrases de sécurité',
@@ -264,10 +264,10 @@ const T = {
         id:'private', 
         icon:'🎓', 
         name:'Sessions Privées', 
-        tagline:'Toi et Dali, un seul objectif',
+        tagline:'Un objectif, ton rythme',
         desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
-        price: { m: '--', y: '--' },
-        tnd: { m: '--', y: '--' },
+        priceTnd: 'Contact',
+        yearlyTnd: 'Contact',
         features:[
           '4 sessions privées/mois avec Dali',
           'Plan personnalisé selon tes objectifs',
@@ -334,8 +334,8 @@ const T = {
         name:'الحزمة دون اتصال', 
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
-        price: { m: '15', y: '12' },
-        tnd: { m: '59', y: '47' },
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'كتب رقمية تفاعلية',
           'تسجيلات صوتية للاستماع',
@@ -352,8 +352,8 @@ const T = {
         name:'مجموعات المحادثة', 
         tagline:'تكلّم أكثر، توتر أقل',
         desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
-        price: { m: '19', y: '15' },
-        tnd: { m: '179', y: '143' },
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 جلسات جماعية مباشرة / شهر',
           '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
@@ -371,8 +371,8 @@ const T = {
         name:'طاقم الطيران', 
         tagline:'الإنجليزية للسماء',
         desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
-        price: { m: '24', y: '19' },
-        tnd: { m: '249', y: '199' },
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'إنجليزية المقابلات وتمارين لعب الأدوار',
           'مفردات الطيران وعبارات السلامة',
@@ -387,10 +387,10 @@ const T = {
         id:'private', 
         icon:'🎓', 
         name:'جلسات خاصة', 
-        tagline:'أنت ودالي، هدف واحد',
+        tagline:'هدف واحد، وتيرتك',
         desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
-        price: { m: '--', y: '--' },
-        tnd: { m: '--', y: '--' },
+        priceTnd: 'تواصل',
+        yearlyTnd: 'تواصل',
         features:[
           '4 جلسات خاصة / شهر مع دالي',
           'خطة مخصصة حول أهدافك',
@@ -991,24 +991,9 @@ export default function Home(){
           <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
           <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
           
-          {/* Yearly/Monthly Switch */}
-          <div className="flex items-center justify-center gap-3 mb-10">
-            <span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span>
-            <button 
-              onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} 
-              className="w-12 h-6 rounded-full transition-all relative glass-btn" 
-              style={{backgroundColor: activePrice === 'y' ? s.textOrange : s.borderColor}}
-            >
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" 
-                style={{left: activePrice === 'y' ? '25px' : '2px'}} 
-              />
-            </button>
-            <span className="text-sm font-semibold" style={{color: activePrice === 'y' ? s.textOrange : s.textSecondary}}>{t.yearly}</span>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {t.packages.map((pkg) => {
-              const isPrivate = pkg.price.m === '--'
+              const isPrivate = pkg.priceTnd === 'Contact' || pkg.priceTnd === 'تواصل'
               return (
                 <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
                   borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
@@ -1043,16 +1028,12 @@ export default function Home(){
                     <div className="text-right">
                       {!isPrivate ? (
                         <>
-                          <div className="text-2xl font-black" style={{color: s.textPrimary}}>
-                            ${pkg.price[activePrice]}
-                            <span className="text-sm font-normal" style={{color: s.textTertiary}}>/mo</span>
-                          </div>
-                          <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
-                            ≈ {pkg.tnd[activePrice]} TND
+                          <div className="text-xl font-black" style={{color: s.textPrimary}}>
+                            {pkg.priceTnd}
                           </div>
                         </>
                       ) : (
-                        <div className="text-2xl font-black" style={{color: s.textPrimary}}>—</div>
+                        <div className="text-xl font-black" style={{color: s.textPrimary}}>—</div>
                       )}
                     </div>
                   </div>
@@ -1074,6 +1055,21 @@ export default function Home(){
                 </div>
               )
             })}
+          </div>
+          
+          {/* Yearly/Monthly Switch at bottom */}
+          <div className="flex items-center justify-center gap-3 mt-10 pt-6 border-t" style={{borderColor:s.borderColor}}>
+            <span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span>
+            <button 
+              onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} 
+              className="w-12 h-6 rounded-full transition-all relative glass-btn" 
+              style={{backgroundColor: activePrice === 'y' ? s.textOrange : s.borderColor}}
+            >
+              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" 
+                style={{left: activePrice === 'y' ? '25px' : '2px'}} 
+              />
+            </button>
+            <span className="text-sm font-semibold" style={{color: activePrice === 'y' ? s.textOrange : s.textSecondary}}>{t.yearly}</span>
           </div>
         </div>
       </section>
