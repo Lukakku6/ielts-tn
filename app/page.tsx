@@ -34,21 +34,6 @@ const MessengerIcon = ({ className = '', size = 24 }: { className?: string, size
   </svg>
 )
 
-const EmailIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
-  </svg>
-)
-
-const GlobeIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <circle cx="12" cy="12" r="10"/>
-    <line x1="2" y1="12" x2="22" y2="12"/>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-  </svg>
-)
-
 const T = {
   en: {
     tagline: 'built for Tunisian English learners',
@@ -70,14 +55,21 @@ const T = {
     classesTag: 'our offerings', 
     classesH: 'choose your path',
     classesSub: 'flexible ways to learn English — pick what fits your life',
-    comingSoon: 'First sessions launching soon', 
-    comingSoonSub: 'Join now and be the first to book. Early members get their first session free.',
-    notifyBtn: "reserve my spot — it's free",
-    liveTag: 'next session', liveH: 'join the next live', liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
-    communityTag: 'reach dali', communityH: 'message directly', communitySub: 'questions about a session? not sure which path? Dali replies personally.',
-    monthly: 'monthly', yearly: 'yearly (-20%)',
-    notSure: 'not sure which path?', waLink: 'ask on whatsapp ↗',
-    nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
+    liveTag: 'live session', 
+    liveH: 'join the conversation',
+    liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
+    communityTag: 'reach dali', 
+    communityH: 'message directly', 
+    communitySub: 'questions about a session? not sure which path? Dali replies personally.',
+    monthly: 'monthly', 
+    yearly: 'yearly (-20%)',
+    notSure: 'not sure which path?', 
+    waLink: 'ask on whatsapp ↗',
+    nextLive: 'next live', 
+    days: 'd', 
+    hours: 'h', 
+    min: 'm', 
+    sec: 's',
     badgeLabel: 'your path',
     communityBannerTag: 'the community',
     communityBannerH: "Join Tunisia's English-Speaking Community",
@@ -96,8 +88,8 @@ const T = {
         name:'Offline Pack', 
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
-        price:{m:'15',y:'12'}, 
-        tnd:{m:'59',y:'47'}, 
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'Interactive digital books',
           'Listening audio tracks',
@@ -114,8 +106,8 @@ const T = {
         name:'Speaking Groups', 
         tagline:'Speak more, stress less',
         desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
-        price:{m:'19',y:'15'}, 
-        tnd:{m:'179',y:'143'}, 
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 live group sessions/month',
           'Max 8 people — everyone gets to talk',
@@ -133,8 +125,8 @@ const T = {
         name:'Cabin Crew', 
         tagline:'English built for the sky',
         desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
-        price:{m:'24',y:'19'}, 
-        tnd:{m:'249',y:'199'}, 
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'Interview English & role-play practice',
           'Aviation vocabulary & safety phrases',
@@ -151,8 +143,8 @@ const T = {
         name:'Private Sessions', 
         tagline:'You and Dali, one goal',
         desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
-        price:{m:'--',y:'--'}, 
-        tnd:{m:'--',y:'--'}, 
+        priceTnd: 'Contact',
+        yearlyTnd: 'Contact',
         features:[
           '4 private sessions/month with Dali',
           'Custom plan built around your goals',
@@ -186,11 +178,8 @@ const T = {
     classesTag: "nos offres", 
     classesH: "choisis ta voie",
     classesSub: "des façons flexibles d'apprendre l'anglais — choisis ce qui te correspond",
-    comingSoon: "Premières sessions bientôt disponibles", 
-    comingSoonSub: "Inscris-toi maintenant et sois le premier à réserver. Les premiers membres obtiennent leur première session gratuite.",
-    notifyBtn: "réserver ma place — gratuit",
-    liveTag: "prochaine session", 
-    liveH: "rejoins le prochain live", 
+    liveTag: "session live", 
+    liveH: "rejoins la conversation",
     liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
     communityTag: "contacter dali", 
     communityH: "écrire directement", 
@@ -222,8 +211,8 @@ const T = {
         name:'Pack Hors-Ligne', 
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
-        price:{m:'15',y:'12'}, 
-        tnd:{m:'59',y:'47'}, 
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'Livres numériques interactifs',
           'Pistes audio d\'écoute',
@@ -240,8 +229,8 @@ const T = {
         name:'Groupes de Conversation', 
         tagline:'Parle plus, stresse moins',
         desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
-        price:{m:'19',y:'15'}, 
-        tnd:{m:'179',y:'143'}, 
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 sessions live en groupe/mois',
           'Max 8 personnes — tout le monde parle',
@@ -259,8 +248,8 @@ const T = {
         name:'Personnel Navigant', 
         tagline:'L\'anglais pour le ciel',
         desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
-        price:{m:'24',y:'19'}, 
-        tnd:{m:'249',y:'199'}, 
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'Anglais d\'entretien & jeux de rôle',
           'Vocabulaire aviation & phrases de sécurité',
@@ -277,8 +266,8 @@ const T = {
         name:'Sessions Privées', 
         tagline:'Toi et Dali, un seul objectif',
         desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
-        price:{m:'--',y:'--'}, 
-        tnd:{m:'--',y:'--'}, 
+        priceTnd: 'Contact',
+        yearlyTnd: 'Contact',
         features:[
           '4 sessions privées/mois avec Dali',
           'Plan personnalisé selon tes objectifs',
@@ -312,11 +301,8 @@ const T = {
     classesTag: 'عروضنا', 
     classesH: 'اختر طريقك',
     classesSub: 'طرق مرنة لتعلّم الإنجليزية — اختر ما يناسب حياتك',
-    comingSoon: 'أوّل الجلسات قريبًا', 
-    comingSoonSub: 'سجّل هالوقت وكن أوّل من يحجز. الأعضاء الأوائل يأخذون أوّل جلسة مجّانًا.',
-    notifyBtn: 'احجز مكاني — مجّانًا',
-    liveTag: 'الجلسة القادمة', 
-    liveH: 'انضم للبث القادم', 
+    liveTag: 'جلسة مباشرة', 
+    liveH: 'انضم للنقاش',
     liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
     communityTag: 'تواصل مع دالي', 
     communityH: 'راسل مباشرة', 
@@ -348,8 +334,8 @@ const T = {
         name:'الحزمة دون اتصال', 
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
-        price:{m:'15',y:'12'}, 
-        tnd:{m:'59',y:'47'}, 
+        priceTnd: '59 TND',
+        yearlyTnd: '47 TND',
         features:[
           'كتب رقمية تفاعلية',
           'تسجيلات صوتية للاستماع',
@@ -366,8 +352,8 @@ const T = {
         name:'مجموعات المحادثة', 
         tagline:'تكلّم أكثر، توتر أقل',
         desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
-        price:{m:'19',y:'15'}, 
-        tnd:{m:'179',y:'143'}, 
+        priceTnd: '179 TND',
+        yearlyTnd: '143 TND',
         features:[
           '4 جلسات جماعية مباشرة / شهر',
           '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
@@ -385,8 +371,8 @@ const T = {
         name:'طاقم الطيران', 
         tagline:'الإنجليزية للسماء',
         desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
-        price:{m:'24',y:'19'}, 
-        tnd:{m:'249',y:'199'}, 
+        priceTnd: '249 TND',
+        yearlyTnd: '199 TND',
         features:[
           'إنجليزية المقابلات وتمارين لعب الأدوار',
           'مفردات الطيران وعبارات السلامة',
@@ -403,8 +389,8 @@ const T = {
         name:'جلسات خاصة', 
         tagline:'أنت ودالي، هدف واحد',
         desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
-        price:{m:'--',y:'--'}, 
-        tnd:{m:'--',y:'--'}, 
+        priceTnd: 'تواصل',
+        yearlyTnd: 'تواصل',
         features:[
           '4 جلسات خاصة / شهر مع دالي',
           'خطة مخصصة حول أهدافك',
@@ -816,7 +802,7 @@ export default function Home(){
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2.5 flex-shrink-0"><B2Logo className="text-lg md:text-xl" isLight={isLight}/></div>
           <div className="hidden md:flex gap-1 items-center">
-            {['topics','classes','live','community'].map(item=>(
+            {['offers','how','live','topics','community'].map(item=>(
               <a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{color:s.textSecondary}} onMouseEnter={e=>{e.currentTarget.style.color=s.textOrange;e.currentTarget.style.backgroundColor=s.pillBg}} onMouseLeave={e=>{e.currentTarget.style.color=s.textSecondary;e.currentTarget.style.backgroundColor='transparent'}}>{item}</a>
             ))}
           </div>
@@ -866,7 +852,7 @@ export default function Home(){
             </a>
             
             <div className="w-full border-t" style={{borderColor:s.borderColor}}></div>
-            {['topics','classes','live','community'].map(item=>(
+            {['offers','how','live','topics','community'].map(item=>(
               <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full text-center" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
             ))}
           </div>
@@ -884,7 +870,7 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
+              <a href="#offers" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
             </div>
             <div className="mt-8 flex items-center gap-3 flex-wrap">
               {[{n:'500K+',l:'TikTok'},{n:'12K+',l:'students'},{n:'4.9★',l:'rating'},{n:'live',l:'sessions'}].map(stat=>(
@@ -925,39 +911,140 @@ export default function Home(){
         </div>
       </section>
 
-      {/* ─── COMMUNITY BANNER ──────────────────────────────── */}
-      <section ref={addRef(6)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
-        <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden" style={{boxShadow:s.cardShadow}}>
-          <div className="absolute inset-0 pointer-events-none" style={{background:`radial-gradient(ellipse at 20% 50%,${s.textOrange}07 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,${s.textOrangeLight}04 0%,transparent 55%)`}}/>
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityBannerTag}</div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-3 leading-tight" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityBannerH}</h2>
-              <p className="text-[15px] mb-8 leading-relaxed max-w-sm" style={{color:s.textSecondary}}>{t.communityBannerSub}</p>
-            </div>
-            <div className="flex flex-col justify-between h-full">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest mb-5" style={{color:s.textTertiary}}>{t.differenceH}</div>
-                <div className="flex flex-col gap-3.5 mb-10">
-                  {t.differenceList.map((item,i)=>(
-                    <div key={i} className="glass-card-light flex items-start gap-3.5 rounded-2xl px-4 py-3.5" style={{borderColor:s.borderColor}}>
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black mt-0.5"
-                        style={{backgroundColor:s.textOrange,color:'#FFFFFF',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>✓</span>
-                      <span className="text-[13px] leading-relaxed font-medium" style={{color:s.textSecondary}}>{item}</span>
+      {/* ─── OFFERS SECTION ──────────────────────────────── */}
+      <section id="offers" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20">
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
+        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Self-Paced','Group','Career','Premium'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===2?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===2&&<span className="ml-1.5 opacity-80">← most popular</span>}</div>))}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {t.packages.map((pkg) => {
+            return (
+              <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
+                borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
+                boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
+              }} onMouseEnter={e => {
+                e.currentTarget.style.borderColor = s.borderHover
+                e.currentTarget.style.boxShadow = s.cardShadowHover
+              }} onMouseLeave={e => {
+                e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
+                e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
+              }}>
+                {(pkg as any).popular && (
+                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
+                    most popular
+                  </div>
+                )}
+                {(pkg as any).premium && (
+                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
+                    limited spots
+                  </div>
+                )}
+                <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-center gap-3.5">
+                    <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor: s.pillBg, color: s.pillText}}>{(pkg as any).tier}</span>
+                      </div>
+                      <div className="text-[13px] font-semibold" style={{color: s.textOrangeLight}}>{pkg.tagline}</div>
                     </div>
-                  ))}
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>
+                      {pkg.priceTnd !== 'Contact' ? pkg.priceTnd : '—'}
+                    </div>
+                    {pkg.priceTnd !== 'Contact' && (
+                      <div className="text-[10px] font-medium mt-0.5" style={{color: s.textTertiary}}>
+                        {t.yearly}: {pkg.yearlyTnd}
+                      </div>
+                    )}
+                  </div>
                 </div>
+                <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
+                <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (
+                  <div key={f} className="flex items-start gap-2 text-[12px]" style={{color: s.textSecondary}}>
+                    <span className="font-bold mt-0.5 flex-shrink-0" style={{color: s.textOrange}}>✓</span>
+                    {f}
+                  </div>
+                ))}</div>
+                
+                <button 
+                  onClick={() => openModal(pkg.name)}
+                  className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
+                  style={(pkg as any).popular ? {
+                    backgroundColor: s.textOrange,
+                    color: '#FFFFFF',
+                    boxShadow: `0 4px 14px ${s.orangeGlow}`
+                  } : (pkg as any).premium ? {
+                    backgroundColor: s.pillBg,
+                    color: s.textOrangeLight,
+                    border: `1px solid ${s.textOrangeLight}25`
+                  } : {
+                    backgroundColor: s.cardBgFlat,
+                    color: s.textPrimary,
+                    border: `1px solid ${s.btnSecondaryBorder}`
+                  }}
+                >
+                  {t.enrollBtn} — {pkg.name}
+                </button>
               </div>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
-              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* ─── HOW IT WORKS ──────────────────────────────── */}
+      <section id="how" ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.howTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.howH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.howSub}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {t.steps.map(step => (
+            <div key={step.n} className="glass-card rounded-2xl p-6 transition-all duration-300" onMouseEnter={e=>e.currentTarget.style.borderColor=s.borderHover} onMouseLeave={e=>e.currentTarget.style.borderColor=s.borderColor}>
+              <div className="text-xs font-bold mb-4" style={{color:`${s.textOrange}50`}}>{step.n}</div>
+              <div className="text-4xl mb-4">{step.icon}</div>
+              <div className="text-base font-bold mb-2" style={{color:s.textPrimary}}>{step.t}</div>
+              <div className="text-[13px] leading-relaxed" style={{color:s.textSecondary}}>{step.d}</div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── LIVE SESSION SIMULATOR ────────────────────── */}
+      <section id="live" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.liveTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.liveH}</h2>
+        <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.liveSub}</p>
+        <div className="glass-card rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6" style={{boxShadow:s.cardShadow}}>
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{background:`linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>🎙️</div>
+            <div>
+              <div className="text-sm font-bold" style={{color:s.textPrimary}}>friday live session</div>
+              <div className="text-[13px] mt-0.5" style={{color:s.textSecondary}}>every week · 8:00 PM Tunisia time</div>
+              <div className="text-[13px] font-bold mt-1" style={{color:s.textOrange}}>TikTok Live & Instagram Live</div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            {[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct=>(
+              <div key={ct.l} className="glass-card-light rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center" style={{borderColor:s.countdownBorder}}>
+                <div className="text-xl font-black" style={{color:s.textOrange}}>{String(ct.v).padStart(2,'0')}</div>
+                <div className="text-[10px] mt-0.5" style={{color:s.textTertiary}}>{ct.l}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2.5">
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 TikTok</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
+            </a>
           </div>
         </div>
       </section>
 
       {/* ─── TOPICS SECTION ──────────────────────────────── */}
-      <section id="topics" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
+      <section id="topics" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
         {/* Rain words container */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           {FLOATING_WORDS.map((w, i) => (
@@ -1018,129 +1105,43 @@ export default function Home(){
         </div>
       </section>
 
-      <section ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.howTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.howH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.howSub}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {t.steps.map(step => (
-            <div key={step.n} className="glass-card rounded-2xl p-6 transition-all duration-300" onMouseEnter={e=>e.currentTarget.style.borderColor=s.borderHover} onMouseLeave={e=>e.currentTarget.style.borderColor=s.borderColor}>
-              <div className="text-xs font-bold mb-4" style={{color:`${s.textOrange}50`}}>{step.n}</div>
-              <div className="text-4xl mb-4">{step.icon}</div>
-              <div className="text-base font-bold mb-2" style={{color:s.textPrimary}}>{step.t}</div>
-              <div className="text-[13px] leading-relaxed" style={{color:s.textSecondary}}>{step.d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="classes" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
-        <div className="glass-card rounded-3xl p-10 text-center mb-12 relative overflow-hidden">
-          <div className="absolute inset-0" style={{background:`radial-gradient(ellipse at center,${s.textOrange}05 0%,transparent 70%)`}}/>
-          <div className="flex justify-center gap-4 mb-6 flex-wrap relative z-10">{['🗞️','🎙️','🌍','📊','🤖','🏛️','💰','🎬'].map((icon,i)=>(<div key={i} className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-xl" style={{animation:`fw ${3.5+i*.5}s linear infinite`,animationDelay:`${i*.2}s`}}>{icon}</div>))}</div>
-          <h3 className="text-2xl font-black mb-3 relative z-10" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.comingSoon}</h3>
-          <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
-          <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
-        </div>
-        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Self-Paced','Group','Career','Premium'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===2?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===2&&<span className="ml-1.5 opacity-80">← most popular</span>}</div>))}</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {t.packages.map((pkg) => {
-            return (
-              <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
-                borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
-                boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
-              }} onMouseEnter={e => {
-                e.currentTarget.style.borderColor = s.borderHover
-                e.currentTarget.style.boxShadow = s.cardShadowHover
-              }} onMouseLeave={e => {
-                e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
-                e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
-              }}>
-                {(pkg as any).popular && (
-                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
-                    most popular
-                  </div>
-                )}
-                {(pkg as any).premium && (
-                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
-                    limited spots
-                  </div>
-                )}
-                <div className="flex items-start justify-between mb-5">
-                  <div className="flex items-center gap-3.5">
-                    <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor: s.pillBg, color: s.pillText}}>{(pkg as any).tier}</span>
-                      </div>
-                      <div className="text-[13px] font-semibold" style={{color: s.textOrangeLight}}>{pkg.tagline}</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>
-                      {pkg.tnd.m !== '--' ? `$${pkg.price[activePrice]}` : '—'}
-                      <span className="text-sm font-normal" style={{color: s.textTertiary}}>
-                        {pkg.tnd.m !== '--' ? `/mo` : ''}
-                      </span>
-                    </div>
-                    <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
-                      {pkg.tnd.m !== '--' ? `≈ ${pkg.tnd[activePrice]} TND` : 'Contact for pricing'}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
-                <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (
-                  <div key={f} className="flex items-start gap-2 text-[12px]" style={{color: s.textSecondary}}>
-                    <span className="font-bold mt-0.5 flex-shrink-0" style={{color: s.textOrange}}>✓</span>
-                    {f}
-                  </div>
-                ))}</div>
-                
-                <button 
-                  onClick={() => openModal(pkg.name)}
-                  className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
-                  style={(pkg as any).popular ? {
-                    backgroundColor: s.textOrange,
-                    color: '#FFFFFF',
-                    boxShadow: `0 4px 14px ${s.orangeGlow}`
-                  } : (pkg as any).premium ? {
-                    backgroundColor: s.pillBg,
-                    color: s.textOrangeLight,
-                    border: `1px solid ${s.textOrangeLight}25`
-                  } : {
-                    backgroundColor: s.cardBgFlat,
-                    color: s.textPrimary,
-                    border: `1px solid ${s.btnSecondaryBorder}`
-                  }}
-                >
-                  {t.enrollBtn} — {pkg.name}
-                </button>
-              </div>
-            )
-          })}
-        </div>
-        <div className="flex items-center justify-center gap-3 mt-10"><span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span><button onClick={()=>setActivePrice(p=>p==='m'?'y':'m')} className="w-12 h-6 rounded-full transition-all relative" style={{backgroundColor:activePrice==='y'?s.textOrange:s.borderColor}}><div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" style={{left:activePrice==='y'?'25px':'2px'}}/></button><span className="text-sm font-semibold" style={{color:activePrice==='y'?s.textOrange:s.textSecondary}}>{t.yearly}</span></div>
-        <p className="text-[13px] text-center mt-5" style={{color:s.textTertiary}}>{t.notSure} <a href="https://wa.me/216XXXXXXXX" target="_blank" className="font-semibold hover:underline" style={{color:s.textOrangeLight}}>{t.waLink}</a></p>
-      </section>
-
-      <section id="live" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.liveTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.liveH}</h2>
-        <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.liveSub}</p>
-        <div className="glass-card rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6" style={{boxShadow:s.cardShadow}}>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style={{background:`linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`,boxShadow:`0 4px 14px ${s.orangeGlow}`}}>🎙️</div>
+      {/* ─── COMMUNITY SECTION ──────────────────────────── */}
+      <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden" style={{boxShadow:s.cardShadow}}>
+          <div className="absolute inset-0 pointer-events-none" style={{background:`radial-gradient(ellipse at 20% 50%,${s.textOrange}07 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,${s.textOrangeLight}04 0%,transparent 55%)`}}/>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
             <div>
-              <div className="text-sm font-bold" style={{color:s.textPrimary}}>friday live session</div>
-              <div className="text-[13px] mt-0.5" style={{color:s.textSecondary}}>every week · 8:00 PM Tunisia time</div>
-              <div className="text-[13px] font-bold mt-1" style={{color:s.textOrange}}>TikTok Live & Instagram Live</div>
+              <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityBannerTag}</div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-3 leading-tight" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityBannerH}</h2>
+              <p className="text-[15px] mb-8 leading-relaxed max-w-sm" style={{color:s.textSecondary}}>{t.communityBannerSub}</p>
+            </div>
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-5" style={{color:s.textTertiary}}>{t.differenceH}</div>
+                <div className="flex flex-col gap-3.5 mb-10">
+                  {t.differenceList.map((item,i)=>(
+                    <div key={i} className="glass-card-light flex items-start gap-3.5 rounded-2xl px-4 py-3.5" style={{borderColor:s.borderColor}}>
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black mt-0.5"
+                        style={{backgroundColor:s.textOrange,color:'#FFFFFF',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>✓</span>
+                      <span className="text-[13px] leading-relaxed font-medium" style={{color:s.textSecondary}}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="#offers" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
+              </div>
             </div>
           </div>
-          <div className="flex gap-2">
+        </div>
+      </section>
+
+      {/* ─── NEXT LIVE ──────────────────────────────────── */}
+      <section id="next-live" ref={addRef(5)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
+        <div className="glass-card rounded-2xl p-8 text-center" style={{boxShadow:s.cardShadow}}>
+          <h3 className="text-2xl font-black mb-2" style={{color:s.textPrimary}}>🎙️ {t.liveH}</h3>
+          <p className="text-sm mb-6" style={{color:s.textSecondary}}>{t.liveSub}</p>
+          <div className="flex justify-center gap-2">
             {[{v:countdown.d,l:t.days},{v:countdown.h,l:t.hours},{v:countdown.m,l:t.min},{v:countdown.s,l:t.sec}].map(ct=>(
               <div key={ct.l} className="glass-card-light rounded-2xl px-3.5 py-2.5 min-w-[56px] text-center" style={{borderColor:s.countdownBorder}}>
                 <div className="text-xl font-black" style={{color:s.textOrange}}>{String(ct.v).padStart(2,'0')}</div>
@@ -1148,7 +1149,7 @@ export default function Home(){
               </div>
             ))}
           </div>
-          <div className="flex gap-2.5">
+          <div className="flex justify-center gap-3 mt-6">
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 TikTok</a>
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
@@ -1157,35 +1158,14 @@ export default function Home(){
         </div>
       </section>
 
-      <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.communityTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.communityH}</h2>
-        <p className="text-[15px] mb-8 max-w-lg" style={{color:s.textSecondary}}>{t.communitySub}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {[
-            {href:'https://www.instagram.com/ielts.tn',icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>,label:'Instagram',sub:'DM @ielts.tn',emoji:'📸',style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},
-            {href:'https://wa.me/216XXXXXXXX',icon:'💬',label:'WhatsApp',sub:'message directly',emoji:'💬',style:{background:'#25D366'}},
-            {href:'mailto:your-email@example.com',icon:'✉️',label:'Email',sub:'hello@b2please.com',emoji:'✉️',style:{background:'#6366F1'}}
-          ].map((social,i)=>(
-            <a key={i} href={social.href} target="_blank" className="glass-card flex items-center gap-4 rounded-2xl p-5 transition-all group" onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.emoji}</div>
-              <div className="flex-1">
-                <div className="text-sm font-bold" style={{color:s.textPrimary}}>{social.label}</div>
-                <div className="text-[13px] mt-0.5" style={{color:s.textTertiary}}>{social.sub}</div>
-              </div>
-              <span className="transition-transform group-hover:translate-x-1.5 duration-300" style={{color:s.textOrange}}>↗</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
+      {/* ─── FOOTER ────────────────────────────────────── */}
       <footer className="border-t px-6 py-8" style={{borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>
-            {['privacy','terms','tiktok ↗','instagram ↗'].map((link,i)=>(
-              <a key={link} href={i<2?'#':i===2?'https://www.tiktok.com/@ielts.tn':'https://www.instagram.com/ielts.tn'} target={i>=2?'_blank':undefined} className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>{link}</a>
-            ))}
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>📸 Instagram</a>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>🎵 TikTok</a>
           </div>
           <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
@@ -1193,7 +1173,7 @@ export default function Home(){
 
       <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 20px ${s.orangeGlow}`}}>💬</a>
 
-      {/* ─── ENROLL MODAL WITH REAL ICONS ──────────────────── */}
+      {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content glass-card" style={{position:'relative'}} onClick={(e) => e.stopPropagation()}>
@@ -1208,28 +1188,19 @@ export default function Home(){
             </div>
 
             <div className="flex flex-col gap-3">
-              {/* WhatsApp - Green border */}
               <button onClick={() => handleContact('whatsapp')} className="option-btn" style={{borderColor:'#25D366'}}>
-                <span className="icon" style={{color:'#25D366'}}>
-                  <WhatsAppIcon size={24} />
-                </span>
+                <span className="icon" style={{color:'#25D366'}}><WhatsAppIcon size={24} /></span>
                 Continue with WhatsApp
                 <span className="badge">Recommended</span>
               </button>
 
-              {/* Messenger - Blue border */}
               <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
-                <span className="icon" style={{color:'#0084FF'}}>
-                  <MessengerIcon size={24} />
-                </span>
+                <span className="icon" style={{color:'#0084FF'}}><MessengerIcon size={24} /></span>
                 Continue with Messenger
               </button>
 
-              {/* Instagram - Pink/Orange border */}
               <button onClick={() => handleContact('instagram')} className="option-btn" style={{borderColor:'#E1306C'}}>
-                <span className="icon" style={{color:'#E1306C'}}>
-                  <InstagramIcon size={24} />
-                </span>
+                <span className="icon" style={{color:'#E1306C'}}><InstagramIcon size={24} /></span>
                 Continue with Instagram
               </button>
             </div>
