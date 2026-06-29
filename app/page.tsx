@@ -28,10 +28,24 @@ const TikTokIcon = ({ className = '', size = 18 }: { className?: string, size?: 
   </svg>
 )
 
-// FIXED: Messenger icon with proper styling
 const MessengerIcon = ({ className = '', size = 24 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2C6.486 2 2 6.262 2 11.5c0 2.846 1.392 5.392 3.588 7.054L4.5 22l3.526-1.92c.85.35 1.768.556 2.75.62.075.006.15.01.224.01 5.514 0 10-4.262 10-9.5S17.514 2 12 2zm0 17c-.835 0-1.64-.12-2.4-.345l-1.05-.35-2.2 1.2 1.2-2.2-.35-1.05C6.123 15.14 6 14.335 6 13.5 6 9.91 8.686 7 12 7s6 2.91 6 6.5S15.314 19 12 19zm1-6.5l-1.5-1.5-3 3 2.5-1.5 1.5 1.5 3-3-2.5 1.5z"/>
+  </svg>
+)
+
+const EmailIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+)
+
+const GlobeIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
   </svg>
 )
 
@@ -60,7 +74,7 @@ const T = {
     comingSoonSub: 'Join now and be the first to book. Early members get their first session free.',
     notifyBtn: "reserve my spot — it's free",
     liveTag: 'next session', liveH: 'join the next live', liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
-    communityTag: 'reach dali', communityH: 'message directly', communitySub: 'questions about a session? not sure which tier? Dali replies personally.',
+    communityTag: 'reach dali', communityH: 'message directly', communitySub: 'questions about a session? not sure which path? Dali replies personally.',
     monthly: 'monthly', yearly: 'yearly (-20%)',
     notSure: 'not sure which path?', waLink: 'ask on whatsapp ↗',
     nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
@@ -77,21 +91,21 @@ const T = {
     ],
     packages: [
       { 
-        id:'study', 
+        id:'offline', 
         icon:'📦', 
-        name:'Study Pack', 
+        name:'Offline Pack', 
         tagline:'Learn on your own terms',
-        desc:'EN — No schedule, no pressure. Carefully designed PDF lessons paired with audio tracks you can study anywhere, anytime. Perfect for busy people who want to keep improving without committing to live sessions.',
+        desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
         price:{m:'15',y:'12'}, 
-        tnd:{m:'47',y:'38'}, 
+        tnd:{m:'59',y:'47'}, 
         features:[
-          'Downloadable PDF lessons',
+          'Interactive digital books',
           'Listening audio tracks',
-          'Vocabulary sheets per topic',
+          'Exercises & vocabulary per topic',
           'Self-paced — study when you want',
           'Fresh content every month'
         ], 
-        cta:'get study pack', 
+        cta:'get offline pack', 
         tier:'Self-Paced' 
       },
       { 
@@ -99,9 +113,9 @@ const T = {
         icon:'💬', 
         name:'Speaking Groups', 
         tagline:'Speak more, stress less',
-        desc:'EN — A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
+        desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
         price:{m:'19',y:'15'}, 
-        tnd:{m:'59',y:'47'}, 
+        tnd:{m:'179',y:'143'}, 
         features:[
           '4 live group sessions/month',
           'Max 8 people — everyone gets to talk',
@@ -118,9 +132,9 @@ const T = {
         icon:'✈️', 
         name:'Cabin Crew', 
         tagline:'English built for the sky',
-        desc:'EN — Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
+        desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
         price:{m:'24',y:'19'}, 
-        tnd:{m:'75',y:'60'}, 
+        tnd:{m:'249',y:'199'}, 
         features:[
           'Interview English & role-play practice',
           'Aviation vocabulary & safety phrases',
@@ -134,11 +148,11 @@ const T = {
       { 
         id:'private', 
         icon:'🎓', 
-        name:'Private', 
+        name:'Private Sessions', 
         tagline:'You and Dali, one goal',
-        desc:'EN — No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
-        price:{m:'59',y:'47'}, 
-        tnd:{m:'185',y:'148'}, 
+        desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
+        price:{m:'--',y:'--'}, 
+        tnd:{m:'--',y:'--'}, 
         features:[
           '4 private sessions/month with Dali',
           'Custom plan built around your goals',
@@ -146,7 +160,7 @@ const T = {
           'Priority booking — always first',
           'Certificate on completion'
         ], 
-        cta:'book private sessions', 
+        cta:'contact for pricing', 
         premium:true, 
         tier:'Premium' 
       },
@@ -180,7 +194,7 @@ const T = {
     liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
     communityTag: "contacter dali", 
     communityH: "écrire directement", 
-    communitySub: "questions sur une session ? pas sûr du tier ? Dali répond personnellement.",
+    communitySub: "questions sur une session ? pas sûr de ta voie ? Dali répond personnellement.",
     monthly: "mensuel", 
     yearly: "annuel (-20%)",
     notSure: "pas sûr de ta voie ?", 
@@ -203,21 +217,21 @@ const T = {
     ],
     packages: [
       { 
-        id:'study', 
+        id:'offline', 
         icon:'📦', 
-        name:'Pack Étude', 
+        name:'Pack Hors-Ligne', 
         tagline:'Apprends à ton rythme',
-        desc:'FR — Pas d\'horaire, pas de pression. Des leçons PDF soignées accompagnées de pistes audio, à étudier où vous voulez et quand vous voulez. Parfait pour les personnes occupées qui veulent progresser sans s\'engager sur des sessions live.',
+        desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
         price:{m:'15',y:'12'}, 
-        tnd:{m:'47',y:'38'}, 
+        tnd:{m:'59',y:'47'}, 
         features:[
-          'Leçons PDF téléchargeables',
+          'Livres numériques interactifs',
           'Pistes audio d\'écoute',
-          'Fiches vocabulaire par thème',
-          'Rythme libre — étudiez quand vous voulez',
+          'Exercices & vocabulaire par thème',
+          'Rythme libre — étudie quand tu veux',
           'Nouveau contenu chaque mois'
         ], 
-        cta:'obtenir pack étude', 
+        cta:'obtenir le pack', 
         tier:'Auto-apprentissage' 
       },
       { 
@@ -225,9 +239,9 @@ const T = {
         icon:'💬', 
         name:'Groupes de Conversation', 
         tagline:'Parle plus, stresse moins',
-        desc:'FR — Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Vous allez arrêter de bloquer et commencer à vraiment parler.',
+        desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
         price:{m:'19',y:'15'}, 
-        tnd:{m:'59',y:'47'}, 
+        tnd:{m:'179',y:'143'}, 
         features:[
           '4 sessions live en groupe/mois',
           'Max 8 personnes — tout le monde parle',
@@ -244,9 +258,9 @@ const T = {
         icon:'✈️', 
         name:'Personnel Navigant', 
         tagline:'L\'anglais pour le ciel',
-        desc:'FR — Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Vous vous entraînerez sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
+        desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
         price:{m:'24',y:'19'}, 
-        tnd:{m:'75',y:'60'}, 
+        tnd:{m:'249',y:'199'}, 
         features:[
           'Anglais d\'entretien & jeux de rôle',
           'Vocabulaire aviation & phrases de sécurité',
@@ -260,19 +274,19 @@ const T = {
       { 
         id:'private', 
         icon:'🎓', 
-        name:'Privé', 
+        name:'Sessions Privées', 
         tagline:'Toi et Dali, un seul objectif',
-        desc:'FR — Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de vous — votre niveau, vos objectifs, votre emploi du temps.',
-        price:{m:'59',y:'47'}, 
-        tnd:{m:'185',y:'148'}, 
+        desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
+        price:{m:'--',y:'--'}, 
+        tnd:{m:'--',y:'--'}, 
         features:[
           '4 sessions privées/mois avec Dali',
-          'Plan personnalisé selon vos objectifs',
+          'Plan personnalisé selon tes objectifs',
           'Support WhatsApp illimité',
           'Réservation prioritaire — toujours en premier',
           'Certificat à la fin du parcours'
         ], 
-        cta:'réserver sessions privées', 
+        cta:'contacter pour tarif', 
         premium:true, 
         tier:'Premium' 
       },
@@ -306,7 +320,7 @@ const T = {
     liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
     communityTag: 'تواصل مع دالي', 
     communityH: 'راسل مباشرة', 
-    communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار المستوى؟ الأستاذ دالي يردّ شخصيًا.',
+    communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار الطريق؟ الأستاذ دالي يردّ شخصيًا.',
     monthly: 'شهري', 
     yearly: 'سنوي (-20%)',
     notSure: 'ما عرفتش تختار الطريق؟', 
@@ -329,17 +343,17 @@ const T = {
     ],
     packages: [
       { 
-        id:'study', 
+        id:'offline', 
         icon:'📦', 
-        name:'حزمة الدراسة', 
+        name:'الحزمة دون اتصال', 
         tagline:'تعلّم على وتيرتك',
-        desc:'AR — لا جداول، لا ضغط. دروس PDF مصمّمة باحتراف مرفوقة بتسجيلات صوتية تدرسها أينما كنت ومتى شئت. مثالي لمن لديه انشغالات ويريد الاستمرار في التعلّم دون الالتزام بجلسات مباشرة.',
+        desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
         price:{m:'15',y:'12'}, 
-        tnd:{m:'47',y:'38'}, 
+        tnd:{m:'59',y:'47'}, 
         features:[
-          'دروس PDF قابلة للتحميل',
+          'كتب رقمية تفاعلية',
           'تسجيلات صوتية للاستماع',
-          'قوائم مفردات حسب كل موضوع',
+          'تمارين ومفردات حسب كل موضوع',
           'وتيرة حرة — ادرس متى تريد',
           'محتوى جديد كل شهر'
         ], 
@@ -351,9 +365,9 @@ const T = {
         icon:'💬', 
         name:'مجموعات المحادثة', 
         tagline:'تكلّم أكثر، توتر أقل',
-        desc:'AR — مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
+        desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
         price:{m:'19',y:'15'}, 
-        tnd:{m:'59',y:'47'}, 
+        tnd:{m:'179',y:'143'}, 
         features:[
           '4 جلسات جماعية مباشرة / شهر',
           '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
@@ -370,9 +384,9 @@ const T = {
         icon:'✈️', 
         name:'طاقم الطيران', 
         tagline:'الإنجليزية للسماء',
-        desc:'AR — مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
+        desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
         price:{m:'24',y:'19'}, 
-        tnd:{m:'75',y:'60'}, 
+        tnd:{m:'249',y:'199'}, 
         features:[
           'إنجليزية المقابلات وتمارين لعب الأدوار',
           'مفردات الطيران وعبارات السلامة',
@@ -386,11 +400,11 @@ const T = {
       { 
         id:'private', 
         icon:'🎓', 
-        name:'خاص', 
+        name:'جلسات خاصة', 
         tagline:'أنت ودالي، هدف واحد',
-        desc:'AR — لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
-        price:{m:'59',y:'47'}, 
-        tnd:{m:'185',y:'148'}, 
+        desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
+        price:{m:'--',y:'--'}, 
+        tnd:{m:'--',y:'--'}, 
         features:[
           '4 جلسات خاصة / شهر مع دالي',
           'خطة مخصصة حول أهدافك',
@@ -398,7 +412,7 @@ const T = {
           'أولوية في الحجز — دائماً في المقدمة',
           'شهادة عند إتمام البرنامج'
         ], 
-        cta:'احجز جلسات خاصة', 
+        cta:'تواصل للتسعير', 
         premium:true, 
         tier:'مميز' 
       },
@@ -814,7 +828,6 @@ export default function Home(){
             </div>
             <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
             
-            {/* Social Icons - Theme compatible */}
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <InstagramIcon size={18} />
             </a>
@@ -1068,8 +1081,15 @@ export default function Home(){
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>${pkg.price[activePrice]}<span className="text-sm font-normal" style={{color: s.textTertiary}}>/mo</span></div>
-                    <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>≈ {pkg.tnd[activePrice]} TND</div>
+                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>
+                      {pkg.tnd.m !== '--' ? `$${pkg.price[activePrice]}` : '—'}
+                      <span className="text-sm font-normal" style={{color: s.textTertiary}}>
+                        {pkg.tnd.m !== '--' ? `/mo` : ''}
+                      </span>
+                    </div>
+                    <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
+                      {pkg.tnd.m !== '--' ? `≈ ${pkg.tnd[activePrice]} TND` : 'Contact for pricing'}
+                    </div>
                   </div>
                 </div>
                 <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
@@ -1145,7 +1165,7 @@ export default function Home(){
           {[
             {href:'https://www.instagram.com/ielts.tn',icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>,label:'Instagram',sub:'DM @ielts.tn',emoji:'📸',style:{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}},
             {href:'https://wa.me/216XXXXXXXX',icon:'💬',label:'WhatsApp',sub:'message directly',emoji:'💬',style:{background:'#25D366'}},
-            {href:'https://www.tiktok.com/@ielts.tn',icon:'🎵',label:'TikTok',sub:'@ielts.tn · 500K+',emoji:'🎵',style:{background:'#000000'}}
+            {href:'mailto:your-email@example.com',icon:'✉️',label:'Email',sub:'hello@b2please.com',emoji:'✉️',style:{background:'#6366F1'}}
           ].map((social,i)=>(
             <a key={i} href={social.href} target="_blank" className="glass-card flex items-center gap-4 rounded-2xl p-5 transition-all group" onMouseEnter={e=>{e.currentTarget.style.borderColor=s.borderHover;e.currentTarget.style.boxShadow=s.cardShadow}} onMouseLeave={e=>{e.currentTarget.style.borderColor=s.borderColor;e.currentTarget.style.boxShadow='none'}}>
               <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={social.style}>{social.emoji}</div>
@@ -1183,7 +1203,7 @@ export default function Home(){
               <span className="text-4xl block mb-2">🎓</span>
               <h3 className="text-xl font-bold" style={{color:s.textPrimary}}>Ready to join?</h3>
               <p className="text-sm" style={{color:s.textSecondary}}>
-                {selectedPlan !== 'General' ? `For the ${selectedPlan} plan` : 'Choose how you\'d like to continue'}
+                {selectedPlan !== 'General' ? `For the ${selectedPlan}` : 'Choose how you\'d like to continue'}
               </p>
             </div>
 
@@ -1197,7 +1217,7 @@ export default function Home(){
                 <span className="badge">Recommended</span>
               </button>
 
-              {/* Messenger - Blue border (FIXED ICON) */}
+              {/* Messenger - Blue border */}
               <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
                 <span className="icon" style={{color:'#0084FF'}}>
                   <MessengerIcon size={24} />
