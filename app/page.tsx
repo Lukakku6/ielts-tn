@@ -88,8 +88,8 @@ const T = {
         name:'Offline Pack', 
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        price: { m: '15', y: '12' },
+        tnd: { m: '59', y: '47' },
         features:[
           'Interactive digital books',
           'Listening audio tracks',
@@ -106,8 +106,8 @@ const T = {
         name:'Speaking Groups', 
         tagline:'Speak more, stress less',
         desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        price: { m: '19', y: '15' },
+        tnd: { m: '179', y: '143' },
         features:[
           '4 live group sessions/month',
           'Max 8 people — everyone gets to talk',
@@ -125,8 +125,8 @@ const T = {
         name:'Cabin Crew', 
         tagline:'English built for the sky',
         desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        price: { m: '24', y: '19' },
+        tnd: { m: '249', y: '199' },
         features:[
           'Interview English & role-play practice',
           'Aviation vocabulary & safety phrases',
@@ -143,8 +143,8 @@ const T = {
         name:'Private Sessions', 
         tagline:'You and Dali, one goal',
         desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
-        priceTnd: 'Contact',
-        yearlyTnd: 'Contact',
+        price: { m: '--', y: '--' },
+        tnd: { m: '--', y: '--' },
         features:[
           '4 private sessions/month with Dali',
           'Custom plan built around your goals',
@@ -211,8 +211,8 @@ const T = {
         name:'Pack Hors-Ligne', 
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        price: { m: '15', y: '12' },
+        tnd: { m: '59', y: '47' },
         features:[
           'Livres numériques interactifs',
           'Pistes audio d\'écoute',
@@ -229,8 +229,8 @@ const T = {
         name:'Groupes de Conversation', 
         tagline:'Parle plus, stresse moins',
         desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        price: { m: '19', y: '15' },
+        tnd: { m: '179', y: '143' },
         features:[
           '4 sessions live en groupe/mois',
           'Max 8 personnes — tout le monde parle',
@@ -248,8 +248,8 @@ const T = {
         name:'Personnel Navigant', 
         tagline:'L\'anglais pour le ciel',
         desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        price: { m: '24', y: '19' },
+        tnd: { m: '249', y: '199' },
         features:[
           'Anglais d\'entretien & jeux de rôle',
           'Vocabulaire aviation & phrases de sécurité',
@@ -266,8 +266,8 @@ const T = {
         name:'Sessions Privées', 
         tagline:'Toi et Dali, un seul objectif',
         desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
-        priceTnd: 'Contact',
-        yearlyTnd: 'Contact',
+        price: { m: '--', y: '--' },
+        tnd: { m: '--', y: '--' },
         features:[
           '4 sessions privées/mois avec Dali',
           'Plan personnalisé selon tes objectifs',
@@ -334,8 +334,8 @@ const T = {
         name:'الحزمة دون اتصال', 
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
-        priceTnd: '59 TND',
-        yearlyTnd: '47 TND',
+        price: { m: '15', y: '12' },
+        tnd: { m: '59', y: '47' },
         features:[
           'كتب رقمية تفاعلية',
           'تسجيلات صوتية للاستماع',
@@ -352,8 +352,8 @@ const T = {
         name:'مجموعات المحادثة', 
         tagline:'تكلّم أكثر، توتر أقل',
         desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
-        priceTnd: '179 TND',
-        yearlyTnd: '143 TND',
+        price: { m: '19', y: '15' },
+        tnd: { m: '179', y: '143' },
         features:[
           '4 جلسات جماعية مباشرة / شهر',
           '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
@@ -371,8 +371,8 @@ const T = {
         name:'طاقم الطيران', 
         tagline:'الإنجليزية للسماء',
         desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
-        priceTnd: '249 TND',
-        yearlyTnd: '199 TND',
+        price: { m: '24', y: '19' },
+        tnd: { m: '249', y: '199' },
         features:[
           'إنجليزية المقابلات وتمارين لعب الأدوار',
           'مفردات الطيران وعبارات السلامة',
@@ -389,8 +389,8 @@ const T = {
         name:'جلسات خاصة', 
         tagline:'أنت ودالي، هدف واحد',
         desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
-        priceTnd: 'تواصل',
-        yearlyTnd: 'تواصل',
+        price: { m: '--', y: '--' },
+        tnd: { m: '--', y: '--' },
         features:[
           '4 جلسات خاصة / شهر مع دالي',
           'خطة مخصصة حول أهدافك',
@@ -551,6 +551,7 @@ export default function Home(){
   const[theme,setTheme]=useState<Theme>('dark')
   const[showModal,setShowModal]=useState(false)
   const[selectedPlan,setSelectedPlan]=useState<string>('')
+  const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
 
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
 
@@ -578,7 +579,6 @@ export default function Home(){
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
   useEffect(()=>{for(let i=0;i<8;i++)setTimeout(()=>setVisibleP(p=>[...p,i]),i*280);chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800))},[])
 
-  const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
   const[menuOpen,setMenuOpen]=useState(false)
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
@@ -912,86 +912,139 @@ export default function Home(){
       </section>
 
       {/* ─── OFFERS SECTION ──────────────────────────────── */}
-      <section id="offers" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20">
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
-        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
-        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
-        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Self-Paced','Group','Career','Premium'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===2?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===2&&<span className="ml-1.5 opacity-80">← most popular</span>}</div>))}</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {t.packages.map((pkg) => {
-            return (
-              <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
-                borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
-                boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
-              }} onMouseEnter={e => {
-                e.currentTarget.style.borderColor = s.borderHover
-                e.currentTarget.style.boxShadow = s.cardShadowHover
-              }} onMouseLeave={e => {
-                e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
-                e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
-              }}>
-                {(pkg as any).popular && (
-                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
-                    most popular
-                  </div>
-                )}
-                {(pkg as any).premium && (
-                  <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
-                    limited spots
-                  </div>
-                )}
-                <div className="flex items-start justify-between mb-5">
-                  <div className="flex items-center gap-3.5">
-                    <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{backgroundColor: s.pillBg, color: s.pillText}}>{(pkg as any).tier}</span>
+      <section id="offers" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20 relative overflow-hidden">
+        {/* Rain words container - moved to offers section */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          {FLOATING_WORDS.map((w, i) => (
+            <div 
+              key={i} 
+              className="rain-word absolute text-[11px] font-medium px-3.5 py-2 rounded-full whitespace-nowrap flex items-center gap-2"
+              style={{
+                left: `${5 + (i * 10)}%`,
+                '--rot-start': w.rotStart,
+                '--rot-end': w.rotEnd,
+                '--dur': w.dur,
+                '--delay': w.delay,
+                '--wobble-1': w.wobble,
+                '--wobble-2': `-${w.wobble}`,
+                '--wobble-3': w.wobble,
+                background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                border: `1px solid ${s.borderColor}`,
+                color: s.textSecondary,
+                top: '-40px',
+                opacity: 0,
+                transform: `rotate(${w.rotStart})`
+              } as React.CSSProperties}
+            >
+              <span className="text-base">{w.icon}</span>
+              {w.text}
+            </div>
+          ))}
+        </div>
+        
+        <div className="relative z-10">
+          <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
+          <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
+          <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
+          
+          {/* Yearly/Monthly Switch */}
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span>
+            <button 
+              onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} 
+              className="w-12 h-6 rounded-full transition-all relative" 
+              style={{backgroundColor: activePrice === 'y' ? s.textOrange : s.borderColor}}
+            >
+              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" 
+                style={{left: activePrice === 'y' ? '25px' : '2px'}} 
+              />
+            </button>
+            <span className="text-sm font-semibold" style={{color: activePrice === 'y' ? s.textOrange : s.textSecondary}}>{t.yearly}</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {t.packages.map((pkg) => {
+              const isPrivate = pkg.price.m === '--'
+              return (
+                <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
+                  borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
+                  boxShadow: (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow,
+                }} onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = s.borderHover
+                  e.currentTarget.style.boxShadow = s.cardShadowHover
+                }} onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor
+                  e.currentTarget.style.boxShadow = (pkg as any).popular ? `0 4px 24px ${s.orangeGlow}` : s.cardShadow
+                }}>
+                  {(pkg as any).popular && (
+                    <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrange, boxShadow: `0 2px 10px ${s.orangeGlow}`}}>
+                      most popular
+                    </div>
+                  )}
+                  {(pkg as any).premium && (
+                    <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
+                      limited spots
+                    </div>
+                  )}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="flex items-center gap-3.5">
+                      <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
+                        </div>
+                        <div className="text-[13px] font-semibold" style={{color: s.textOrangeLight}}>{pkg.tagline}</div>
                       </div>
-                      <div className="text-[13px] font-semibold" style={{color: s.textOrangeLight}}>{pkg.tagline}</div>
+                    </div>
+                    <div className="text-right">
+                      {!isPrivate ? (
+                        <>
+                          <div className="text-2xl font-black" style={{color: s.textPrimary}}>
+                            ${pkg.price[activePrice]}
+                            <span className="text-sm font-normal" style={{color: s.textTertiary}}>/mo</span>
+                          </div>
+                          <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
+                            ≈ {pkg.tnd[activePrice]} TND
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-2xl font-black" style={{color: s.textPrimary}}>—</div>
+                      )}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-black" style={{color: s.textPrimary}}>
-                      {pkg.priceTnd !== 'Contact' ? pkg.priceTnd : '—'}
+                  <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
+                  <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (
+                    <div key={f} className="flex items-start gap-2 text-[12px]" style={{color: s.textSecondary}}>
+                      <span className="font-bold mt-0.5 flex-shrink-0" style={{color: s.textOrange}}>✓</span>
+                      {f}
                     </div>
-                    {pkg.priceTnd !== 'Contact' && (
-                      <div className="text-[10px] font-medium mt-0.5" style={{color: s.textTertiary}}>
-                        {t.yearly}: {pkg.yearlyTnd}
-                      </div>
-                    )}
-                  </div>
+                  ))}</div>
+                  
+                  <button 
+                    onClick={() => openModal(pkg.name)}
+                    className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
+                    style={(pkg as any).popular ? {
+                      backgroundColor: s.textOrange,
+                      color: '#FFFFFF',
+                      boxShadow: `0 4px 14px ${s.orangeGlow}`
+                    } : (pkg as any).premium ? {
+                      backgroundColor: s.pillBg,
+                      color: s.textOrangeLight,
+                      border: `1px solid ${s.textOrangeLight}25`
+                    } : {
+                      backgroundColor: s.cardBgFlat,
+                      color: s.textPrimary,
+                      border: `1px solid ${s.btnSecondaryBorder}`
+                    }}
+                  >
+                    {isPrivate ? pkg.cta : `${t.enrollBtn} — ${pkg.name}`}
+                  </button>
                 </div>
-                <p className="text-[13px] leading-relaxed mb-5" style={{color: s.textSecondary}}>{pkg.desc}</p>
-                <div className="grid grid-cols-2 gap-2 mb-6">{pkg.features.map(f => (
-                  <div key={f} className="flex items-start gap-2 text-[12px]" style={{color: s.textSecondary}}>
-                    <span className="font-bold mt-0.5 flex-shrink-0" style={{color: s.textOrange}}>✓</span>
-                    {f}
-                  </div>
-                ))}</div>
-                
-                <button 
-                  onClick={() => openModal(pkg.name)}
-                  className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
-                  style={(pkg as any).popular ? {
-                    backgroundColor: s.textOrange,
-                    color: '#FFFFFF',
-                    boxShadow: `0 4px 14px ${s.orangeGlow}`
-                  } : (pkg as any).premium ? {
-                    backgroundColor: s.pillBg,
-                    color: s.textOrangeLight,
-                    border: `1px solid ${s.textOrangeLight}25`
-                  } : {
-                    backgroundColor: s.cardBgFlat,
-                    color: s.textPrimary,
-                    border: `1px solid ${s.btnSecondaryBorder}`
-                  }}
-                >
-                  {t.enrollBtn} — {pkg.name}
-                </button>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
       </section>
 
@@ -1044,64 +1097,31 @@ export default function Home(){
       </section>
 
       {/* ─── TOPICS SECTION ──────────────────────────────── */}
-      <section id="topics" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16 relative overflow-hidden" style={{minHeight:'600px'}}>
-        {/* Rain words container */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          {FLOATING_WORDS.map((w, i) => (
+      <section id="topics" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {TOPICS.map(tp => (
             <div 
-              key={i} 
-              className="rain-word absolute text-[11px] font-medium px-3.5 py-2 rounded-full whitespace-nowrap flex items-center gap-2"
-              style={{
-                left: `${5 + (i * 10)}%`,
-                '--rot-start': w.rotStart,
-                '--rot-end': w.rotEnd,
-                '--dur': w.dur,
-                '--delay': w.delay,
-                '--wobble-1': w.wobble,
-                '--wobble-2': `-${w.wobble}`,
-                '--wobble-3': w.wobble,
-                background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-                border: `1px solid ${s.borderColor}`,
-                color: s.textSecondary,
-                top: '-40px',
-                opacity: 0,
-                transform: `rotate(${w.rotStart})`
-              } as React.CSSProperties}
+              key={tp.en} 
+              className="glass-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer transition-all duration-300"
+              style={{ opacity: 0.85 }}
+              onMouseEnter={e => {
+                e.currentTarget.style.opacity = '0.95'
+                e.currentTarget.style.borderColor = s.borderHover
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.opacity = '0.85'
+                e.currentTarget.style.borderColor = s.borderColor
+              }}
             >
-              <span className="text-base">{w.icon}</span>
-              {w.text}
+              <span className="text-4xl">{tp.icon}</span>
+              <span className="text-xs font-semibold" style={{ color: s.textPrimary }}>
+                {lang === 'ar' ? tp.ar : lang === 'fr' ? tp.fr : tp.en}
+              </span>
             </div>
           ))}
-        </div>
-        
-        <div className="relative z-10">
-          <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
-          <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.topicsH}</h2>
-          <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.topicsSub}</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {TOPICS.map(tp => (
-              <div 
-                key={tp.en} 
-                className="glass-card rounded-2xl px-5 py-6 flex flex-col items-start gap-3 cursor-pointer transition-all duration-300"
-                style={{ opacity: 0.85 }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.opacity = '0.95'
-                  e.currentTarget.style.borderColor = s.borderHover
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.opacity = '0.85'
-                  e.currentTarget.style.borderColor = s.borderColor
-                }}
-              >
-                <span className="text-4xl">{tp.icon}</span>
-                <span className="text-xs font-semibold" style={{ color: s.textPrimary }}>
-                  {lang === 'ar' ? tp.ar : lang === 'fr' ? tp.fr : tp.en}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
