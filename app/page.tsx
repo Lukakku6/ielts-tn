@@ -614,6 +614,35 @@ export default function Home(){
     closeModal()
   }
 
+  // Glass button style helper
+  const glassBtnStyle = (popular?: boolean, premium?: boolean) => {
+    if (popular) {
+      return {
+        background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,
+        color: '#FFFFFF',
+        boxShadow: `0 4px 14px ${s.orangeGlow}`,
+        border: 'none',
+        backdropFilter: 'blur(4px)',
+      }
+    }
+    if (premium) {
+      return {
+        background: isLight ? 'rgba(255, 255, 255, 0.6)' : 'rgba(30, 30, 32, 0.6)',
+        color: s.textOrangeLight,
+        border: `1px solid ${s.textOrangeLight}25`,
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+      }
+    }
+    return {
+      background: isLight ? 'rgba(255, 255, 255, 0.5)' : 'rgba(20, 20, 22, 0.5)',
+      color: s.textPrimary,
+      border: `1px solid ${s.btnSecondaryBorder}`,
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+    }
+  }
+
   return(
     <main className="min-h-screen transition-colors duration-500" style={{backgroundColor:s.mainBg,fontFamily:s.fontFamily}} dir={isAr?'rtl':'ltr'}>
       <style>{`
@@ -717,6 +746,19 @@ export default function Home(){
           border: 1px solid ${s.borderColor};
         }
 
+        /* Glass button styles */
+        .glass-btn {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          transition: all 0.25s cubic-bezier(.16,1,.3,1);
+        }
+        .glass-btn:hover {
+          transform: scale(1.02);
+        }
+        .glass-btn:active {
+          transform: scale(0.97);
+        }
+
         /* Modal styles */
         .modal-overlay {
           position: fixed;
@@ -812,25 +854,25 @@ export default function Home(){
                 <button key={l} onClick={()=>setLang(l)} className="px-2.5 py-1 rounded-[6px] text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{color:s.textTertiary}}>{l.toUpperCase()}</button>
               ))}
             </div>
-            <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
+            <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="glass-btn px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
             
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <InstagramIcon size={18} />
             </a>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <WhatsAppIcon size={18} />
             </a>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <TikTokIcon size={18} />
             </a>
             
             <div className="w-px h-6" style={{backgroundColor:s.borderColor}}></div>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>
               {t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}
             </a>
           </div>
-          <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
+          <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium glass-btn" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
         {menuOpen&&(
           <div className="md:hidden px-6 py-5 flex flex-col gap-3 items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}>
@@ -839,21 +881,21 @@ export default function Home(){
                 <button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>
               ))}
             </div>
-            <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
+            <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
             
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <WhatsAppIcon size={18} /> WhatsApp
             </a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <InstagramIcon size={18} /> Instagram
             </a>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <TikTokIcon size={18} /> TikTok
             </a>
             
             <div className="w-full border-t" style={{borderColor:s.borderColor}}></div>
             {['offers','how','live','topics','community'].map(item=>(
-              <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full text-center" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
+              <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full text-center" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
             ))}
           </div>
         )}
@@ -870,7 +912,7 @@ export default function Home(){
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
-              <a href="#offers" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
+              <a href="#offers" className="glass-btn inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
             </div>
             <div className="mt-8 flex items-center gap-3 flex-wrap">
               {[{n:'500K+',l:'TikTok'},{n:'12K+',l:'students'},{n:'4.9★',l:'rating'},{n:'live',l:'sessions'}].map(stat=>(
@@ -899,12 +941,12 @@ export default function Home(){
               </div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>
                 {[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(
-                  <button key={c.l} className="flex flex-col items-center gap-0.5 group">
+                  <button key={c.l} className="glass-btn flex flex-col items-center gap-0.5 group">
                     <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:s.borderColor}}>{c.icon}</div>
                     <span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span>
                   </button>
                 ))}
-                <button className="ml-auto px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button>
+                <button className="ml-auto glass-btn px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button>
               </div>
             </div>
           </div>
@@ -954,7 +996,7 @@ export default function Home(){
             <span className="text-sm" style={{color:s.textSecondary}}>{t.monthly}</span>
             <button 
               onClick={() => setActivePrice(p => p === 'm' ? 'y' : 'm')} 
-              className="w-12 h-6 rounded-full transition-all relative" 
+              className="w-12 h-6 rounded-full transition-all relative glass-btn" 
               style={{backgroundColor: activePrice === 'y' ? s.textOrange : s.borderColor}}
             >
               <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all shadow-sm" 
@@ -1024,20 +1066,8 @@ export default function Home(){
                   
                   <button 
                     onClick={() => openModal(pkg.name)}
-                    className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
-                    style={(pkg as any).popular ? {
-                      backgroundColor: s.textOrange,
-                      color: '#FFFFFF',
-                      boxShadow: `0 4px 14px ${s.orangeGlow}`
-                    } : (pkg as any).premium ? {
-                      backgroundColor: s.pillBg,
-                      color: s.textOrangeLight,
-                      border: `1px solid ${s.textOrangeLight}25`
-                    } : {
-                      backgroundColor: s.cardBgFlat,
-                      color: s.textPrimary,
-                      border: `1px solid ${s.btnSecondaryBorder}`
-                    }}
+                    className="glass-btn block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
+                    style={glassBtnStyle((pkg as any).popular, (pkg as any).premium)}
                   >
                     {isPrivate ? pkg.cta : `${t.enrollBtn} — ${pkg.name}`}
                   </button>
@@ -1088,8 +1118,8 @@ export default function Home(){
             ))}
           </div>
           <div className="flex gap-2.5">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 TikTok</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
             </a>
           </div>
@@ -1149,7 +1179,7 @@ export default function Home(){
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                <a href="#offers" className="inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
+                <a href="#offers" className="glass-btn inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[14px] font-semibold" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
               </div>
             </div>
           </div>
@@ -1170,8 +1200,8 @@ export default function Home(){
             ))}
           </div>
           <div className="flex justify-center gap-3 mt-6">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-card flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary}}>🎵 TikTok</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
+            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
+            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
             </a>
           </div>
@@ -1191,7 +1221,7 @@ export default function Home(){
         </div>
       </footer>
 
-      <a href="https://wa.me/216XXXXXXXX" target="_blank" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 20px ${s.orangeGlow}`}}>💬</a>
+      <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
 
       {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
