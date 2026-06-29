@@ -28,7 +28,8 @@ const TikTokIcon = ({ className = '', size = 18 }: { className?: string, size?: 
   </svg>
 )
 
-const MessengerIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
+// FIXED: Messenger icon with proper styling
+const MessengerIcon = ({ className = '', size = 24 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2C6.486 2 2 6.262 2 11.5c0 2.846 1.392 5.392 3.588 7.054L4.5 22l3.526-1.92c.85.35 1.768.556 2.75.62.075.006.15.01.224.01 5.514 0 10-4.262 10-9.5S17.514 2 12 2zm0 17c-.835 0-1.64-.12-2.4-.345l-1.05-.35-2.2 1.2 1.2-2.2-.35-1.05C6.123 15.14 6 14.335 6 13.5 6 9.91 8.686 7 12 7s6 2.91 6 6.5S15.314 19 12 19zm1-6.5l-1.5-1.5-3 3 2.5-1.5 1.5 1.5 3-3-2.5 1.5z"/>
   </svg>
@@ -52,13 +53,16 @@ const T = {
       { n:'02', icon:'🎙️', t:'join & speak', d:"Join the live session. Dali leads the conversation in English, you participate, ask questions, make mistakes — that's the point." },
       { n:'03', icon:'🚀', t:'track your level', d:'See your vocabulary grow, get personalised feedback after each class, and watch your proficiency climb week by week.' },
     ],
-    classesTag: 'live sessions', classesH: 'pick your tier', classesSub: 'structured progression designed around what you actually need',
-    comingSoon: 'First sessions launching soon', comingSoonSub: 'Join now and be the first to book. Early members get their first session free.',
+    classesTag: 'our offerings', 
+    classesH: 'choose your path',
+    classesSub: 'flexible ways to learn English — pick what fits your life',
+    comingSoon: 'First sessions launching soon', 
+    comingSoonSub: 'Join now and be the first to book. Early members get their first session free.',
     notifyBtn: "reserve my spot — it's free",
     liveTag: 'next session', liveH: 'join the next live', liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
     communityTag: 'reach dali', communityH: 'message directly', communitySub: 'questions about a session? not sure which tier? Dali replies personally.',
     monthly: 'monthly', yearly: 'yearly (-20%)',
-    notSure: 'not sure which tier?', waLink: 'ask on whatsapp ↗',
+    notSure: 'not sure which path?', waLink: 'ask on whatsapp ↗',
     nextLive: 'next live', days: 'd', hours: 'h', min: 'm', sec: 's',
     badgeLabel: 'your path',
     communityBannerTag: 'the community',
@@ -72,32 +76,121 @@ const T = {
       'Learn the English people actually use',
     ],
     packages: [
-      { id:'ielts', icon:'🏆', name:'IELTS Prep', tagline:'Band 7+ target', desc:'Intensive live sessions focused on all four IELTS skills — speaking, writing, reading, listening — taught through real exam topics.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 live sessions/month','Speaking mock tests','Writing task corrections','Exam vocabulary deep-dives','Personal score tracking'], cta:'start IELTS prep', popular:true, tier:'Pro' },
-      { id:'comms', icon:'💬', name:'Communication', tagline:'Sound natural', desc:'Weekly live discussions on trending topics — current events, culture, tech, finance. Build confidence and fluency through real conversation.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 live discussions/month','Topic vocabulary sheets','Pronunciation coaching','Weekly news breakdown','Replay access'], cta:'join conversations', tier:'Starter' },
-      { id:'business', icon:'💼', name:'Business English', tagline:'Career accelerator', desc:'Live sessions built around real workplace situations — presentations, negotiations, emails, interviews. For professionals who need English at work.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 live sessions/month','CV & interview practice','Presentation coaching','Business vocabulary','LinkedIn profile review'], cta:'grow professionally', tier:'Core' },
-      { id:'1on1', icon:'🎓', name:'1-on-1 with Dali', tagline:'Personal coaching', desc:'Private sessions with Dali. Custom curriculum, direct feedback, and the fastest path to B2 and beyond. Limited spots available each month.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 private sessions/month','Custom study plan','Unlimited WhatsApp access','Priority booking','Certificate on completion'], cta:'book private sessions', premium:true, tier:'Elite' },
+      { 
+        id:'study', 
+        icon:'📦', 
+        name:'Study Pack', 
+        tagline:'Learn on your own terms',
+        desc:'EN — No schedule, no pressure. Carefully designed PDF lessons paired with audio tracks you can study anywhere, anytime. Perfect for busy people who want to keep improving without committing to live sessions.',
+        price:{m:'15',y:'12'}, 
+        tnd:{m:'47',y:'38'}, 
+        features:[
+          'Downloadable PDF lessons',
+          'Listening audio tracks',
+          'Vocabulary sheets per topic',
+          'Self-paced — study when you want',
+          'Fresh content every month'
+        ], 
+        cta:'get study pack', 
+        tier:'Self-Paced' 
+      },
+      { 
+        id:'speaking', 
+        icon:'💬', 
+        name:'Speaking Groups', 
+        tagline:'Speak more, stress less',
+        desc:'EN — A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
+        price:{m:'19',y:'15'}, 
+        tnd:{m:'59',y:'47'}, 
+        features:[
+          '4 live group sessions/month',
+          'Max 8 people — everyone gets to talk',
+          'Weekly topics: culture, news, daily life',
+          'Pronunciation coaching included',
+          'Session replays available'
+        ], 
+        cta:'join speaking group', 
+        tier:'Group',
+        popular:true 
+      },
+      { 
+        id:'cabin', 
+        icon:'✈️', 
+        name:'Cabin Crew', 
+        tagline:'English built for the sky',
+        desc:'EN — Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
+        price:{m:'24',y:'19'}, 
+        tnd:{m:'75',y:'60'}, 
+        features:[
+          'Interview English & role-play practice',
+          'Aviation vocabulary & safety phrases',
+          'Pronunciation drills for announcements',
+          'CV coaching & application prep',
+          'Mock HR interview sessions'
+        ], 
+        cta:'start cabin crew prep', 
+        tier:'Career' 
+      },
+      { 
+        id:'private', 
+        icon:'🎓', 
+        name:'Private', 
+        tagline:'You and Dali, one goal',
+        desc:'EN — No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
+        price:{m:'59',y:'47'}, 
+        tnd:{m:'185',y:'148'}, 
+        features:[
+          '4 private sessions/month with Dali',
+          'Custom plan built around your goals',
+          'Unlimited WhatsApp support',
+          'Priority booking — always first',
+          'Certificate on completion'
+        ], 
+        cta:'book private sessions', 
+        premium:true, 
+        tier:'Premium' 
+      },
     ],
   },
   fr: {
-    tagline: "conçu pour les apprenants tunisiens", hero1: "arrête de bachoter.", hero2: "commence à parler",
+    tagline: "conçu pour les apprenants tunisiens", 
+    hero1: "arrête de bachoter.", 
+    hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
     enrollBtn: "S'inscrire",
-    topicsTag: "ce qu'on discute", topicsH: "vrais sujets. vrai anglais.", topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
-    howTag: "comment ça marche", howH: "rejoins, parle, progresse", howSub: "trois étapes — sans manuel scolaire",
+    topicsTag: "ce qu'on discute", 
+    topicsH: "vrais sujets. vrai anglais.", 
+    topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
+    howTag: "comment ça marche", 
+    howH: "rejoins, parle, progresse", 
+    howSub: "trois étapes — sans manuel scolaire",
     steps: [
       { n:'01', icon:'🎯', t:'choisis ton cours', d:"Parcours les sessions en direct par thème. Actualité, finance, culture — choisis ce qui t'intéresse et prends ta place." },
       { n:'02', icon:'🎙️', t:'rejoins & parle', d:"Intègre la session en direct. Dali anime la conversation en anglais, tu participes, tu poses des questions, tu fais des erreurs — c'est ça l'idée." },
       { n:'03', icon:'🚀', t:'suis ton niveau', d:"Vois ton vocabulaire s'élargir, reçois des retours personnalisés après chaque cours et observe ton niveau grimper semaine après semaine." },
     ],
-    classesTag: "sessions en direct", classesH: "choisis ton tier", classesSub: "une progression structurée autour de tes besoins réels",
-    comingSoon: "Premières sessions bientôt disponibles", comingSoonSub: "Inscris-toi maintenant et sois le premier à réserver. Les premiers membres obtiennent leur première session gratuite.",
+    classesTag: "nos offres", 
+    classesH: "choisis ta voie",
+    classesSub: "des façons flexibles d'apprendre l'anglais — choisis ce qui te correspond",
+    comingSoon: "Premières sessions bientôt disponibles", 
+    comingSoonSub: "Inscris-toi maintenant et sois le premier à réserver. Les premiers membres obtiennent leur première session gratuite.",
     notifyBtn: "réserver ma place — gratuit",
-    liveTag: "prochaine session", liveH: "rejoins le prochain live", liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
-    communityTag: "contacter dali", communityH: "écrire directement", communitySub: "questions sur une session ? pas sûr du tier ? Dali répond personnellement.",
-    monthly: "mensuel", yearly: "annuel (-20%)",
-    notSure: "pas sûr du tier ?", waLink: "demander sur whatsapp ↗",
-    nextLive: "prochain live", days: "j", hours: "h", min: "m", sec: "s",
-    badgeLabel: 'votre parcours',
+    liveTag: "prochaine session", 
+    liveH: "rejoins le prochain live", 
+    liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
+    communityTag: "contacter dali", 
+    communityH: "écrire directement", 
+    communitySub: "questions sur une session ? pas sûr du tier ? Dali répond personnellement.",
+    monthly: "mensuel", 
+    yearly: "annuel (-20%)",
+    notSure: "pas sûr de ta voie ?", 
+    waLink: "demander sur whatsapp ↗",
+    nextLive: "prochain live", 
+    days: "j", 
+    hours: "h", 
+    min: "m", 
+    sec: "s",
+    badgeLabel: 'ton parcours',
     communityBannerTag: 'la communauté',
     communityBannerH: "Rejoins la communauté anglophone de Tunisie",
     communityBannerSub: "Pratique l'anglais chaque semaine à travers des discussions en direct sur des sujets qui comptent.",
@@ -109,31 +202,120 @@ const T = {
       "Apprends l'anglais qu'on parle vraiment",
     ],
     packages: [
-      { id:'ielts', icon:'🏆', name:'Prépa IELTS', tagline:'Objectif Band 7+', desc:"Sessions en direct intensives sur les quatre compétences IELTS enseignés à travers de vrais sujets d'examen.", price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 sessions/mois','Tests oraux simulés','Corrections écrites','Vocabulaire examen','Suivi de score'], cta:'commencer la prépa', popular:true, tier:'Pro' },
-      { id:'comms', icon:'💬', name:'Communication', tagline:'Parle naturellement', desc:"Discussions en direct hebdomadaires sur les sujets d'actualité — culture, tech, finance.", price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 discussions/mois','Fiches vocabulaire','Coaching prononciation',"Décryptage actualité",'Accès replays'], cta:'rejoindre les discussions', tier:'Starter' },
-      { id:'business', icon:'💼', name:'Anglais Pro', tagline:"Boost carrière", desc:"Sessions en direct autour de situations professionnelles réelles — présentations, négociations, entretiens.", price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 sessions/mois','Prépa CV et entretiens','Coaching présentation','Vocabulaire pro','Revue LinkedIn'], cta:'progresser pro', tier:'Core' },
-      { id:'1on1', icon:'🎓', name:'1-pour-1 avec Dali', tagline:'Coaching personnel', desc:"Sessions privées avec Dali. Programme sur mesure, retours directs. Places limitées chaque mois.", price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 sessions privées/mois',"Plan d'étude personnalisé",'Accès WhatsApp illimité','Réservation prioritaire','Certificat'], cta:'réserver sessions privées', premium:true, tier:'Elite' },
+      { 
+        id:'study', 
+        icon:'📦', 
+        name:'Pack Étude', 
+        tagline:'Apprends à ton rythme',
+        desc:'FR — Pas d\'horaire, pas de pression. Des leçons PDF soignées accompagnées de pistes audio, à étudier où vous voulez et quand vous voulez. Parfait pour les personnes occupées qui veulent progresser sans s\'engager sur des sessions live.',
+        price:{m:'15',y:'12'}, 
+        tnd:{m:'47',y:'38'}, 
+        features:[
+          'Leçons PDF téléchargeables',
+          'Pistes audio d\'écoute',
+          'Fiches vocabulaire par thème',
+          'Rythme libre — étudiez quand vous voulez',
+          'Nouveau contenu chaque mois'
+        ], 
+        cta:'obtenir pack étude', 
+        tier:'Auto-apprentissage' 
+      },
+      { 
+        id:'speaking', 
+        icon:'💬', 
+        name:'Groupes de Conversation', 
+        tagline:'Parle plus, stresse moins',
+        desc:'FR — Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Vous allez arrêter de bloquer et commencer à vraiment parler.',
+        price:{m:'19',y:'15'}, 
+        tnd:{m:'59',y:'47'}, 
+        features:[
+          '4 sessions live en groupe/mois',
+          'Max 8 personnes — tout le monde parle',
+          'Thèmes hebdo : culture, actu, vie quotidienne',
+          'Coaching prononciation inclus',
+          'Replay des sessions disponible'
+        ], 
+        cta:'rejoindre un groupe', 
+        tier:'Groupe',
+        popular:true 
+      },
+      { 
+        id:'cabin', 
+        icon:'✈️', 
+        name:'Personnel Navigant', 
+        tagline:'L\'anglais pour le ciel',
+        desc:'FR — Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Vous vous entraînerez sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
+        price:{m:'24',y:'19'}, 
+        tnd:{m:'75',y:'60'}, 
+        features:[
+          'Anglais d\'entretien & jeux de rôle',
+          'Vocabulaire aviation & phrases de sécurité',
+          'Exercices de prononciation pour les annonces',
+          'Coaching CV & préparation candidature',
+          'Simulations d\'entretiens RH'
+        ], 
+        cta:'préparer ma carrière', 
+        tier:'Carrière' 
+      },
+      { 
+        id:'private', 
+        icon:'🎓', 
+        name:'Privé', 
+        tagline:'Toi et Dali, un seul objectif',
+        desc:'FR — Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de vous — votre niveau, vos objectifs, votre emploi du temps.',
+        price:{m:'59',y:'47'}, 
+        tnd:{m:'185',y:'148'}, 
+        features:[
+          '4 sessions privées/mois avec Dali',
+          'Plan personnalisé selon vos objectifs',
+          'Support WhatsApp illimité',
+          'Réservation prioritaire — toujours en premier',
+          'Certificat à la fin du parcours'
+        ], 
+        cta:'réserver sessions privées', 
+        premium:true, 
+        tier:'Premium' 
+      },
     ],
   },
   ar: {
-    tagline: 'مصمّم للمتعلّمين التونسيين', hero1: 'توقّف عن الحفظ.', hero2: 'ابدأ تتكلّم',
+    tagline: 'مصمّم للمتعلّمين التونسيين', 
+    hero1: 'توقّف عن الحفظ.', 
+    hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
     enrollBtn: 'سجل الآن',
-    topicsTag: 'شنو نحكيو فيه', topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
-    howTag: 'كيفاش يخدم', howH: 'انضم، تكلّم، ارتقي', howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
+    topicsTag: 'شنو نحكيو فيه', 
+    topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', 
+    topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
+    howTag: 'كيفاش يخدم', 
+    howH: 'انضم، تكلّم، ارتقي', 
+    howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
       { n:'٠١', icon:'🎯', t:'اختار درسك', d:'شوف الجلسات المباشرة حسب الموضوع. أحداث راهنة، فلوس، ثقافة — اختار اللي يهمّك واحجز مقعدك.' },
       { n:'٠٢', icon:'🎙️', t:'انضم وتكلّم', d:'ادخل الجلسة المباشرة. الأستاذ دالي يقود النقاش بالإنجليزية، أنت تشارك وتسأل وتغلط — هذا هو المطلوب.' },
       { n:'٠٣', icon:'🚀', t:'تابع مستواك', d:'شوف كيف تتوسّع مفرداتك، خذ ملاحظات شخصية بعد كل جلسة، وراقب مستواك يصعد أسبوع بأسبوع.' },
     ],
-    classesTag: 'الجلسات المباشرة', classesH: 'اختار مستواك', classesSub: 'تقدّم مهيكل حسب احتياجاتك الحقيقية',
-    comingSoon: 'أوّل الجلسات قريبًا', comingSoonSub: 'سجّل هالوقت وكن أوّل من يحجز. الأعضاء الأوائل يأخذون أوّل جلسة مجّانًا.',
+    classesTag: 'عروضنا', 
+    classesH: 'اختر طريقك',
+    classesSub: 'طرق مرنة لتعلّم الإنجليزية — اختر ما يناسب حياتك',
+    comingSoon: 'أوّل الجلسات قريبًا', 
+    comingSoonSub: 'سجّل هالوقت وكن أوّل من يحجز. الأعضاء الأوائل يأخذون أوّل جلسة مجّانًا.',
     notifyBtn: 'احجز مكاني — مجّانًا',
-    liveTag: 'الجلسة القادمة', liveH: 'انضم للبث القادم', liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
-    communityTag: 'تواصل مع دالي', communityH: 'راسل مباشرة', communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار المستوى؟ الأستاذ دالي يردّ شخصيًا.',
-    monthly: 'شهري', yearly: 'سنوي (-20%)',
-    notSure: 'ما عرفتش تختار المستوى؟', waLink: 'اسأل على واتساب ↗',
-    nextLive: 'البث القادم', days: 'أيام', hours: 'ساعات', min: 'دق', sec: 'ثا',
+    liveTag: 'الجلسة القادمة', 
+    liveH: 'انضم للبث القادم', 
+    liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
+    communityTag: 'تواصل مع دالي', 
+    communityH: 'راسل مباشرة', 
+    communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار المستوى؟ الأستاذ دالي يردّ شخصيًا.',
+    monthly: 'شهري', 
+    yearly: 'سنوي (-20%)',
+    notSure: 'ما عرفتش تختار الطريق؟', 
+    waLink: 'اسأل على واتساب ↗',
+    nextLive: 'البث القادم', 
+    days: 'أيام', 
+    hours: 'ساعات', 
+    min: 'دق', 
+    sec: 'ثا',
     badgeLabel: 'مسارك',
     communityBannerTag: 'المجتمع',
     communityBannerH: 'انضم لمجتمع الإنجليزية التونسي',
@@ -146,10 +328,80 @@ const T = {
       'تعلّم الإنجليزية اللي الناس تستخدمها فعلاً',
     ],
     packages: [
-      { id:'ielts', icon:'🏆', name:'تحضير IELTS', tagline:'هدف Band 7+', desc:'جلسات مباشرة مكثّفة على المهارات الأربع من خلال مواضيع الامتحان الحقيقية.', price:{m:'29',y:'23'}, tnd:{m:'90',y:'72'}, features:['4 جلسات/شهر','اختبارات تحدّث تجريبية','تصحيح التعبير الكتابي','مفردات الامتحان','متابعة النقاط'], cta:'ابدأ تحضير IELTS', popular:true, tier:'Pro' },
-      { id:'comms', icon:'💬', name:'مهارات التواصل', tagline:'تكلّم بطبيعة', desc:'نقاشات مباشرة أسبوعية حول أبرز المواضيع — أحداث راهنة، ثقافة، تكنولوجيا، اقتصاد.', price:{m:'19',y:'15'}, tnd:{m:'59',y:'47'}, features:['4 نقاشات/شهر','قوائم مفردات الموضوع','تدريب على النطق','شرح أخبار الأسبوع','الوصول للتسجيلات'], cta:'انضم للنقاشات', tier:'Starter' },
-      { id:'business', icon:'💼', name:'الإنجليزية المهنية', tagline:'مسرّع مهني', desc:'جلسات مباشرة حول مواقف مهنية حقيقية — عروض تقديمية، مفاوضات، مقابلات عمل.', price:{m:'24',y:'19'}, tnd:{m:'75',y:'60'}, features:['4 جلسات/شهر','تحضير السيرة والمقابلات','تدريب على العروض','مفردات مهنية','مراجعة LinkedIn'], cta:'تطوّر مهنيًا', tier:'Core' },
-      { id:'1on1', icon:'🎓', name:'جلسات فردية مع دالي', tagline:'تدريب شخصي', desc:'جلسات خاصة مع الأستاذ دالي. منهج مخصّص، ملاحظات مباشرة. أماكن محدودة كل شهر.', price:{m:'59',y:'47'}, tnd:{m:'185',y:'148'}, features:['4 جلسات خاصة/شهر','خطة دراسية مخصّصة','وصول واتساب غير محدود','حجز أولوية','شهادة إتمام'], cta:'احجز جلسات خاصة', premium:true, tier:'Elite' },
+      { 
+        id:'study', 
+        icon:'📦', 
+        name:'حزمة الدراسة', 
+        tagline:'تعلّم على وتيرتك',
+        desc:'AR — لا جداول، لا ضغط. دروس PDF مصمّمة باحتراف مرفوقة بتسجيلات صوتية تدرسها أينما كنت ومتى شئت. مثالي لمن لديه انشغالات ويريد الاستمرار في التعلّم دون الالتزام بجلسات مباشرة.',
+        price:{m:'15',y:'12'}, 
+        tnd:{m:'47',y:'38'}, 
+        features:[
+          'دروس PDF قابلة للتحميل',
+          'تسجيلات صوتية للاستماع',
+          'قوائم مفردات حسب كل موضوع',
+          'وتيرة حرة — ادرس متى تريد',
+          'محتوى جديد كل شهر'
+        ], 
+        cta:'احصل على الحزمة', 
+        tier:'تعلّم ذاتي' 
+      },
+      { 
+        id:'speaking', 
+        icon:'💬', 
+        name:'مجموعات المحادثة', 
+        tagline:'تكلّم أكثر، توتر أقل',
+        desc:'AR — مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
+        price:{m:'19',y:'15'}, 
+        tnd:{m:'59',y:'47'}, 
+        features:[
+          '4 جلسات جماعية مباشرة / شهر',
+          '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
+          'مواضيع أسبوعية: ثقافة، أخبار، حياة يومية',
+          'تدريب على النطق مشمول',
+          'تسجيلات الجلسات متاحة'
+        ], 
+        cta:'انضم لمجموعة محادثة', 
+        tier:'جماعي',
+        popular:true 
+      },
+      { 
+        id:'cabin', 
+        icon:'✈️', 
+        name:'طاقم الطيران', 
+        tagline:'الإنجليزية للسماء',
+        desc:'AR — مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
+        price:{m:'24',y:'19'}, 
+        tnd:{m:'75',y:'60'}, 
+        features:[
+          'إنجليزية المقابلات وتمارين لعب الأدوار',
+          'مفردات الطيران وعبارات السلامة',
+          'تدريبات نطق للإعلانات',
+          'تدريب على السيرة الذاتية والتقديم',
+          'جلسات محاكاة لمقابلات الموارد البشرية'
+        ], 
+        cta:'ابدأ التحضير', 
+        tier:'مهني' 
+      },
+      { 
+        id:'private', 
+        icon:'🎓', 
+        name:'خاص', 
+        tagline:'أنت ودالي، هدف واحد',
+        desc:'AR — لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
+        price:{m:'59',y:'47'}, 
+        tnd:{m:'185',y:'148'}, 
+        features:[
+          '4 جلسات خاصة / شهر مع دالي',
+          'خطة مخصصة حول أهدافك',
+          'دعم مفتوح عبر واتساب',
+          'أولوية في الحجز — دائماً في المقدمة',
+          'شهادة عند إتمام البرنامج'
+        ], 
+        cta:'احجز جلسات خاصة', 
+        premium:true, 
+        tier:'مميز' 
+      },
     ],
   },
 }
@@ -582,13 +834,13 @@ export default function Home(){
           <button className="md:hidden border px-3 py-1.5 rounded-xl text-sm font-medium" style={{borderColor:s.borderColor,color:s.textOrange,backgroundColor:'transparent'}} onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'✕':'☰'}</button>
         </div>
         {menuOpen&&(
-          <div className="md:hidden px-6 py-5 flex flex-col gap-2.5 border-t items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}>
+          <div className="md:hidden px-6 py-5 flex flex-col gap-3 items-center text-center" style={{backgroundColor:s.mainBg,borderColor:s.borderColor}}>
             <div className="flex gap-1 mb-1 justify-center w-full">
               {(['en','fr','ar'] as const).map(l=>(
                 <button key={l} onClick={()=>{setLang(l);setMenuOpen(false)}} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all" style={lang===l?{backgroundColor:s.textOrange,color:'#FFFFFF'}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive}}>{l.toUpperCase()}</button>
               ))}
             </div>
-            <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
+            <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
             
             <a href="https://wa.me/216XXXXXXXX" target="_blank" className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <WhatsAppIcon size={18} /> WhatsApp
@@ -602,7 +854,7 @@ export default function Home(){
             
             <div className="w-full border-t" style={{borderColor:s.borderColor}}></div>
             {['topics','classes','live','community'].map(item=>(
-              <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
+              <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full text-center" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
             ))}
           </div>
         )}
@@ -780,7 +1032,7 @@ export default function Home(){
           <p className="text-[15px] mb-8 max-w-sm mx-auto relative z-10" style={{color:s.textSecondary}}>{t.comingSoonSub}</p>
           <button onClick={() => openModal('General')} className="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold relative z-10" style={{backgroundColor:s.textOrange,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</button>
         </div>
-        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Starter','Core','Pro','Elite'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===3?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===3&&<span className="ml-1.5 opacity-80">← target B2</span>}</div>))}</div>
+        <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">{['Free','Self-Paced','Group','Career','Premium'].map((tier,i)=>(<div key={tier} className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all" style={i===2?{backgroundColor:s.textOrange,color:'#FFFFFF',borderColor:s.textOrange,boxShadow:`0 2px 10px ${s.orangeGlow}`}:i===4?{backgroundColor:s.pillBg,color:s.textOrangeLight,borderColor:`${s.textOrangeLight}25`}:{backgroundColor:s.pillBgInactive,color:s.pillTextInactive,borderColor:s.pillBorderInactive}}>{tier}{i===2&&<span className="ml-1.5 opacity-80">← most popular</span>}</div>))}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {t.packages.map((pkg) => {
             return (
@@ -945,7 +1197,7 @@ export default function Home(){
                 <span className="badge">Recommended</span>
               </button>
 
-              {/* Messenger - Blue border */}
+              {/* Messenger - Blue border (FIXED ICON) */}
               <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
                 <span className="icon" style={{color:'#0084FF'}}>
                   <MessengerIcon size={24} />
