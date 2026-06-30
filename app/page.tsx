@@ -541,7 +541,43 @@ function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean
   )
 }
 
-function useCountdown(target:Date){const[t,st]=useState({d:0,h:0,m:0,s:0});useEffect(()=>{const tk=()=>{const df=target.getTime()-Date.now();if(df<=0)return;st({d:Math.floor(df/86400000),h:Math.floor((df%86400000)/3600000),m:Math.floor((df%3600000)/60000),s:Math.floor((df%60000)/1000)})};tk();const id=setInterval(tk,1000);return()=>clearInterval(id)},[target]);return t}
+// Always returns a countdown to the NEXT upcoming Friday 8PM Tunisia-local target,
+// rolling forward automatically once the previous target has passed.
+function getNextFriday8pm(): Date {
+  const d = new Date()
+  const days = (5 - d.getDay() + 7) % 7
+  d.setHours(20, 0, 0, 0)
+  if (days === 0 && d.getTime() <= Date.now()) {
+    d.setDate(d.getDate() + 7)
+  } else {
+    d.setDate(d.getDate() + days)
+  }
+  return d
+}
+
+function useCountdown() {
+  const [target, setTarget] = useState<Date>(() => getNextFriday8pm())
+  const [t, st] = useState({ d: 0, h: 0, m: 0, s: 0 })
+  useEffect(() => {
+    const tick = () => {
+      const df = target.getTime() - Date.now()
+      if (df <= 0) {
+        setTarget(getNextFriday8pm())
+        return
+      }
+      st({
+        d: Math.floor(df / 86400000),
+        h: Math.floor((df % 86400000) / 3600000),
+        m: Math.floor((df % 3600000) / 60000),
+        s: Math.floor((df % 60000) / 1000),
+      })
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [target])
+  return t
+}
 
 type Theme='dark'|'light'
 function detectSystemTheme():Theme{if(typeof window==='undefined')return'dark';return window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
@@ -562,19 +598,34 @@ export default function Home(){
   const words=['native speaker','confidently','fluently','fearlessly']
   useEffect(()=>{const word=words[wordIndex];const timeout=setTimeout(()=>{if(!deleting){if(charIndex<word.length){setDisplayed(word.slice(0,charIndex+1));setCharIndex(c=>c+1)}else setTimeout(()=>setDeleting(true),2000)}else{if(charIndex>0){setDisplayed(word.slice(0,charIndex-1));setCharIndex(c=>c-1)}else{setDeleting(false);setWordIndex(i=>(i+1)%words.length)}}},deleting?40:80);return()=>clearTimeout(timeout)},[charIndex,deleting,wordIndex])
 
+  // ─── INTERACTIVE LIVE SESSION SIMULATOR STATE ──────────
   const[activeTopicIndex,setActiveTopicIndex]=useState(0);const[topicProgress,setTopicProgress]=useState(0)
-  useEffect(()=>{const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80);return()=>clearInterval(interval)},[])
+  const[simPaused,setSimPaused]=useState(false)
+  const[pinnedTopicIndex,setPinnedTopicIndex]=useState<number|null>(null)
+  const[selectedAvatar,setSelectedAvatar]=useState<number|null>(null)
+  const[micOn,setMicOn]=useState(true)
+  const[handUp,setHandUp]=useState(false)
+  const[chatOpenMobile,setChatOpenMobile]=useState(true)
+  const[draftMsg,setDraftMsg]=useState('')
+  const[justJoined,setJustJoined]=useState(false)
+
+  useEffect(()=>{
+    if(simPaused)return
+    const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80)
+    return()=>clearInterval(interval)
+  },[simPaused])
 
   const[visibleP,setVisibleP]=useState<number[]>([])
 
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
   useEffect(() => {
+    if(simPaused) return
     const timers: NodeJS.Timeout[] = []
     const updateMics = () => {setActiveSpeakers(prev=>{const next=new Map(prev);next.set(0,'mic');const students=[1,2,3,4,5,6,7];const micCount=2+Math.floor(Math.random()*2);const shuffled=students.sort(()=>Math.random()-0.5);students.forEach(s=>{if(next.get(s)==='mic')next.delete(s)});shuffled.slice(0,micCount).forEach(s=>next.set(s,'mic'));return next});timers[0]=setTimeout(updateMics,2500+Math.random()*1500)}
     const updateHands = () => {setActiveSpeakers(prev=>{const next=new Map(prev);const students=[1,2,3,4,5,6,7];students.forEach(s=>{if(next.get(s)==='hand')next.delete(s)});const withoutMics=students.filter(s=>next.get(s)!=='mic');const handCount=1+Math.floor(Math.random()*2);withoutMics.sort(()=>Math.random()-0.5).slice(0,handCount).forEach(s=>next.set(s,'hand'));return next});timers[1]=setTimeout(updateHands,4000+Math.random()*2000)}
     timers[0]=setTimeout(updateMics,1000);timers[1]=setTimeout(updateHands,2000)
     return ()=>timers.forEach(t=>clearTimeout(t))
-  },[])
+  },[simPaused])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
@@ -583,13 +634,12 @@ export default function Home(){
   const[menuOpen,setMenuOpen]=useState(false)
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
-  const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
-  const countdown=useCountdown(nextLive)
+  const countdown=useCountdown()
 
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
-  const activeTopic=CLASS_TOPICS[activeTopicIndex]
+  const activeTopic=CLASS_TOPICS[pinnedTopicIndex ?? activeTopicIndex]
   const allAvatars=[{svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))]
 
   const openModal = (planName: string) => {
@@ -605,7 +655,7 @@ export default function Home(){
 
   const handleContact = (platform: string) => {
     const urls: Record<string, string> = {
-      whatsapp: 'https://wa.me/216XXXXXXXX?text=Hi!%20I%27m%20interested%20in%20the%20' + encodeURIComponent(selectedPlan) + '%20plan',
+      whatsapp: 'https://wa.me/?text=' + encodeURIComponent('Hi! I\'m interested in the ' + selectedPlan + ' plan'),
       instagram: 'https://www.instagram.com/ielts.tn',
       messenger: 'https://m.me/ielts.tn'
     }
@@ -613,6 +663,24 @@ export default function Home(){
       window.open(urls[platform], '_blank')
     }
     closeModal()
+  }
+
+  // Click a topic card in the simulator → pins that topic and prefills a WhatsApp message
+  const handleTopicClick = (idx: number) => {
+    setPinnedTopicIndex(idx)
+    setSimPaused(true)
+  }
+
+  // Sends the live-chat draft message into the simulated chat feed (purely local/cosmetic)
+  const handleSendDraft = () => {
+    if (!draftMsg.trim()) return
+    setChatMsgs(p => [...p.slice(-3), { id: Date.now(), text: draftMsg.trim(), from: 'You', isDali: false }])
+    setDraftMsg('')
+  }
+
+  const handleJoinSim = () => {
+    setJustJoined(true)
+    setTimeout(() => setJustJoined(false), 2200)
   }
 
   // Glass button style helper
@@ -725,6 +793,10 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
+        @keyframes joinPop{0%{opacity:0;transform:scale(.7) translateY(10px)}15%{opacity:1;transform:scale(1) translateY(0)}85%{opacity:1;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(.95) translateY(-6px)}}
+        .join-toast{animation:joinPop 2.2s ease-out forwards}
+        @keyframes selRingPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,69,0,.45)}50%{box-shadow:0 0 0 6px rgba(255,69,0,0)}}
+        .av-selected{animation:selRingPulse 1.6s ease-in-out infinite}
 
         /* Glassmorphism card styles */
         .glass-card {
@@ -860,7 +932,7 @@ export default function Home(){
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <InstagramIcon size={18} />
             </a>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://wa.me/" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <WhatsAppIcon size={18} />
             </a>
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
@@ -884,8 +956,11 @@ export default function Home(){
             </div>
             <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
             
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://wa.me/" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <WhatsAppIcon size={18} /> WhatsApp
+            </a>
+            <a href="https://m.me/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+              <MessengerIcon size={18} /> Messenger
             </a>
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <InstagramIcon size={18} /> Instagram
@@ -924,30 +999,92 @@ export default function Home(){
               ))}
             </div>
           </div>
+
+          {/* ═══════════════════════════════════════════════════
+              INTERACTIVE LIVE SESSION SIMULATOR
+              - click a topic dot → pin that topic + pause autoplay
+              - click an avatar → "select" them, see their mic/hand state
+              - mic/hand/chat buttons are now real toggles
+              - typing + sending in the chat box appends to the feed
+              - "join" button shows a join toast (no-op demo, but interactive)
+              ═══════════════════════════════════════════════════ */}
           <div className="flex flex-col gap-3.5">
             <div className="glass-card rounded-2xl p-5" style={{boxShadow:s.cardShadow}}>
-              <div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span>
+                <div className="flex items-center gap-2">
+                  {pinnedTopicIndex!==null && (
+                    <button onClick={()=>{setPinnedTopicIndex(null);setSimPaused(false)}} className="text-[10px] font-bold px-2 py-1 rounded-lg transition-all" style={{color:s.textOrange,backgroundColor:s.pillBg}}>resume ↻</button>
+                  )}
+                  <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div>
+                </div>
+              </div>
               <div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div>
-              <div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div>
+              <div className="flex justify-between items-center">
+                <div className="flex gap-1.5">
+                  {CLASS_TOPICS.map((tp,i)=>(
+                    <button key={i} onClick={()=>handleTopicClick(i)} className="h-2.5 rounded-full transition-all duration-300 cursor-pointer" title={tp.topic} style={{width:i===(pinnedTopicIndex??activeTopicIndex)?'28px':'10px',backgroundColor:i===(pinnedTopicIndex??activeTopicIndex)?s.textOrange:s.borderColor}}/>
+                  ))}
+                </div>
+                <span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span>
+              </div>
             </div>
-            <div className="glass-card rounded-2xl p-5" style={{boxShadow:s.cardShadow}}>
+            <div className="glass-card rounded-2xl p-5 relative" style={{boxShadow:s.cardShadow}}>
+              {justJoined && (
+                <div className="join-toast absolute -top-3 left-1/2 -translate-x-1/2 z-20 text-[11px] font-bold px-4 py-2 rounded-full whitespace-nowrap" style={{backgroundColor:s.textOrange,color:'#fff',boxShadow:`0 4px 14px ${s.orangeGlow}`}}>
+                  ✓ you joined the session
+                </div>
+              )}
               <div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}>
                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div>
                 <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span>
               </div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}{isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>)})}</div>
-              <div className="glass-card-light rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5" style={{borderColor:s.chatBorder}}>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';const isSelected=selectedAvatar===i;return(
+                <button key={i} onClick={()=>setSelectedAvatar(p=>p===i?null:i)} className={`av-cell ${visibleP.includes(i)?'show':''} ${isSelected?'av-selected':''} aspect-square rounded-2xl overflow-hidden relative cursor-pointer ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isSelected?`2px solid ${s.textOrange}`:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic||isSelected?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}>
+                  <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
+                  {isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
+                  {isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
+                  <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
+                </button>
+              )})}</div>
+              {selectedAvatar!==null && (
+                <div className="text-[11px] font-medium mb-2 px-1" style={{color:s.textSecondary}}>
+                  selected: <span style={{color:s.textOrange,fontWeight:700}}>{allAvatars[selectedAvatar].name}</span> {activeSpeakers.get(selectedAvatar)==='mic'?'— speaking now':activeSpeakers.get(selectedAvatar)==='hand'?'— hand raised':'— listening'}
+                </div>
+              )}
+              <div className="glass-card-light rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5" style={{borderColor:s.chatBorder, display: chatOpenMobile ? 'flex' : 'none'}}>
                 <div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>
                 {chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}
+                <div className="flex items-center gap-1.5 mt-1">
+                  <input
+                    value={draftMsg}
+                    onChange={e=>setDraftMsg(e.target.value)}
+                    onKeyDown={e=>{if(e.key==='Enter')handleSendDraft()}}
+                    placeholder="say something..."
+                    className="flex-1 text-[11px] bg-transparent outline-none rounded-lg px-2 py-1.5 border"
+                    style={{color:s.textPrimary,borderColor:s.borderColor}}
+                  />
+                  <button onClick={handleSendDraft} className="text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all" style={{color:s.textOrange,backgroundColor:s.pillBg}}>send</button>
+                </div>
               </div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>
-                {[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(
-                  <button key={c.l} className="glass-btn flex flex-col items-center gap-0.5 group">
-                    <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:s.borderColor}}>{c.icon}</div>
-                    <span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span>
-                  </button>
-                ))}
-                <button className="ml-auto glass-btn px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button>
+                <button onClick={()=>setMicOn(m=>!m)} className="glass-btn flex flex-col items-center gap-0.5 group">
+                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:micOn?s.textOrange:s.borderColor,boxShadow:micOn?`0 0 10px ${s.orangeGlow}`:'none'}}>{micOn?'🎤':'🔇'}</div>
+                  <span className="text-[10px]" style={{color:s.textTertiary}}>{micOn?'mute':'unmute'}</span>
+                </button>
+                <button className="glass-btn flex flex-col items-center gap-0.5 group">
+                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:s.borderColor}}>📹</div>
+                  <span className="text-[10px]" style={{color:s.textTertiary}}>video</span>
+                </button>
+                <button onClick={()=>setHandUp(h=>!h)} className="glass-btn flex flex-col items-center gap-0.5 group">
+                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:handUp?s.textOrange:s.borderColor,boxShadow:handUp?`0 0 10px ${s.orangeGlow}`:'none'}}>✋</div>
+                  <span className="text-[10px]" style={{color:s.textTertiary}}>{handUp?'lower':'hand'}</span>
+                </button>
+                <button onClick={()=>setChatOpenMobile(c=>!c)} className="glass-btn flex flex-col items-center gap-0.5 group">
+                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:chatOpenMobile?s.textOrange:s.borderColor}}>💬</div>
+                  <span className="text-[10px]" style={{color:s.textTertiary}}>chat</span>
+                </button>
+                <button onClick={handleJoinSim} className="ml-auto glass-btn px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>join free trial</button>
               </div>
             </div>
           </div>
@@ -1029,13 +1166,16 @@ export default function Home(){
                     <div className="text-right">
                       {!isPrivate ? (
                         <>
-                          <div className="text-2xl font-black" style={{color: s.textOrange}}>
-                            {pkg.priceTnd}
-                            <span className="text-sm font-normal" style={{color: s.textTertiary}}> /month</span>
-                          </div>
-                          {activePrice === 'y' && (
-                            <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
-                              {pkg.yearlyTnd} /year
+                          {activePrice === 'y' ? (
+                            <div className="flex flex-col items-end">
+                              <span className="text-[12px] font-semibold line-through" style={{color: s.textTertiary}}>{pkg.priceTnd} TND</span>
+                              <div className="text-2xl font-black" style={{color: s.textOrange}}>
+                                {pkg.yearlyTnd}<span className="text-sm font-normal" style={{color: s.textTertiary}}> TND/mo</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-2xl font-black" style={{color: s.textOrange}}>
+                              {pkg.priceTnd}<span className="text-sm font-normal" style={{color: s.textTertiary}}> TND/mo</span>
                             </div>
                           )}
                         </>
@@ -1216,7 +1356,7 @@ export default function Home(){
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>
-            <a href="https://wa.me/216XXXXXXXX" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
+            <a href="https://wa.me/" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
             <a href="https://www.instagram.com/ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>📸 Instagram</a>
             <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>🎵 TikTok</a>
           </div>
@@ -1224,7 +1364,7 @@ export default function Home(){
         </div>
       </footer>
 
-      <a href="https://wa.me/216XXXXXXXX" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
+      <a href="https://wa.me/" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
 
       {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
