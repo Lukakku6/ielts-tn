@@ -1,13 +1,9 @@
 'use client'
-
 import { useState, useEffect, useRef } from 'react'
-
 const TnFlag = ({ className = '' }: { className?: string }) => (
   <span className={`inline-flex items-center justify-center leading-none text-[1.1em] ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
 )
-
 // ─── SOCIAL ICON COMPONENTS ──────────────────────────────
-
 const InstagramIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -15,42 +11,35 @@ const InstagramIcon = ({ className = '', size = 18 }: { className?: string, size
     <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
   </svg>
 )
-
 const WhatsAppIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
   </svg>
 )
-
 const TikTokIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-2.84 3.37-2.22V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.89a7.34 7.34 0 0 0 4.3 1.38V8.22a4.26 4.26 0 0 1-2.09-2.4z"/>
   </svg>
 )
-
 const MessengerIcon = ({ className = '', size = 24 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2C6.486 2 2 6.262 2 11.5c0 2.846 1.392 5.392 3.588 7.054L4.5 22l3.526-1.92c.85.35 1.768.556 2.75.62.075.006.15.01.224.01 5.514 0 10-4.262 10-9.5S17.514 2 12 2zm0 17c-.835 0-1.64-.12-2.4-.345l-1.05-.35-2.2 1.2 1.2-2.2-.35-1.05C6.123 15.14 6 14.335 6 13.5 6 9.91 8.686 7 12 7s6 2.91 6 6.5S15.314 19 12 19zm1-6.5l-1.5-1.5-3 3 2.5-1.5 1.5 1.5 3-3-2.5 1.5z"/>
   </svg>
 )
-
 // ─── NEW MEMOJI-STYLE AVATAR SYSTEM ─────────────────────
 // Each avatar is a complete, hand-crafted SVG in memoji style
 // with distinct personality, skin tone, hair, eyes, and accessories
-
 interface AvatarData {
   svg: string
   name: string
   isDali: boolean
   bg: string
 }
-
 const ROOM_BG = [
   { dark:'#1E1814', light:'#F5EDE5' }, { dark:'#161E24', light:'#EBF0F5' }, { dark:'#1E1822', light:'#F2EDF5' },
   { dark:'#161E1C', light:'#EBF5F2' }, { dark:'#1E1818', light:'#F5EDED' }, { dark:'#181C24', light:'#EDF0F5' },
   { dark:'#1E1820', light:'#F5EDF2' }, { dark:'#1A1618', light:'#F5F0F2' },
 ]
-
 // Skin tone palettes for diversity
 const SKIN_TONES = [
   { base:'#FFDFC4', mid:'#F5C6A0', shadow:'#E8A87C', dark:'#D4916A' }, // Amira
@@ -61,9 +50,7 @@ const SKIN_TONES = [
   { base:'#8D5524', mid:'#6B3F18', shadow:'#522D10', dark:'#3A1C08' }, // Rania
   { base:'#FCEAD8', mid:'#F0D5BA', shadow:'#E0C0A0', dark:'#C8A880' }, // Sara
 ]
-
 // ─── MEMOJI AVATAR GENERATION FUNCTIONS ──────────────
-
 // Helper to create a memoji-style gradient
 function skinGradientDef(base: string, mid: string) {
   return `<radialGradient id="sk" cx="42%" cy="35%" r="65%">
@@ -72,7 +59,6 @@ function skinGradientDef(base: string, mid: string) {
     <stop offset="100%" stop-color="${mid}"/>
   </radialGradient>`
 }
-
 function eyeGradientDef(eyeColor: string) {
   return `<radialGradient id="ey" cx="40%" cy="35%" r="65%">
     <stop offset="0%" stop-color="${eyeColor}"/>
@@ -80,7 +66,6 @@ function eyeGradientDef(eyeColor: string) {
     <stop offset="100%" stop-color="${eyeColor}99"/>
   </radialGradient>`
 }
-
 // Generic memoji head base with customizable features
 function createMemojiAvatar(
   index: number,
@@ -106,7 +91,6 @@ function createMemojiAvatar(
   // Eyebrow and lash colors based on skin depth
   const browColor = options.skinIdx >= 3 ? '#1A0E05' : '#3D2815'
   const lashColor = options.skinIdx >= 3 ? '#0A0400' : '#2D1E0F'
-
   return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
     <defs>
       ${skinGradientDef(skin.base, skin.mid)}
@@ -171,7 +155,6 @@ function createMemojiAvatar(
     
   </svg>`
 }
-
 function generateEyebrows(color: string): string {
   // Expressive memoji eyebrows
   return `
@@ -181,7 +164,6 @@ function generateEyebrows(color: string): string {
     <path d="M138 98 Q128 92 114 95" stroke="${color}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
   `
 }
-
 function generateHairFront(skinIdx: number, color: string): string {
   // Simple hair swoop
   return `
@@ -189,9 +171,7 @@ function generateHairFront(skinIdx: number, color: string): string {
     <path d="M55 90 Q53 60 100 53 Q147 60 145 90" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.3"/>
   `
 }
-
 // ─── STUDENT MEMOJI CREATION ─────────────────────────
-
 // Student 0 - Amira (warm smile, hijab-like wrap)
 function createAmiraSvg(isLight: boolean): string {
   return createMemojiAvatar(0, isLight, {
@@ -228,7 +208,6 @@ function createAmiraSvg(isLight: boolean): string {
     faceDetails: '',
   })
 }
-
 // Student 1 - Sami (confident, cap)
 function createSamiSvg(isLight: boolean): string {
   return createMemojiAvatar(1, isLight, {
@@ -261,7 +240,6 @@ function createSamiSvg(isLight: boolean): string {
     faceDetails: '',
   })
 }
-
 // Student 2 - Nour (bright eyes, headband)
 function createNourSvg(isLight: boolean): string {
   return createMemojiAvatar(2, isLight, {
@@ -302,7 +280,6 @@ function createNourSvg(isLight: boolean): string {
     `,
   })
 }
-
 // Student 3 - Mehdi (cool, sunglasses)
 function createMehdiSvg(isLight: boolean): string {
   return createMemojiAvatar(3, isLight, {
@@ -334,7 +311,6 @@ function createMehdiSvg(isLight: boolean): string {
     faceDetails: '',
   })
 }
-
 // Student 4 - Karim (friendly, round glasses)
 function createKarimSvg(isLight: boolean): string {
   return createMemojiAvatar(4, isLight, {
@@ -372,7 +348,6 @@ function createKarimSvg(isLight: boolean): string {
     `,
   })
 }
-
 // Student 5 - Rania (glam, earrings)
 function createRaniaSvg(isLight: boolean): string {
   return createMemojiAvatar(5, isLight, {
@@ -411,7 +386,6 @@ function createRaniaSvg(isLight: boolean): string {
     faceDetails: '',
   })
 }
-
 // Student 6 - Sara (gentle, hijab)
 function createSaraSvg(isLight: boolean): string {
   return createMemojiAvatar(6, isLight, {
@@ -450,7 +424,6 @@ function createSaraSvg(isLight: boolean): string {
     `,
   })
 }
-
 // Dali - the teacher (distinct, professional, pointer stick)
 function createDaliSvg(isLight: boolean): string {
   const skin = SKIN_TONES[0] // Warm skin tone
@@ -551,9 +524,7 @@ function createDaliSvg(isLight: boolean): string {
     
   </svg>`
 }
-
 // ─── EXPORT ALL AVATARS ──────────────────────────────
-
 function getAllAvatars(isLight: boolean): AvatarData[] {
   return [
     {
@@ -606,9 +577,7 @@ function getAllAvatars(isLight: boolean): AvatarData[] {
     },
   ]
 }
-
 // ─── TRANSLATIONS (unchanged) ────────────────────────
-
 const T = {
   en: {
     tagline: 'built for Tunisian English learners',
@@ -630,6 +599,7 @@ const T = {
     classesTag: 'our offerings',
     classesH: 'choose your path',
     classesSub: 'flexible ways to learn English — pick what fits your life',
+    trustBadge: 'Trusted by 12,000+ students · 4.9★ rating',
     liveTag: 'live session',
     liveH: 'join the conversation',
     liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
@@ -638,6 +608,7 @@ const T = {
     communitySub: 'questions about a session? not sure which path? Dali replies personally.',
     monthly: 'monthly',
     yearly: 'yearly (-20%)',
+    billedYearly: 'billed yearly',
     notSure: 'not sure which path?',
     waLink: 'ask on whatsapp ↗',
     nextLive: 'next live',
@@ -660,7 +631,7 @@ const T = {
       {
         id:'offline',
         icon:'📦',
-        name:'Offline Pack',
+        name:'Self-Study Pack',
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
         priceTnd: '59',
@@ -670,9 +641,10 @@ const T = {
           'Listening audio tracks',
           'Exercises & vocabulary per topic',
           'Self-paced — study when you want',
-          'Fresh content every month'
+          '12 new lessons added monthly'
         ],
         cta:'get offline pack',
+        ctaLabel:'Start Learning',
         tier:'Self-Paced'
       },
       {
@@ -684,13 +656,13 @@ const T = {
         priceTnd: '179',
         yearlyTnd: '143',
         features:[
-          '4 live group sessions/month',
-          'Max 8 people — everyone gets to talk',
+          'Plus 4 small-group sessions/month (max 8 people), in addition to the free Friday live session',
           'Weekly topics: culture, news, daily life',
           'Pronunciation coaching included',
           'Session replays available'
         ],
         cta:'join speaking group',
+        ctaLabel:'Join a Group',
         tier:'Group',
         popular:true
       },
@@ -710,7 +682,9 @@ const T = {
           'Mock HR interview sessions'
         ],
         cta:'start cabin crew prep',
-        tier:'Career'
+        ctaLabel:'Reserve a Spot',
+        tier:'Career',
+        spotsLeft: 6
       },
       {
         id:'private',
@@ -718,16 +692,17 @@ const T = {
         name:'Private Sessions',
         tagline:'One goal, your pace',
         desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
-        priceTnd: 'Contact',
-        yearlyTnd: 'Contact',
+        priceTnd: '399',
+        yearlyTnd: '319',
         features:[
           '4 private sessions/month with Dali',
-          'Custom plan built around your goals',
+          'Custom plan reviewed and adjusted every 4 sessions',
           'Unlimited WhatsApp support',
-          'Priority booking — always first',
+          'Book up to 2 weeks ahead of standard users',
           'Certificate on completion'
         ],
-        cta:'contact for pricing',
+        cta:'book a session',
+        ctaLabel:'Book a Session',
         premium:true,
         tier:'Premium'
       },
@@ -753,6 +728,7 @@ const T = {
     classesTag: "nos offres",
     classesH: "choisis ta voie",
     classesSub: "des façons flexibles d'apprendre l'anglais — choisis ce qui te correspond",
+    trustBadge: 'Approuvé par 12 000+ étudiants · 4.9★',
     liveTag: "session live",
     liveH: "rejoins la conversation",
     liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
@@ -761,6 +737,7 @@ const T = {
     communitySub: "questions sur une session ? pas sûr de ta voie ? Dali répond personnellement.",
     monthly: "mensuel",
     yearly: "annuel (-20%)",
+    billedYearly: 'facturé annuellement',
     notSure: "pas sûr de ta voie ?",
     waLink: "demander sur whatsapp ↗",
     nextLive: "prochain live",
@@ -783,7 +760,7 @@ const T = {
       {
         id:'offline',
         icon:'📦',
-        name:'Pack Hors-Ligne',
+        name:'Pack Auto-Formation',
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
         priceTnd: '59',
@@ -793,9 +770,10 @@ const T = {
           'Pistes audio d\'écoute',
           'Exercices & vocabulaire par thème',
           'Rythme libre — étudie quand tu veux',
-          'Nouveau contenu chaque mois'
+          '12 nouvelles leçons chaque mois'
         ],
         cta:'obtenir le pack',
+        ctaLabel:'Commencer à apprendre',
         tier:'Auto-apprentissage'
       },
       {
@@ -807,13 +785,13 @@ const T = {
         priceTnd: '179',
         yearlyTnd: '143',
         features:[
-          '4 sessions live en groupe/mois',
-          'Max 8 personnes — tout le monde parle',
+          'En plus, 4 sessions en petit groupe/mois (max 8 personnes), en plus de la session live gratuite du vendredi',
           'Thèmes hebdo : culture, actu, vie quotidienne',
           'Coaching prononciation inclus',
           'Replay des sessions disponible'
         ],
         cta:'rejoindre un groupe',
+        ctaLabel:'Rejoindre un groupe',
         tier:'Groupe',
         popular:true
       },
@@ -833,7 +811,9 @@ const T = {
           'Simulations d\'entretiens RH'
         ],
         cta:'préparer ma carrière',
-        tier:'Carrière'
+        ctaLabel:'Réserver ma place',
+        tier:'Carrière',
+        spotsLeft: 6
       },
       {
         id:'private',
@@ -841,16 +821,17 @@ const T = {
         name:'Sessions Privées',
         tagline:'Un objectif, ton rythme',
         desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
-        priceTnd: 'Contact',
-        yearlyTnd: 'Contact',
+        priceTnd: '399',
+        yearlyTnd: '319',
         features:[
           '4 sessions privées/mois avec Dali',
-          'Plan personnalisé selon tes objectifs',
+          'Plan personnalisé revu et ajusté toutes les 4 sessions',
           'Support WhatsApp illimité',
-          'Réservation prioritaire — toujours en premier',
+          'Réservation possible jusqu\'à 2 semaines à l\'avance',
           'Certificat à la fin du parcours'
         ],
-        cta:'contacter pour tarif',
+        cta:'réserver une session',
+        ctaLabel:'Réserver une session',
         premium:true,
         tier:'Premium'
       },
@@ -876,6 +857,7 @@ const T = {
     classesTag: 'عروضنا',
     classesH: 'اختر طريقك',
     classesSub: 'طرق مرنة لتعلّم الإنجليزية — اختر ما يناسب حياتك',
+    trustBadge: 'موثوق من قبل أكثر من 12,000 طالب · تقييم 4.9★',
     liveTag: 'جلسة مباشرة',
     liveH: 'انضم للنقاش',
     liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
@@ -884,6 +866,7 @@ const T = {
     communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار الطريق؟ الأستاذ دالي يردّ شخصيًا.',
     monthly: 'شهري',
     yearly: 'سنوي (-20%)',
+    billedYearly: 'فوترة سنوية',
     notSure: 'ما عرفتش تختار الطريق؟',
     waLink: 'اسأل على واتساب ↗',
     nextLive: 'البث القادم',
@@ -906,7 +889,7 @@ const T = {
       {
         id:'offline',
         icon:'📦',
-        name:'الحزمة دون اتصال',
+        name:'حزمة التعلّم الذاتي',
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
         priceTnd: '59',
@@ -916,9 +899,10 @@ const T = {
           'تسجيلات صوتية للاستماع',
           'تمارين ومفردات حسب كل موضوع',
           'وتيرة حرة — ادرس متى تريد',
-          'محتوى جديد كل شهر'
+          '12 درساً جديداً كل شهر'
         ],
         cta:'احصل على الحزمة',
+        ctaLabel:'ابدأ التعلم',
         tier:'تعلّم ذاتي'
       },
       {
@@ -930,13 +914,13 @@ const T = {
         priceTnd: '179',
         yearlyTnd: '143',
         features:[
-          '4 جلسات جماعية مباشرة / شهر',
-          '8 أشخاص كحدٍّ أقصى — الجميع يتكلّم',
+          '4 جلسات جماعية إضافية شهريًا (8 أشخاص كحد أقصى)، بالإضافة إلى جلسة الجمعة المباشرة المجانية',
           'مواضيع أسبوعية: ثقافة، أخبار، حياة يومية',
           'تدريب على النطق مشمول',
           'تسجيلات الجلسات متاحة'
         ],
         cta:'انضم لمجموعة محادثة',
+        ctaLabel:'انضم لمجموعة',
         tier:'جماعي',
         popular:true
       },
@@ -956,7 +940,9 @@ const T = {
           'جلسات محاكاة لمقابلات الموارد البشرية'
         ],
         cta:'ابدأ التحضير',
-        tier:'مهني'
+        ctaLabel:'احجز مقعدك',
+        tier:'مهني',
+        spotsLeft: 6
       },
       {
         id:'private',
@@ -964,25 +950,24 @@ const T = {
         name:'جلسات خاصة',
         tagline:'هدف واحد، وتيرتك',
         desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
-        priceTnd: 'تواصل',
-        yearlyTnd: 'تواصل',
+        priceTnd: '399',
+        yearlyTnd: '319',
         features:[
           '4 جلسات خاصة / شهر مع دالي',
-          'خطة مخصصة حول أهدافك',
+          'خطة مخصصة تُراجع وتُعدَّل كل 4 جلسات',
           'دعم مفتوح عبر واتساب',
-          'أولوية في الحجز — دائماً في المقدمة',
+          'حجز مسبق حتى أسبوعين قبل المستخدمين العاديين',
           'شهادة عند إتمام البرنامج'
         ],
-        cta:'تواصل للتسعير',
+        cta:'تواصل للحجز',
+        ctaLabel:'احجز جلسة',
         premium:true,
         tier:'مميز'
       },
     ],
   },
 }
-
 // ─── TOPICS & CLASS DATA ─────────────────────────────
-
 const TOPICS = [
   { icon:'🌍', en:'World Events', fr:'Actualités Mondiales', ar:'أحداث العالم' },
   { icon:'📰', en:'Breaking News', fr:'Actualités', ar:'أخبار عاجلة' },
@@ -993,14 +978,12 @@ const TOPICS = [
   { icon:'🏆', en:'Sports', fr:'Sport', ar:'الرياضة' },
   { icon:'🎓', en:'Education & Learning', fr:'Éducation & Apprentissage', ar:'التعليم والتعلّم' },
 ]
-
 const CLASS_TOPICS = [
   { topic:'AI & The Future of Work', icon:'🤖', participants:8, level:'B2–C1' },
   { topic:'The US Elections 2024',   icon:'🗳️', participants:12, level:'B1–B2' },
   { topic:'Climate Change Debate',   icon:'🌱', participants:6,  level:'B2–C1' },
   { topic:'Social Media & Society',  icon:'📱', participants:10, level:'B1–B2' },
 ]
-
 const FLOATING_WORDS = [
   { text: 'current events', icon: '🌍', rotStart: '-3deg', rotEnd: '5deg', dur: '12s', delay: '0s', wobble: '15px' },
   { text: 'trending', icon: '🔥', rotStart: '4deg', rotEnd: '-6deg', dur: '11s', delay: '1.2s', wobble: '-12px' },
@@ -1013,11 +996,8 @@ const FLOATING_WORDS = [
   { text: 'sports', icon: '🏆', rotStart: '-6deg', rotEnd: '4deg', dur: '12s', delay: '2.2s', wobble: '17px' },
   { text: 'music', icon: '🎵', rotStart: '7deg', rotEnd: '-3deg', dur: '14s', delay: '3.8s', wobble: '-19px' },
 ]
-
 const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
-
 // ─── COMPONENTS ──────────────────────────────────────
-
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
     { level: 'A1', tier: 'muted' as const }, { level: 'A2', tier: 'muted' as const }, { level: 'B1', tier: 'muted' as const },
@@ -1041,7 +1021,6 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const diamondTextLight = '#4A5580'
   const diamondShadow = '0 0 20px rgba(160,180,220,0.6), 0 0 40px rgba(180,200,240,0.3)'
   const labelColor = isLight ? 'rgba(26,26,26,0.35)' : 'rgba(255,240,232,0.25)'
-
   function getBadgeStyle(tier: 'muted' | 'target' | 'gold' | 'diamond') {
     switch (tier) {
       case 'target': return { background: targetBg, borderColor: targetColor, color: targetColor, borderWidth: '2px', boxShadow: `0 0 14px ${targetColor}35, 0 0 28px ${targetColor}12`, animation: 'b2pulse 2.5s ease-in-out infinite' }
@@ -1050,7 +1029,6 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
       default: return { background: mutedBg, borderColor: mutedBorder, color: mutedText, borderWidth: '1px', boxShadow: 'none' }
     }
   }
-
   return (
     <div className="inline-flex items-center gap-1 flex-wrap">
       {levels.map((l, i) => {
@@ -1075,7 +1053,6 @@ function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
     </div>
   )
 }
-
 function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean}){
   return(
     <span className={`inline-flex items-center gap-0.5 tracking-tight whitespace-nowrap leading-none select-none ${className}`} dir="ltr">
@@ -1085,33 +1062,24 @@ function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean
     </span>
   )
 }
-
 function useCountdown(target:Date){const[t,st]=useState({d:0,h:0,m:0,s:0});useEffect(()=>{const tk=()=>{const df=target.getTime()-Date.now();if(df<=0)return;st({d:Math.floor(df/86400000),h:Math.floor((df%86400000)/3600000),m:Math.floor((df%3600000)/60000),s:Math.floor((df%60000)/1000)})};tk();const id=setInterval(tk,1000);return()=>clearInterval(id)},[target]);return t}
-
 type Theme='dark'|'light'
 function detectSystemTheme():Theme{if(typeof window==='undefined')return'dark';return window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
 function themeStyles(theme:Theme){const d=theme==='dark';return{mainBg:d?'#0A0A0A':'#F5F1ED',cardBg:d?'linear-gradient(180deg, #1C1C1E 0%, #161618 100%)':'linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)',cardBgFlat:d?'#1A1A1A':'#FFFFFF',inputBg:d?'#0A0A0A':'#FFF8F3',navBg:d?'rgba(10,10,10,0.85)':'rgba(245,241,237,0.85)',borderColor:d?'#2A2A2C':'#E8E0D8',borderHover:d?'rgba(255,69,0,0.35)':'rgba(224,61,0,0.25)',textPrimary:d?'#FFFFFF':'#1A1A1A',textSecondary:d?'rgba(255,240,232,0.55)':'rgba(26,26,26,0.55)',textTertiary:d?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.35)',textOrange:d?'#FF4500':'#E03D00',textOrangeLight:d?'#FF7A3D':'#CC3700',orangeGlow:d?'rgba(255,69,0,0.25)':'rgba(224,61,0,0.15)',cardShadow:d?'0 8px 30px rgba(0,0,0,0.3)':'0 8px 30px rgba(0,0,0,0.06)',cardShadowHover:d?'0 12px 40px rgba(0,0,0,0.4)':'0 12px 40px rgba(0,0,0,0.08)',toggleBg:d?'#1C1C1E':'#EDE8E3',pillBg:d?'rgba(255,69,0,0.1)':'rgba(224,61,0,0.08)',pillText:d?'#FF4500':'#E03D00',pillBgInactive:d?'#1A1A1A':'#F0EDE8',pillTextInactive:d?'rgba(255,240,232,0.35)':'rgba(26,26,26,0.3)',pillBorderInactive:d?'#2A2A2C':'#E0D8D0',countdownBg:d?'#0A0A0A':'#FFF8F3',countdownBorder:d?'#2A2A2C':'#E8E0D8',chatBg:d?'#0A0A0A':'#FFF8F3',chatBorder:d?'#2A2A2C':'#E8E0D8',btnSecondaryBg:d?'#1A1A1A':'#FFFFFF',btnSecondaryBorder:d?'#2A2A2C':'#E8E0D8',btnSecondaryText:d?'#FFF0E8':'#1A1A1A',blobOpacity:d?'0.06':'0.03',fontFamily:"-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif"}}
-
 export default function Home(){
   const[lang,setLang]=useState<'en'|'fr'|'ar'>('en')
   const[theme,setTheme]=useState<Theme>('dark')
   const[showModal,setShowModal]=useState(false)
   const[selectedPlan,setSelectedPlan]=useState<string>('')
   const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
-
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
-
   useEffect(()=>{setTheme(detectSystemTheme());const mq=window.matchMedia('(prefers-color-scheme: light)');const handler=(e:MediaQueryListEvent)=>setTheme(e.matches?'light':'dark');mq.addEventListener('change',handler);return()=>mq.removeEventListener('change',handler)},[])
-
   const[charIndex,setCharIndex]=useState(0);const[wordIndex,setWordIndex]=useState(0);const[deleting,setDeleting]=useState(false);const[displayed,setDisplayed]=useState('')
   const words=['native speaker','confidently','fluently','fearlessly']
   useEffect(()=>{const word=words[wordIndex];const timeout=setTimeout(()=>{if(!deleting){if(charIndex<word.length){setDisplayed(word.slice(0,charIndex+1));setCharIndex(c=>c+1)}else setTimeout(()=>setDeleting(true),2000)}else{if(charIndex>0){setDisplayed(word.slice(0,charIndex-1));setCharIndex(c=>c-1)}else{setDeleting(false);setWordIndex(i=>(i+1)%words.length)}}},deleting?40:80);return()=>clearTimeout(timeout)},[charIndex,deleting,wordIndex])
-
   const[activeTopicIndex,setActiveTopicIndex]=useState(0);const[topicProgress,setTopicProgress]=useState(0)
   useEffect(()=>{const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80);return()=>clearInterval(interval)},[])
-
   const[visibleP,setVisibleP]=useState<number[]>([])
-
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
   useEffect(() => {
     const timers: NodeJS.Timeout[] = []
@@ -1120,35 +1088,27 @@ export default function Home(){
     timers[0]=setTimeout(updateMics,1000);timers[1]=setTimeout(updateHands,2000)
     return ()=>timers.forEach(t=>clearTimeout(t))
   },[])
-
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
   useEffect(()=>{for(let i=0;i<8;i++)setTimeout(()=>setVisibleP(p=>[...p,i]),i*280);chatSnippets.forEach((msg,i)=>setTimeout(()=>setChatMsgs(p=>[...p.slice(-3),{id:i,...msg}]),2000+i*2800))},[])
-
   const[menuOpen,setMenuOpen]=useState(false)
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
-
   const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
   const countdown=useCountdown(nextLive)
-
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
-
   const activeTopic=CLASS_TOPICS[activeTopicIndex]
   // ─── USE NEW MEMOJI AVATARS ────────────────────────
   const allAvatars = getAllAvatars(isLight)
-
   const openModal = (planName: string) => {
     setSelectedPlan(planName)
     setShowModal(true)
     document.body.style.overflow = 'hidden'
   }
-
   const closeModal = () => {
     setShowModal(false)
     document.body.style.overflow = 'unset'
   }
-
   const handleContact = (platform: string) => {
     const urls: Record<string, string> = {
       whatsapp: 'https://wa.me/21656633546?text=Hi!%20I%27m%20interested%20in%20the%20' + encodeURIComponent(selectedPlan) + '%20plan',
@@ -1160,7 +1120,6 @@ export default function Home(){
     }
     closeModal()
   }
-
   // Glass button style helper
   const glassBtnStyle = (popular?: boolean, premium?: boolean) => {
     if (popular) {
@@ -1189,7 +1148,6 @@ export default function Home(){
       WebkitBackdropFilter: 'blur(8px)',
     }
   }
-
   return(
     <main className="min-h-screen transition-colors duration-500" style={{backgroundColor:s.mainBg,fontFamily:s.fontFamily}} dir={isAr?'rtl':'ltr'}>
       <style>{`
@@ -1226,7 +1184,6 @@ export default function Home(){
             transform: translateX(var(--wobble-final, 0px)) rotate(var(--rot-end, 0deg));
           }
         }
-
         /* Wobble effect while falling */
         @keyframes rainWobble {
           0%, 100% {
@@ -1242,7 +1199,6 @@ export default function Home(){
             transform: translateX(var(--wobble-3, 12px)) rotate(calc(var(--rot-end) + 1deg));
           }
         }
-
         .rain-word {
           animation: 
             rainDown var(--dur, 12s) linear infinite,
@@ -1250,7 +1206,6 @@ export default function Home(){
           animation-delay: var(--delay, 0s);
           will-change: transform, opacity, top;
         }
-
         @keyframes goldShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
         @keyframes diamondSparkle{0%,100%{filter:brightness(1);box-shadow:0 0 20px rgba(160,180,220,0.6),0 0 40px rgba(180,200,240,0.3)}30%{filter:brightness(1.15);box-shadow:0 0 28px rgba(180,200,240,0.75),0 0 50px rgba(200,220,255,0.4)}60%{filter:brightness(0.95)}}
         @keyframes diamondShine{0%,100%{opacity:0;transform:translateX(-100%) rotate(-30deg)}50%{opacity:.7}}
@@ -1271,7 +1226,6 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
-
         /* Glassmorphism card styles */
         .glass-card {
           background: ${isLight ? 'rgba(255, 255, 255, 0.7)' : 'rgba(20, 20, 22, 0.7)'};
@@ -1292,7 +1246,6 @@ export default function Home(){
           -webkit-backdrop-filter: blur(8px);
           border: 1px solid ${s.borderColor};
         }
-
         /* Glass button styles */
         .glass-btn {
           backdrop-filter: blur(8px);
@@ -1305,7 +1258,6 @@ export default function Home(){
         .glass-btn:active {
           transform: scale(0.97);
         }
-
         /* Modal styles */
         .modal-overlay {
           position: fixed;
@@ -1386,7 +1338,6 @@ export default function Home(){
           color: ${s.textPrimary};
         }
       `}</style>
-
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2.5 flex-shrink-0"><B2Logo className="text-lg md:text-xl" isLight={isLight}/></div>
@@ -1447,7 +1398,6 @@ export default function Home(){
           </div>
         )}
       </nav>
-
       {/* ─── HERO SECTION ──────────────────────────────── */}
       <section className="relative overflow-hidden min-h-[92vh] flex items-center">
         <div className="absolute inset-0" style={{background:`radial-gradient(ellipse at 25% 50%,${s.textOrange}06 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,${s.textOrangeLight}04 0%,transparent 50%)`}}/>
@@ -1509,7 +1459,6 @@ export default function Home(){
           </div>
         </div>
       </section>
-
       {/* ─── OFFERS SECTION ──────────────────────────────── */}
       <section id="offers" ref={addRef(0)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-20 relative overflow-hidden">
         {/* Rain words container */}
@@ -1546,11 +1495,16 @@ export default function Home(){
         <div className="relative z-10">
           <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.classesTag}</div>
           <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>{t.classesH}</h2>
-          <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
-          
+          <p className="text-[15px] mb-6 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
+
+          {/* Condensed trust badge — duplicated from hero, placed directly above pricing cards */}
+          <div className="glass-card-light inline-flex items-center gap-2 rounded-full px-4 py-2 mb-10 text-xs font-semibold" style={{borderColor:s.borderColor,color:s.textPrimary}}>
+            <span style={{color:s.textOrange}}>★</span>
+            <span>{t.trustBadge}</span>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {t.packages.map((pkg) => {
-              const isPrivate = pkg.priceTnd === 'Contact' || pkg.priceTnd === 'تواصل'
               return (
                 <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
                   borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
@@ -1567,9 +1521,9 @@ export default function Home(){
                       most popular
                     </div>
                   )}
-                  {(pkg as any).premium && (
+                  {(pkg as any).spotsLeft !== undefined && (
                     <div className="absolute -top-3.5 left-6 text-white text-[11px] px-3.5 py-1 rounded-full font-bold" style={{backgroundColor: s.textOrangeLight}}>
-                      limited spots
+                      {(pkg as any).spotsLeft} spots left this cohort
                     </div>
                   )}
                   <div className="flex items-start justify-between mb-5">
@@ -1583,20 +1537,22 @@ export default function Home(){
                       </div>
                     </div>
                     <div className="text-right">
-                      {!isPrivate ? (
-                        <>
-                          <div className="text-2xl font-black" style={{color: s.textOrange}}>
-                            {pkg.priceTnd}
-                            <span className="text-sm font-normal" style={{color: s.textTertiary}}> /month</span>
-                          </div>
-                          {activePrice === 'y' && (
-                            <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
-                              {pkg.yearlyTnd} /year
-                            </div>
-                          )}
-                        </>
+                      {activePrice === 'm' ? (
+                        <div className="text-2xl font-black" style={{color: s.textOrange}}>
+                          {pkg.priceTnd}
+                          <span className="text-sm font-normal" style={{color: s.textTertiary}}> TND/month</span>
+                        </div>
                       ) : (
-                        <div className="text-2xl font-black" style={{color: s.textPrimary}}>—</div>
+                        <>
+                          <div className="text-2xl font-black flex items-baseline gap-1.5 justify-end" style={{color: s.textOrange}}>
+                            <span className="text-sm font-semibold line-through" style={{color: s.textTertiary}}>{pkg.priceTnd}</span>
+                            <span>→ {pkg.yearlyTnd}</span>
+                            <span className="text-sm font-normal" style={{color: s.textTertiary}}>/mo</span>
+                          </div>
+                          <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
+                            {t.billedYearly}
+                          </div>
+                        </>
                       )}
                     </div>
                   </div>
@@ -1613,7 +1569,7 @@ export default function Home(){
                     className="glass-btn block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.97]" 
                     style={glassBtnStyle((pkg as any).popular, (pkg as any).premium)}
                   >
-                    {isPrivate ? pkg.cta : `${t.enrollBtn} — ${pkg.name}`}
+                    {(pkg as any).ctaLabel || t.enrollBtn}
                   </button>
                 </div>
               )
@@ -1636,7 +1592,6 @@ export default function Home(){
           </div>
         </div>
       </section>
-
       {/* ─── HOW IT WORKS ──────────────────────────────── */}
       <section id="how" ref={addRef(1)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.howTag}</div>
@@ -1653,7 +1608,6 @@ export default function Home(){
           ))}
         </div>
       </section>
-
       {/* ─── LIVE SESSION SIMULATOR ────────────────────── */}
       <section id="live" ref={addRef(2)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.liveTag}</div>
@@ -1684,7 +1638,6 @@ export default function Home(){
           </div>
         </div>
       </section>
-
       {/* ─── TOPICS SECTION ──────────────────────────────── */}
       <section id="topics" ref={addRef(3)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>{t.topicsTag}</div>
@@ -1713,7 +1666,6 @@ export default function Home(){
           ))}
         </div>
       </section>
-
       {/* ─── COMMUNITY SECTION ──────────────────────────── */}
       <section id="community" ref={addRef(4)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
         <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden" style={{boxShadow:s.cardShadow}}>
@@ -1744,7 +1696,6 @@ export default function Home(){
           </div>
         </div>
       </section>
-
       {/* ─── NEXT LIVE ──────────────────────────────────── */}
       <section id="next-live" ref={addRef(5)} className="reveal max-w-6xl mx-auto px-6 py-8 md:py-12">
         <div className="glass-card rounded-2xl p-8 text-center" style={{boxShadow:s.cardShadow}}>
@@ -1766,7 +1717,6 @@ export default function Home(){
           </div>
         </div>
       </section>
-
       {/* ─── FOOTER ────────────────────────────────────── */}
       <footer className="border-t px-6 py-8" style={{borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
@@ -1779,9 +1729,7 @@ export default function Home(){
           <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
       </footer>
-
       <a href="https://wa.me/21656633546" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
-
       {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
         <div className="modal-overlay" onClick={closeModal}>
@@ -1795,25 +1743,21 @@ export default function Home(){
                 {selectedPlan !== 'General' ? `For the ${selectedPlan}` : 'Choose how you\'d like to continue'}
               </p>
             </div>
-
             <div className="flex flex-col gap-3">
               <button onClick={() => handleContact('whatsapp')} className="option-btn" style={{borderColor:'#25D366'}}>
                 <span className="icon" style={{color:'#25D366'}}><WhatsAppIcon size={24} /></span>
                 Continue with WhatsApp
                 <span className="badge">Recommended</span>
               </button>
-
               <button onClick={() => handleContact('messenger')} className="option-btn" style={{borderColor:'#0084FF'}}>
                 <span className="icon" style={{color:'#0084FF'}}><MessengerIcon size={24} /></span>
                 Continue with Messenger
               </button>
-
               <button onClick={() => handleContact('instagram')} className="option-btn" style={{borderColor:'#E1306C'}}>
                 <span className="icon" style={{color:'#E1306C'}}><InstagramIcon size={24} /></span>
                 Continue with Instagram
               </button>
             </div>
-
             <p className="text-center text-xs mt-4" style={{color:s.textTertiary}}>
               We'll get back to you within 24 hours
             </p>
