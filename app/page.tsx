@@ -34,6 +34,581 @@ const MessengerIcon = ({ className = '', size = 24 }: { className?: string, size
   </svg>
 )
 
+// ─── NEW MEMOJI-STYLE AVATAR SYSTEM ─────────────────────
+// Each avatar is a complete, hand-crafted SVG in memoji style
+// with distinct personality, skin tone, hair, eyes, and accessories
+
+interface AvatarData {
+  svg: string
+  name: string
+  isDali: boolean
+  bg: string
+}
+
+const ROOM_BG = [
+  { dark:'#1E1814', light:'#F5EDE5' }, { dark:'#161E24', light:'#EBF0F5' }, { dark:'#1E1822', light:'#F2EDF5' },
+  { dark:'#161E1C', light:'#EBF5F2' }, { dark:'#1E1818', light:'#F5EDED' }, { dark:'#181C24', light:'#EDF0F5' },
+  { dark:'#1E1820', light:'#F5EDF2' }, { dark:'#1A1618', light:'#F5F0F2' },
+]
+
+// Skin tone palettes for diversity
+const SKIN_TONES = [
+  { base:'#FFDFC4', mid:'#F5C6A0', shadow:'#E8A87C', dark:'#D4916A' }, // Amira
+  { base:'#C68642', mid:'#A66A30', shadow:'#8B5522', dark:'#6B3F18' },  // Sami
+  { base:'#FFE0BD', mid:'#F5CBA0', shadow:'#E8B080', dark:'#D49560' }, // Nour
+  { base:'#D4A574', mid:'#B8895C', shadow:'#9B7044', dark:'#7E5830' }, // Mehdi
+  { base:'#FDDCB5', mid:'#E8C090', shadow:'#D4A570', dark:'#BF8A50' }, // Karim
+  { base:'#8D5524', mid:'#6B3F18', shadow:'#522D10', dark:'#3A1C08' }, // Rania
+  { base:'#FCEAD8', mid:'#F0D5BA', shadow:'#E0C0A0', dark:'#C8A880' }, // Sara
+]
+
+// ─── MEMOJI AVATAR GENERATION FUNCTIONS ──────────────
+
+// Helper to create a memoji-style gradient
+function skinGradientDef(base: string, mid: string) {
+  return `<radialGradient id="sk" cx="42%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="${base}"/>
+    <stop offset="45%" stop-color="${mid}"/>
+    <stop offset="100%" stop-color="${mid}"/>
+  </radialGradient>`
+}
+
+function eyeGradientDef(eyeColor: string) {
+  return `<radialGradient id="ey" cx="40%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="${eyeColor}"/>
+    <stop offset="50%" stop-color="${eyeColor}dd"/>
+    <stop offset="100%" stop-color="${eyeColor}99"/>
+  </radialGradient>`
+}
+
+// Generic memoji head base with customizable features
+function createMemojiAvatar(
+  index: number,
+  isLight: boolean,
+  options: {
+    skinIdx: number
+    hairStyle: string
+    hairColor: string
+    eyeStyle: string
+    eyeColor: string
+    mouthStyle: string
+    accessory: string
+    clothColor: string
+    faceDetails: string
+  }
+): string {
+  const skin = SKIN_TONES[options.skinIdx]
+  const room = ROOM_BG[index] || ROOM_BG[0]
+  const bg = isLight ? room.light : room.dark
+  const shadowOpacity = isLight ? '0.06' : '0.18'
+  const glassOpacity = isLight ? '0.03' : '0.08'
+  
+  // Eyebrow and lash colors based on skin depth
+  const browColor = options.skinIdx >= 3 ? '#1A0E05' : '#3D2815'
+  const lashColor = options.skinIdx >= 3 ? '#0A0400' : '#2D1E0F'
+
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+      ${skinGradientDef(skin.base, skin.mid)}
+      ${eyeGradientDef(options.eyeColor)}
+      <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="${shadowOpacity}"/></filter>
+      <filter id="softShadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="${shadowOpacity}"/></filter>
+    </defs>
+    
+    <!-- Background -->
+    <rect width="200" height="200" fill="${bg}" rx="18"/>
+    
+    <!-- Subtle glass reflection -->
+    <ellipse cx="70" cy="50" rx="60" ry="30" fill="white" opacity="${glassOpacity}" transform="rotate(-15 70 50)"/>
+    
+    <!-- Hair (behind head) -->
+    ${options.hairStyle}
+    
+    <!-- Neck / Body hint -->
+    <rect x="85" y="148" width="30" height="20" rx="10" fill="${skin.mid}" opacity="0.7"/>
+    <ellipse cx="100" cy="175" rx="35" ry="16" fill="${options.clothColor}"/>
+    
+    <!-- Face shadow on neck -->
+    <ellipse cx="100" cy="155" rx="20" ry="5" fill="${skin.shadow}" opacity="0.15"/>
+    
+    <!-- Head (main memoji shape) -->
+    <ellipse cx="100" cy="105" rx="48" ry="52" fill="url(#sk)" filter="url(#shadow)"/>
+    
+    <!-- Cheek blush -->
+    <ellipse cx="65" cy="118" rx="14" ry="8" fill="#FF8C69" opacity="0.15"/>
+    <ellipse cx="135" cy="118" rx="14" ry="8" fill="#FF8C69" opacity="0.15"/>
+    
+    <!-- Ear hints -->
+    <ellipse cx="52" cy="110" rx="8" ry="12" fill="url(#sk)"/>
+    <ellipse cx="148" cy="110" rx="8" ry="12" fill="url(#sk)"/>
+    <ellipse cx="52" cy="110" rx="5" ry="8" fill="${skin.shadow}" opacity="0.3"/>
+    <ellipse cx="148" cy="110" rx="5" ry="8" fill="${skin.shadow}" opacity="0.3"/>
+    
+    <!-- Face contour -->
+    <ellipse cx="100" cy="130" rx="38" ry="18" fill="${skin.shadow}" opacity="0.08"/>
+    
+    <!-- Eyes -->
+    ${options.eyeStyle}
+    
+    <!-- Eyebrows -->
+    ${generateEyebrows(browColor)}
+    
+    <!-- Nose hint -->
+    <path d="M96 108 Q100 104 104 108" stroke="${skin.shadow}" stroke-width="1.2" fill="none" opacity="0.4"/>
+    <ellipse cx="100" cy="119" rx="6" ry="3.5" fill="${skin.shadow}" opacity="0.15"/>
+    
+    <!-- Mouth -->
+    ${options.mouthStyle}
+    
+    <!-- Face details (freckles, beauty marks, etc.) -->
+    ${options.faceDetails}
+    
+    <!-- Accessory (glasses, earrings, etc.) -->
+    ${options.accessory}
+    
+    <!-- Hair (in front of head) -->
+    ${generateHairFront(options.skinIdx, options.hairColor)}
+    
+  </svg>`
+}
+
+function generateEyebrows(color: string): string {
+  // Expressive memoji eyebrows
+  return `
+    <path d="M62 98 Q74 91 90 94 Q76 94 62 98Z" fill="${color}" opacity="0.7"/>
+    <path d="M138 98 Q126 91 110 94 Q124 94 138 98Z" fill="${color}" opacity="0.7"/>
+    <path d="M62 98 Q72 92 86 95" stroke="${color}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M138 98 Q128 92 114 95" stroke="${color}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+  `
+}
+
+function generateHairFront(skinIdx: number, color: string): string {
+  // Simple hair swoop
+  return `
+    <path d="M50 95 Q48 55 100 48 Q152 55 150 95 Q140 60 100 56 Q60 60 50 95Z" fill="${color}" opacity="0.9"/>
+    <path d="M55 90 Q53 60 100 53 Q147 60 145 90" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.3"/>
+  `
+}
+
+// ─── STUDENT MEMOJI CREATION ─────────────────────────
+
+// Student 0 - Amira (warm smile, hijab-like wrap)
+function createAmiraSvg(isLight: boolean): string {
+  return createMemojiAvatar(0, isLight, {
+    skinIdx: 0,
+    hairStyle: '',
+    hairColor: '#2D1E0F',
+    eyeStyle: `
+      <ellipse cx="78" cy="110" rx="12" ry="13" fill="white"/>
+      <ellipse cx="122" cy="110" rx="12" ry="13" fill="white"/>
+      <circle cx="79" cy="111" r="8" fill="url(#ey)"/>
+      <circle cx="123" cy="111" r="8" fill="url(#ey)"/>
+      <circle cx="80" cy="112" r="4.5" fill="#0A0400"/>
+      <circle cx="124" cy="112" r="4.5" fill="#0A0400"/>
+      <circle cx="77" cy="108" r="3" fill="white"/>
+      <circle cx="121" cy="108" r="3" fill="white"/>
+      <circle cx="83" cy="115" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="127" cy="115" r="1.5" fill="white" opacity="0.5"/>
+    `,
+    eyeColor: '#5C3A1E',
+    mouthStyle: `
+      <path d="M75 135 Q100 152 125 135" stroke="#D4916A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M75 135 Q100 150 125 135" fill="white" opacity="0.5"/>
+      <path d="M85 140 Q95 146 105 140" stroke="#B86840" stroke-width="1" fill="none" opacity="0.3"/>
+    `,
+    accessory: `
+      <!-- Hijab-like head covering -->
+      <path d="M40 100 Q35 40 100 30 Q165 40 160 100 Q145 55 100 48 Q55 55 40 100Z" fill="#8B5CF6" opacity="0.85"/>
+      <path d="M40 100 Q100 85 160 100 Q100 95 40 100Z" fill="#7C3AED"/>
+      <path d="M35 105 Q30 50 100 38 Q170 50 165 105" stroke="#6D28D9" stroke-width="2" fill="none" opacity="0.5"/>
+      <!-- Small sparkle pin -->
+      <circle cx="130" cy="55" r="4" fill="#FCD34D" opacity="0.7"/>
+    `,
+    clothColor: '#8B5CF6',
+    faceDetails: '',
+  })
+}
+
+// Student 1 - Sami (confident, cap)
+function createSamiSvg(isLight: boolean): string {
+  return createMemojiAvatar(1, isLight, {
+    skinIdx: 1,
+    hairStyle: '',
+    hairColor: '#1A0E05',
+    eyeStyle: `
+      <ellipse cx="78" cy="108" rx="11" ry="12" fill="white"/>
+      <ellipse cx="122" cy="108" rx="11" ry="12" fill="white"/>
+      <circle cx="79" cy="109" r="7.5" fill="url(#ey)"/>
+      <circle cx="123" cy="109" r="7.5" fill="url(#ey)"/>
+      <circle cx="80" cy="110" r="4.2" fill="#000"/>
+      <circle cx="124" cy="110" r="4.2" fill="#000"/>
+      <circle cx="76" cy="106" r="2.8" fill="white"/>
+      <circle cx="120" cy="106" r="2.8" fill="white"/>
+    `,
+    eyeColor: '#2D1508',
+    mouthStyle: `
+      <path d="M70 137 Q100 158 130 137" stroke="#6B3F18" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M70 137 Q100 156 130 137" fill="white" opacity="0.6"/>
+    `,
+    accessory: `
+      <!-- Baseball cap -->
+      <path d="M55 55 Q100 20 145 55 Q100 50 55 55Z" fill="#DC2626"/>
+      <path d="M50 55 Q100 48 150 55" stroke="#B91C1C" stroke-width="3" fill="none"/>
+      <path d="M55 55 Q53 70 60 78" stroke="#DC2626" stroke-width="4" fill="none"/>
+      <rect x="58" y="52" width="10" height="4" rx="2" fill="#EF4444"/>
+    `,
+    clothColor: '#DC2626',
+    faceDetails: '',
+  })
+}
+
+// Student 2 - Nour (bright eyes, headband)
+function createNourSvg(isLight: boolean): string {
+  return createMemojiAvatar(2, isLight, {
+    skinIdx: 2,
+    hairStyle: '',
+    hairColor: '#3D2010',
+    eyeStyle: `
+      <ellipse cx="78" cy="112" rx="12" ry="13" fill="white"/>
+      <ellipse cx="122" cy="112" rx="12" ry="13" fill="white"/>
+      <circle cx="79" cy="113" r="8" fill="url(#ey)"/>
+      <circle cx="123" cy="113" r="8" fill="url(#ey)"/>
+      <circle cx="80" cy="114" r="4.5" fill="#0A0400"/>
+      <circle cx="124" cy="114" r="4.5" fill="#0A0400"/>
+      <circle cx="77" cy="110" r="3.2" fill="white"/>
+      <circle cx="121" cy="110" r="3.2" fill="white"/>
+      <circle cx="83" cy="117" r="1.6" fill="white" opacity="0.5"/>
+      <circle cx="127" cy="117" r="1.6" fill="white" opacity="0.5"/>
+    `,
+    eyeColor: '#8B5E3C',
+    mouthStyle: `
+      <path d="M72 133 Q100 150 128 133" stroke="#D49560" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M72 133 Q100 148 128 133" fill="white" opacity="0.5"/>
+    `,
+    accessory: `
+      <!-- Floral headband -->
+      <path d="M40 70 Q100 50 160 70" stroke="#F472B6" stroke-width="4" fill="none"/>
+      <path d="M40 70 Q100 50 160 70" stroke="#EC4899" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+      <circle cx="60" cy="65" r="5" fill="#F9A8D4"/>
+      <circle cx="140" cy="65" r="5" fill="#F9A8D4"/>
+    `,
+    clothColor: '#7C3AED',
+    faceDetails: `
+      <!-- Light freckles -->
+      <circle cx="72" cy="115" r="1" fill="#D4916A" opacity="0.4"/>
+      <circle cx="76" cy="118" r="1" fill="#D4916A" opacity="0.35"/>
+      <circle cx="124" cy="115" r="1" fill="#D4916A" opacity="0.4"/>
+      <circle cx="128" cy="118" r="1" fill="#D4916A" opacity="0.35"/>
+    `,
+  })
+}
+
+// Student 3 - Mehdi (cool, sunglasses)
+function createMehdiSvg(isLight: boolean): string {
+  return createMemojiAvatar(3, isLight, {
+    skinIdx: 3,
+    hairStyle: '',
+    hairColor: '#1A0E05',
+    eyeStyle: `
+      <!-- Sunglasses hide eyes -->
+      <rect x="58" y="103" width="40" height="18" rx="8" fill="#111827"/>
+      <rect x="102" y="103" width="40" height="18" rx="8" fill="#111827"/>
+      <rect x="56" y="101" width="88" height="12" rx="5" fill="#1F2937" opacity="0.9"/>
+      <line x1="98" y1="107" x2="102" y2="107" stroke="#374151" stroke-width="2.5"/>
+      <!-- Lens reflection -->
+      <path d="M64 107 Q72 103 80 107" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+      <path d="M108 107 Q116 103 124 107" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+    `,
+    eyeColor: '#2D1508',
+    mouthStyle: `
+      <path d="M72 135 Q100 155 128 135" stroke="#7E5830" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M72 135 Q100 153 128 135" fill="white" opacity="0.55"/>
+      <path d="M88 142 Q100 148 112 142" stroke="#9B7044" stroke-width="1" fill="none" opacity="0.3"/>
+    `,
+    accessory: `
+      <!-- Hair texture -->
+      <path d="M48 80 Q55 55 75 52" stroke="#2D1E0F" stroke-width="3" fill="none" opacity="0.4"/>
+      <path d="M125 52 Q145 55 152 80" stroke="#2D1E0F" stroke-width="3" fill="none" opacity="0.4"/>
+    `,
+    clothColor: '#1D4ED8',
+    faceDetails: '',
+  })
+}
+
+// Student 4 - Karim (friendly, round glasses)
+function createKarimSvg(isLight: boolean): string {
+  return createMemojiAvatar(4, isLight, {
+    skinIdx: 4,
+    hairStyle: '',
+    hairColor: '#3D2010',
+    eyeStyle: `
+      <!-- Round glasses -->
+      <circle cx="78" cy="110" r="14" fill="none" stroke="#78350F" stroke-width="2.5"/>
+      <circle cx="122" cy="110" r="14" fill="none" stroke="#78350F" stroke-width="2.5"/>
+      <line x1="92" y1="110" x2="108" y2="110" stroke="#78350F" stroke-width="2.5"/>
+      <line x1="64" y1="110" x2="56" y2="112" stroke="#78350F" stroke-width="2.5"/>
+      <line x1="136" y1="110" x2="144" y2="112" stroke="#78350F" stroke-width="2.5"/>
+      <!-- Eyes behind glasses -->
+      <ellipse cx="78" cy="110" rx="10" ry="11" fill="white"/>
+      <ellipse cx="122" cy="110" rx="10" ry="11" fill="white"/>
+      <circle cx="79" cy="111" r="7" fill="url(#ey)"/>
+      <circle cx="123" cy="111" r="7" fill="url(#ey)"/>
+      <circle cx="80" cy="112" r="4" fill="#0A0400"/>
+      <circle cx="124" cy="112" r="4" fill="#0A0400"/>
+      <circle cx="76" cy="108" r="2.5" fill="white"/>
+      <circle cx="120" cy="108" r="2.5" fill="white"/>
+    `,
+    eyeColor: '#7B4B2A',
+    mouthStyle: `
+      <path d="M74 134 Q100 152 126 134" stroke="#BF8A50" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M74 134 Q100 150 126 134" fill="white" opacity="0.5"/>
+    `,
+    accessory: '',
+    clothColor: '#059669',
+    faceDetails: `
+      <!-- Warm smile lines -->
+      <path d="M62 130 Q60 135 58 132" stroke="#D4A570" stroke-width="0.8" fill="none" opacity="0.4"/>
+      <path d="M138 130 Q140 135 142 132" stroke="#D4A570" stroke-width="0.8" fill="none" opacity="0.4"/>
+    `,
+  })
+}
+
+// Student 5 - Rania (glam, earrings)
+function createRaniaSvg(isLight: boolean): string {
+  return createMemojiAvatar(5, isLight, {
+    skinIdx: 5,
+    hairStyle: '',
+    hairColor: '#0A0400',
+    eyeStyle: `
+      <ellipse cx="78" cy="110" rx="11" ry="12" fill="white"/>
+      <ellipse cx="122" cy="110" rx="11" ry="12" fill="white"/>
+      <circle cx="79" cy="111" r="7.5" fill="url(#ey)"/>
+      <circle cx="123" cy="111" r="7.5" fill="url(#ey)"/>
+      <circle cx="80" cy="112" r="4.2" fill="#000"/>
+      <circle cx="124" cy="112" r="4.2" fill="#000"/>
+      <circle cx="76" cy="108" r="2.8" fill="white"/>
+      <circle cx="120" cy="108" r="2.8" fill="white"/>
+      <!-- Eyelashes -->
+      <path d="M66 103 Q70 100 74 103" stroke="#000" stroke-width="1.5" fill="none"/>
+      <path d="M110 103 Q114 100 118 103" stroke="#000" stroke-width="1.5" fill="none"/>
+    `,
+    eyeColor: '#3A1C08',
+    mouthStyle: `
+      <path d="M74 135 Q100 155 126 135" stroke="#522D10" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M74 135 Q100 153 126 135" fill="white" opacity="0.45"/>
+      <path d="M88 143 Q100 150 112 143" fill="#8B3A62" opacity="0.5"/>
+    `,
+    accessory: `
+      <!-- Gold hoop earrings -->
+      <circle cx="44" cy="118" r="6" fill="none" stroke="#FCD34D" stroke-width="2.5"/>
+      <circle cx="44" cy="118" r="3.5" fill="none" stroke="#D97706" stroke-width="1"/>
+      <circle cx="156" cy="118" r="6" fill="none" stroke="#FCD34D" stroke-width="2.5"/>
+      <circle cx="156" cy="118" r="3.5" fill="none" stroke="#D97706" stroke-width="1"/>
+      <!-- Bindi/forehead dot -->
+      <circle cx="100" cy="90" r="2" fill="#DC2626" opacity="0.7"/>
+    `,
+    clothColor: '#DB2777',
+    faceDetails: '',
+  })
+}
+
+// Student 6 - Sara (gentle, hijab)
+function createSaraSvg(isLight: boolean): string {
+  return createMemojiAvatar(6, isLight, {
+    skinIdx: 6,
+    hairStyle: '',
+    hairColor: '#3D2815',
+    eyeStyle: `
+      <ellipse cx="78" cy="112" rx="11" ry="12" fill="white"/>
+      <ellipse cx="122" cy="112" rx="11" ry="12" fill="white"/>
+      <circle cx="79" cy="113" r="7.5" fill="url(#ey)"/>
+      <circle cx="123" cy="113" r="7.5" fill="url(#ey)"/>
+      <circle cx="80" cy="114" r="4.2" fill="#0A0400"/>
+      <circle cx="124" cy="114" r="4.2" fill="#0A0400"/>
+      <circle cx="76" cy="110" r="3" fill="white"/>
+      <circle cx="120" cy="110" r="3" fill="white"/>
+      <circle cx="83" cy="116" r="1.5" fill="white" opacity="0.45"/>
+      <circle cx="127" cy="116" r="1.5" fill="white" opacity="0.45"/>
+    `,
+    eyeColor: '#6B4226',
+    mouthStyle: `
+      <path d="M74 134 Q100 152 126 134" stroke="#C8A880" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M74 134 Q100 150 126 134" fill="white" opacity="0.5"/>
+    `,
+    accessory: `
+      <!-- Hijab -->
+      <path d="M35 95 Q30 35 100 28 Q170 35 165 95 Q145 50 100 45 Q55 50 35 95Z" fill="#0D9488" opacity="0.9"/>
+      <path d="M35 95 Q100 80 165 95 Q100 90 35 95Z" fill="#0F766E"/>
+      <path d="M30 100 Q25 45 100 35 Q175 45 170 100" stroke="#0F766E" stroke-width="2" fill="none" opacity="0.6"/>
+      <!-- Soft drape detail -->
+      <path d="M60 60 Q80 70 100 55" stroke="#14B8A6" stroke-width="1.5" fill="none" opacity="0.4"/>
+    `,
+    clothColor: '#0D9488',
+    faceDetails: `
+      <!-- Subtle beauty mark -->
+      <circle cx="112" cy="125" r="1.5" fill="#8B5E3C" opacity="0.4"/>
+    `,
+  })
+}
+
+// Dali - the teacher (distinct, professional, pointer stick)
+function createDaliSvg(isLight: boolean): string {
+  const skin = SKIN_TONES[0] // Warm skin tone
+  const room = ROOM_BG[0]
+  const bg = isLight ? room.light : room.dark
+  const shadowOpacity = isLight ? '0.06' : '0.18'
+  
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+      ${skinGradientDef('#FFE4C0', '#F5C898')}
+      ${eyeGradientDef('#4A3A2A')}
+      <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="${shadowOpacity}"/></filter>
+    </defs>
+    
+    <!-- Background -->
+    <rect width="200" height="200" fill="${bg}" rx="18"/>
+    
+    <!-- Teaching pointer stick -->
+    <g transform="rotate(-25 148 108)">
+      <line x1="148" y1="108" x2="60" y2="40" stroke="#8B4513" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="148" y1="108" x2="60" y2="40" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="60" cy="40" r="4" fill="#FF4500"/>
+      <circle cx="60" cy="40" r="1.5" fill="white" opacity="0.6"/>
+    </g>
+    
+    <!-- Whiteboard hint -->
+    <rect x="15" y="18" width="90" height="50" rx="6" fill="${isLight ? '#FFFFFF' : '#1C1C1E'}" opacity="0.9"/>
+    <rect x="15" y="18" width="90" height="50" rx="6" fill="none" stroke="${isLight ? '#E03D00' : '#FF4500'}" stroke-width="1.5"/>
+    <text x="22" y="35" font-size="7.5" fill="${isLight ? '#CC3700' : '#FF7A3D'}" font-family="monospace" font-weight="bold">displace ≠ replace</text>
+    <line x1="22" y1="42" x2="80" y2="42" stroke="${isLight ? '#E03D00' : '#FF4500'}" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="22" y="52" font-size="6.5" fill="${isLight ? '#D4884A' : '#FF8C69'}" font-family="monospace">→ "AI may displace</text>
+    <text x="22" y="60" font-size="6.5" fill="${isLight ? '#D4884A' : '#FF8C69'}" font-family="monospace">   some roles..."</text>
+    
+    <!-- Neck -->
+    <rect x="88" y="148" width="24" height="14" rx="7" fill="${skin.mid}" opacity="0.6"/>
+    
+    <!-- Body/Shirt -->
+    <ellipse cx="100" cy="180" rx="38" ry="16" fill="#FF4500"/>
+    
+    <!-- Head -->
+    <ellipse cx="100" cy="105" rx="46" ry="50" fill="url(#sk)" filter="url(#shadow)"/>
+    
+    <!-- Hair (professional cut) -->
+    <path d="M50 95 Q48 48 100 42 Q152 48 150 95 Q142 56 100 52 Q58 56 50 95Z" fill="#2D1E0F"/>
+    <path d="M52 88 Q50 52 100 46 Q150 52 148 88" stroke="#1A0E05" stroke-width="2" fill="none" opacity="0.5"/>
+    <!-- Side hair detail -->
+    <path d="M50 80 Q48 95 52 100" stroke="#3D2815" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M150 80 Q152 95 148 100" stroke="#3D2815" stroke-width="4" fill="none" stroke-linecap="round"/>
+    
+    <!-- Ears -->
+    <ellipse cx="54" cy="108" rx="7" ry="10" fill="url(#sk)"/>
+    <ellipse cx="146" cy="108" rx="7" ry="10" fill="url(#sk)"/>
+    
+    <!-- Cheek blush -->
+    <ellipse cx="68" cy="118" rx="12" ry="7" fill="#FF8C69" opacity="0.13"/>
+    <ellipse cx="132" cy="118" rx="12" ry="7" fill="#FF8C69" opacity="0.13"/>
+    
+    <!-- Eyebrows (confident, slightly raised) -->
+    <path d="M62 96 Q74 88 92 92" stroke="#2D1E0F" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M138 96 Q126 88 108 92" stroke="#2D1E0F" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <!-- Eyes (warm, engaging) -->
+    <ellipse cx="80" cy="112" rx="11" ry="12.5" fill="white"/>
+    <ellipse cx="120" cy="112" rx="11" ry="12.5" fill="white"/>
+    <circle cx="81" cy="113" r="7.8" fill="url(#ey)"/>
+    <circle cx="121" cy="113" r="7.8" fill="url(#ey)"/>
+    <circle cx="82" cy="114" r="4.5" fill="#0A0400"/>
+    <circle cx="122" cy="114" r="4.5" fill="#0A0400"/>
+    <circle cx="78" cy="110" r="3.2" fill="white"/>
+    <circle cx="118" cy="110" r="3.2" fill="white"/>
+    <circle cx="85" cy="117" r="1.6" fill="white" opacity="0.5"/>
+    <circle cx="125" cy="117" r="1.6" fill="white" opacity="0.5"/>
+    <!-- Eye outline for depth -->
+    <circle cx="80" cy="112" r="11.5" fill="none" stroke="#5C4433" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="120" cy="112" r="11.5" fill="none" stroke="#5C4433" stroke-width="1.5" opacity="0.5"/>
+    <!-- Bridge of nose between eyes -->
+    <line x1="96" y1="112" x2="104" y2="112" stroke="#5C4433" stroke-width="1.5" opacity="0.4"/>
+    
+    <!-- Nose (defined) -->
+    <path d="M95 108 Q100 103 105 108" stroke="#D4A060" stroke-width="1.2" fill="none" opacity="0.5"/>
+    <ellipse cx="100" cy="120" rx="7" ry="4" fill="#D4A060" opacity="0.12"/>
+    
+    <!-- Mouth (warm, teaching smile) -->
+    <path d="M80 132 Q92 128 100 130 Q108 128 120 132" stroke="#2D1E0F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M80 132 Q92 130 100 131.5 Q108 130 120 132" fill="#3D2815"/>
+    <path d="M78 140 Q100 160 122 140" stroke="#C87940" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M80 140.5 Q100 158 120 140.5" fill="white" opacity="0.6"/>
+    <!-- Smile highlight -->
+    <path d="M88 145 Q100 155 112 145" stroke="#D4A060" stroke-width="1" fill="none" opacity="0.25"/>
+    
+    <!-- Subtle stubble/beard texture -->
+    <circle cx="85" cy="138" r="0.6" fill="#C8A880" opacity="0.3"/>
+    <circle cx="88" cy="136" r="0.5" fill="#C8A880" opacity="0.25"/>
+    <circle cx="92" cy="139" r="0.6" fill="#C8A880" opacity="0.3"/>
+    <circle cx="108" cy="139" r="0.6" fill="#C8A880" opacity="0.3"/>
+    <circle cx="112" cy="136" r="0.5" fill="#C8A880" opacity="0.25"/>
+    <circle cx="115" cy="138" r="0.6" fill="#C8A880" opacity="0.3"/>
+    
+  </svg>`
+}
+
+// ─── EXPORT ALL AVATARS ──────────────────────────────
+
+function getAllAvatars(isLight: boolean): AvatarData[] {
+  return [
+    {
+      svg: createDaliSvg(isLight),
+      name: 'Dali 👨‍🏫',
+      isDali: true,
+      bg: isLight ? ROOM_BG[0].light : ROOM_BG[0].dark,
+    },
+    {
+      svg: createAmiraSvg(isLight),
+      name: 'Amira ✨',
+      isDali: false,
+      bg: isLight ? ROOM_BG[1].light : ROOM_BG[1].dark,
+    },
+    {
+      svg: createSamiSvg(isLight),
+      name: 'Sami 🎧',
+      isDali: false,
+      bg: isLight ? ROOM_BG[2].light : ROOM_BG[2].dark,
+    },
+    {
+      svg: createNourSvg(isLight),
+      name: 'Nour 🌸',
+      isDali: false,
+      bg: isLight ? ROOM_BG[3].light : ROOM_BG[3].dark,
+    },
+    {
+      svg: createMehdiSvg(isLight),
+      name: 'Mehdi 🔥',
+      isDali: false,
+      bg: isLight ? ROOM_BG[4].light : ROOM_BG[4].dark,
+    },
+    {
+      svg: createKarimSvg(isLight),
+      name: 'Karim 😎',
+      isDali: false,
+      bg: isLight ? ROOM_BG[5].light : ROOM_BG[5].dark,
+    },
+    {
+      svg: createRaniaSvg(isLight),
+      name: 'Rania 🎵',
+      isDali: false,
+      bg: isLight ? ROOM_BG[6].light : ROOM_BG[6].dark,
+    },
+    {
+      svg: createSaraSvg(isLight),
+      name: 'Sara 🧕',
+      isDali: false,
+      bg: isLight ? ROOM_BG[7].light : ROOM_BG[7].dark,
+    },
+  ]
+}
+
+// ─── TRANSLATIONS (unchanged) ────────────────────────
+
 const T = {
   en: {
     tagline: 'built for Tunisian English learners',
@@ -52,23 +627,23 @@ const T = {
       { n:'02', icon:'🎙️', t:'join & speak', d:"Join the live session. Dali leads the conversation in English, you participate, ask questions, make mistakes — that's the point." },
       { n:'03', icon:'🚀', t:'track your level', d:'See your vocabulary grow, get personalised feedback after each class, and watch your proficiency climb week by week.' },
     ],
-    classesTag: 'our offerings', 
+    classesTag: 'our offerings',
     classesH: 'choose your path',
     classesSub: 'flexible ways to learn English — pick what fits your life',
-    liveTag: 'live session', 
+    liveTag: 'live session',
     liveH: 'join the conversation',
     liveSub: 'every friday at 8PM Tunisia time — open to all tiers',
-    communityTag: 'reach dali', 
-    communityH: 'message directly', 
+    communityTag: 'reach dali',
+    communityH: 'message directly',
     communitySub: 'questions about a session? not sure which path? Dali replies personally.',
-    monthly: 'monthly', 
+    monthly: 'monthly',
     yearly: 'yearly (-20%)',
-    notSure: 'not sure which path?', 
+    notSure: 'not sure which path?',
     waLink: 'ask on whatsapp ↗',
-    nextLive: 'next live', 
-    days: 'd', 
-    hours: 'h', 
-    min: 'm', 
+    nextLive: 'next live',
+    days: 'd',
+    hours: 'h',
+    min: 'm',
     sec: 's',
     badgeLabel: 'your path',
     communityBannerTag: 'the community',
@@ -82,10 +657,10 @@ const T = {
       'Learn the English people actually use',
     ],
     packages: [
-      { 
-        id:'offline', 
-        icon:'📦', 
-        name:'Offline Pack', 
+      {
+        id:'offline',
+        icon:'📦',
+        name:'Offline Pack',
         tagline:'Learn on your own terms',
         desc:'No schedule, no pressure. Study through interactive digital books packed with lessons, exercises, and vocabulary — paired with audio tracks to train your listening. Everything downloads to your device, no internet needed after that.',
         priceTnd: '59',
@@ -96,14 +671,14 @@ const T = {
           'Exercises & vocabulary per topic',
           'Self-paced — study when you want',
           'Fresh content every month'
-        ], 
-        cta:'get offline pack', 
-        tier:'Self-Paced' 
+        ],
+        cta:'get offline pack',
+        tier:'Self-Paced'
       },
-      { 
-        id:'speaking', 
-        icon:'💬', 
-        name:'Speaking Groups', 
+      {
+        id:'speaking',
+        icon:'💬',
+        name:'Speaking Groups',
         tagline:'Speak more, stress less',
         desc:'A small, friendly group of Tunisian learners meeting live every week to talk in English — real topics, real conversation, real progress. You\'ll stop overthinking and start actually speaking.',
         priceTnd: '179',
@@ -114,15 +689,15 @@ const T = {
           'Weekly topics: culture, news, daily life',
           'Pronunciation coaching included',
           'Session replays available'
-        ], 
-        cta:'join speaking group', 
+        ],
+        cta:'join speaking group',
         tier:'Group',
-        popular:true 
+        popular:true
       },
-      { 
-        id:'cabin', 
-        icon:'✈️', 
-        name:'Cabin Crew', 
+      {
+        id:'cabin',
+        icon:'✈️',
+        name:'Cabin Crew',
         tagline:'English built for the sky',
         desc:'Built for Tunisians aiming for an aviation career. You\'ll train in the English that actually gets you hired — interview confidence, HR vocabulary, safety announcements, and passenger communication.',
         priceTnd: '249',
@@ -133,14 +708,14 @@ const T = {
           'Pronunciation drills for announcements',
           'CV coaching & application prep',
           'Mock HR interview sessions'
-        ], 
-        cta:'start cabin crew prep', 
-        tier:'Career' 
+        ],
+        cta:'start cabin crew prep',
+        tier:'Career'
       },
-      { 
-        id:'private', 
-        icon:'🎓', 
-        name:'Private Sessions', 
+      {
+        id:'private',
+        icon:'🎓',
+        name:'Private Sessions',
         tagline:'One goal, your pace',
         desc:'No group, no waiting, no fixed programme. Every session is built around you — your level, your goals, your schedule. The most personal way to learn English on B2Please.',
         priceTnd: 'Contact',
@@ -151,47 +726,47 @@ const T = {
           'Unlimited WhatsApp support',
           'Priority booking — always first',
           'Certificate on completion'
-        ], 
-        cta:'contact for pricing', 
-        premium:true, 
-        tier:'Premium' 
+        ],
+        cta:'contact for pricing',
+        premium:true,
+        tier:'Premium'
       },
     ],
   },
   fr: {
-    tagline: "conçu pour les apprenants tunisiens", 
-    hero1: "arrête de bachoter.", 
+    tagline: "conçu pour les apprenants tunisiens",
+    hero1: "arrête de bachoter.",
     hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
     enrollBtn: "S'inscrire",
-    topicsTag: "ce qu'on discute", 
-    topicsH: "vrais sujets. vrai anglais.", 
+    topicsTag: "ce qu'on discute",
+    topicsH: "vrais sujets. vrai anglais.",
     topicsSub: "chaque cours est ancré dans l'actualité mondiale du moment",
-    howTag: "comment ça marche", 
-    howH: "rejoins, parle, progresse", 
+    howTag: "comment ça marche",
+    howH: "rejoins, parle, progresse",
     howSub: "trois étapes — sans manuel scolaire",
     steps: [
       { n:'01', icon:'🎯', t:'choisis ton cours', d:"Parcours les sessions en direct par thème. Actualité, finance, culture — choisis ce qui t'intéresse et prends ta place." },
       { n:'02', icon:'🎙️', t:'rejoins & parle', d:"Intègre la session en direct. Dali anime la conversation en anglais, tu participes, tu poses des questions, tu fais des erreurs — c'est ça l'idée." },
       { n:'03', icon:'🚀', t:'suis ton niveau', d:"Vois ton vocabulaire s'élargir, reçois des retours personnalisés après chaque cours et observe ton niveau grimper semaine après semaine." },
     ],
-    classesTag: "nos offres", 
+    classesTag: "nos offres",
     classesH: "choisis ta voie",
     classesSub: "des façons flexibles d'apprendre l'anglais — choisis ce qui te correspond",
-    liveTag: "session live", 
+    liveTag: "session live",
     liveH: "rejoins la conversation",
     liveSub: "chaque vendredi à 20h heure tunisienne — ouvert à tous les tiers",
-    communityTag: "contacter dali", 
-    communityH: "écrire directement", 
+    communityTag: "contacter dali",
+    communityH: "écrire directement",
     communitySub: "questions sur une session ? pas sûr de ta voie ? Dali répond personnellement.",
-    monthly: "mensuel", 
+    monthly: "mensuel",
     yearly: "annuel (-20%)",
-    notSure: "pas sûr de ta voie ?", 
+    notSure: "pas sûr de ta voie ?",
     waLink: "demander sur whatsapp ↗",
-    nextLive: "prochain live", 
-    days: "j", 
-    hours: "h", 
-    min: "m", 
+    nextLive: "prochain live",
+    days: "j",
+    hours: "h",
+    min: "m",
     sec: "s",
     badgeLabel: 'ton parcours',
     communityBannerTag: 'la communauté',
@@ -205,10 +780,10 @@ const T = {
       "Apprends l'anglais qu'on parle vraiment",
     ],
     packages: [
-      { 
-        id:'offline', 
-        icon:'📦', 
-        name:'Pack Hors-Ligne', 
+      {
+        id:'offline',
+        icon:'📦',
+        name:'Pack Hors-Ligne',
         tagline:'Apprends à ton rythme',
         desc:'Pas d\'horaire, pas de pression. Étudie grâce à des livres numériques interactifs remplis de leçons, d\'exercices et de vocabulaire — accompagnés de pistes audio pour entraîner ta compréhension orale. Tout se télécharge sur ton appareil, plus besoin d\'internet après.',
         priceTnd: '59',
@@ -219,14 +794,14 @@ const T = {
           'Exercices & vocabulaire par thème',
           'Rythme libre — étudie quand tu veux',
           'Nouveau contenu chaque mois'
-        ], 
-        cta:'obtenir le pack', 
-        tier:'Auto-apprentissage' 
+        ],
+        cta:'obtenir le pack',
+        tier:'Auto-apprentissage'
       },
-      { 
-        id:'speaking', 
-        icon:'💬', 
-        name:'Groupes de Conversation', 
+      {
+        id:'speaking',
+        icon:'💬',
+        name:'Groupes de Conversation',
         tagline:'Parle plus, stresse moins',
         desc:'Un petit groupe sympa d\'apprenants tunisiens qui se retrouvent chaque semaine pour parler anglais — vrais sujets, vraies conversations, vrais progrès. Tu vas arrêter de bloquer et commencer à vraiment parler.',
         priceTnd: '179',
@@ -237,15 +812,15 @@ const T = {
           'Thèmes hebdo : culture, actu, vie quotidienne',
           'Coaching prononciation inclus',
           'Replay des sessions disponible'
-        ], 
-        cta:'rejoindre un groupe', 
+        ],
+        cta:'rejoindre un groupe',
         tier:'Groupe',
-        popular:true 
+        popular:true
       },
-      { 
-        id:'cabin', 
-        icon:'✈️', 
-        name:'Personnel Navigant', 
+      {
+        id:'cabin',
+        icon:'✈️',
+        name:'Personnel Navigant',
         tagline:'L\'anglais pour le ciel',
         desc:'Conçu pour les Tunisiens qui visent une carrière dans l\'aviation. Tu t\'entraîneras sur l\'anglais qui fait vraiment la différence — confiance en entretien, vocabulaire RH, annonces de sécurité et communication passagers.',
         priceTnd: '249',
@@ -256,14 +831,14 @@ const T = {
           'Exercices de prononciation pour les annonces',
           'Coaching CV & préparation candidature',
           'Simulations d\'entretiens RH'
-        ], 
-        cta:'préparer ma carrière', 
-        tier:'Carrière' 
+        ],
+        cta:'préparer ma carrière',
+        tier:'Carrière'
       },
-      { 
-        id:'private', 
-        icon:'🎓', 
-        name:'Sessions Privées', 
+      {
+        id:'private',
+        icon:'🎓',
+        name:'Sessions Privées',
         tagline:'Un objectif, ton rythme',
         desc:'Pas de groupe, pas d\'attente, pas de programme imposé. Chaque session est construite autour de toi — ton niveau, tes objectifs, ton emploi du temps.',
         priceTnd: 'Contact',
@@ -274,47 +849,47 @@ const T = {
           'Support WhatsApp illimité',
           'Réservation prioritaire — toujours en premier',
           'Certificat à la fin du parcours'
-        ], 
-        cta:'contacter pour tarif', 
-        premium:true, 
-        tier:'Premium' 
+        ],
+        cta:'contacter pour tarif',
+        premium:true,
+        tier:'Premium'
       },
     ],
   },
   ar: {
-    tagline: 'مصمّم للمتعلّمين التونسيين', 
-    hero1: 'توقّف عن الحفظ.', 
+    tagline: 'مصمّم للمتعلّمين التونسيين',
+    hero1: 'توقّف عن الحفظ.',
     hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
     enrollBtn: 'سجل الآن',
-    topicsTag: 'شنو نحكيو فيه', 
-    topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.', 
+    topicsTag: 'شنو نحكيو فيه',
+    topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.',
     topicsSub: 'كل درس مبني على شيء يصير في العالم هذا الوقت',
-    howTag: 'كيفاش يخدم', 
-    howH: 'انضم، تكلّم، ارتقي', 
+    howTag: 'كيفاش يخدم',
+    howH: 'انضم، تكلّم، ارتقي',
     howSub: 'ثلاث خطوات — بلا كتب ولا حفظ',
     steps: [
       { n:'٠١', icon:'🎯', t:'اختار درسك', d:'شوف الجلسات المباشرة حسب الموضوع. أحداث راهنة، فلوس، ثقافة — اختار اللي يهمّك واحجز مقعدك.' },
       { n:'٠٢', icon:'🎙️', t:'انضم وتكلّم', d:'ادخل الجلسة المباشرة. الأستاذ دالي يقود النقاش بالإنجليزية، أنت تشارك وتسأل وتغلط — هذا هو المطلوب.' },
       { n:'٠٣', icon:'🚀', t:'تابع مستواك', d:'شوف كيف تتوسّع مفرداتك، خذ ملاحظات شخصية بعد كل جلسة، وراقب مستواك يصعد أسبوع بأسبوع.' },
     ],
-    classesTag: 'عروضنا', 
+    classesTag: 'عروضنا',
     classesH: 'اختر طريقك',
     classesSub: 'طرق مرنة لتعلّم الإنجليزية — اختر ما يناسب حياتك',
-    liveTag: 'جلسة مباشرة', 
+    liveTag: 'جلسة مباشرة',
     liveH: 'انضم للنقاش',
     liveSub: 'كل جمعة الساعة 8 مساءً بتوقيت تونس — مفتوح للجميع',
-    communityTag: 'تواصل مع دالي', 
-    communityH: 'راسل مباشرة', 
+    communityTag: 'تواصل مع دالي',
+    communityH: 'راسل مباشرة',
     communitySub: 'عندك سؤال على جلسة؟ ما عرفتش تختار الطريق؟ الأستاذ دالي يردّ شخصيًا.',
-    monthly: 'شهري', 
+    monthly: 'شهري',
     yearly: 'سنوي (-20%)',
-    notSure: 'ما عرفتش تختار الطريق؟', 
+    notSure: 'ما عرفتش تختار الطريق؟',
     waLink: 'اسأل على واتساب ↗',
-    nextLive: 'البث القادم', 
-    days: 'أيام', 
-    hours: 'ساعات', 
-    min: 'دق', 
+    nextLive: 'البث القادم',
+    days: 'أيام',
+    hours: 'ساعات',
+    min: 'دق',
     sec: 'ثا',
     badgeLabel: 'مسارك',
     communityBannerTag: 'المجتمع',
@@ -328,10 +903,10 @@ const T = {
       'تعلّم الإنجليزية اللي الناس تستخدمها فعلاً',
     ],
     packages: [
-      { 
-        id:'offline', 
-        icon:'📦', 
-        name:'الحزمة دون اتصال', 
+      {
+        id:'offline',
+        icon:'📦',
+        name:'الحزمة دون اتصال',
         tagline:'تعلّم على وتيرتك',
         desc:'لا جداول، لا ضغط. ادرس من خلال كتب رقمية تفاعلية مليئة بالدروس والتمارين والمفردات — مرفقة بتسجيلات صوتية لتدريب الاستماع. كل شيء يتحمّل على جهازك، لا حاجة للإنترنت بعد ذلك.',
         priceTnd: '59',
@@ -342,14 +917,14 @@ const T = {
           'تمارين ومفردات حسب كل موضوع',
           'وتيرة حرة — ادرس متى تريد',
           'محتوى جديد كل شهر'
-        ], 
-        cta:'احصل على الحزمة', 
-        tier:'تعلّم ذاتي' 
+        ],
+        cta:'احصل على الحزمة',
+        tier:'تعلّم ذاتي'
       },
-      { 
-        id:'speaking', 
-        icon:'💬', 
-        name:'مجموعات المحادثة', 
+      {
+        id:'speaking',
+        icon:'💬',
+        name:'مجموعات المحادثة',
         tagline:'تكلّم أكثر، توتر أقل',
         desc:'مجموعة صغيرة ودودة من المتعلّمين التونسيين تلتقي كل أسبوع للتحدث بالإنجليزية — مواضيع حقيقية، محادثات حقيقية، تقدّم حقيقي. ستتوقف عن التردد وتبدأ فعلاً بالكلام.',
         priceTnd: '179',
@@ -360,15 +935,15 @@ const T = {
           'مواضيع أسبوعية: ثقافة، أخبار، حياة يومية',
           'تدريب على النطق مشمول',
           'تسجيلات الجلسات متاحة'
-        ], 
-        cta:'انضم لمجموعة محادثة', 
+        ],
+        cta:'انضم لمجموعة محادثة',
         tier:'جماعي',
-        popular:true 
+        popular:true
       },
-      { 
-        id:'cabin', 
-        icon:'✈️', 
-        name:'طاقم الطيران', 
+      {
+        id:'cabin',
+        icon:'✈️',
+        name:'طاقم الطيران',
         tagline:'الإنجليزية للسماء',
         desc:'مصمَّم للتونسيين الراغبين في مسار مهني في الطيران. ستتدرّب على الإنجليزية التي تجعلك فعلاً مقبولاً — ثقة في المقابلات، مفردات الموارد البشرية، إعلانات السلامة، والتواصل مع المسافرين.',
         priceTnd: '249',
@@ -379,14 +954,14 @@ const T = {
           'تدريبات نطق للإعلانات',
           'تدريب على السيرة الذاتية والتقديم',
           'جلسات محاكاة لمقابلات الموارد البشرية'
-        ], 
-        cta:'ابدأ التحضير', 
-        tier:'مهني' 
+        ],
+        cta:'ابدأ التحضير',
+        tier:'مهني'
       },
-      { 
-        id:'private', 
-        icon:'🎓', 
-        name:'جلسات خاصة', 
+      {
+        id:'private',
+        icon:'🎓',
+        name:'جلسات خاصة',
         tagline:'هدف واحد، وتيرتك',
         desc:'لا مجموعات، لا انتظار، لا برنامج موحّد. كل جلسة مبنية حولك أنت — مستواك، أهدافك، وقتك. الطريقة الأكثر خصوصية لتعلّم الإنجليزية على B2Please.',
         priceTnd: 'تواصل',
@@ -397,16 +972,17 @@ const T = {
           'دعم مفتوح عبر واتساب',
           'أولوية في الحجز — دائماً في المقدمة',
           'شهادة عند إتمام البرنامج'
-        ], 
-        cta:'تواصل للتسعير', 
-        premium:true, 
-        tier:'مميز' 
+        ],
+        cta:'تواصل للتسعير',
+        premium:true,
+        tier:'مميز'
       },
     ],
   },
 }
 
-// ─── UPDATED TOPICS ──────────────────────────────────────
+// ─── TOPICS & CLASS DATA ─────────────────────────────
+
 const TOPICS = [
   { icon:'🌍', en:'World Events', fr:'Actualités Mondiales', ar:'أحداث العالم' },
   { icon:'📰', en:'Breaking News', fr:'Actualités', ar:'أخبار عاجلة' },
@@ -425,12 +1001,6 @@ const CLASS_TOPICS = [
   { topic:'Social Media & Society',  icon:'📱', participants:10, level:'B1–B2' },
 ]
 
-const ROOM_BG = [
-  { dark:'#1E1814', light:'#F5EDE5' }, { dark:'#161E24', light:'#EBF0F5' }, { dark:'#1E1822', light:'#F2EDF5' },
-  { dark:'#161E1C', light:'#EBF5F2' }, { dark:'#1E1818', light:'#F5EDED' }, { dark:'#181C24', light:'#EDF0F5' },
-  { dark:'#1E1820', light:'#F5EDF2' },
-]
-
 const FLOATING_WORDS = [
   { text: 'current events', icon: '🌍', rotStart: '-3deg', rotEnd: '5deg', dur: '12s', delay: '0s', wobble: '15px' },
   { text: 'trending', icon: '🔥', rotStart: '4deg', rotEnd: '-6deg', dur: '11s', delay: '1.2s', wobble: '-12px' },
@@ -444,34 +1014,9 @@ const FLOATING_WORDS = [
   { text: 'music', icon: '🎵', rotStart: '7deg', rotEnd: '-3deg', dur: '14s', delay: '3.8s', wobble: '-19px' },
 ]
 
-function buildAvatarSvg(sb:string,sm:string,ss:string,sd:string,eb:string,em:string,ed:string,top:string,eyes:string,mouth:string,acc:string,cloth:string,ri:number,il:boolean){
-  const room=ROOM_BG[ri];const bg=il?room.light:room.dark
-  const lw=il?'':`<rect width="200" height="200" style="background:radial-gradient(ellipse at 30% 20%, rgba(255,200,150,0.14) 0%, transparent 60%)" rx="18"/>`
-  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><radialGradient id="sk" cx="42%" cy="35%" r="65%"><stop offset="0%" stop-color="${sb}"/><stop offset="35%" stop-color="${sm}"/><stop offset="75%" stop-color="${ss}"/><stop offset="100%" stop-color="${sd}"/></radialGradient><radialGradient id="ey" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="${eb}"/><stop offset="40%" stop-color="${em}"/><stop offset="100%" stop-color="${ed}"/></radialGradient><filter id="fs"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="${il?'0.08':'0.2'}"/></filter></defs><rect width="200" height="200" fill="${bg}" rx="18"/>${il?'':lw}${top}<rect x="88" y="144" width="24" height="16" rx="6" fill="${sm}"/><ellipse cx="100" cy="115" rx="43" ry="46" fill="url(#sk)" filter="url(#fs)"/><ellipse cx="100" cy="138" rx="28" ry="16" fill="${ss}" opacity="0.12"/><ellipse cx="56" cy="115" rx="7" ry="10" fill="${ss}"/><ellipse cx="58" cy="115" rx="4" ry="6.5" fill="${sd}"/><ellipse cx="144" cy="115" rx="7" ry="10" fill="${ss}"/><ellipse cx="142" cy="115" rx="4" ry="6.5" fill="${sd}"/>${eyes}<path d="M97 100 Q100 110 103 118" stroke="${ss}" stroke-width="0.8" fill="none" opacity="0.18"/><path d="M95 121 Q100 128 105 121" stroke="${ss}" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="123" rx="6.5" ry="3" fill="${sd}" opacity="0.22"/><path d="M93 128 Q100 130 107 128" stroke="${ss}" stroke-width="0.8" fill="none" opacity="0.15"/>${mouth}<ellipse cx="68" cy="127" rx="10" ry="6" fill="#FF8C69" opacity="0.16"/><ellipse cx="132" cy="127" rx="10" ry="6" fill="#FF8C69" opacity="0.16"/><ellipse cx="100" cy="152" rx="5" ry="1.8" fill="white" opacity="0.06"/>${acc}<ellipse cx="100" cy="185" rx="42" ry="18" fill="${cloth}"/></svg>`
-}
+const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
 
-function makeDaliSvg(il:boolean){
-  const sb='#FFE8CC',sm2='#FACA8A',ss='#E8965A',sd='#D4814A',eb='#8B5E3C',em2='#5C3A1E',ed='#1A0A00',hd='#2D1E0F'
-  const bbg=il?'#F5F5F5':'#1A1A1A',bs=il?'#E03D00':'#FF4500'
-  const top=`<rect x="10" y="12" width="100" height="58" rx="6" fill="${bbg}" opacity="0.95"/><rect x="10" y="12" width="100" height="58" rx="6" fill="none" stroke="${bs}" stroke-width="1" opacity="${il?'0.5':'0.35'}"/><text x="18" y="28" font-size="7" fill="${il?'#CC3700':'#FF7A3D'}" font-family="monospace" font-weight="bold">displace ≠ replace</text><line x1="18" y1="36" x2="76" y2="36" stroke="${bs}" stroke-width="1" stroke-linecap="round"/><text x="18" y="46" font-size="6" fill="${il?'#D4884A':'#FF8C69'}" font-family="monospace">→ "AI may displace</text><text x="18" y="55" font-size="6" fill="${il?'#D4884A':'#FF8C69'}" font-family="monospace">   some roles..."</text><rect x="92" y="62" width="12" height="5" rx="2" fill="${il?'#E5E5E5':'#2A2A2A'}"/><ellipse cx="100" cy="74" rx="37" ry="14" fill="${hd}"/><path d="M57 98 Q58 68 100 64 Q142 68 143 98 Q138 76 100 72 Q62 76 57 98Z" fill="${hd}"/><ellipse cx="100" cy="70" rx="33" ry="11" fill="#3D2815"/><path d="M74 68 Q88 64 102 66" stroke="#5C4433" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.55"/><ellipse cx="59" cy="94" rx="8" ry="18" fill="${hd}"/><ellipse cx="141" cy="94" rx="8" ry="18" fill="${hd}"/><g><animateTransform attributeName="transform" type="rotate" values="0 148 108;-8 148 108;6 148 108;-3 148 108;0 148 108" keyTimes="0;0.2;0.5;0.75;1" dur="4s" repeatCount="indefinite"/><line x1="148" y1="108" x2="112" y2="62" stroke="${ss}" stroke-width="4" stroke-linecap="round"/><line x1="148" y1="108" x2="112" y2="62" stroke="${sm2}" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/><circle cx="112" cy="62" r="3.5" fill="${bs}"/><circle cx="112" cy="62" r="1.5" fill="white" opacity="0.6"/><ellipse cx="152" cy="112" rx="8" ry="6" fill="${sm2}"/><ellipse cx="154" cy="110" rx="3.5" ry="2.5" fill="${sb}"/></g>`
-  const eyes=`<ellipse cx="82" cy="112" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="112" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="112.5" r="7.5" fill="url(#ey)"/><circle cx="118.5" cy="112.5" r="7.5" fill="url(#ey)"/><circle cx="83" cy="113" r="4.2" fill="#0A0400"/><circle cx="119" cy="113" r="4.2" fill="#0A0400"/><circle cx="79.5" cy="109.5" r="3" fill="white"/><circle cx="115.5" cy="109.5" r="3" fill="white"/><circle cx="85.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/><circle cx="121.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/><path d="M71 99 Q82 95 93 98" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M107 98 Q118 95 129 99" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="82" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><circle cx="118" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><line x1="96" y1="112" x2="104" y2="112" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><path d="M72 106 Q78 104 84 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/><path d="M108 106 Q114 104 120 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>`
-  const mouth=`<path d="M82 132 Q90 128 100 130 Q110 128 118 132" stroke="#1A0E05" stroke-width="3.8" fill="none" stroke-linecap="round"/><path d="M82 132 Q90 130 100 131.5 Q110 130 118 132" fill="#2D1E0F"/><path d="M78 139 Q100 158 122 139" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M80 139.5 Q100 155 120 139.5" fill="white"/><path d="M70 135 Q75 148 82 152 Q90 156 100 157 Q110 156 118 152 Q125 148 130 135" stroke="#C87940" stroke-width="1.5" fill="none" opacity="0.35" stroke-linecap="round"/><path d="M75 140 Q85 150 100 153 Q115 150 125 140" stroke="#D4814A" stroke-width="1" fill="none" opacity="0.2" stroke-linecap="round"/>`
-  return buildAvatarSvg(sb,sm2,ss,sd,eb,em2,ed,top,eyes,mouth,'','#FF4500',0,il)
-}
-
-function makeStudentSvg(i:number,il:boolean){
-  const skins=[{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE4A0',m:'#FBBF7A',s:'#D4800A',d:'#B86800'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FACA8A',s:'#E8965A',d:'#D07530'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'}][i]
-  const eb='#8B5E3C',em2='#5C3A1E',ed='#1A0A00',hd='#1C0E06'
-  const tops=[`<ellipse cx="100" cy="86" rx="44" ry="22" fill="${hd}"/><circle cx="58" cy="70" r="18" fill="${hd}"/><circle cx="58" cy="70" r="11" fill="#FF4500"/><circle cx="58" cy="70" r="6" fill="#E03D00"/><circle cx="142" cy="70" r="18" fill="${hd}"/><circle cx="142" cy="70" r="11" fill="#FF4500"/><circle cx="142" cy="70" r="6" fill="#E03D00"/><path d="M70 78 Q100 68 130 78" stroke="${hd}" stroke-width="7" fill="none" stroke-linecap="round"/>`,`<path d="M56 100 Q56 70 100 66 Q144 70 144 100 Q138 78 100 74 Q62 78 56 100Z" fill="${hd}"/><rect x="56" y="96" width="88" height="14" rx="3" fill="${hd}"/><rect x="56" y="108" width="11" height="16" rx="3" fill="#2D1E0F" opacity="0.55"/><rect x="133" y="108" width="11" height="16" rx="3" fill="#2D1E0F" opacity="0.55"/>`,`<ellipse cx="100" cy="86" rx="50" ry="34" fill="#7C3AED"/><ellipse cx="100" cy="120" rx="54" ry="36" fill="#7C3AED"/><ellipse cx="46" cy="126" rx="13" ry="32" fill="#6D28D9"/><ellipse cx="154" cy="126" rx="13" ry="32" fill="#6D28D9"/><ellipse cx="100" cy="88" rx="36" ry="22" fill="#6D28D9"/><path d="M64 88 Q100 76 136 88" stroke="#8B5CF6" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/>`,`<ellipse cx="100" cy="76" rx="42" ry="18" fill="#DC2626"/><ellipse cx="100" cy="72" rx="38" ry="14" fill="#EF4444"/><rect x="58" y="74" width="84" height="12" rx="5" fill="#DC2626"/><ellipse cx="100" cy="66" rx="8" ry="4.5" fill="#B91C1C"/><path d="M58 88 Q62 82 70 84" stroke="${hd}" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M130 84 Q138 82 142 88" stroke="${hd}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,`<ellipse cx="106" cy="84" rx="48" ry="17" fill="#1D4ED8"/><ellipse cx="106" cy="82" rx="48" ry="15" fill="#1E40AF"/><ellipse cx="144" cy="94" rx="24" ry="7.5" fill="#1D4ED8" transform="rotate(-18 144 94)"/><circle cx="96" cy="80" r="7" fill="#3B82F6" opacity="0.65"/><ellipse cx="62" cy="96" rx="11" ry="7" fill="${hd}"/>`,`<rect x="56" y="84" width="14" height="55" rx="7" fill="#7C2D12"/><rect x="130" y="84" width="14" height="55" rx="7" fill="#7C2D12"/><ellipse cx="100" cy="80" rx="44" ry="18" fill="#7C2D12"/><path d="M80 76 Q100 72 120 76" stroke="#9B4A2A" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M56 104 Q56 66 100 62 Q144 66 144 104" stroke="#1A1A1A" stroke-width="5.5" fill="none"/><rect x="44" y="98" width="20" height="32" rx="8" fill="#1A1A1A"/><rect x="136" y="98" width="20" height="32" rx="8" fill="#1A1A1A"/>`,`<ellipse cx="100" cy="86" rx="52" ry="36" fill="#0D9488"/><ellipse cx="100" cy="122" rx="56" ry="38" fill="#0D9488"/><ellipse cx="42" cy="128" rx="15" ry="34" fill="#0F766E"/><ellipse cx="158" cy="128" rx="15" ry="34" fill="#0F766E"/><ellipse cx="100" cy="88" rx="38" ry="24" fill="#0F766E"/><path d="M60 88 Q100 74 140 88" stroke="#14B8A6" stroke-width="2.8" fill="none" opacity="0.5" stroke-linecap="round"/>`][i]
-  const eyes=[`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M73 106 Q78 102 83 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M107 106 Q112 102 117 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M71 104 Q82 100 94 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M106 104 Q118 100 130 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M71 104 Q82 99 94 103" stroke="${hd}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M106 103 Q118 99 130 104" stroke="${hd}" stroke-width="4" fill="none" stroke-linecap="round"/>`,`<path d="M65 109 Q83 97 101 109 Q83 121 65 109Z" fill="white"/><path d="M99 109 Q117 97 135 109 Q117 121 99 109Z" fill="white"/><circle cx="83" cy="109" r="8.2" fill="url(#ey)"/><circle cx="117" cy="109" r="8.2" fill="url(#ey)"/><circle cx="83.5" cy="109.5" r="4.6" fill="#0A0400"/><circle cx="117.5" cy="109.5" r="4.6" fill="#0A0400"/><circle cx="80" cy="106" r="3.2" fill="white"/><circle cx="114" cy="106" r="3.2" fill="white"/><circle cx="86" cy="112" r="1.7" fill="white" opacity="0.45"/><circle cx="120" cy="112" r="1.7" fill="white" opacity="0.45"/><line x1="65" y1="106" x2="61" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="75" y1="102" x2="73" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="91" y1="101" x2="91" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="109" y1="101" x2="109" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="125" y1="102" x2="125" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="135" y1="106" x2="137" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/>`,`<rect x="60" y="101" width="34" height="22" rx="7" fill="none" stroke="#78350F" stroke-width="3"/><rect x="106" y="101" width="34" height="22" rx="7" fill="none" stroke="#78350F" stroke-width="3"/><line x1="94" y1="112" x2="106" y2="112" stroke="#78350F" stroke-width="3"/><line x1="60" y1="112" x2="52" y2="113" stroke="#78350F" stroke-width="3"/><line x1="140" y1="112" x2="148" y2="113" stroke="#78350F" stroke-width="3"/><ellipse cx="77" cy="112" rx="9" ry="10" fill="white"/><circle cx="77.5" cy="112.5" r="6.5" fill="url(#ey)"/><circle cx="77.5" cy="113" r="3.7" fill="#0A0400"/><circle cx="74.5" cy="109.5" r="2.6" fill="white"/><path d="M112 113 Q122 113 132 113" stroke="#1C1007" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M66 100 Q79 96 92 100" stroke="#1C1007" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M108 100 Q121 96 134 100" stroke="#1C1007" stroke-width="3" fill="none" stroke-linecap="round"/>`,`<rect x="60" y="105" width="80" height="20" rx="9" fill="#111827" opacity="0.9"/><rect x="60" y="105" width="80" height="20" rx="9" fill="none" stroke="#374151" stroke-width="2"/><path d="M68 111 Q78 108 88 111" stroke="white" stroke-width="1" fill="none" opacity="0.28" stroke-linecap="round"/><path d="M112 111 Q122 108 132 111" stroke="white" stroke-width="1" fill="none" opacity="0.28" stroke-linecap="round"/>`,`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M73 106 Q78 102 83 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M107 106 Q112 102 117 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M71 104 Q82 100 94 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M106 104 Q118 100 130 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,`<path d="M63 109 Q83 96 103 109 Q83 122 63 109Z" fill="white"/><path d="M97 109 Q117 96 137 109 Q117 122 97 109Z" fill="white"/><circle cx="83" cy="109" r="8.5" fill="url(#ey)"/><circle cx="117" cy="109" r="8.5" fill="url(#ey)"/><circle cx="83.5" cy="109.5" r="4.8" fill="#0A0400"/><circle cx="117.5" cy="109.5" r="4.8" fill="#0A0400"/><circle cx="80" cy="106" r="3.3" fill="white"/><circle cx="114" cy="106" r="3.3" fill="white"/><circle cx="86" cy="112" r="1.8" fill="white" opacity="0.45"/><circle cx="120" cy="112" r="1.8" fill="white" opacity="0.45"/><line x1="63" y1="106" x2="59" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="73" y1="102" x2="71" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="89" y1="101" x2="89" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="111" y1="101" x2="111" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="127" y1="102" x2="127" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="137" y1="106" x2="139" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/>`][i]
-  const mouths=[`<path d="M75 137 Q100 154 125 137" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M75 137 Q100 152 125 137" fill="white" opacity="0.65"/>`,`<path d="M72 139 Q100 160 128 139" stroke="#78350F" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M72 139 Q100 158 128 139" fill="white" opacity="0.75"/>`,`<path d="M75 131 Q100 148 125 131" stroke="#B45309" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M75 131 Q100 146 125 131" fill="white" opacity="0.55"/>`,`<path d="M72 137 Q100 158 128 137" stroke="#78350F" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M72 137 Q100 156 128 137" fill="white" opacity="0.75"/>`,`<path d="M76 142 Q96 155 118 145" stroke="#92400E" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M76 142 Q96 154 118 145" fill="white" opacity="0.5"/>`,`<path d="M75 135 Q100 152 125 135" stroke="#B45309" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M75 135 Q100 150 125 135" fill="white" opacity="0.65"/>`,`<path d="M75 131 Q100 148 125 131" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M75 131 Q100 146 125 131" fill="white" opacity="0.6"/>`][i]
-  const accs=[`<ellipse cx="56" cy="127" rx="4.5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/><ellipse cx="144" cy="127" rx="4.5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/>`,`<circle cx="56" cy="124" r="4.5" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/>`,`<ellipse cx="86" cy="76" rx="18" ry="9" fill="#8B5CF6" opacity="0.35"/>`,``,`<text x="92" y="79" font-size="7" fill="white" font-weight="bold" font-family="Arial" text-anchor="middle">NY</text>`,`<ellipse cx="50" cy="110" rx="3.5" ry="2.5" fill="white" opacity="0.12"/><ellipse cx="144" cy="110" rx="3.5" ry="2.5" fill="white" opacity="0.12"/>`,`<ellipse cx="84" cy="76" rx="20" ry="11" fill="#14B8A6" opacity="0.3"/>`][i]
-  const cloth=['#FF4500','#FF7A3D','#5B21B6','#DC2626','#1D4ED8','#DB2777','#0D9488'][i]
-  return buildAvatarSvg(skins.b,skins.m,skins.s,skins.d,eb,em2,ed,tops,eyes,mouths,accs,cloth,i,il)
-}
-
-const STUDENT_NAMES=[{name:'Amira',emoji:'✨'},{name:'Sami',emoji:'🎧'},{name:'Nour',emoji:'🌸'},{name:'Mehdi',emoji:'🔥'},{name:'Karim',emoji:'😎'},{name:'Rania',emoji:'🎵'},{name:'Sara',emoji:'🧕'}]
-const ANIM_CLASSES=['anim-bob','anim-think','anim-nod','anim-lean','anim-bob','anim-nod','anim-think']
+// ─── COMPONENTS ──────────────────────────────────────
 
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
@@ -590,7 +1135,8 @@ export default function Home(){
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
   const activeTopic=CLASS_TOPICS[activeTopicIndex]
-  const allAvatars=[{svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))]
+  // ─── USE NEW MEMOJI AVATARS ────────────────────────
+  const allAvatars = getAllAvatars(isLight)
 
   const openModal = (planName: string) => {
     setSelectedPlan(planName)
@@ -935,7 +1481,17 @@ export default function Home(){
                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div>
                 <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span>
               </div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}{isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>)})}</div>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">
+                {allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(
+                  <div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} 
+                    style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}>
+                    <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
+                    {isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
+                    {isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
+                    <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
+                  </div>
+                )})}
+              </div>
               <div className="glass-card-light rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5" style={{borderColor:s.chatBorder}}>
                 <div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>
                 {chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}
