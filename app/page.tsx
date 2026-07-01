@@ -444,66 +444,30 @@ const FLOATING_WORDS = [
   { text: 'music', icon: '🎵', rotStart: '7deg', rotEnd: '-3deg', dur: '14s', delay: '3.8s', wobble: '-19px' },
 ]
 
-function buildAvatarSvg(skin:string,eyeColor:string,hairFill:string,accessory:string,faceLayer:string,shirt:string,ri:number,il:boolean){
+function buildAvatarSvg(sb:string,sm:string,ss:string,sd:string,eb:string,em:string,ed:string,top:string,eyes:string,mouth:string,acc:string,cloth:string,ri:number,il:boolean){
   const room=ROOM_BG[ri];const bg=il?room.light:room.dark
-  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="200" height="200" fill="${bg}" rx="18"/><ellipse cx="68" cy="118" rx="6" ry="9" fill="${skin}"/><ellipse cx="132" cy="118" rx="6" ry="9" fill="${skin}"/><ellipse cx="100" cy="120" rx="42" ry="45" fill="${skin}"/>${faceLayer}<ellipse cx="100" cy="186" rx="42" ry="18" fill="${shirt}"/>${accessory}</svg>`
-}
-
-function eyesAndMouth(eyeColor:string,browColor:string,mouthD:string){
-  return `<ellipse cx="82" cy="114" rx="11" ry="13" fill="white"/><ellipse cx="118" cy="114" rx="11" ry="13" fill="white"/><circle cx="85" cy="118" r="5.5" fill="${eyeColor}"/><circle cx="121" cy="118" r="5.5" fill="${eyeColor}"/><circle cx="88" cy="114" r="1.8" fill="white"/><circle cx="124" cy="114" r="1.8" fill="white"/><path d="M73 101 Q82 95 91 101" stroke="${browColor}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M109 101 Q118 95 127 101" stroke="${browColor}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="${mouthD}" stroke="${browColor}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`
+  const lw=il?'':`<rect width="200" height="200" style="background:radial-gradient(ellipse at 30% 20%, rgba(255,200,150,0.14) 0%, transparent 60%)" rx="18"/>`
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><radialGradient id="sk" cx="42%" cy="35%" r="65%"><stop offset="0%" stop-color="${sb}"/><stop offset="35%" stop-color="${sm}"/><stop offset="75%" stop-color="${ss}"/><stop offset="100%" stop-color="${sd}"/></radialGradient><radialGradient id="ey" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="${eb}"/><stop offset="40%" stop-color="${em}"/><stop offset="100%" stop-color="${ed}"/></radialGradient><filter id="fs"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="${il?'0.08':'0.2'}"/></filter></defs><rect width="200" height="200" fill="${bg}" rx="18"/>${il?'':lw}${top}<rect x="88" y="144" width="24" height="16" rx="6" fill="${sm}"/><ellipse cx="100" cy="115" rx="43" ry="46" fill="url(#sk)" filter="url(#fs)"/><ellipse cx="100" cy="138" rx="28" ry="16" fill="${ss}" opacity="0.12"/><ellipse cx="56" cy="115" rx="7" ry="10" fill="${ss}"/><ellipse cx="58" cy="115" rx="4" ry="6.5" fill="${sd}"/><ellipse cx="144" cy="115" rx="7" ry="10" fill="${ss}"/><ellipse cx="142" cy="115" rx="4" ry="6.5" fill="${sd}"/>${eyes}<path d="M97 100 Q100 110 103 118" stroke="${ss}" stroke-width="0.8" fill="none" opacity="0.18"/><path d="M95 121 Q100 128 105 121" stroke="${ss}" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="123" rx="6.5" ry="3" fill="${sd}" opacity="0.22"/><path d="M93 128 Q100 130 107 128" stroke="${ss}" stroke-width="0.8" fill="none" opacity="0.15"/>${mouth}<ellipse cx="68" cy="127" rx="10" ry="6" fill="#FF8C69" opacity="0.16"/><ellipse cx="132" cy="127" rx="10" ry="6" fill="#FF8C69" opacity="0.16"/><ellipse cx="100" cy="152" rx="5" ry="1.8" fill="white" opacity="0.06"/>${acc}<ellipse cx="100" cy="185" rx="42" ry="18" fill="${cloth}"/></svg>`
 }
 
 function makeDaliSvg(il:boolean){
-  const skin='#F7CFA0',hair='#4A2E18',shirt='#FF4500',eye='#3A2418'
-  const hairTop=`<path d="M58 94 Q58 38 100 36 Q142 38 142 94 L142 112 Q142 62 100 60 Q58 62 58 112 Z" fill="${hair}"/>`
-  const beard=`<path d="M62 148 Q66 178 100 185 Q134 178 138 148 Q134 181 100 187 Q66 181 62 148 Z" fill="${hair}"/>`
-  const face=hairTop+eyesAndMouth(eye,hair,'M84 138 Q100 148 116 138')+beard
-  const mic=`<g><line x1="148" y1="106" x2="116" y2="64" stroke="${shirt}" stroke-width="4" stroke-linecap="round"/><circle cx="116" cy="64" r="4" fill="${shirt}"/></g>`
-  return buildAvatarSvg(skin,eye,hair,mic,face,shirt,0,il)
+  const sb='#FFE8CC',sm2='#FACA8A',ss='#E8965A',sd='#D4814A',eb='#8B5E3C',em2='#5C3A1E',ed='#1A0A00',hd='#2D1E0F'
+  const bbg=il?'#F5F5F5':'#1A1A1A',bs=il?'#E03D00':'#FF4500'
+  const top=`<rect x="10" y="12" width="100" height="58" rx="6" fill="${bbg}" opacity="0.95"/><rect x="10" y="12" width="100" height="58" rx="6" fill="none" stroke="${bs}" stroke-width="1" opacity="${il?'0.5':'0.35'}"/><text x="18" y="28" font-size="7" fill="${il?'#CC3700':'#FF7A3D'}" font-family="monospace" font-weight="bold">displace ≠ replace</text><line x1="18" y1="36" x2="76" y2="36" stroke="${bs}" stroke-width="1" stroke-linecap="round"/><text x="18" y="46" font-size="6" fill="${il?'#D4884A':'#FF8C69'}" font-family="monospace">→ "AI may displace</text><text x="18" y="55" font-size="6" fill="${il?'#D4884A':'#FF8C69'}" font-family="monospace">   some roles..."</text><rect x="92" y="62" width="12" height="5" rx="2" fill="${il?'#E5E5E5':'#2A2A2A'}"/><ellipse cx="100" cy="74" rx="37" ry="14" fill="${hd}"/><path d="M57 98 Q58 68 100 64 Q142 68 143 98 Q138 76 100 72 Q62 76 57 98Z" fill="${hd}"/><ellipse cx="100" cy="70" rx="33" ry="11" fill="#3D2815"/><path d="M74 68 Q88 64 102 66" stroke="#5C4433" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.55"/><ellipse cx="59" cy="94" rx="8" ry="18" fill="${hd}"/><ellipse cx="141" cy="94" rx="8" ry="18" fill="${hd}"/><g><animateTransform attributeName="transform" type="rotate" values="0 148 108;-8 148 108;6 148 108;-3 148 108;0 148 108" keyTimes="0;0.2;0.5;0.75;1" dur="4s" repeatCount="indefinite"/><line x1="148" y1="108" x2="112" y2="62" stroke="${ss}" stroke-width="4" stroke-linecap="round"/><line x1="148" y1="108" x2="112" y2="62" stroke="${sm2}" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/><circle cx="112" cy="62" r="3.5" fill="${bs}"/><circle cx="112" cy="62" r="1.5" fill="white" opacity="0.6"/><ellipse cx="152" cy="112" rx="8" ry="6" fill="${sm2}"/><ellipse cx="154" cy="110" rx="3.5" ry="2.5" fill="${sb}"/></g>`
+  const eyes=`<ellipse cx="82" cy="112" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="112" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="112.5" r="7.5" fill="url(#ey)"/><circle cx="118.5" cy="112.5" r="7.5" fill="url(#ey)"/><circle cx="83" cy="113" r="4.2" fill="#0A0400"/><circle cx="119" cy="113" r="4.2" fill="#0A0400"/><circle cx="79.5" cy="109.5" r="3" fill="white"/><circle cx="115.5" cy="109.5" r="3" fill="white"/><circle cx="85.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/><circle cx="121.5" cy="115.5" r="1.6" fill="white" opacity="0.55"/><path d="M71 99 Q82 95 93 98" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M107 98 Q118 95 129 99" stroke="#1A0E05" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="82" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><circle cx="118" cy="112" r="14" fill="none" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><line x1="96" y1="112" x2="104" y2="112" stroke="#5C4433" stroke-width="2.5" opacity="0.7"/><path d="M72 106 Q78 104 84 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/><path d="M108 106 Q114 104 120 106" stroke="white" stroke-width="0.8" fill="none" opacity="0.2" stroke-linecap="round"/>`
+  const mouth=`<path d="M82 132 Q90 128 100 130 Q110 128 118 132" stroke="#1A0E05" stroke-width="3.8" fill="none" stroke-linecap="round"/><path d="M82 132 Q90 130 100 131.5 Q110 130 118 132" fill="#2D1E0F"/><path d="M78 139 Q100 158 122 139" stroke="#A0522D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M80 139.5 Q100 155 120 139.5" fill="white"/><path d="M70 135 Q75 148 82 152 Q90 156 100 157 Q110 156 118 152 Q125 148 130 135" stroke="#C87940" stroke-width="1.5" fill="none" opacity="0.35" stroke-linecap="round"/><path d="M75 140 Q85 150 100 153 Q115 150 125 140" stroke="#D4814A" stroke-width="1" fill="none" opacity="0.2" stroke-linecap="round"/>`
+  return buildAvatarSvg(sb,sm2,ss,sd,eb,em2,ed,top,eyes,mouth,'','#FF4500',0,il)
 }
 
 function makeStudentSvg(i:number,il:boolean){
-  const variants=[
-    {
-      skin:'#F7CFA0',hair:'#2D1B10',shirt:'#DB2777',eye:'#3A2418',
-      hairTop:`<path d="M60 92 Q60 38 100 36 Q140 38 140 92 L140 108 Q140 60 100 58 Q60 60 60 108 Z" fill="#2D1B10"/><ellipse cx="155" cy="120" rx="10" ry="26" fill="#2D1B10"/><rect x="62" y="78" width="76" height="10" rx="5" fill="#FCD34D"/>`,
-      mouth:'M84 138 Q100 150 116 138',accessory:''
-    },
-    {
-      skin:'#E8A368',hair:'#1C1108',shirt:'#1D4ED8',eye:'#1C1108',
-      hairTop:`<path d="M58 96 Q58 70 100 68 Q142 70 142 96 L142 104 L58 104 Z" fill="#1D4ED8"/><ellipse cx="100" cy="70" rx="44" ry="14" fill="#1E40AF"/>`,
-      mouth:'M84 138 Q100 146 116 138',
-      accessory:`<path d="M52 96 Q52 50 100 48 Q148 50 148 96" stroke="#111827" stroke-width="8" fill="none"/><circle cx="52" cy="104" r="13" fill="#111827"/><circle cx="148" cy="104" r="13" fill="#111827"/>`
-    },
-    {
-      skin:'#F7CFA0',hair:'#7C3AED',shirt:'#7C3AED',eye:'#3A2418',
-      hairTop:`<path d="M52 130 Q48 60 100 52 Q152 60 148 130 Q150 90 100 84 Q50 90 52 130 Z" fill="#7C3AED"/><ellipse cx="100" cy="190" rx="56" ry="22" fill="#7C3AED"/>`,
-      mouth:'M84 138 Q100 148 116 138',accessory:''
-    },
-    {
-      skin:'#F7CFA0',hair:'#2D1B10',shirt:'#DC2626',eye:'#3A2418',
-      hairTop:`<ellipse cx="100" cy="78" rx="46" ry="20" fill="#DC2626"/><rect x="92" y="58" width="16" height="14" rx="4" fill="#B91C1C"/>`,
-      mouth:'M82 138 Q100 150 118 138',accessory:''
-    },
-    {
-      skin:'#E8A368',hair:'#1C1108',shirt:'#1E40AF',eye:'#1C1108',
-      hairTop:`<path d="M58 96 Q58 56 100 54 Q142 56 142 96 L142 104 Q142 68 100 66 Q58 68 58 104 Z" fill="#1C1108"/>`,
-      mouth:'M84 138 Q100 146 116 138',
-      accessory:`<rect x="66" y="106" width="30" height="20" rx="7" fill="none" stroke="#1C1108" stroke-width="3"/><rect x="104" y="106" width="30" height="20" rx="7" fill="none" stroke="#1C1108" stroke-width="3"/><line x1="96" y1="116" x2="104" y2="116" stroke="#1C1108" stroke-width="3"/>`
-    },
-    {
-      skin:'#F7CFA0',hair:'#4A2E18',shirt:'#0D9488',eye:'#3A2418',
-      hairTop:`<path d="M62 96 Q62 50 100 48 Q138 50 138 96 L138 106 Q138 62 100 60 Q62 62 62 106 Z" fill="#4A2E18"/><circle cx="52" cy="78" r="14" fill="#4A2E18"/><circle cx="148" cy="78" r="14" fill="#4A2E18"/>`,
-      mouth:'M84 138 Q100 150 116 138',accessory:''
-    },
-    {
-      skin:'#FBDBB5',hair:'#0D9488',shirt:'#0D9488',eye:'#3A2418',
-      hairTop:`<path d="M50 130 Q46 58 100 50 Q154 58 150 130 Q152 88 100 82 Q48 88 50 130 Z" fill="#0D9488"/><ellipse cx="100" cy="190" rx="56" ry="22" fill="#0D9488"/>`,
-      mouth:'M84 138 Q100 148 116 138',accessory:''
-    },
-  ][i]
-  const face=variants.hairTop+eyesAndMouth(variants.eye,variants.hair,variants.mouth)
-  return buildAvatarSvg(variants.skin,variants.eye,variants.hair,variants.accessory,face,variants.shirt,i,il)
+  const skins=[{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE4A0',m:'#FBBF7A',s:'#D4800A',d:'#B86800'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FACA8A',s:'#E8965A',d:'#D07530'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'},{b:'#FFE8CC',m:'#FDDCB5',s:'#E8A06A',d:'#D4884A'}][i]
+  const eb='#8B5E3C',em2='#5C3A1E',ed='#1A0A00',hd='#1C0E06'
+  const tops=[`<ellipse cx="100" cy="86" rx="44" ry="22" fill="${hd}"/><circle cx="58" cy="70" r="18" fill="${hd}"/><circle cx="58" cy="70" r="11" fill="#FF4500"/><circle cx="58" cy="70" r="6" fill="#E03D00"/><circle cx="142" cy="70" r="18" fill="${hd}"/><circle cx="142" cy="70" r="11" fill="#FF4500"/><circle cx="142" cy="70" r="6" fill="#E03D00"/><path d="M70 78 Q100 68 130 78" stroke="${hd}" stroke-width="7" fill="none" stroke-linecap="round"/>`,`<path d="M56 100 Q56 70 100 66 Q144 70 144 100 Q138 78 100 74 Q62 78 56 100Z" fill="${hd}"/><rect x="56" y="96" width="88" height="14" rx="3" fill="${hd}"/><rect x="56" y="108" width="11" height="16" rx="3" fill="#2D1E0F" opacity="0.55"/><rect x="133" y="108" width="11" height="16" rx="3" fill="#2D1E0F" opacity="0.55"/>`,`<ellipse cx="100" cy="86" rx="50" ry="34" fill="#7C3AED"/><ellipse cx="100" cy="120" rx="54" ry="36" fill="#7C3AED"/><ellipse cx="46" cy="126" rx="13" ry="32" fill="#6D28D9"/><ellipse cx="154" cy="126" rx="13" ry="32" fill="#6D28D9"/><ellipse cx="100" cy="88" rx="36" ry="22" fill="#6D28D9"/><path d="M64 88 Q100 76 136 88" stroke="#8B5CF6" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/>`,`<ellipse cx="100" cy="76" rx="42" ry="18" fill="#DC2626"/><ellipse cx="100" cy="72" rx="38" ry="14" fill="#EF4444"/><rect x="58" y="74" width="84" height="12" rx="5" fill="#DC2626"/><ellipse cx="100" cy="66" rx="8" ry="4.5" fill="#B91C1C"/><path d="M58 88 Q62 82 70 84" stroke="${hd}" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M130 84 Q138 82 142 88" stroke="${hd}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,`<ellipse cx="106" cy="84" rx="48" ry="17" fill="#1D4ED8"/><ellipse cx="106" cy="82" rx="48" ry="15" fill="#1E40AF"/><ellipse cx="144" cy="94" rx="24" ry="7.5" fill="#1D4ED8" transform="rotate(-18 144 94)"/><circle cx="96" cy="80" r="7" fill="#3B82F6" opacity="0.65"/><ellipse cx="62" cy="96" rx="11" ry="7" fill="${hd}"/>`,`<rect x="56" y="84" width="14" height="55" rx="7" fill="#7C2D12"/><rect x="130" y="84" width="14" height="55" rx="7" fill="#7C2D12"/><ellipse cx="100" cy="80" rx="44" ry="18" fill="#7C2D12"/><path d="M80 76 Q100 72 120 76" stroke="#9B4A2A" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/><path d="M56 104 Q56 66 100 62 Q144 66 144 104" stroke="#1A1A1A" stroke-width="5.5" fill="none"/><rect x="44" y="98" width="20" height="32" rx="8" fill="#1A1A1A"/><rect x="136" y="98" width="20" height="32" rx="8" fill="#1A1A1A"/>`,`<ellipse cx="100" cy="86" rx="52" ry="36" fill="#0D9488"/><ellipse cx="100" cy="122" rx="56" ry="38" fill="#0D9488"/><ellipse cx="42" cy="128" rx="15" ry="34" fill="#0F766E"/><ellipse cx="158" cy="128" rx="15" ry="34" fill="#0F766E"/><ellipse cx="100" cy="88" rx="38" ry="24" fill="#0F766E"/><path d="M60 88 Q100 74 140 88" stroke="#14B8A6" stroke-width="2.8" fill="none" opacity="0.5" stroke-linecap="round"/>`][i]
+  const eyes=[`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M73 106 Q78 102 83 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M107 106 Q112 102 117 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M71 104 Q82 100 94 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M106 104 Q118 100 130 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M71 104 Q82 99 94 103" stroke="${hd}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M106 103 Q118 99 130 104" stroke="${hd}" stroke-width="4" fill="none" stroke-linecap="round"/>`,`<path d="M65 109 Q83 97 101 109 Q83 121 65 109Z" fill="white"/><path d="M99 109 Q117 97 135 109 Q117 121 99 109Z" fill="white"/><circle cx="83" cy="109" r="8.2" fill="url(#ey)"/><circle cx="117" cy="109" r="8.2" fill="url(#ey)"/><circle cx="83.5" cy="109.5" r="4.6" fill="#0A0400"/><circle cx="117.5" cy="109.5" r="4.6" fill="#0A0400"/><circle cx="80" cy="106" r="3.2" fill="white"/><circle cx="114" cy="106" r="3.2" fill="white"/><circle cx="86" cy="112" r="1.7" fill="white" opacity="0.45"/><circle cx="120" cy="112" r="1.7" fill="white" opacity="0.45"/><line x1="65" y1="106" x2="61" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="75" y1="102" x2="73" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="91" y1="101" x2="91" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="109" y1="101" x2="109" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="125" y1="102" x2="125" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="135" y1="106" x2="137" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/>`,`<rect x="60" y="101" width="34" height="22" rx="7" fill="none" stroke="#78350F" stroke-width="3"/><rect x="106" y="101" width="34" height="22" rx="7" fill="none" stroke="#78350F" stroke-width="3"/><line x1="94" y1="112" x2="106" y2="112" stroke="#78350F" stroke-width="3"/><line x1="60" y1="112" x2="52" y2="113" stroke="#78350F" stroke-width="3"/><line x1="140" y1="112" x2="148" y2="113" stroke="#78350F" stroke-width="3"/><ellipse cx="77" cy="112" rx="9" ry="10" fill="white"/><circle cx="77.5" cy="112.5" r="6.5" fill="url(#ey)"/><circle cx="77.5" cy="113" r="3.7" fill="#0A0400"/><circle cx="74.5" cy="109.5" r="2.6" fill="white"/><path d="M112 113 Q122 113 132 113" stroke="#1C1007" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M66 100 Q79 96 92 100" stroke="#1C1007" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M108 100 Q121 96 134 100" stroke="#1C1007" stroke-width="3" fill="none" stroke-linecap="round"/>`,`<rect x="60" y="105" width="80" height="20" rx="9" fill="#111827" opacity="0.9"/><rect x="60" y="105" width="80" height="20" rx="9" fill="none" stroke="#374151" stroke-width="2"/><path d="M68 111 Q78 108 88 111" stroke="white" stroke-width="1" fill="none" opacity="0.28" stroke-linecap="round"/><path d="M112 111 Q122 108 132 111" stroke="white" stroke-width="1" fill="none" opacity="0.28" stroke-linecap="round"/>`,`<ellipse cx="82" cy="113" rx="10.5" ry="12" fill="white"/><ellipse cx="118" cy="113" rx="10.5" ry="12" fill="white"/><circle cx="82.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="118.5" cy="113.5" r="7.8" fill="url(#ey)"/><circle cx="83" cy="114" r="4.3" fill="#0A0400"/><circle cx="119" cy="114" r="4.3" fill="#0A0400"/><circle cx="79.5" cy="110.5" r="3" fill="white"/><circle cx="115.5" cy="110.5" r="3" fill="white"/><circle cx="85.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><circle cx="121.5" cy="116.5" r="1.5" fill="white" opacity="0.5"/><path d="M73 106 Q78 102 83 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M107 106 Q112 102 117 106" stroke="${hd}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M71 104 Q82 100 94 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M106 104 Q118 100 130 104" stroke="${hd}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,`<path d="M63 109 Q83 96 103 109 Q83 122 63 109Z" fill="white"/><path d="M97 109 Q117 96 137 109 Q117 122 97 109Z" fill="white"/><circle cx="83" cy="109" r="8.5" fill="url(#ey)"/><circle cx="117" cy="109" r="8.5" fill="url(#ey)"/><circle cx="83.5" cy="109.5" r="4.8" fill="#0A0400"/><circle cx="117.5" cy="109.5" r="4.8" fill="#0A0400"/><circle cx="80" cy="106" r="3.3" fill="white"/><circle cx="114" cy="106" r="3.3" fill="white"/><circle cx="86" cy="112" r="1.8" fill="white" opacity="0.45"/><circle cx="120" cy="112" r="1.8" fill="white" opacity="0.45"/><line x1="63" y1="106" x2="59" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="73" y1="102" x2="71" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="89" y1="101" x2="89" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="111" y1="101" x2="111" y2="95" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="127" y1="102" x2="127" y2="96" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/><line x1="137" y1="106" x2="139" y2="100" stroke="${hd}" stroke-width="1.6" stroke-linecap="round"/>`][i]
+  const mouths=[`<path d="M75 137 Q100 154 125 137" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M75 137 Q100 152 125 137" fill="white" opacity="0.65"/>`,`<path d="M72 139 Q100 160 128 139" stroke="#78350F" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M72 139 Q100 158 128 139" fill="white" opacity="0.75"/>`,`<path d="M75 131 Q100 148 125 131" stroke="#B45309" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M75 131 Q100 146 125 131" fill="white" opacity="0.55"/>`,`<path d="M72 137 Q100 158 128 137" stroke="#78350F" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M72 137 Q100 156 128 137" fill="white" opacity="0.75"/>`,`<path d="M76 142 Q96 155 118 145" stroke="#92400E" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M76 142 Q96 154 118 145" fill="white" opacity="0.5"/>`,`<path d="M75 135 Q100 152 125 135" stroke="#B45309" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M75 135 Q100 150 125 135" fill="white" opacity="0.65"/>`,`<path d="M75 131 Q100 148 125 131" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M75 131 Q100 146 125 131" fill="white" opacity="0.6"/>`][i]
+  const accs=[`<ellipse cx="56" cy="127" rx="4.5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/><ellipse cx="144" cy="127" rx="4.5" ry="7" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/>`,`<circle cx="56" cy="124" r="4.5" fill="#FCD34D" stroke="#D97706" stroke-width="1.2"/>`,`<ellipse cx="86" cy="76" rx="18" ry="9" fill="#8B5CF6" opacity="0.35"/>`,``,`<text x="92" y="79" font-size="7" fill="white" font-weight="bold" font-family="Arial" text-anchor="middle">NY</text>`,`<ellipse cx="50" cy="110" rx="3.5" ry="2.5" fill="white" opacity="0.12"/><ellipse cx="144" cy="110" rx="3.5" ry="2.5" fill="white" opacity="0.12"/>`,`<ellipse cx="84" cy="76" rx="20" ry="11" fill="#14B8A6" opacity="0.3"/>`][i]
+  const cloth=['#FF4500','#FF7A3D','#5B21B6','#DC2626','#1D4ED8','#DB2777','#0D9488'][i]
+  return buildAvatarSvg(skins.b,skins.m,skins.s,skins.d,eb,em2,ed,tops,eyes,mouths,accs,cloth,i,il)
 }
 
 const STUDENT_NAMES=[{name:'Amira',emoji:'✨'},{name:'Sami',emoji:'🎧'},{name:'Nour',emoji:'🌸'},{name:'Mehdi',emoji:'🔥'},{name:'Karim',emoji:'😎'},{name:'Rania',emoji:'🎵'},{name:'Sara',emoji:'🧕'}]
@@ -577,43 +541,7 @@ function B2Logo({className='',isLight=false}:{className?:string,isLight?:boolean
   )
 }
 
-// Always returns a countdown to the NEXT upcoming Friday 8PM Tunisia-local target,
-// rolling forward automatically once the previous target has passed.
-function getNextFriday8pm(): Date {
-  const d = new Date()
-  const days = (5 - d.getDay() + 7) % 7
-  d.setHours(20, 0, 0, 0)
-  if (days === 0 && d.getTime() <= Date.now()) {
-    d.setDate(d.getDate() + 7)
-  } else {
-    d.setDate(d.getDate() + days)
-  }
-  return d
-}
-
-function useCountdown() {
-  const [target, setTarget] = useState<Date>(() => getNextFriday8pm())
-  const [t, st] = useState({ d: 0, h: 0, m: 0, s: 0 })
-  useEffect(() => {
-    const tick = () => {
-      const df = target.getTime() - Date.now()
-      if (df <= 0) {
-        setTarget(getNextFriday8pm())
-        return
-      }
-      st({
-        d: Math.floor(df / 86400000),
-        h: Math.floor((df % 86400000) / 3600000),
-        m: Math.floor((df % 3600000) / 60000),
-        s: Math.floor((df % 60000) / 1000),
-      })
-    }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
-  }, [target])
-  return t
-}
+function useCountdown(target:Date){const[t,st]=useState({d:0,h:0,m:0,s:0});useEffect(()=>{const tk=()=>{const df=target.getTime()-Date.now();if(df<=0)return;st({d:Math.floor(df/86400000),h:Math.floor((df%86400000)/3600000),m:Math.floor((df%3600000)/60000),s:Math.floor((df%60000)/1000)})};tk();const id=setInterval(tk,1000);return()=>clearInterval(id)},[target]);return t}
 
 type Theme='dark'|'light'
 function detectSystemTheme():Theme{if(typeof window==='undefined')return'dark';return window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
@@ -634,34 +562,19 @@ export default function Home(){
   const words=['native speaker','confidently','fluently','fearlessly']
   useEffect(()=>{const word=words[wordIndex];const timeout=setTimeout(()=>{if(!deleting){if(charIndex<word.length){setDisplayed(word.slice(0,charIndex+1));setCharIndex(c=>c+1)}else setTimeout(()=>setDeleting(true),2000)}else{if(charIndex>0){setDisplayed(word.slice(0,charIndex-1));setCharIndex(c=>c-1)}else{setDeleting(false);setWordIndex(i=>(i+1)%words.length)}}},deleting?40:80);return()=>clearTimeout(timeout)},[charIndex,deleting,wordIndex])
 
-  // ─── INTERACTIVE LIVE SESSION SIMULATOR STATE ──────────
   const[activeTopicIndex,setActiveTopicIndex]=useState(0);const[topicProgress,setTopicProgress]=useState(0)
-  const[simPaused,setSimPaused]=useState(false)
-  const[pinnedTopicIndex,setPinnedTopicIndex]=useState<number|null>(null)
-  const[selectedAvatar,setSelectedAvatar]=useState<number|null>(null)
-  const[micOn,setMicOn]=useState(true)
-  const[handUp,setHandUp]=useState(false)
-  const[chatOpenMobile,setChatOpenMobile]=useState(true)
-  const[draftMsg,setDraftMsg]=useState('')
-  const[justJoined,setJustJoined]=useState(false)
-
-  useEffect(()=>{
-    if(simPaused)return
-    const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80)
-    return()=>clearInterval(interval)
-  },[simPaused])
+  useEffect(()=>{const interval=setInterval(()=>{setTopicProgress(p=>{if(p>=100){setActiveTopicIndex(i=>(i+1)%CLASS_TOPICS.length);return 0}return p+1.5})},80);return()=>clearInterval(interval)},[])
 
   const[visibleP,setVisibleP]=useState<number[]>([])
 
   const [activeSpeakers, setActiveSpeakers] = useState<Map<number, 'mic' | 'hand'>>(new Map([[0, 'mic']]))
   useEffect(() => {
-    if(simPaused) return
     const timers: NodeJS.Timeout[] = []
     const updateMics = () => {setActiveSpeakers(prev=>{const next=new Map(prev);next.set(0,'mic');const students=[1,2,3,4,5,6,7];const micCount=2+Math.floor(Math.random()*2);const shuffled=students.sort(()=>Math.random()-0.5);students.forEach(s=>{if(next.get(s)==='mic')next.delete(s)});shuffled.slice(0,micCount).forEach(s=>next.set(s,'mic'));return next});timers[0]=setTimeout(updateMics,2500+Math.random()*1500)}
     const updateHands = () => {setActiveSpeakers(prev=>{const next=new Map(prev);const students=[1,2,3,4,5,6,7];students.forEach(s=>{if(next.get(s)==='hand')next.delete(s)});const withoutMics=students.filter(s=>next.get(s)!=='mic');const handCount=1+Math.floor(Math.random()*2);withoutMics.sort(()=>Math.random()-0.5).slice(0,handCount).forEach(s=>next.set(s,'hand'));return next});timers[1]=setTimeout(updateHands,4000+Math.random()*2000)}
     timers[0]=setTimeout(updateMics,1000);timers[1]=setTimeout(updateHands,2000)
     return ()=>timers.forEach(t=>clearTimeout(t))
-  },[simPaused])
+  },[])
 
   const[chatMsgs,setChatMsgs]=useState<{id:number,text:string,from:string,isDali:boolean}[]>([])
   const chatSnippets=[{text:'Will AI replace all jobs eventually?',from:'Mehdi',isDali:false},{text:'Say "displace" not "replace" — much stronger! 💡',from:'Dali',isDali:true},{text:'AI might displace some roles...',from:'Nour',isDali:false},{text:'Perfect — that\'s Band 7+ vocabulary 🔥',from:'Dali',isDali:true},{text:'This session is incredible 🙌',from:'Sami',isDali:false}]
@@ -670,12 +583,13 @@ export default function Home(){
   const[menuOpen,setMenuOpen]=useState(false)
   const revealRefs=useRef<(HTMLDivElement|null)[]>([])
 
-  const countdown=useCountdown()
+  const nextLive=useRef((()=>{const d=new Date();const days=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+days);d.setHours(20,0,0,0);return d})()).current
+  const countdown=useCountdown(nextLive)
 
   useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});revealRefs.current.forEach(el=>el&&observer.observe(el));return()=>observer.disconnect()},[])
   const addRef=(i:number)=>(el:HTMLDivElement|null)=>{revealRefs.current[i]=el}
 
-  const activeTopic=CLASS_TOPICS[pinnedTopicIndex ?? activeTopicIndex]
+  const activeTopic=CLASS_TOPICS[activeTopicIndex]
   const allAvatars=[{svg:makeDaliSvg(isLight),name:'Dali 👨‍🏫',isDali:true,bg:isLight?ROOM_BG[0].light:ROOM_BG[0].dark},...[0,1,2,3,4,5,6].map(i=>({svg:makeStudentSvg(i,isLight),name:`${STUDENT_NAMES[i].name} ${STUDENT_NAMES[i].emoji}`,isDali:false,bg:isLight?ROOM_BG[i].light:ROOM_BG[i].dark}))]
 
   const openModal = (planName: string) => {
@@ -691,32 +605,14 @@ export default function Home(){
 
   const handleContact = (platform: string) => {
     const urls: Record<string, string> = {
-      whatsapp: 'https://wa.me/?text=' + encodeURIComponent('Hi! I\'m interested in the ' + selectedPlan + ' plan'),
-      instagram: 'https://www.instagram.com/ielts.tn',
-      messenger: 'https://m.me/ielts.tn'
+      whatsapp: 'https://wa.me/21656633546?text=Hi!%20I%27m%20interested%20in%20the%20' + encodeURIComponent(selectedPlan) + '%20plan',
+      instagram: 'https://www.instagram.com/b2.please/',
+      messenger: 'https://www.facebook.com/B2Please'
     }
     if (urls[platform]) {
       window.open(urls[platform], '_blank')
     }
     closeModal()
-  }
-
-  // Click a topic card in the simulator → pins that topic and prefills a WhatsApp message
-  const handleTopicClick = (idx: number) => {
-    setPinnedTopicIndex(idx)
-    setSimPaused(true)
-  }
-
-  // Sends the live-chat draft message into the simulated chat feed (purely local/cosmetic)
-  const handleSendDraft = () => {
-    if (!draftMsg.trim()) return
-    setChatMsgs(p => [...p.slice(-3), { id: Date.now(), text: draftMsg.trim(), from: 'You', isDali: false }])
-    setDraftMsg('')
-  }
-
-  const handleJoinSim = () => {
-    setJustJoined(true)
-    setTimeout(() => setJustJoined(false), 2200)
   }
 
   // Glass button style helper
@@ -829,10 +725,6 @@ export default function Home(){
         @keyframes handRaise{0%{transform:translateY(0)}30%{transform:translateY(-8px)}60%{transform:translateY(-4px)}100%{transform:translateY(0)}}
         .hand-raised{animation:handRaise 1.5s ease-in-out infinite}
         .hand-indicator{animation:actPop 5s ease-out forwards}
-        @keyframes joinPop{0%{opacity:0;transform:scale(.7) translateY(10px)}15%{opacity:1;transform:scale(1) translateY(0)}85%{opacity:1;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(.95) translateY(-6px)}}
-        .join-toast{animation:joinPop 2.2s ease-out forwards}
-        @keyframes selRingPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,69,0,.45)}50%{box-shadow:0 0 0 6px rgba(255,69,0,0)}}
-        .av-selected{animation:selRingPulse 1.6s ease-in-out infinite}
 
         /* Glassmorphism card styles */
         .glass-card {
@@ -965,18 +857,18 @@ export default function Home(){
             </div>
             <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="glass-btn px-2.5 py-1.5 rounded-xl text-sm transition-all border" style={{backgroundColor:s.toggleBg,borderColor:s.borderColor,color:s.textSecondary}}>{isLight?'🌙':'☀️'}</button>
             
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <InstagramIcon size={18} />
             </a>
-            <a href="https://wa.me/" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://wa.me/21656633546" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <WhatsAppIcon size={18} />
             </a>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <TikTokIcon size={18} />
             </a>
             
             <div className="w-px h-6" style={{backgroundColor:s.borderColor}}></div>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap border" style={{backgroundColor:s.pillBg,borderColor:'transparent',color:s.pillText}}>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{backgroundColor:s.textOrange}}/>
               {t.nextLive}: {String(countdown.h).padStart(2,'0')}:{String(countdown.m).padStart(2,'0')}:{String(countdown.s).padStart(2,'0')}
             </a>
@@ -992,16 +884,13 @@ export default function Home(){
             </div>
             <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
             
-            <a href="https://wa.me/" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://wa.me/21656633546" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <WhatsAppIcon size={18} /> WhatsApp
             </a>
-            <a href="https://m.me/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
-              <MessengerIcon size={18} /> Messenger
-            </a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <InstagramIcon size={18} /> Instagram
             </a>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
               <TikTokIcon size={18} /> TikTok
             </a>
             
@@ -1035,92 +924,30 @@ export default function Home(){
               ))}
             </div>
           </div>
-
-          {/* ═══════════════════════════════════════════════════
-              INTERACTIVE LIVE SESSION SIMULATOR
-              - click a topic dot → pin that topic + pause autoplay
-              - click an avatar → "select" them, see their mic/hand state
-              - mic/hand/chat buttons are now real toggles
-              - typing + sending in the chat box appends to the feed
-              - "join" button shows a join toast (no-op demo, but interactive)
-              ═══════════════════════════════════════════════════ */}
           <div className="flex flex-col gap-3.5">
             <div className="glass-card rounded-2xl p-5" style={{boxShadow:s.cardShadow}}>
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span>
-                <div className="flex items-center gap-2">
-                  {pinnedTopicIndex!==null && (
-                    <button onClick={()=>{setPinnedTopicIndex(null);setSimPaused(false)}} className="text-[10px] font-bold px-2 py-1 rounded-lg transition-all" style={{color:s.textOrange,backgroundColor:s.pillBg}}>resume ↻</button>
-                  )}
-                  <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div>
-                </div>
-              </div>
+              <div className="flex justify-between items-center mb-3"><span className="text-xs font-bold flex items-center gap-2" style={{color:s.textPrimary}}><span className="text-lg">{activeTopic.icon}</span><span>{activeTopic.topic}</span></span><div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-[11px] font-bold" style={{color:s.textOrange}}>LIVE</span></div></div>
               <div className="h-1.5 rounded-full overflow-hidden mb-3" style={{backgroundColor:s.chatBg}}><div className="progress-fill h-full rounded-full" style={{width:`${topicProgress}%`,background:`linear-gradient(to right,${s.textOrange},${s.textOrangeLight})`}}/></div>
-              <div className="flex justify-between items-center">
-                <div className="flex gap-1.5">
-                  {CLASS_TOPICS.map((tp,i)=>(
-                    <button key={i} onClick={()=>handleTopicClick(i)} className="h-2.5 rounded-full transition-all duration-300 cursor-pointer" title={tp.topic} style={{width:i===(pinnedTopicIndex??activeTopicIndex)?'28px':'10px',backgroundColor:i===(pinnedTopicIndex??activeTopicIndex)?s.textOrange:s.borderColor}}/>
-                  ))}
-                </div>
-                <span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span>
-              </div>
+              <div className="flex justify-between items-center"><div className="flex gap-1">{CLASS_TOPICS.map((_,i)=>(<div key={i} className="h-1 rounded-full transition-all duration-500" style={{width:i===activeTopicIndex?'28px':'8px',backgroundColor:i===activeTopicIndex?s.textOrange:s.borderColor}}/>))}</div><span className="text-[11px]" style={{color:s.textTertiary}}>{activeTopic.level} · {activeTopic.participants} students</span></div>
             </div>
-            <div className="glass-card rounded-2xl p-5 relative" style={{boxShadow:s.cardShadow}}>
-              {justJoined && (
-                <div className="join-toast absolute -top-3 left-1/2 -translate-x-1/2 z-20 text-[11px] font-bold px-4 py-2 rounded-full whitespace-nowrap" style={{backgroundColor:s.textOrange,color:'#fff',boxShadow:`0 4px 14px ${s.orangeGlow}`}}>
-                  ✓ you joined the session
-                </div>
-              )}
+            <div className="glass-card rounded-2xl p-5" style={{boxShadow:s.cardShadow}}>
               <div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}>
                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div>
                 <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span>
               </div>
-              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';const isSelected=selectedAvatar===i;return(
-                <button key={i} onClick={()=>setSelectedAvatar(p=>p===i?null:i)} className={`av-cell ${visibleP.includes(i)?'show':''} ${isSelected?'av-selected':''} aspect-square rounded-2xl overflow-hidden relative cursor-pointer ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isSelected?`2px solid ${s.textOrange}`:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic||isSelected?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}>
-                  <div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>
-                  {isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}
-                  {isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}
-                  <div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div>
-                </button>
-              )})}</div>
-              {selectedAvatar!==null && (
-                <div className="text-[11px] font-medium mb-2 px-1" style={{color:s.textSecondary}}>
-                  selected: <span style={{color:s.textOrange,fontWeight:700}}>{allAvatars[selectedAvatar].name}</span> {activeSpeakers.get(selectedAvatar)==='mic'?'— speaking now':activeSpeakers.get(selectedAvatar)==='hand'?'— hand raised':'— listening'}
-                </div>
-              )}
-              <div className="glass-card-light rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5" style={{borderColor:s.chatBorder, display: chatOpenMobile ? 'flex' : 'none'}}>
+              <div className="grid grid-cols-4 gap-2 mb-3.5">{allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(<div key={i} className={`av-cell ${visibleP.includes(i)?'show':''} aspect-square rounded-2xl overflow-hidden relative ${av.isDali?'dali-wrap':isMic?'anim-participate':isHand?'hand-raised':ANIM_CLASSES[i-1]||'anim-bob'}`} style={{transitionDelay:`${i*0.1}s`,border:isMic?`2px solid ${s.textOrange}`:isHand?'2px solid rgba(255,69,0,0.4)':'1px solid transparent',backgroundColor:av.bg,boxShadow:isMic?`0 0 20px ${s.orangeGlow}`:isHand?'0 0 10px rgba(255,69,0,0.15)':'none'}}><div dangerouslySetInnerHTML={{__html:av.svg}} className="w-full h-full"/>{isMic&&(<><div className="speaking-ring absolute inset-0 rounded-2xl border-2" style={{borderColor:s.textOrange}}/><div className="act-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:s.textOrange,color:'white',boxShadow:`0 2px 8px ${s.orangeGlow}`}}>🎤</div></>)}{isHand&&(<div className="hand-indicator absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{background:'rgba(255,69,0,0.2)',color:s.textOrange}}>✋</div>)}<div className="absolute bottom-0 left-0 right-0 text-center backdrop-blur-md font-semibold py-0.5 truncate px-1" style={{fontSize:'8px',backgroundColor:'rgba(0,0,0,0.45)',color:'#FFF0E8'}}>{av.name}</div></div>)})}</div>
+              <div className="glass-card-light rounded-2xl p-3 min-h-[72px] flex flex-col gap-1.5" style={{borderColor:s.chatBorder}}>
                 <div className="text-[11px] font-bold mb-0.5" style={{color:s.textTertiary}}>live chat</div>
                 {chatMsgs.map(msg=>(<div key={msg.id} className="chat-in flex items-start gap-1.5"><span className="text-[11px] font-bold flex-shrink-0" style={{color:msg.isDali?s.textOrange:s.textTertiary}}>{msg.from}:</span><span className="text-[11px] leading-relaxed" style={{color:s.textSecondary}}>{msg.text}</span></div>))}
-                <div className="flex items-center gap-1.5 mt-1">
-                  <input
-                    value={draftMsg}
-                    onChange={e=>setDraftMsg(e.target.value)}
-                    onKeyDown={e=>{if(e.key==='Enter')handleSendDraft()}}
-                    placeholder="say something..."
-                    className="flex-1 text-[11px] bg-transparent outline-none rounded-lg px-2 py-1.5 border"
-                    style={{color:s.textPrimary,borderColor:s.borderColor}}
-                  />
-                  <button onClick={handleSendDraft} className="text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all" style={{color:s.textOrange,backgroundColor:s.pillBg}}>send</button>
-                </div>
               </div>
               <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t" style={{borderColor:s.borderColor}}>
-                <button onClick={()=>setMicOn(m=>!m)} className="glass-btn flex flex-col items-center gap-0.5 group">
-                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:micOn?s.textOrange:s.borderColor,boxShadow:micOn?`0 0 10px ${s.orangeGlow}`:'none'}}>{micOn?'🎤':'🔇'}</div>
-                  <span className="text-[10px]" style={{color:s.textTertiary}}>{micOn?'mute':'unmute'}</span>
-                </button>
-                <button className="glass-btn flex flex-col items-center gap-0.5 group">
-                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:s.borderColor}}>📹</div>
-                  <span className="text-[10px]" style={{color:s.textTertiary}}>video</span>
-                </button>
-                <button onClick={()=>setHandUp(h=>!h)} className="glass-btn flex flex-col items-center gap-0.5 group">
-                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:handUp?s.textOrange:s.borderColor,boxShadow:handUp?`0 0 10px ${s.orangeGlow}`:'none'}}>✋</div>
-                  <span className="text-[10px]" style={{color:s.textTertiary}}>{handUp?'lower':'hand'}</span>
-                </button>
-                <button onClick={()=>setChatOpenMobile(c=>!c)} className="glass-btn flex flex-col items-center gap-0.5 group">
-                  <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:chatOpenMobile?s.textOrange:s.borderColor}}>💬</div>
-                  <span className="text-[10px]" style={{color:s.textTertiary}}>chat</span>
-                </button>
-                <button onClick={handleJoinSim} className="ml-auto glass-btn px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>join free trial</button>
+                {[{icon:'🎤',l:'mute'},{icon:'📹',l:'video'},{icon:'✋',l:'hand'},{icon:'💬',l:'chat'}].map(c=>(
+                  <button key={c.l} className="glass-btn flex flex-col items-center gap-0.5 group">
+                    <div className="glass-card-light w-9 h-9 rounded-2xl flex items-center justify-center text-sm transition-all" style={{borderColor:s.borderColor}}>{c.icon}</div>
+                    <span className="text-[10px]" style={{color:s.textTertiary}}>{c.l}</span>
+                  </button>
+                ))}
+                <button className="ml-auto glass-btn px-4 py-1.5 rounded-2xl text-[11px] font-semibold transition-all border" style={{backgroundColor:s.pillBg,color:s.textOrange,borderColor:`${s.textOrange}25`}}>leave</button>
               </div>
             </div>
           </div>
@@ -1202,16 +1029,13 @@ export default function Home(){
                     <div className="text-right">
                       {!isPrivate ? (
                         <>
-                          {activePrice === 'y' ? (
-                            <div className="flex flex-col items-end">
-                              <span className="text-[12px] font-semibold line-through" style={{color: s.textTertiary}}>{pkg.priceTnd} TND</span>
-                              <div className="text-2xl font-black" style={{color: s.textOrange}}>
-                                {pkg.yearlyTnd}<span className="text-sm font-normal" style={{color: s.textTertiary}}> TND/mo</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="text-2xl font-black" style={{color: s.textOrange}}>
-                              {pkg.priceTnd}<span className="text-sm font-normal" style={{color: s.textTertiary}}> TND/mo</span>
+                          <div className="text-2xl font-black" style={{color: s.textOrange}}>
+                            {pkg.priceTnd}
+                            <span className="text-sm font-normal" style={{color: s.textTertiary}}> /month</span>
+                          </div>
+                          {activePrice === 'y' && (
+                            <div className="text-[11px] font-semibold mt-0.5" style={{color: s.textOrangeLight}}>
+                              {pkg.yearlyTnd} /year
                             </div>
                           )}
                         </>
@@ -1297,8 +1121,8 @@ export default function Home(){
             ))}
           </div>
           <div className="flex gap-2.5">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
+            <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
             </a>
           </div>
@@ -1379,8 +1203,8 @@ export default function Home(){
             ))}
           </div>
           <div className="flex justify-center gap-3 mt-6">
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{color:s.textPrimary, border: `1px solid ${s.borderColor}`, background: isLight ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,22,0.5)'}}>🎵 TikTok</a>
+            <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl text-xs font-semibold active:scale-[0.97] transition-all" style={{background:'linear-gradient(135deg,#FF4500,#FF5722,#FF7A3D)'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg> Instagram
             </a>
           </div>
@@ -1392,15 +1216,15 @@ export default function Home(){
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>
-            <a href="https://wa.me/" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
-            <a href="https://www.instagram.com/ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>📸 Instagram</a>
-            <a href="https://www.tiktok.com/@ielts.tn" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>🎵 TikTok</a>
+            <a href="https://wa.me/21656633546" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
+            <a href="https://www.instagram.com/b2.please/" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>📸 Instagram</a>
+            <a href="https://www.tiktok.com/@b2please" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>🎵 TikTok</a>
           </div>
           <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
       </footer>
 
-      <a href="https://wa.me/" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
+      <a href="https://wa.me/21656633546" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
 
       {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
