@@ -1109,6 +1109,11 @@ export default function Home(){
     setShowModal(false)
     document.body.style.overflow = 'unset'
   }
+  const trackWaClick = (source: string) => {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Contact', { source })
+    }
+  }
   const handleContact = (platform: string) => {
     const urls: Record<string, string> = {
       whatsapp: 'https://wa.me/21656633546?text=Hi!%20I%27m%20interested%20in%20the%20' + encodeURIComponent(selectedPlan) + '%20plan',
@@ -1116,6 +1121,9 @@ export default function Home(){
       messenger: 'https://www.facebook.com/B2Please'
     }
     if (urls[platform]) {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', { content_name: selectedPlan, platform })
+      }
       window.open(urls[platform], '_blank')
     }
     closeModal()
@@ -1357,7 +1365,7 @@ export default function Home(){
             <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-orange-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <InstagramIcon size={18} />
             </a>
-            <a href="https://wa.me/21656633546" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
+            <a href="https://wa.me/21656633546" target="_blank" onClick={()=>trackWaClick('header_icon')} className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-green-500" style={{borderColor:s.borderColor,color:s.textSecondary}}>
               <WhatsAppIcon size={18} />
             </a>
             <a href="https://www.tiktok.com/@b2please" target="_blank" className="glass-btn flex items-center justify-center w-9 h-9 rounded-xl transition-colors border hover:border-white" style={{borderColor:s.borderColor,color:s.textSecondary}}>
@@ -1381,7 +1389,7 @@ export default function Home(){
             </div>
             <button onClick={()=>{setTheme(t=>t==='dark'?'light':'dark');setMenuOpen(false)}} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full text-center" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}}>{isLight?'🌙 Dark':'☀️ Light'}</button>
             
-            <a href="https://wa.me/21656633546" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
+            <a href="https://wa.me/21656633546" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>{trackWaClick('mobile_menu');setMenuOpen(false)}}>
               <WhatsAppIcon size={18} /> WhatsApp
             </a>
             <a href="https://www.instagram.com/b2.please/" target="_blank" className="glass-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all border w-full" style={{color:s.textSecondary,borderColor:s.borderColor,backgroundColor:s.cardBgFlat}} onClick={()=>setMenuOpen(false)}>
@@ -1722,14 +1730,14 @@ export default function Home(){
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="flex items-center gap-2"><B2Logo className="text-sm" isLight={isLight}/></div>
           <div className="flex gap-6 text-[13px] flex-wrap justify-center" style={{color:s.textTertiary}}>
-            <a href="https://wa.me/21656633546" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
+            <a href="https://wa.me/21656633546" target="_blank" onClick={()=>trackWaClick('footer')} className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>💬 WhatsApp</a>
             <a href="https://www.instagram.com/b2.please/" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>📸 Instagram</a>
             <a href="https://www.tiktok.com/@b2please" target="_blank" className="transition-colors hover:underline" style={{color:s.textTertiary}} onMouseEnter={e=>e.currentTarget.style.color=s.textOrange} onMouseLeave={e=>e.currentTarget.style.color=s.textTertiary}>🎵 TikTok</a>
           </div>
           <div className="text-xs" style={{color:s.textTertiary}}>© 2026 B2Please</div>
         </div>
       </footer>
-      <a href="https://wa.me/21656633546" target="_blank" className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
+      <a href="https://wa.me/21656633546" target="_blank" onClick={()=>trackWaClick('floating_button')} className="glass-btn fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-[0.97] transition-all" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 20px ${s.orangeGlow}`, border: 'none'}}>💬</a>
       {/* ─── ENROLL MODAL ────────────────────────────────── */}
       {showModal && (
         <div className="modal-overlay" onClick={closeModal}>
