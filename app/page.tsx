@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from 'react'
 const TnFlag = ({ className = '' }: { className?: string }) => (
   <span className={`inline-flex items-center justify-center leading-none text-[1.1em] ${className}`} role="img" aria-label="Tunisia flag">🇹🇳</span>
 )
+// ─── LANGUAGE TRACK METADATA (flags, accents, exam bodies) ──
+const TRACK_META: Record<'en'|'de'|'it', { flag:string, name:string, accent:string, accentSoft:string, exam:string, level:string }> = {
+  en: { flag:'🇬🇧', name:'English',  accent:'#FF4500', accentSoft:'rgba(255,69,0,0.12)',  exam:'Cambridge · IELTS-style',    level:'A1 → C2' },
+  de: { flag:'🇩🇪', name:'Deutsch',  accent:'#FFCE00', accentSoft:'rgba(255,206,0,0.14)', exam:'Goethe-Zertifikat · TestDaF', level:'B2 focus' },
+  it: { flag:'🇮🇹', name:'Italiano', accent:'#009246', accentSoft:'rgba(0,146,70,0.14)',  exam:'CILS · PLIDA',                level:'B2 focus' },
+}
 // ─── SOCIAL ICON COMPONENTS ──────────────────────────────
 const InstagramIcon = ({ className = '', size = 18 }: { className?: string, size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -198,13 +204,13 @@ function createAmiraSvg(isLight: boolean): string {
     `,
     accessory: `
       <!-- Hijab-like head covering -->
-      <path d="M40 100 Q35 40 100 30 Q165 40 160 100 Q145 55 100 48 Q55 55 40 100Z" fill="#8B5CF6" opacity="0.85"/>
-      <path d="M40 100 Q100 85 160 100 Q100 95 40 100Z" fill="#7C3AED"/>
-      <path d="M35 105 Q30 50 100 38 Q170 50 165 105" stroke="#6D28D9" stroke-width="2" fill="none" opacity="0.5"/>
+      <path d="M40 100 Q35 40 100 30 Q165 40 160 100 Q145 55 100 48 Q55 55 40 100Z" fill="#0D9488" opacity="0.85"/>
+      <path d="M40 100 Q100 85 160 100 Q100 95 40 100Z" fill="#0F766E"/>
+      <path d="M35 105 Q30 50 100 38 Q170 50 165 105" stroke="#134E4A" stroke-width="2" fill="none" opacity="0.5"/>
       <!-- Small sparkle pin -->
       <circle cx="130" cy="55" r="4" fill="#FCD34D" opacity="0.7"/>
     `,
-    clothColor: '#8B5CF6',
+    clothColor: '#0D9488',
     faceDetails: '',
   })
 }
@@ -231,12 +237,12 @@ function createSamiSvg(isLight: boolean): string {
     `,
     accessory: `
       <!-- Baseball cap -->
-      <path d="M55 55 Q100 20 145 55 Q100 50 55 55Z" fill="#DC2626"/>
-      <path d="M50 55 Q100 48 150 55" stroke="#B91C1C" stroke-width="3" fill="none"/>
-      <path d="M55 55 Q53 70 60 78" stroke="#DC2626" stroke-width="4" fill="none"/>
-      <rect x="58" y="52" width="10" height="4" rx="2" fill="#EF4444"/>
+      <path d="M55 55 Q100 20 145 55 Q100 50 55 55Z" fill="#1D4ED8"/>
+      <path d="M50 55 Q100 48 150 55" stroke="#1E3A8A" stroke-width="3" fill="none"/>
+      <path d="M55 55 Q53 70 60 78" stroke="#1D4ED8" stroke-width="4" fill="none"/>
+      <rect x="58" y="52" width="10" height="4" rx="2" fill="#3B82F6"/>
     `,
-    clothColor: '#DC2626',
+    clothColor: '#1D4ED8',
     faceDetails: '',
   })
 }
@@ -265,10 +271,10 @@ function createNourSvg(isLight: boolean): string {
     `,
     accessory: `
       <!-- Floral headband -->
-      <path d="M40 70 Q100 50 160 70" stroke="#F472B6" stroke-width="4" fill="none"/>
-      <path d="M40 70 Q100 50 160 70" stroke="#EC4899" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
-      <circle cx="60" cy="65" r="5" fill="#F9A8D4"/>
-      <circle cx="140" cy="65" r="5" fill="#F9A8D4"/>
+      <path d="M40 70 Q100 50 160 70" stroke="#FB923C" stroke-width="4" fill="none"/>
+      <path d="M40 70 Q100 50 160 70" stroke="#F97316" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+      <circle cx="60" cy="65" r="5" fill="#FDBA74"/>
+      <circle cx="140" cy="65" r="5" fill="#FDBA74"/>
     `,
     clothColor: '#7C3AED',
     faceDetails: `
@@ -307,7 +313,7 @@ function createMehdiSvg(isLight: boolean): string {
       <path d="M48 80 Q55 55 75 52" stroke="#2D1E0F" stroke-width="3" fill="none" opacity="0.4"/>
       <path d="M125 52 Q145 55 152 80" stroke="#2D1E0F" stroke-width="3" fill="none" opacity="0.4"/>
     `,
-    clothColor: '#1D4ED8',
+    clothColor: '#059669',
     faceDetails: '',
   })
 }
@@ -375,12 +381,12 @@ function createRaniaSvg(isLight: boolean): string {
     `,
     accessory: `
       <!-- Gold hoop earrings -->
-      <circle cx="44" cy="118" r="6" fill="none" stroke="#FCD34D" stroke-width="2.5"/>
-      <circle cx="44" cy="118" r="3.5" fill="none" stroke="#D97706" stroke-width="1"/>
-      <circle cx="156" cy="118" r="6" fill="none" stroke="#FCD34D" stroke-width="2.5"/>
-      <circle cx="156" cy="118" r="3.5" fill="none" stroke="#D97706" stroke-width="1"/>
+      <circle cx="44" cy="118" r="6" fill="none" stroke="#F0C6A0" stroke-width="2.5"/>
+      <circle cx="44" cy="118" r="3.5" fill="none" stroke="#D99C7A" stroke-width="1"/>
+      <circle cx="156" cy="118" r="6" fill="none" stroke="#F0C6A0" stroke-width="2.5"/>
+      <circle cx="156" cy="118" r="3.5" fill="none" stroke="#D99C7A" stroke-width="1"/>
       <!-- Bindi/forehead dot -->
-      <circle cx="100" cy="90" r="2" fill="#DC2626" opacity="0.7"/>
+      <circle cx="100" cy="90" r="2" fill="#DB2777" opacity="0.7"/>
     `,
     clothColor: '#DB2777',
     faceDetails: '',
@@ -411,13 +417,13 @@ function createSaraSvg(isLight: boolean): string {
     `,
     accessory: `
       <!-- Hijab -->
-      <path d="M35 95 Q30 35 100 28 Q170 35 165 95 Q145 50 100 45 Q55 50 35 95Z" fill="#0D9488" opacity="0.9"/>
-      <path d="M35 95 Q100 80 165 95 Q100 90 35 95Z" fill="#0F766E"/>
-      <path d="M30 100 Q25 45 100 35 Q175 45 170 100" stroke="#0F766E" stroke-width="2" fill="none" opacity="0.6"/>
+      <path d="M35 95 Q30 35 100 28 Q170 35 165 95 Q145 50 100 45 Q55 50 35 95Z" fill="#B45309" opacity="0.9"/>
+      <path d="M35 95 Q100 80 165 95 Q100 90 35 95Z" fill="#92400E"/>
+      <path d="M30 100 Q25 45 100 35 Q175 45 170 100" stroke="#78350F" stroke-width="2" fill="none" opacity="0.6"/>
       <!-- Soft drape detail -->
-      <path d="M60 60 Q80 70 100 55" stroke="#14B8A6" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <path d="M60 60 Q80 70 100 55" stroke="#D97706" stroke-width="1.5" fill="none" opacity="0.4"/>
     `,
-    clothColor: '#0D9488',
+    clothColor: '#B45309',
     faceDetails: `
       <!-- Subtle beauty mark -->
       <circle cx="112" cy="125" r="1.5" fill="#8B5E3C" opacity="0.4"/>
@@ -577,13 +583,14 @@ function getAllAvatars(isLight: boolean): AvatarData[] {
     },
   ]
 }
-// ─── TRANSLATIONS (unchanged) ────────────────────────
+// ─── TRANSLATIONS ────────────────────────
 const T = {
   en: {
     tagline: 'built for Tunisian English learners',
     hero1: 'stop studying.',
     hero2: 'start speaking',
     sub: 'Live online classes with Prof. Dali — learn English through real conversations about current events, culture, trends and what the world is talking about.',
+    heroLangHint: 'English · Deutsch · Italiano',
     enrollBtn: 'Enroll Now',
     topicsTag: 'what we discuss',
     topicsH: 'real topics. real english.',
@@ -627,6 +634,8 @@ const T = {
       'Build confidence through weekly practice',
       'Learn the English people actually use',
     ],
+    trackEn: 'English', trackDe: 'Deutsch', trackIt: 'Italiano',
+    trackEnSub: 'career & speaking', trackDeSub: 'B2 exam prep', trackItSub: 'B2 exam prep',
     packages: [
       {
         id:'offline',
@@ -687,6 +696,26 @@ const T = {
         spotsLeft: 6
       },
       {
+        id:'career',
+        icon:'💼',
+        name:'Career Placement Pack',
+        tagline:'We find you the job',
+        desc:'Built for Tunisians job-hunting in sales, customer service, and cabin crew roles. We match your CV against real open positions in Tunisia, prep your English for the interview, and push you directly to recruiters we work with.',
+        priceTnd: '299',
+        yearlyTnd: '239',
+        features:[
+          'Weekly job alerts (sales, cabin crew, CX)',
+          'CV rewritten for Tunisian & Gulf recruiters',
+          'Mock interviews in English',
+          'Direct intros to partner recruiters',
+          'LinkedIn profile audit',
+          'Unlimited WhatsApp support until hired'
+        ],
+        cta:'start job search',
+        ctaLabel:'Find Me a Job',
+        tier:'Career'
+      },
+      {
         id:'private',
         icon:'🎓',
         name:'Private Sessions',
@@ -713,6 +742,7 @@ const T = {
     hero1: "arrête de bachoter.",
     hero2: "commence à parler",
     sub: "Des cours en ligne en direct avec Prof. Dali — apprends l'anglais à travers de vraies conversations sur l'actualité, la culture et les tendances du moment.",
+    heroLangHint: 'Anglais · Allemand · Italien',
     enrollBtn: "S'inscrire",
     topicsTag: "ce qu'on discute",
     topicsH: "vrais sujets. vrai anglais.",
@@ -756,6 +786,8 @@ const T = {
       'Gagne en confiance grâce à une pratique hebdomadaire',
       "Apprends l'anglais qu'on parle vraiment",
     ],
+    trackEn: 'Anglais', trackDe: 'Allemand', trackIt: 'Italien',
+    trackEnSub: 'carrière & conversation', trackDeSub: 'préparation B2', trackItSub: 'préparation B2',
     packages: [
       {
         id:'offline',
@@ -816,6 +848,26 @@ const T = {
         spotsLeft: 6
       },
       {
+        id:'career',
+        icon:'💼',
+        name:'Pack Placement Carrière',
+        tagline:'On te trouve le poste',
+        desc:'Conçu pour les Tunisiens en recherche d\'emploi dans la vente, le service client et le personnel navigant. On confronte ton CV à de vraies offres en Tunisie, on prépare ton anglais pour l\'entretien, et on te met en contact direct avec nos recruteurs partenaires.',
+        priceTnd: '299',
+        yearlyTnd: '239',
+        features:[
+          'Alertes emploi hebdomadaires (vente, PNC, service client)',
+          'CV réécrit pour recruteurs tunisiens & du Golfe',
+          'Entretiens simulés en anglais',
+          'Mise en relation directe avec des recruteurs partenaires',
+          'Audit de profil LinkedIn',
+          'Support WhatsApp illimité jusqu\'à l\'embauche'
+        ],
+        cta:'lancer ma recherche',
+        ctaLabel:'Trouver mon emploi',
+        tier:'Carrière'
+      },
+      {
         id:'private',
         icon:'🎓',
         name:'Sessions Privées',
@@ -842,6 +894,7 @@ const T = {
     hero1: 'توقّف عن الحفظ.',
     hero2: 'ابدأ تتكلّم',
     sub: 'دروس مباشرة أونلاين مع الأستاذ دالي — تعلّم الإنجليزية من خلال نقاشات حقيقية حول الأحداث الراهنة والثقافة والتريندات.',
+    heroLangHint: 'الإنجليزية · الألمانية · الإيطالية',
     enrollBtn: 'سجل الآن',
     topicsTag: 'شنو نحكيو فيه',
     topicsH: 'مواضيع حقيقية. إنجليزية حقيقية.',
@@ -885,6 +938,8 @@ const T = {
       'ابني ثقتك بالنفس من خلال التدريب الأسبوعي',
       'تعلّم الإنجليزية اللي الناس تستخدمها فعلاً',
     ],
+    trackEn: 'الإنجليزية', trackDe: 'الألمانية', trackIt: 'الإيطالية',
+    trackEnSub: 'مهني ومحادثة', trackDeSub: 'تحضير B2', trackItSub: 'تحضير B2',
     packages: [
       {
         id:'offline',
@@ -945,6 +1000,26 @@ const T = {
         spotsLeft: 6
       },
       {
+        id:'career',
+        icon:'💼',
+        name:'حزمة التوظيف المهني',
+        tagline:'نحن نجد لك الوظيفة',
+        desc:'مصمَّمة للتونسيين الباحثين عن عمل في المبيعات وخدمة العملاء وطاقم الطيران. نطابق سيرتك الذاتية مع وظائف حقيقية شاغرة في تونس، نجهّز إنجليزيتك للمقابلة، ونوصلك مباشرة بشركائنا من المُوظِّفين.',
+        priceTnd: '299',
+        yearlyTnd: '239',
+        features:[
+          'تنبيهات وظائف أسبوعية (مبيعات، طاقم طيران، خدمة عملاء)',
+          'سيرة ذاتية مُعاد صياغتها لموظّفين تونسيين وخليجيين',
+          'مقابلات تجريبية بالإنجليزية',
+          'تواصل مباشر مع شركاء التوظيف',
+          'تدقيق ملف LinkedIn',
+          'دعم واتساب غير محدود حتى التوظيف'
+        ],
+        cta:'ابدأ البحث عن عمل',
+        ctaLabel:'اعثر لي على وظيفة',
+        tier:'مهني'
+      },
+      {
         id:'private',
         icon:'🎓',
         name:'جلسات خاصة',
@@ -964,6 +1039,38 @@ const T = {
         premium:true,
         tier:'مميز'
       },
+    ],
+  },
+}
+// ─── EXAM PREP PACKAGES (Deutsch / Italiano B2) ──────
+type ExamPack = { id:string, icon:string, name:string, tagline:string, desc:string, priceTnd:string, yearlyTnd:string, features:string[], cta:string, ctaLabel:string, tier:string, popular?:boolean }
+const EXAM_PACKS: Record<'de'|'it', Record<'en'|'fr'|'ar', ExamPack[]>> = {
+  de: {
+    en: [
+      { id:'de-self', icon:'📘', name:'Deutsch B2 Self-Study', tagline:'Goethe / telc format', desc:'Digital course mapped to the Goethe-Zertifikat B2 and telc B2 exam structure — reading, listening, writing and speaking modules with graded mock exams.', priceTnd:'89', yearlyTnd:'71', features:['4 skills modules','Timed mock exams','Grammar drill bank','Exam-day checklist'], cta:'start deutsch b2', ctaLabel:'Start Learning', tier:'Self-Paced' },
+      { id:'de-live', icon:'🗣️', name:'Deutsch B2 Live Prep', tagline:'Small group, exam-focused', desc:'Weekly live sessions in a small group, built entirely around passing your Goethe/telc B2 exam — speaking practice with real exam prompts and written correction.', priceTnd:'219', yearlyTnd:'175', features:['4 live sessions/month','Speaking module simulation','Written correction (Schreiben)','Exam booking guidance'], cta:'join deutsch group', ctaLabel:'Join a Group', tier:'Group', popular:true },
+    ],
+    fr: [
+      { id:'de-self', icon:'📘', name:'Allemand B2 Auto-Formation', tagline:'Format Goethe / telc', desc:'Cours numérique calqué sur la structure des examens Goethe-Zertifikat B2 et telc B2 — modules de lecture, écoute, écriture et expression orale avec examens blancs notés.', priceTnd:'89', yearlyTnd:'71', features:['4 modules de compétences','Examens blancs chronométrés','Banque d\'exercices de grammaire','Checklist jour d\'examen'], cta:'commencer allemand b2', ctaLabel:'Commencer', tier:'Auto-apprentissage' },
+      { id:'de-live', icon:'🗣️', name:'Allemand B2 Live', tagline:'Petit groupe, axé examen', desc:'Sessions live hebdomadaires en petit groupe, entièrement construites autour de la réussite de ton examen Goethe/telc B2 — pratique orale et correction écrite.', priceTnd:'219', yearlyTnd:'175', features:['4 sessions live/mois','Simulation de l\'épreuve orale','Correction écrite (Schreiben)','Accompagnement inscription examen'], cta:'rejoindre groupe allemand', ctaLabel:'Rejoindre un groupe', tier:'Groupe', popular:true },
+    ],
+    ar: [
+      { id:'de-self', icon:'📘', name:'ألمانية B2 تعلّم ذاتي', tagline:'صيغة Goethe / telc', desc:'دورة رقمية مبنية على هيكل امتحان Goethe-Zertifikat B2 و telc B2 — وحدات قراءة واستماع وكتابة ومحادثة مع امتحانات تجريبية مقيّمة.', priceTnd:'89', yearlyTnd:'71', features:['4 وحدات مهارات','امتحانات تجريبية موقوتة','بنك تمارين قواعد','قائمة تحضير ليوم الامتحان'], cta:'ابدأ الألمانية B2', ctaLabel:'ابدأ التعلم', tier:'تعلّم ذاتي' },
+      { id:'de-live', icon:'🗣️', name:'ألمانية B2 مباشر', tagline:'مجموعة صغيرة، مركّز على الامتحان', desc:'جلسات مباشرة أسبوعية في مجموعة صغيرة، مبنية بالكامل حول اجتياز امتحان Goethe/telc B2 — تدريب على المحادثة وتصحيح الكتابة.', priceTnd:'219', yearlyTnd:'175', features:['4 جلسات مباشرة/شهر','محاكاة وحدة المحادثة','تصحيح الكتابة (Schreiben)','إرشاد للتسجيل بالامتحان'], cta:'انضم لمجموعة الألمانية', ctaLabel:'انضم لمجموعة', tier:'جماعي', popular:true },
+    ],
+  },
+  it: {
+    en: [
+      { id:'it-self', icon:'📗', name:'Italiano B2 Self-Study', tagline:'CILS / CELI format', desc:'Digital course mapped to CILS and CELI B2 exam structure — reading, listening, writing and speaking modules with timed mock exams.', priceTnd:'89', yearlyTnd:'71', features:['4 skills modules','Timed mock exams','Grammar drill bank','Exam-day checklist'], cta:'start italiano b2', ctaLabel:'Start Learning', tier:'Self-Paced' },
+      { id:'it-live', icon:'🗣️', name:'Italiano B2 Live Prep', tagline:'Small group, exam-focused', desc:'Weekly live sessions in a small group focused on CILS/CELI B2 — speaking practice, written correction, real exam simulations.', priceTnd:'219', yearlyTnd:'175', features:['4 live sessions/month','Speaking module simulation','Written correction (Produzione scritta)','Exam booking guidance'], cta:'join italiano group', ctaLabel:'Join a Group', tier:'Group', popular:true },
+    ],
+    fr: [
+      { id:'it-self', icon:'📗', name:'Italien B2 Auto-Formation', tagline:'Format CILS / CELI', desc:'Cours numérique calqué sur la structure des examens CILS et CELI B2 — modules de lecture, écoute, écriture et expression orale avec examens blancs chronométrés.', priceTnd:'89', yearlyTnd:'71', features:['4 modules de compétences','Examens blancs chronométrés','Banque d\'exercices de grammaire','Checklist jour d\'examen'], cta:'commencer italien b2', ctaLabel:'Commencer', tier:'Auto-apprentissage' },
+      { id:'it-live', icon:'🗣️', name:'Italien B2 Live', tagline:'Petit groupe, axé examen', desc:'Sessions live hebdomadaires en petit groupe axées sur CILS/CELI B2 — pratique orale, correction écrite, simulations d\'examen réelles.', priceTnd:'219', yearlyTnd:'175', features:['4 sessions live/mois','Simulation de l\'épreuve orale','Correction écrite (Produzione scritta)','Accompagnement inscription examen'], cta:'rejoindre groupe italien', ctaLabel:'Rejoindre un groupe', tier:'Groupe', popular:true },
+    ],
+    ar: [
+      { id:'it-self', icon:'📗', name:'إيطالية B2 تعلّم ذاتي', tagline:'صيغة CILS / CELI', desc:'دورة رقمية مبنية على هيكل امتحان CILS و CELI B2 — وحدات قراءة واستماع وكتابة ومحادثة مع امتحانات تجريبية موقوتة.', priceTnd:'89', yearlyTnd:'71', features:['4 وحدات مهارات','امتحانات تجريبية موقوتة','بنك تمارين قواعد','قائمة تحضير ليوم الامتحان'], cta:'ابدأ الإيطالية B2', ctaLabel:'ابدأ التعلم', tier:'تعلّم ذاتي' },
+      { id:'it-live', icon:'🗣️', name:'إيطالية B2 مباشر', tagline:'مجموعة صغيرة، مركّز على الامتحان', desc:'جلسات مباشرة أسبوعية في مجموعة صغيرة مركّزة على CILS/CELI B2 — تدريب على المحادثة وتصحيح الكتابة ومحاكاة امتحانات حقيقية.', priceTnd:'219', yearlyTnd:'175', features:['4 جلسات مباشرة/شهر','محاكاة وحدة المحادثة','تصحيح الكتابة (Produzione scritta)','إرشاد للتسجيل بالامتحان'], cta:'انضم لمجموعة الإيطالية', ctaLabel:'انضم لمجموعة', tier:'جماعي', popular:true },
     ],
   },
 }
@@ -1072,7 +1179,9 @@ export default function Home(){
   const[showModal,setShowModal]=useState(false)
   const[selectedPlan,setSelectedPlan]=useState<string>('')
   const[activePrice,setActivePrice]=useState<'m'|'y'>('m')
+  const[track,setTrack]=useState<'en'|'de'|'it'>('en')
   const t=T[lang];const isAr=lang==='ar';const s=themeStyles(theme);const isLight=theme==='light'
+  const displayedPackages = track==='en' ? t.packages : EXAM_PACKS[track][lang]
   useEffect(()=>{setTheme(detectSystemTheme());const mq=window.matchMedia('(prefers-color-scheme: light)');const handler=(e:MediaQueryListEvent)=>setTheme(e.matches?'light':'dark');mq.addEventListener('change',handler);return()=>mq.removeEventListener('change',handler)},[])
   const[charIndex,setCharIndex]=useState(0);const[wordIndex,setWordIndex]=useState(0);const[deleting,setDeleting]=useState(false);const[displayed,setDisplayed]=useState('')
   const words=['native speaker','confidently','fluently','fearlessly']
@@ -1345,12 +1454,20 @@ export default function Home(){
         .close-btn:hover {
           color: ${s.textPrimary};
         }
+        .track-tab {
+          transition: all 0.25s cubic-bezier(.16,1,.3,1);
+        }
       `}</style>
       <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-500" style={{backgroundColor:s.navBg,borderColor:s.borderColor}}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2.5 flex-shrink-0"><B2Logo className="text-lg md:text-xl" isLight={isLight}/></div>
+          <div className="flex items-center gap-2.5 flex-shrink-0">
+            <B2Logo className="text-lg md:text-xl" isLight={isLight}/>
+            <span className="hidden sm:inline-flex items-center gap-0.5 ml-1 pl-2 border-l" style={{borderColor:s.borderColor}} aria-label="Languages taught: English, German, Italian">
+              {(['en','de','it'] as const).map(id=>(<span key={id} className="text-[13px] leading-none px-0.5">{TRACK_META[id].flag}</span>))}
+            </span>
+          </div>
           <div className="hidden md:flex gap-1 items-center">
-            {['offers','how','live','topics','community'].map(item=>(
+            {['languages','offers','how','live','topics','community'].map(item=>(
               <a key={item} href={`#${item}`} className="px-3.5 py-2 text-[13px] rounded-xl transition-all font-medium capitalize" style={{color:s.textSecondary}} onMouseEnter={e=>{e.currentTarget.style.color=s.textOrange;e.currentTarget.style.backgroundColor=s.pillBg}} onMouseLeave={e=>{e.currentTarget.style.color=s.textSecondary;e.currentTarget.style.backgroundColor='transparent'}}>{item}</a>
             ))}
           </div>
@@ -1400,7 +1517,7 @@ export default function Home(){
             </a>
             
             <div className="w-full border-t" style={{borderColor:s.borderColor}}></div>
-            {['offers','how','live','topics','community'].map(item=>(
+            {['languages','offers','how','live','topics','community'].map(item=>(
               <a key={item} href={`#${item}`} onClick={()=>setMenuOpen(false)} className="glass-btn px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all w-full text-center" style={{color:s.textSecondary,backgroundColor:s.cardBgFlat}}>{item}</a>
             ))}
           </div>
@@ -1412,9 +1529,33 @@ export default function Home(){
         <div className="blob b1 w-[500px] h-[500px] absolute -top-32 -left-32" style={{background:s.textOrange,opacity:s.blobOpacity}}/><div className="blob b2 w-[400px] h-[400px] absolute -bottom-20 -right-20" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/><div className="blob b3 w-[300px] h-[300px] absolute top-1/2 left-1/3" style={{background:s.textOrangeLight,opacity:s.blobOpacity}}/>
         <div className="max-w-6xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-14 items-center w-full relative z-10">
           <div>
-            <div className="glass-card-light rounded-full inline-flex items-center gap-2 text-xs px-3 py-1.5 mb-5 font-semibold" style={{color:s.textOrange}}><TnFlag className="text-base"/><span>{t.tagline}</span></div>
-            <div className="mb-6"><CefrBadges isLight={isLight} label={t.badgeLabel}/></div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-5" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
+            <div className="glass-card-light rounded-full inline-flex items-center gap-2 text-xs px-3 py-1.5 mb-3 font-semibold" style={{color:s.textOrange}}><TnFlag className="text-base"/><span>{t.tagline}</span></div>
+            <div className="mb-5"><CefrBadges isLight={isLight} label={t.badgeLabel}/></div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-1" style={{letterSpacing:'-0.035em',color:s.textPrimary}}>{t.hero1}<br/>{t.hero2}<br/><span style={{color:s.textOrange}}>{displayed}</span><span className="cursor-thin font-light" style={{color:s.textOrange}}>│</span></h1>
+            <div className="text-base md:text-lg font-bold tracking-tight mb-6" style={{color:s.textSecondary}}>{t.heroLangHint}</div>
+            {/* Flagpoles — planted, overlapping, bigger. The signature visual: pick a language by picking a flag. */}
+            <div className="flex items-end mb-7 -space-x-4" role="group" aria-label="Choose a language">
+              {(['en','de','it'] as const).map((id,i)=>{
+                const m=TRACK_META[id]
+                const isActive=track===id
+                return (
+                  <button key={id} onClick={()=>setTrack(id)}
+                    className="relative flex flex-col items-center bg-transparent border-none cursor-pointer transition-transform duration-300"
+                    style={{ zIndex: isActive?30:20-i, transform:`translateY(${isActive?'-6px':'0px'}) rotate(${i===0?'-4deg':i===1?'0deg':'4deg'})` }}
+                    aria-pressed={isActive} title={m.name}>
+                    {/* flag */}
+                    <span className="leading-none select-none transition-all duration-300"
+                      style={{ fontSize: isActive?'64px':'52px', filter: isActive?`drop-shadow(0 6px 14px ${m.accentSoft})`:'grayscale(0.15) opacity(0.75)' }}>
+                      {m.flag}
+                    </span>
+                    {/* pole */}
+                    <span className="w-[3px] rounded-full -mt-1" style={{height: isActive?'46px':'36px', background:`linear-gradient(to bottom, ${isActive?m.accent:s.borderColor}, transparent)`}} />
+                    {/* base */}
+                    <span className="w-8 h-1.5 rounded-full -mt-0.5" style={{background: isActive?m.accent:s.borderColor, opacity: isActive?0.9:0.5, boxShadow: isActive?`0 0 12px ${m.accentSoft}`:'none'}} />
+                  </button>
+                )
+              })}
+            </div>
             <p className="text-[15px] mb-8 leading-relaxed max-w-md" style={{color:s.textSecondary}}>{t.sub}</p>
             <div className="flex flex-wrap gap-3 mb-5">
               <a href="#offers" className="glass-btn inline-flex items-center gap-2 text-white px-6 py-3.5 rounded-2xl active:scale-[0.97] transition-all text-[15px] font-semibold whitespace-nowrap" style={{background: `linear-gradient(135deg, ${s.textOrange}, ${s.textOrangeLight})`,boxShadow:`0 4px 18px ${s.orangeGlow}`}}>{t.enrollBtn} →</a>
@@ -1437,7 +1578,10 @@ export default function Home(){
             <div className="glass-card rounded-2xl p-5" style={{boxShadow:s.cardShadow}}>
               <div className="flex items-center justify-between pb-3 border-b mb-3.5" style={{borderColor:s.borderColor}}>
                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor:s.textOrange}}/><span className="text-xs font-bold" style={{color:s.textPrimary}}>Live Session — {activeTopic.icon} {activeTopic.topic}</span></div>
-                <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-[14px]" style={{background:TRACK_META[track].accentSoft}}>{TRACK_META[track].flag}</span>
+                  <span className="text-[11px] font-semibold px-2 py-1 rounded-lg" style={{backgroundColor:s.pillBg,color:s.pillText}}>👥 {activeTopic.participants}</span>
+                </div>
               </div>
               <div className="grid grid-cols-4 gap-2 mb-3.5">
                 {allAvatars.map((av,i)=>{const state=activeSpeakers.get(i);const isMic=state==='mic';const isHand=state==='hand';return(
@@ -1465,6 +1609,51 @@ export default function Home(){
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      {/* ─── LANGUAGES SECTION ─────────────────────────── */}
+      <section id="languages" ref={addRef(6)} className="reveal max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:s.textOrange}}>
+          {lang==='ar'?'اللغات':lang==='fr'?'les langues':'the languages'}
+        </div>
+        <h2 className="text-3xl lg:text-4xl font-black mb-3" style={{letterSpacing:'-0.025em',color:s.textPrimary}}>
+          {lang==='ar'?'ثلاث لغات، منصّة وحدة':lang==='fr'?'trois langues, une seule plateforme':'three languages, one platform'}
+        </h2>
+        <p className="text-[15px] mb-10 max-w-lg" style={{color:s.textSecondary}}>
+          {lang==='ar'?'اختر لغتك، وشوف المستوى المستهدف وهيئة الامتحان':lang==='fr'?"choisis ta langue, ton niveau cible et l'organisme d'examen":'pick your language, see the exam board and target level'}
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {(['en','de','it'] as const).map(id=>{
+            const m = TRACK_META[id]
+            const isActive = track===id
+            return (
+              <button key={id} onClick={()=>{setTrack(id);document.getElementById('offers')?.scrollIntoView({behavior:'smooth'})}} className="glass-card pkg-card rounded-2xl p-6 text-left relative overflow-hidden"
+                style={{ borderColor: isActive ? m.accent+'55' : s.borderColor, boxShadow: isActive ? `0 4px 24px ${m.accentSoft}` : s.cardShadow }}>
+                {/* Giant flag watermark, subject-appropriate signature element */}
+                <span className="absolute -right-4 -top-4 text-[110px] leading-none opacity-[0.07] select-none pointer-events-none rotate-12">{m.flag}</span>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl" style={{background:m.accentSoft}}>{m.flag}</span>
+                    <div>
+                      <div className="text-lg font-black" style={{color:s.textPrimary}}>{m.name}</div>
+                      <div className="text-[11px] font-semibold" style={{color:m.accent}}>{m.exam}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{background:m.accentSoft,color:m.accent}}>{m.level}</span>
+                  </div>
+                  <div className="text-[13px] leading-relaxed" style={{color:s.textSecondary}}>
+                    {id==='en' && (lang==='ar'?'إنجليزية للمحادثة والمهن — من A1 إلى C2':lang==='fr'?"anglais conversationnel & carrière — de A1 à C2":'career & speaking English — A1 all the way to C2')}
+                    {id==='de' && (lang==='ar'?'تحضير مكثّف لامتحان B2 الألماني للدراسة أو الهجرة':lang==='fr'?"préparation intensive à l'examen B2 pour étudier ou t'installer":'focused B2 exam prep for study or relocation abroad')}
+                    {id==='it' && (lang==='ar'?'تحضير مكثّف لامتحان B2 الإيطالي للدراسة أو الهجرة':lang==='fr'?"préparation intensive à l'examen B2 pour étudier ou t'installer":'focused B2 exam prep for study or relocation abroad')}
+                  </div>
+                  <div className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-bold" style={{color:m.accent}}>
+                    {lang==='ar'?'شوف الخطط':lang==='fr'?'voir les offres':'view plans'} <span aria-hidden>→</span>
+                  </div>
+                </div>
+              </button>
+            )
+          })}
         </div>
       </section>
       {/* ─── OFFERS SECTION ──────────────────────────────── */}
@@ -1506,13 +1695,31 @@ export default function Home(){
           <p className="text-[15px] mb-6 max-w-lg" style={{color:s.textSecondary}}>{t.classesSub}</p>
 
           {/* Condensed trust badge — duplicated from hero, placed directly above pricing cards */}
-          <div className="glass-card-light inline-flex items-center gap-2 rounded-full px-4 py-2 mb-10 text-xs font-semibold" style={{borderColor:s.borderColor,color:s.textPrimary}}>
+          <div className="glass-card-light inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 text-xs font-semibold" style={{borderColor:s.borderColor,color:s.textPrimary}}>
             <span style={{color:s.textOrange}}>★</span>
             <span>{t.trustBadge}</span>
           </div>
 
+          {/* Language track switcher — English career/speaking vs German/Italian B2 exam prep */}
+          <div className="flex gap-2 mb-10 flex-wrap">
+            {[
+              {id:'en' as const, flag:'🇬🇧', label:t.trackEn, sub:t.trackEnSub},
+              {id:'de' as const, flag:'🇩🇪', label:t.trackDe, sub:t.trackDeSub},
+              {id:'it' as const, flag:'🇮🇹', label:t.trackIt, sub:t.trackItSub},
+            ].map(tr => (
+              <button key={tr.id} onClick={()=>setTrack(tr.id)}
+                className="track-tab glass-btn px-4 py-2.5 rounded-2xl text-left border"
+                style={track===tr.id
+                  ? {background:`linear-gradient(135deg,${s.textOrange},${s.textOrangeLight})`,color:'#fff',border:'none',boxShadow:`0 4px 14px ${s.orangeGlow}`}
+                  : {background:s.cardBgFlat,color:s.textSecondary,borderColor:s.borderColor}}>
+                <div className="text-sm font-bold flex items-center gap-1.5">{tr.flag} {tr.label}</div>
+                <div className="text-[10px] opacity-80">{tr.sub}</div>
+              </button>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {t.packages.map((pkg) => {
+            {displayedPackages.map((pkg) => {
               return (
                 <div key={pkg.id} className="glass-card pkg-card rounded-2xl p-6 relative" style={{
                   borderColor: (pkg as any).popular ? `${s.textOrange}35` : (pkg as any).premium ? `${s.textOrangeLight}25` : s.borderColor,
@@ -1536,7 +1743,10 @@ export default function Home(){
                   )}
                   <div className="flex items-start justify-between mb-5">
                     <div className="flex items-center gap-3.5">
-                      <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{borderColor: s.borderColor}}>{pkg.icon}</div>
+                      <div className="glass-card-light w-12 h-12 rounded-2xl flex items-center justify-center text-2xl relative" style={{borderColor: s.borderColor}}>
+                        {pkg.icon}
+                        <span className="absolute -bottom-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] border-2" style={{background:TRACK_META[track].accentSoft, borderColor: s.cardBgFlat}} title={TRACK_META[track].name}>{TRACK_META[track].flag}</span>
+                      </div>
                       <div>
                         <div className="flex items-center gap-2 mb-0.5">
                           <div className="text-base font-bold" style={{color: s.textPrimary}}>{pkg.name}</div>
