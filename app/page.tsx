@@ -1107,9 +1107,9 @@ const ANIM_CLASSES = ['anim-bob','anim-think','anim-nod','anim-lean','anim-bob',
 // ─── COMPONENTS ──────────────────────────────────────
 function CefrBadges({ isLight, label }: { isLight: boolean, label: string }) {
   const levels = [
-    { level: 'A1', tier: 'muted' as const }, { level: 'A2', tier: 'muted' as const }, { level: 'B1', tier: 'muted' as const },
-    { level: 'B2', tier: 'target' as const }, { level: 'C1', tier: 'gold' as const }, { level: 'C2', tier: 'diamond' as const },
-  ]
+  { level: 'A1', tier: 'muted' as const }, { level: 'A2', tier: 'muted' as const }, { level: 'B1', tier: 'muted' as const },
+  { level: 'B2', tier: 'target' as const }, { level: 'C1', tier: 'gold' as const }, { level: 'C2', tier: 'diamond' as const },
+]
   const mutedBg = isLight ? '#F0EBE5' : 'rgba(26,26,26,0.8)'
   const mutedBorder = isLight ? '#DDD0C0' : '#2A2A2C'
   const mutedText = isLight ? 'rgba(26,26,26,0.3)' : 'rgba(255,240,232,0.25)'
